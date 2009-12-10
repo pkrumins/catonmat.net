@@ -1,0 +1,335 @@
+This is the list of ideas the new catonmat should implement.
+
+I had them originally on paper, now I rewrote them here with more comments so
+that everyone had access to them from the start and could comment on them.
+
+I wrote them down very quickly, sorry if some of the ideas seem fuzzy.
+Just ask me if something is not clear.
+
+Here they are in a random order:
+
+1. 301 Redirect Table.
+The idea is to maintain a table that will be checked against the request URLs.
+If the request URL is in the table, it gets redirected to a new destination
+URL with the 301 HTTP header, which forwards the link juice from one URL to
+another.
+This is necessary because some forums break URLs in multiple lines and the
+resulting clickable URL is 404. If I didn't do a 301 to the new location, this
+link would be lost. Anyone who clicked it, would end up on the 404 error page.
+Another example is if someone links to a mistyped URL. Anyone who clicks it
+ends up being unsatisfied, at 404 page. With a 301 table I can quickly fix
+these problems.
+Here is a concrete example: Someone links to www.catonmat.net/artikle when
+they wanted to link to www.catonmat/article. I'd simply insert an entry to 301
+redirect /artikle to /article and everyone's happy.
+
+2. 404 Error Log.
+I absolutely have to know what pages trigger 404 errors so that I can fix them
+ASAP with the 301 redirect table. There may be many false alarms, therefore I
+have to add filters to the 404 error log to ignore some spammy patterns.
+
+3. A Great 404 Page.
+If someone ends up on a non-existing page, log it as described in #2 and then
+explain to the visitor why the page he visited was not found. Suggest him or
+her or it to view 5 latest post titles, or 5 most popular posts, or most
+popular downloads, or something else (still have to think about it when I
+implement it).
+
+4. A Separate Trackback/Pingback/Linkback/Refback Page With Moderation.
+Tracebacks are usually displayed among comments. This is very messy. There is
+no place for them among comments. The idea is to have them on a separate page
+like www.catonmat.net/post-title/trackbacks. Also add bulk moderation as
+spammers love to exploit trackback. (Perhaps drop trackbacks altogether as
+they are of very little value.)
+
+5. A Page With Last Comments.
+Currently I am displaying only the 10 last comments on the right sidebar. This
+is insufficient. I want to see all the comments (like www.reddit.com/comments)
+on a single page, so that even if I am away from computer for several days, I
+can easily navigate through them and reply/hide/edit/delete in-place.
+Perhaps add a RSS feed for comments page.
+
+6. Comment Statistics.
+I need to tell my blog readers who are the most active people on my website.
+This will stimulate people to be more active. Therefore I should add a comment
+statistics with most popular commentators, link to their pages without
+nofollow to give them link juice.
+Also add statistics of the most commented articles.
+
+7. Add Incoming Search Term Statistics On All Pages.
+When people come from Google or Yahoo, save the query they used and display it
+on the page. This way I will always know what terms were searched for on each
+of the pages, without having to write complex queries.
+
+8. Add Download Statistics.
+Currently I have sloppy download statistics. I want nice graphs and want to
+see the most popular downloads by day, month, etc. This should be written as
+a statistics framework as traffic statistics, article statistics, delicious
+statistics and download statistics will all have more or less same graphs.
+
+9. Insert Beautiful Images To Give Rest To The Eyes.
+Insert some beautiful landscape images after serveral paragraphs of text to
+give rest to the eyes and give the reader some positive emotions.
+Example of this:
+http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
+
+10. Public Statistics Section For del.icious.com Bookmarks.
+I want to see how often my posts get bookmarked on del.icious.com. I also want
+nice graphs for them by day, week, month, etc.
+I also want a list of people who bookmarked my posts the most often, and tags
+they used. Make this public and also very modular so other people can reuse
+the code and put it on their sites. Reward the most frequent bookmarkers with
+links to their sites.
+
+11. Public Traffic Statistics.
+I want the super statistics for my website. And make them public. I want to
+see which is the most popular article today, which was yesterday. I want nice
+traffic graphs and trends.
+
+12. Public Twitter Statistics.
+Find who's tweeting about catonmat and put all these tweets on a separate
+page. Find who's the most active catonmat tweeter and make this person stand
+out. Link to twitter profiles.
+
+13. Integrate GitHub Directly In Catonmat
+Integrate GitHub with status updates, friend count, directly in catonmat.
+Would have to write some kind of a scraper or use their API, if it's usable
+for this purpose.
+
+14. Implement Threaded Comments.
+Currently I have linear comments, which are no good. To find whom someone
+replied to I have to scroll through the comments. This doesn't make any sense.
+I have to add threaded comments. This will also engage users is more
+conversations.
+
+15. Have Individual Links To Comments Like On Reddit.
+I don't like links to comments in a form www.catonmat.net/article/#comment-55.
+I want them to be in form www.catonmat.net/article/comment-55 so that each
+comment (or thread of comments) is on its own page. This way, if linked to a
+comment, person will precisely have that comment loaded. Browsers can
+misbehave in case of anchor links like #comment-55 and I don't like that.
+
+16. Lightweight Syntax For Comments.
+There are just a few things comments need:
+* Quote someone.
+* Emphesize part of a comment in bold or italic.
+* Link to some page.
+* Share code fragment (auto syntax highlight it).
+That's it. Nothing else is necessary, no stupid HTML comments.
+
+17. Filter Comments By Language.
+My website is getting a lot of spam from Russia with comments in Russian. I am
+sure no one would write comments in Russian on my site. Add a filter to leave
+just the English comments. All other are spam.
+
+18. Add Gravatar Icons To Comments.
+Gravatar is at www.gravatar.com. It's a map from emails to jpegs of user
+icons. This will make people stand out. Also display the gravatar user icons
+on comment statistics (point above). Having gravatars will emotionally
+associates you with commentators and the next time you see a gravatar you can
+predict the nature of the comment (depending if you had positive emotions or
+negative before).
+
+19. Add More "Contact Me" Options Near "About me" on The Right Sidebar.
+You want to get yourself out. If you don't do it, no one will come after you.
+Add links to Facebook, Linked In, Twitter, Plurk, GitHub, FriendFeed, perhaps
+some other sites. Show the email as an image and add a link to my IRC channel
+#catonmat on irc.freenode.net. Initially show only Twitter, Facebook and
+GitHub. Add an arrow down clickable image. After clicked displays all contact
+options.
+
+20. Snippets Page.
+I have been writing and collecting various programming snippets. I want to
+have them in a central database on my site. Instead of putting them on some
+foreign service like GitHub's Gist or Pastebin of some kind, I want to keep
+them on my website in my database so that I can easily modify them in a single
+place and integrate within posts.
+
+21. Add Revision Control For All The Pages.
+Currently if I edit a page, the previous page is lost and I can't see the
+changes. It's crucial to keep the changes as sometimes I need to get something
+from a year ago. I have to add revision control like wikipedia does.
+The URL scheme could be www.catonmat.net/article/revisions - displays all
+available revisions, and www.catonmat.net/article/revisions/r1/r2 displays
+changes between r1 and r2, but I have to think about it a bit more.
+
+22. Create Tiny URLs For Articles On My Own Site
+I don't want to depend on some service that may go down. Make short urls like
+http://catonmat.net/abc, where abc is [a-zA-Z0-9] this will give me 17576
+URLs, more than enough.
+
+23. Optimize Catonmat Load Speed To Maximum.
+Use the page-speed FireBug plugin to optimize site loading speed.
+Page-speed is at http://code.google.com/speed/page-speed/.
+Things to be optimized include minified javascript, minified html, gzip
+compressed content, maximizing caching, use asynchronous js loading of google
+analytics and others.
+
+24. Make The Posts More Available
+Currently the posts are only available as HTML documents. I should try to
+convert them to PDF and put them to Scribd. I have to think about consequences
+as Scribd may show up on search engines at a higher ranking position than
+catonmat iself, which would have drastic impact on the traffic.
+Saving to PDF has a benefit that it's a single file. If saved as HTML, the
+browser creates a folder with tons of images. Can't be shared easily and is
+clutter. Perhaps offer a PDF download for all articles.
+
+25. Make Posts Printer Friendly.
+Create a nice CSS template for printing articles. At the end of the article
+include URLs to all the mentioned resources. Add an option to choose whether
+to print comments or not.
+URL structure could be www.catonmat.net/article/print
+
+26. Add A "Share this" Widget.
+Add "Share this" widget and perhaps "Reddit this", "Digg this", "Stumble
+this", etc., buttons. This should be based on referrer as I don't want to show
+"Reddit this" to a Digg visitor as there is a holy war between Reddit and
+Digg.
+Also add "Tweet this" button somewhere.
+
+27. Utilize The New Google Feature Of Displaying Named Anchors In Search Results.
+See this post:
+http://googleblog.blogspot.com/2009/09/jump-to-information-you-want-right-from.html
+Some of my posts utilize this (10 Awk Tips, Tricks and Pitfalls), but I need
+to utilize it more.
+
+28. Highlight The Python Code As In SQLalchemy Documentation.
+I like how the code is highlighted in SQLalchemy documentation. I am not sure
+if they are using Pygments or not, but I'll try to make mine exactly the same.
+Example: http://www.sqlalchemy.org/docs/05/ormtutorial.html
+
+29. Create Pagination For Posts/Categories/Tags As In Flickr.com
+I like the style of Flickr's pagination. Got to implement the same on
+catonmat. Example: http://www.flickr.com/photos/frijole/
+
+30. Have Pages Open In A New Window By Default.
+I feel that opening links in a new window would keep visitors on the website
+longer. I haven't tested but I will A/B this.
+
+31. Investigate What Do Various <a rel="..."> Do.
+There are a bunch of different relations like rel="bookmark", rel="prev",
+rel="next". This could improve the website navigation greatly.
+More info here: http://www.w3schools.com/TAGS/att_a_rel.asp
+
+32. Perhaps Remove The Article Date Altogether.
+I have noticed myself that if I search for something and I find an article
+from 2004, I want to look for something fresher. Got to A/B test this and see
+how long do people stay on the site.
+
+33. Add An IP Ban List.
+Sometimes spammers use the same IPs. Rather than `iptables -I INPUT --src IP
+-j REJECT` them, just block them at application level, 404 all pages,
+or redirect them elsewhere.
+
+34. Automatically Translate All Pages To All Languages Via Google Translate
+Sometimes people search for something in their own language and can't find it.
+Perhaps they don't know English term and therefore can't find what they
+wanted. If I automatically translate all pages to all languages, people would
+end up on my website and find what they were looking for.  The URL scheme for
+this could be:
+www.catonmat.net/xx/..., where xx is two letter international language code.
+
+35. Try Out Dustin Curtis' Advice On Best Performing Link Texts.
+Dustin Curtis did an experiment where he tried various link texts to invite
+readers to follow him on Twitter. The first version was "I'm on Twitter", this got
+4.70% click through rate. The last version was "You Should follow me on
+Twitter <here>". This had 12.81% CTR, which is a massive improvement.
+Read the whole article here:
+http://dustincurtis.com/you_should_follow_me_on_twitter.html
+
+36. Add "Ask Peteris Krumins" Section Where People Can Ask Me Various Questions.
+People ask me a lot of questions over email. I could answer all the questions
+on my website instead of email. This way everyone could always find all my
+answers.
+
+37. Add A "FAQ" section.
+I get asked the same questions over and over again over email. For example,
+What do I have to know for Google interview?
+What books do I read?
+How to learn C++/C/Python/Algorithms?
+etc.
+Instead of copy pasting the answer, I could send these people to FAQ page
+where they could get my latest answer.
+
+38. Add Knowledge Database.
+This idea has the highest priority. A knowledge database is a section on my
+website where I can write everything that I learned each day. 
+This should be accompanied with a desktop application that has a hotkey that
+instantly brings up input dialog and I can type what I just learned.
+I had a database like this in 2002-2004 and my knowledge literally went
+exponential. I wrote out key facts that I learned each day and could easily
+locate as necessary.
+
+39. Add A Miniblog For Quick Articles.
+Sometimes I have some cool idea or quick hack that I want to share, but as I
+am used to writing large and well thought out articles, I can't post the quick
+hacks and my thoughts don't get shared. A miniblog would allow me to share
+even the smallest thoughts that I have.
+
+40. Add More Programming Quotes.
+I love various smart programming quotes. I should make them more accessible,
+make them searchable by author/text.
+
+41. Integrate LaTeX In My Posts.
+As I am sometimes writing about maths, I need to integrate LaTeX directly in
+my posts. I should not forget to do SEO on images it generates - instead of
+having some ridiculous <img
+src="latex-generator?q=$\begin{bmatrix}1&2\\3&4\end{bmatrix}$>" I should have
+it generate an image "<img src="matrix.jpg" title="Matrix">". This way people
+will be able to find my posts via image search if they search for some
+mathematical terms like "Matrix".
+
+42. Try Out How The Articles Look With Text-Align: Justify.
+I currently have the default left-aligned text. Books and journals have it
+justified. Not sure how it would look on my website. Have to try it out. A/B.
+I read somewhere that this may feel confusing to dyslexic users.
+
+43. Have In-Line Code Snippets And Variables Stand Out From Rest Of The Text.
+A nice example of this is Github's blog. They have gray background for
+constant-width things. See this:
+http://github.com/blog/530-how-we-made-github-fast
+
+44. Have <a> Links Change Background Color On Hover.
+I love how mattt.me has done it: http://mattt.me/articles/
+I want this.
+
+45. Have Only One Category Per Post But Multiple Tags.
+A post should have only one single category. The category must strictly define
+the main theme of the article.
+A post can have multiple tags. Tags define topics discussed in the post.
+
+46. Add Crazyegg Tracking For The First Month.
+Must add crazyegg to track how the users navigate the site, where they click
+and what they visit. Optimize based on the results.
+http://crazyegg.com/
+
+47. Add A Job Board.
+As my site is getting more popular and popular among programmers, it may be a
+good idea to add a job board. Joel Spolsky made a million $ in a year with job
+boards. As the popularity of my site increases, I might make a few dollars out
+of it as well.
+
+48. Use Statcounter and Google Analytics
+This is obvious. Statcounter is for real-time data. The free version is
+limited to statistics of last 500 visits. Google Analytics is for keeping long
+term statistics with a day of delay in updates. 
+Load them asynchronously:
+http://googlecode.blogspot.com/2009/12/google-analytics-launches-asynchronous.html
+
+49. Form Input Fields And Text Fields Should Change Border Color On Focus.
+Users should know what field they are focused to without trying to find the
+cursor. 
+
+50. Mandatory Alt Attributes For Images, Title Attributes For Links.
+The rationale of this feature is that if images don't get loaded or if blind
+people are listening to the content of my posts via text-to-speech engine,
+they should know what the image displays. Alt tags also help the search
+engines to classify images. The same goes for title attributes for links.
+
+51. Optimize Meta Description For Categories And Tags
+Category and tag pages usually have meta description as "Posts in <category>".
+This is unsatisfactory. I want a description of category and if it's missing
+or is too short, I want it to have some post titles in it, to make it unique.
+The same for tags, make meta tags "Posts in <tag>: post title1, post title2,
+..." not exceeding 20 words or so.
+
