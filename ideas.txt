@@ -350,3 +350,8 @@ It could be then inserted before or after the article as a list of items:
 * /Part Two/ (you're reading this, for example)
 * Part Three
 High priority.
+No, this is not good. This is better:
+A special post header for multi part articles:
+Part 3 of a series on "Foo" | Prev | Contents | Next | Subscribe
+And a special post footer:
+"Part 3 of n -- Prev | Contents | Next"
