@@ -81,7 +81,6 @@ give rest to the eyes and give the reader some positive emotions.
 Example of this:
 http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
 
-
 11. Public Traffic Statistics.
 I want the super statistics for my website. And make them public. I want to
 see which is the most popular article today, which was yesterday. I want nice
@@ -343,3 +342,11 @@ People who have commented what to know about if someone replies to them or
 someone else expresses their opinion about the topic. I should add an option
 to allow commentators subscribe to comments by email.
 
+54. Auto-Generated TOC For Multi-Part Articles.
+Many of my articles are multi-part. I need to group them together somehow and
+show a box of all the previous/next articles in the series.
+It could be then inserted before or after the article as a list of items:
+* Part One
+* /Part Two/ (you're reading this, for example)
+* Part Three
+High priority.
