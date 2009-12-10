@@ -67,19 +67,20 @@ see the most popular downloads by day, month, etc. This should be written as
 a statistics framework as traffic statistics, article statistics, delicious
 statistics and download statistics will all have more or less same graphs.
 
-9. Insert Beautiful Images To Give Rest To The Eyes.
-Insert some beautiful landscape images after serveral paragraphs of text to
-give rest to the eyes and give the reader some positive emotions.
-Example of this:
-http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
-
-10. Public Statistics Section For del.icious.com Bookmarks.
+9. Public Statistics Section For del.icious.com Bookmarks.
 I want to see how often my posts get bookmarked on del.icious.com. I also want
 nice graphs for them by day, week, month, etc.
 I also want a list of people who bookmarked my posts the most often, and tags
 they used. Make this public and also very modular so other people can reuse
 the code and put it on their sites. Reward the most frequent bookmarkers with
 links to their sites.
+
+10. Insert Beautiful Images To Give Rest To The Eyes.
+Insert some beautiful landscape images after serveral paragraphs of text to
+give rest to the eyes and give the reader some positive emotions.
+Example of this:
+http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
+
 
 11. Public Traffic Statistics.
 I want the super statistics for my website. And make them public. I want to
