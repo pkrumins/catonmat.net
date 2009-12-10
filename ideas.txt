@@ -309,7 +309,7 @@ good idea to add a job board. Joel Spolsky made a million $ in a year with job
 boards. As the popularity of my site increases, I might make a few dollars out
 of it as well.
 
-48. Use Statcounter and Google Analytics
+48. Use Statcounter and Google Analytics.
 This is obvious. Statcounter is for real-time data. The free version is
 limited to statistics of last 500 visits. Google Analytics is for keeping long
 term statistics with a day of delay in updates. 
@@ -326,10 +326,19 @@ people are listening to the content of my posts via text-to-speech engine,
 they should know what the image displays. Alt tags also help the search
 engines to classify images. The same goes for title attributes for links.
 
-51. Optimize Meta Description For Categories And Tags
+51. Optimize Meta Description For Categories And Tags.
 Category and tag pages usually have meta description as "Posts in <category>".
 This is unsatisfactory. I want a description of category and if it's missing
 or is too short, I want it to have some post titles in it, to make it unique.
 The same for tags, make meta tags "Posts in <tag>: post title1, post title2,
 ..." not exceeding 20 words or so.
+
+52. Preview Comments.
+People want to see what they have typed and how it will look. Are the URLs
+correct? Is the formating right, etc?
+
+53. Subscribe To Comments By Email.
+People who have commented what to know about if someone replies to them or
+someone else expresses their opinion about the topic. I should add an option
+to allow commentators subscribe to comments by email.
 
