@@ -67,8 +67,8 @@ see the most popular downloads by day, month, etc. This should be written as
 a statistics framework as traffic statistics, article statistics, delicious
 statistics and download statistics will all have more or less same graphs.
 
-9. Public Statistics Section For del.icious.com Bookmarks.
-I want to see how often my posts get bookmarked on del.icious.com. I also want
+9. Public Statistics Section For del.icio.us Bookmarks.
+I want to see how often my posts get bookmarked on del.icio.us. I also want
 nice graphs for them by day, week, month, etc.
 I also want a list of people who bookmarked my posts the most often, and tags
 they used. Make this public and also very modular so other people can reuse
@@ -155,7 +155,7 @@ changes between r1 and r2, but I have to think about it a bit more.
 
 22. Create Tiny URLs For Articles On My Own Site
 I don't want to depend on some service that may go down. Make short urls like
-http://catonmat.net/abc, where abc is [a-zA-Z0-9] this will give me 17576
+http://catonmat.net/abc, where abc is [a-zA-Z0-9] this will give me 238328
 URLs, more than enough.
 
 23. Optimize Catonmat Load Speed To Maximum.
@@ -202,9 +202,10 @@ Example: http://www.sqlalchemy.org/docs/05/ormtutorial.html
 I like the style of Flickr's pagination. Got to implement the same on
 catonmat. Example: http://www.flickr.com/photos/frijole/
 
-30. Have Pages Open In A New Window By Default.
+-30. Have Pages Open In A New Window By Default.
 I feel that opening links in a new window would keep visitors on the website
 longer. I haven't tested but I will A/B this.
+This is not a good idea. Won't implement it.
 
 31. Investigate What Do Various <a rel="..."> Do.
 There are a bunch of different relations like rel="bookmark", rel="prev",
@@ -355,3 +356,8 @@ A special post header for multi part articles:
 Part 3 of a series on "Foo" | Prev | Contents | Next | Subscribe
 And a special post footer:
 "Part 3 of n -- Prev | Contents | Next"
+
+55. Use Open ID For Comments
+I should try to use OpenID for comments. Could make it two ways: users without
+openid and with.
+
