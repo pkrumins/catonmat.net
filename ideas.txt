@@ -357,7 +357,21 @@ Part 3 of a series on "Foo" | Prev | Contents | Next | Subscribe
 And a special post footer:
 "Part 3 of n -- Prev | Contents | Next"
 
-55. Use Open ID For Comments
+55. Use Open ID For Comments.
 I should try to use OpenID for comments. Could make it two ways: users without
 openid and with.
+
+56. A Twitter Feed For Latest Posts.
+Post updates about new posts to twitter automatically.
+
+57. Weekly Summary Of Changes Across Catonmat.
+Post the weekly summary of everything that has been added to catonmat.
+
+58. Add Guest Post Section.
+Several people have contacted me with a wish to post their articles on my
+blog. I should make a guest post section where I can publish them.
+
+59. Allow Users To Translate The Articles On The Fly
+Provide a user interface to #34 to allow them to translate articles right on
+catonmat.
 
