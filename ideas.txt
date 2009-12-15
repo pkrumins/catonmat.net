@@ -6,6 +6,9 @@ that everyone had access to them from the start and could comment on them.
 I wrote them down very quickly, sorry if some of the ideas seem fuzzy.
 Just ask me if something is not clear.
 
+I also published the first 50 to catonmat.net:
+http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
+
 Here they are in a random order:
 
 1. 301 Redirect Table.

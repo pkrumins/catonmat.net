@@ -7,7 +7,10 @@ I will explain all my ideas in an article series "Designing the new
 catonmat.net together with me." I have all the ideas on 4 A4 sheets I'll scan
 and digitalize them as I start writing the articles.
 
-Update: I wrote more than 50 of them down in ideas.txt, take a look.
+Update:
+    I wrote more than 50 of them down in ideas.txt, take a look.
+    I also published them to catonmat.net as an article:
+    http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
 
 This readme.txt file will be updated as I go to reflect full history of making
 the new catonmat.net
