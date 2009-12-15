@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>${self.title()}</title>
+
+    <meta name="description" content="${self.meta_description()}">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css" media="screen, projection">
+    <link rel="stylesheet" type="text/css" href="/static/css/catonmat.css" media="screen, projection">
+    <!--[if lte IE 7]>
+    <style type="text/css">
+      #wrapper { margin-top: -1px; }
+    </style>
+    <![endif]-->
+
+    <script type="text/javascript" src="/static/js/jquery-1.3.2.js"</script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        ${self.header()}
+      </div>
+      <div id="wrapper">
+        <div id="content">
+          ${self.body()}
+        </div>
+        <div id="sidebar">
+          ${self.sidebar()}
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div id="footer">
+        ${self.footer()}
+      </div>
+    </div>
+  </body>
+</html>
+
+<%def name="header()">
+  <%include file="header.tmpl.html"/>
+</%def>
+
+<%def name="sidebar()">
+  <%include file="sidebar.tmpl.html"/>
+</%def>
+
+<%def name="footer()">
+  <%include file="footer.tmpl.html"/>
+</%def>
+
+<%def name="title()">good coders code, great reuse</%def>
+
+<%def name="meta_description()">Peteris Krumins' blog about programming, hacking, software reuse, software ideas, computer security, google and techology.</%def>
+

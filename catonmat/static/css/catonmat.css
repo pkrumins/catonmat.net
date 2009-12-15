@@ -1,0 +1,309 @@
+body {
+  background: url('/static/img/bg-pattern.gif') repeat;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 62.5%; /* 1em = 10px */
+  color: #222;
+}
+
+/* Headings
+-------------------------------------------------------------- */
+
+h1,h2,h3,h4,h5,h6 { color: #111; }
+
+/* TODO: h1 h2 h3 */
+
+/* Text elements
+-------------------------------------------------------------- */
+
+a { text-decoration: none; }
+p { margin: 0 0 1em; }
+
+#container {
+  width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  border-left: 4px solid #d3d3d3;
+  border-right: 4px solid #d3d3d3;
+  padding: 8px;
+}
+
+/*
+** Header
+** --------------------------------------------------------
+*/
+
+#header {
+  font-size: 1.3em;
+}
+
+/*
+** Header tabs (home, projects, sitemap, etc.)
+** --------------------------------------------------------
+*/
+
+#header #tabs {
+  margin-bottom: 1px;
+  width: 100%;
+  overflow: hidden;
+}
+
+#header #tabs ul * {
+  float: left;
+}
+
+#header #tabs ul li {
+  list-style: none;
+  margin-right: 4px;
+}
+
+#header #tabs ul li a {
+  background: #BFD3E6 url(/static/img/tab-corner.gif) no-repeat right top;
+  padding: 4px 8px;
+  letter-spacing: 1px;
+  font-family: "Trebuchet MS", Georgia, Arial, serif;
+}
+
+#header #tabs ul li a:hover {
+  background: #DD8E29 url(/static/img/tab-corner-hover.gif) no-repeat right top;
+}
+
+/*
+** Orange rectangle with logo 'gccgr' and quotes
+** --------------------------------------------------------
+*/
+
+#header #hspace #first {
+  background-color: #DD8E29;
+  height: 200px;
+  width: 330px;
+  margin-right: 1px;
+  float: left;
+}
+
+#header #hspace #first img {
+  margin-top: 7px;
+}
+
+#header #hspace #first #first-real {
+  overflow: hidden;
+  margin: 5px 13px 0 21px;
+  color: #fff;
+}
+
+#header #hspace #first #first-real span.quotes {
+  margin-left: 2px;
+  font-size: 75%;
+  position: relative;
+  top: -1px;
+  white-space: nowrap;
+}
+
+#header #hspace #first #first-real span.quotes a {
+  color: #777777;
+}
+
+#header #hspace #first #first-real span.quotes a:hover {
+  text-decoration: underline;
+}
+
+#header #hspace #first #first-real p.author {
+  text-align: right;
+  font-style: italic;
+  padding-right: 5px;
+}
+
+/*
+** Blue rectangle for various information
+** --------------------------------------------------------
+*/
+
+#header #hspace #second {
+  background-color: #4A88B9;
+  height: 200px;
+  width: 569px;
+  float: left;
+}
+
+#header #hspace #second #second-real {
+  overflow: hidden;
+  padding: 10px;
+  height: 180px;
+  width: 549px;
+}
+
+/*
+** Wrapper for sidebar and content
+** --------------------------------------------------------
+*/
+
+#wrapper {
+  background: url(/static/img/faux-columns.gif) repeat-y;
+  width: 900px;
+  overflow: hidden;
+  border-bottom: 1px solid #D3D3D3;
+}
+
+/*
+** Content
+** --------------------------------------------------------
+*/
+
+#content {
+  float: left;
+  width: 630px;
+  padding: 10px;
+}
+
+/*
+** Page
+** --------------------------------------------------------
+*/
+
+#content .page .header h1 {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 1em;
+  letter-spacing: 1px;
+}
+
+#content .page .header {
+  margin-top: 10px;
+}
+
+#content .page pre {
+  background: #FFF7F0;
+  border: 1px solid #CCCCCC;
+  margin: 1em 1em 1em 1em;
+
+  overflow: auto;
+}
+      
+#content .page .hr {
+  /* todo */
+  border-bottom: 1px solid black;
+}
+
+/*
+** Sidebar
+** --------------------------------------------------------
+*/
+
+#sidebar {
+  float: left;
+  width: 230px;
+  padding: 10px;
+}
+
+#sidebar .hr {
+  border-bottom: 1px solid #CCCCCC;
+  margin-bottom: 0.5em;
+}
+
+#sidebar .item {
+  margin-bottom: 5px;
+  font-family: "Trebuchet MS", Georgia, Arial, serif;
+}
+
+#sidebar .item .title {
+  font-weight: bold;
+  font-size: 1.3em;
+  background-color: #EEE8AA;
+  border-bottom:1px solid #CCCCCC;
+  padding: 5px;
+  color: #BB7920;
+}
+
+#sidebar .item .contents {
+  font-size: 1.2em;
+  margin-top: 4px;
+  padding: 0 2px;
+}
+
+#sidebar p {
+  margin: 0 0 0.5em 0;
+}
+
+/*
+** 'About the site' sidebar item
+** --------------------------------------------------------
+*/
+
+#sidebar .aboutsite p img.peter {
+  float: right;
+  margin: 9px 10px 0 10px;
+}
+
+#sidebar .aboutsite p.contact {
+  color: #4F79A1;
+}
+
+#sidebar .aboutsite p.social {
+  position: relative;
+  top: -5px;
+}
+
+#sidebar .aboutsite p.social a {
+  text-decoration: none;
+  white-space: nowrap;
+
+}
+
+#sidebar .aboutsite p.social img {
+  position: relative;
+  top: 4px;
+  margin-right: 3px;
+  width: 16px;
+  height: 16px;
+}
+
+#sidebar .aboutsite p.social .first {
+  margin-left: 9px;
+}
+
+#sidebar .aboutsite p.social .site {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 80%;
+  margin-right: 7px;
+}
+
+#sidebar .aboutsite p.social .last {
+  margin-right: 0;
+}
+
+/*
+** 'Subscribe to my posts' sidebar item
+** --------------------------------------------------------
+*/
+
+#sidebar .subscribe p.feed {
+  margin-left: 9px;
+}
+
+#sidebar .subscribe a.rss {
+  display: inline-block;
+}
+
+#sidebar .subscribe img.rss {
+  position: relative;
+  top: -9px;
+  padding-right: 2px;
+}
+
+#sidebar .subscribe span.rss {
+  font-size: 80%;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  position: relative;
+  top: -12px;
+  margin-left: 20px;
+}
+
+/*
+** Utilities
+** --------------------------------------------------------
+*/
+
+.clear {
+  clear: both;
+}
+
