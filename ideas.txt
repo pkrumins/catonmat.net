@@ -375,3 +375,7 @@ blog. I should make a guest post section where I can publish them.
 Provide a user interface to #34 to allow them to translate articles right on
 catonmat.
 
+60. Remember Form Data For Comments
+Store the comment form data in the cookie so that the user doesn't have to
+enter it every time.
+
