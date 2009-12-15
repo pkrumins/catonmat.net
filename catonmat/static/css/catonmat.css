@@ -80,6 +80,10 @@ p { margin: 0 0 1em; }
   float: left;
 }
 
+#header #hspace #first a.wide {
+  display: block;
+}
+
 #header #hspace #first img {
   margin-top: 7px;
 }
