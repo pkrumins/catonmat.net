@@ -24,6 +24,7 @@ class Rule(RuleBase):
 
 url_map = Map([
     Rule('/')                   > 'index.main',
+    Rule('/blog')               > 'index.main',
     Rule('/quotes')             > 'quotes.main',
     Rule('/download/<file>')    > 'downloads.main'
 ])

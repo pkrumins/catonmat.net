@@ -387,3 +387,10 @@ Wordpress and other blog platforms publish a really small feed with something
 like 15 items. This hides a lot of old great posts, therefore it should be
 made much larger. I will make it 50 items.
 
+62. Place RSS Subscribe Link In 99% Visibility
+http://browsersize.googlelabs.com/
+
+63. Skribit Add Suggestions What To Write About
+Add skribit widget to the site so that people can suggest articles to write
+about.
+

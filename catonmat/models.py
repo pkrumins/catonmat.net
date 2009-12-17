@@ -12,7 +12,8 @@
 from datetime import datetime
 from sqlalchemy.orm import dynamic_loader, relation
 from catonmat.database import (
-    pages_table, revisions_table, urlmaps_table, fourofour_table
+    pages_table,    revisions_table, urlmaps_table, fourofour_table,
+    blogpages_table
 )
 from catonmat.database import mapper
 
@@ -65,6 +66,18 @@ class FouroFour(object):
     def __repr__(self):
         return '<404 of %s>' % (self.request_path)
 
+class BlogPages(object):
+    def __init__(self, page, publish_date=None, visible=True):
+        self.page = page
+        self.page_id = page.page_id
+        self.visible = visible
+
+        if publish_date is None:
+            self.publish_date = date.utcnow()
+
+    def __repr__(self):
+        return '<Blog Page of Page(%s)>' % page.title
+
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(Revision,
                     backref='page',
@@ -76,4 +89,7 @@ mapper(UrlMap, urlmaps_table, properties={
     'page': relation(Page)
 })
 mapper(FouroFour, fourofour_table)
+mapper(BlogPages, blogpages_table, properties={
+    'page': relation(Page)
+})
 

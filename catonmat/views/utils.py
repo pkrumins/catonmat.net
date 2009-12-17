@@ -9,9 +9,11 @@
 # Code is licensed under GNU GPL license.
 #
 
-from werkzeug      import import_string
-from mako.template import Template
-from mako.lookup   import TemplateLookup
+from werkzeug        import import_string
+from mako.template   import Template
+from mako.lookup     import TemplateLookup
+
+from catonmat.quotes import get_random_quote
 
 def get_view(endpoint):
   try:
@@ -25,6 +27,13 @@ def get_view(endpoint):
 mako_lookup = TemplateLookup(
     directories=['catonmat/templates'], output_encoding='utf-8'
 )
+
+def render_template_with_quote(template_name, template_args=None):
+    if template_args is None:
+        template_args = {}
+    template = get_template(template_name)
+    quote = get_random_quote()
+    return template.render(quote=quote, **template_args)
 
 def get_template(name):
     file = name + ".tmpl.html"

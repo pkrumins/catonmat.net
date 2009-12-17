@@ -25,6 +25,12 @@ modules (list is not complete):
     * Pygments   for parsing posts and syntax highlighting.
     * Mako       for HTML templates.
 
+2009.12.17:
+    * now displays individual page from database.
+    * added a new idea about skribit.
+2009.12.16:
+    * added a new idea about rss.
+    * added blog_pages table, did some refactoring.
 2009.12.15:
     * added urlmapper table that maps urls to pages or views
     * progress so far: screenshot_2009-12-15.png

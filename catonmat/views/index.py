@@ -9,11 +9,9 @@
 # Code is licensed under GNU GPL license.
 #
 
-from catonmat.views.utils import get_template
+from catonmat.views.utils import render_template_with_quote
 from catonmat.quotes      import get_random_quote
 
 def main(request):
-    template = get_template("index")
-    quote = get_random_quote()
-    return template.render(quote=quote)
+    return render_template_with_quote("index")
 

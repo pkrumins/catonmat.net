@@ -20,20 +20,31 @@ from catonmat.urls        import url_map, get_page_from_request
 from catonmat.views.utils import get_view
 from catonmat.fourofour   import log_404
 
+def handle_request(endpoint, values=None, mimetype='text/html'):
+    if values is None:
+        values = {}
+    handler = get_view(endpoint)
+    content = handler(request, **values)
+    return Response(content, mimetype)
+
 @Request.application
 def application(request):
     try:
         adapter = url_map.bind_to_environ(request.environ)
         endpoint, values = adapter.match()
-        handler = get_view(endpoint)
-        content = handler(request, **values)
-        return Response(content, mimetype='text/html')
+        return handle_request(endpoint, values)
     except NotFound:
         map = get_page_from_request(request)
         if map:
-            handler = get_view('pages.main')
-            content = handler(request, map.page)
-            return Response(content, mimetype='text/html')
+            if map.handler:
+                handler = get_view(map.handler)
+                content = handler(request, map)
+                return Response(content, mimetype='text/html')
+            elif map.page:
+                handler = get_view('pages.main')
+                content = handler(request, map)
+                return Response(content, mimetype='text/html')
+
         # Log this request in the 404 log and display not found page
         log_404(request)
         handler = get_view('not_found.main')

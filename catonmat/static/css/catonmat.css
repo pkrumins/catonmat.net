@@ -175,6 +175,15 @@ p { margin: 0 0 1em; }
   margin-top: 10px;
 }
 
+#content .page .header div.hr {
+  border-bottom: 1px solid #CCCCCC;
+  height: 1px;
+}
+
+#content .page .header h1 {
+  margin-top: 10px;
+}
+
 #content .page pre {
   background: #FFF7F0;
   border: 1px solid #CCCCCC;
@@ -182,7 +191,7 @@ p { margin: 0 0 1em; }
 
   overflow: auto;
 }
-      
+
 #content .page .hr {
   /* todo */
   border-bottom: 1px solid black;

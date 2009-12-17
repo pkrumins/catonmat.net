@@ -9,9 +9,11 @@
 # Code is licensed under GNU GPL license.
 #
 
-from sqlalchemy import (MetaData, Table, Column, ForeignKey,
+from sqlalchemy import (
+    MetaData, Table, Column, ForeignKey,
     DateTime, Integer, Text, Boolean, String,
-    create_engine)
+    create_engine
+)
 from sqlalchemy.orm import scoped_session, create_session
 from sqlalchemy.orm import mapper as sqla_mapper
 from catonmat.config import config
@@ -65,5 +67,14 @@ fourofour_table = Table('404', Metadata,
     Column('404_id',        Integer,    primary_key=True),
     Column('request_path',  Text),
     Column('date',          DateTime),
+    mysql_charset='utf8'
+)
+
+blogpages_table = Table('blog_pages', Metadata,
+    Column('blog_page_id',  Integer,    primary_key=True),
+    Column('page_id',       Integer,    ForeignKey('pages.page_id')),
+    Column('publish_date',  DateTime),
+    Column('visible',       Boolean),
+    mysql_charset='utf8'
 )
 
