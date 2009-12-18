@@ -394,3 +394,6 @@ http://browsersize.googlelabs.com/
 Add skribit widget to the site so that people can suggest articles to write
 about.
 
+64. Send Me Emails On New Comments
+Send me email when a new comment gets posted on catonmat.
+
