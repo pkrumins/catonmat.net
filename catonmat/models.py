@@ -18,9 +18,10 @@ from catonmat.database import (
 from catonmat.database import mapper
 
 class Page(object):
-    def __init__(self, title, content=None, created=None, last_update=None):
+    def __init__(self, title, content=None, excerpt=None, created=None, last_update=None):
         self.title = title
         self.content = content
+        self.excerpt = excerpt
         self.created = created
         self.last_update = last_update
         

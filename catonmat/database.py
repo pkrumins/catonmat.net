@@ -42,6 +42,7 @@ pages_table = Table('pages', Metadata,
     Column('created',       DateTime),
     Column('last_update',   DateTime),
     Column('content',       Text),
+    Column('excerpt',       Text),
     mysql_charset='utf8'
 )
 
@@ -52,6 +53,7 @@ revisions_table = Table('revisions', Metadata,
     Column('change_note',   Text),
     Column('title',         String(256)),
     Column('content',       Text),
+    Column('excerpt',       Text),
     mysql_charset='utf8'
 )
 
