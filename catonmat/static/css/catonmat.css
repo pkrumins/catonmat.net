@@ -255,6 +255,11 @@ p { margin: 0 0 1em; }
   color: #4F79A1;
 }
 
+#sidebar .aboutsite p.smallmargin {
+  margin-bottom: 4px;
+
+}
+
 #sidebar .aboutsite div.social {
   padding-left: 9px;
   padding-bottom: 5px;
