@@ -25,6 +25,18 @@ modules (list is not complete):
     * Pygments   for parsing posts and syntax highlighting.
     * Mako       for HTML templates.
 
+2009.12.21:
+    * made "meet me on" expandable by up/down arrow
+    * lots of css changes to make "meet me on" look precise to pixel
+2009.12.20:
+    * added "meet me on: github, linkedin, friendfeed, irc"
+    * added icons for all these "meet me on" sites.
+2009.12.19:
+    * added excerpt for posts that goes into meta description
+    * worked on css
+2009.12.18:
+    * a new idea about comment emails
+    * worked on individual page css and added a border to faux column
 2009.12.17:
     * now displays individual page from database.
     * added a new idea about skribit.

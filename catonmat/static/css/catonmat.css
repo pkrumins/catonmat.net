@@ -175,7 +175,7 @@ p { margin: 0 0 1em; }
   margin-top: 10px;
 }
 
-#content .page .header div.hr {
+#content .page .header .hr {
   border-bottom: 1px solid #CCCCCC;
   height: 1px;
 }
@@ -184,17 +184,21 @@ p { margin: 0 0 1em; }
   margin-top: 10px;
 }
 
+#content .page .content {
+  font-size: 1.5em;
+  text-align: justify;
+}
+
+#content .page .content .post-icon {
+  padding: 10px 15px 10px 0px;
+}
+
 #content .page pre {
   background: #FFF7F0;
   border: 1px solid #CCCCCC;
   margin: 1em 1em 1em 1em;
 
   overflow: auto;
-}
-
-#content .page .hr {
-  /* todo */
-  border-bottom: 1px solid black;
 }
 
 /*
@@ -251,18 +255,23 @@ p { margin: 0 0 1em; }
   color: #4F79A1;
 }
 
-#sidebar .aboutsite p.social {
-  position: relative;
-  top: -5px;
+#sidebar .aboutsite div.social {
+  padding-left: 9px;
+  padding-bottom: 5px;
 }
 
-#sidebar .aboutsite p.social a {
-  text-decoration: none;
+#sidebar .aboutsite div.social ul li {
+  float: left;
+  list-style: none;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 80%;
+}
+
+#sidebar .aboutsite div.social ul li a {
   white-space: nowrap;
-
 }
 
-#sidebar .aboutsite p.social img {
+#sidebar .aboutsite div.social ul li a img {
   position: relative;
   top: 4px;
   margin-right: 3px;
@@ -270,18 +279,32 @@ p { margin: 0 0 1em; }
   height: 16px;
 }
 
-#sidebar .aboutsite p.social .first {
-  margin-left: 9px;
+#sidebar .aboutsite div.social ul li a.more {
+  display: block;
+  position: relative;
+  top: 5px;
 }
 
-#sidebar .aboutsite p.social .site {
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  font-size: 80%;
-  margin-right: 7px;
+#sidebar .aboutsite div.social ul li a.more img.more {
+  width:  10px;
+  height: 10px;
+  top: 2px;
 }
 
-#sidebar .aboutsite p.social .last {
-  margin-right: 0;
+#sidebar .aboutsite div.social ul li.twitter,
+#sidebar .aboutsite div.social ul li.github
+{
+  width: 60px;
+}
+
+#sidebar .aboutsite div.social ul li.facebook,
+#sidebar .aboutsite div.social ul li.linkedin
+{
+  width: 73px;
+}
+
+#sidebar .aboutsite div.social ul li.plurk {
+  width: 47px;
 }
 
 /*
@@ -318,5 +341,9 @@ p { margin: 0 0 1em; }
 
 .clear {
   clear: both;
+}
+
+.hidden {
+  display: none;
 }
 

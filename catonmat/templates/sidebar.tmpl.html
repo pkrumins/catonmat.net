@@ -15,19 +15,50 @@
       <a href="/about/" title="About Peteris Krumins">
         <img src="/static/img/peteris-krumins-small.jpg" alt="Peteris Krumins" class="peter">
       </a>
-      Peteris Krumins' blog about programming, hacking, software reuse, software ideas, computer security, google and techology.
+      Peteris Krumins' blog about programming, hacking, software reuse, software ideas, computer security, google and technology.
     </p>
     <div class="hr"></div>
-    <p class="contact">
-      Reach me at:<br>
-      <img src="/static/img/peter-catonmat-net.gif">
-    </p>
-    <p class="social contact">
-      Or meet me on:<br>
-      <span class="site first"><a href="http://www.twitter.com/pkrumins"><img src="/static/img/twitter-16x16.gif">Twitter</a></span>
-      <span class="site"><a href="http://plurk.com/pkrumins"><img src="/static/img/plurk-16x16.gif">Plurk</a></span>
-      <span class="site last"><a href="http://www.facebook.com/pkrumins"><img src="/static/img/facebook-16x16.gif">Facebook</a></span>
-    </p>
+    <p class="contact nomargin">Reach me at:</p>
+    <img src="/static/img/peter-catonmat-net.gif" class="eml">
+    <p class="contact">Or meet me on:</p>
+    <div class="social">
+      <ul>
+        <li class="twitter"><a href="http://www.twitter.com/pkrumins"><img src="/static/img/twitter-16x16.gif">Twitter</a></li>
+        <li class="facebook"><a href="http://www.facebook.com/pkrumins"><img src="/static/img/facebook-16x16.gif">Facebook</a></li>
+        <li class="plurk almost-last"><a href="http://www.plurk.com/pkrumins"><img src="/static/img/plurk-16x16.gif">Plurk</a></li>
+        <li class="more"><a href="#" id="a-more-contacts" class="more"><img src="/static/img/more-10x10.gif" class="more">more</a></li>
+      </ul>
+      <div class="clear"></div>
+      <script>
+        var img_more = $("<img src=\"/static/img/more-10x10.gif\" class=\"more\">");
+        var img_less = $("<img src=\"/static/img/less-10x10.gif\" class=\"more\">");
+        $('#a-more-contacts').click(
+          function(event) {
+            if ($(this).text() === "more") {
+              $(this).text("less").prepend(img_less);
+            }
+            else {
+              $(this).text("more").prepend(img_more);
+            }
+            $('#div-more-contacts').slideToggle('fast');
+            event.preventDefault();
+          }
+        );
+      </script>
+    </div>
+    <div class="social hidden" id="div-more-contacts">
+      <ul>
+        <li class="github"><a href="http://www.github.com/pkrumins"><img src="/static/img/github-16x16.gif">GitHub</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/in/pkrumins"><img src="/static/img/linkedin-16x16.gif">LinkedIn</a></li>
+        <li class="friendfeed"><a href="http://www.friendfeed.com/pkrumins"><img src="/static/img/friendfeed-16x16.gif">FriendFeed</a></li>
+      </ul>
+      <div class="clear"></div>
+      <div style="padding-bottom: 5px"></div>
+      <ul>
+        <li><a href="irc://irc.freenode.net/catonmat"><img src="/static/img/mirc-16x16.gif">irc.freenode.net, channel #catonmat</a></li>
+      </ul>
+      <div class="clear"></div>
+    </div>
   </div>
 </div>
 
