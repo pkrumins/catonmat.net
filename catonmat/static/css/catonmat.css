@@ -10,8 +10,6 @@ body {
 
 h1,h2,h3,h4,h5,h6 { color: #111; }
 
-/* TODO: h1 h2 h3 */
-
 /* Text elements
 -------------------------------------------------------------- */
 
@@ -52,6 +50,7 @@ p { margin: 0 0 1em; }
 }
 
 #header #tabs ul li {
+  float: left;
   list-style: none;
   margin-right: 4px;
 }
@@ -163,30 +162,59 @@ p { margin: 0 0 1em; }
 ** --------------------------------------------------------
 */
 
+#content .page .header {
+  margin-top: 10px;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
 #content .page .header h1 {
-  font-size: 2em;
+  font-size: 1.66em;
+  line-height: 1.25;
   font-weight: bold;
-  line-height: 1;
-  margin-bottom: 1em;
   letter-spacing: 1px;
 }
 
-#content .page .header {
-  margin-top: 10px;
+#content .page .header .category {
+  background: url('/static/img/category.gif') no-repeat;
+  padding-left: 20px;
+}
+
+#content .page .header .comments {
+  background: url('/static/img/comments.gif') no-repeat;
+  padding-left: 20px;
+}
+
+#content .page .header .date {
+  background: url('/static/img/calendar.gif') no-repeat;
+  padding-left: 20px;
+  float: right;
+}
+
+#content .page .header .next {
+  margin-left: 20px;
 }
 
 #content .page .header .hr {
   border-bottom: 1px solid #CCCCCC;
   height: 1px;
+  margin: 3px 0 3px 0;
 }
 
-#content .page .header h1 {
-  margin-top: 10px;
+#content .page .header .lighter {
+  border-bottom: 1px solid #EFEFEF;
 }
 
 #content .page .content {
-  font-size: 1.5em;
+  font-size: 1.3em;
+  line-height: 160%;
   text-align: justify;
+}
+
+#content .page .content h2 {
+  font-size: 1.23em;
+  font-weight: bold;
+  color: #196CCF;
 }
 
 #content .page .content .post-icon {

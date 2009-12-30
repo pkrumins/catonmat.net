@@ -25,9 +25,16 @@ modules (list is not complete):
     * Pygments   for parsing posts and syntax highlighting.
     * Mako       for HTML templates.
 
+2009.12.30:
+    * added category, calendar and comments icons
+    * improved how a single page looks
+    * screenshot of a single page: screenshot_2009-12-30.png
+2009.12.22-2009.12.29:
+    * christmas holidays
 2009.12.21:
     * made "meet me on" expandable by up/down arrow
     * lots of css changes to make "meet me on" look precise to pixel
+    * added screenshot_2009-12-21.png
 2009.12.20:
     * added "meet me on: github, linkedin, friendfeed, irc"
     * added icons for all these "meet me on" sites.
