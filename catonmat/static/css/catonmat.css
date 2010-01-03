@@ -215,6 +215,7 @@ p { margin: 0 0 1em; }
   font-size: 1.23em;
   font-weight: bold;
   color: #196CCF;
+  padding-bottom: 10px;
 }
 
 #content .page .content .post-icon {
@@ -232,6 +233,18 @@ p { margin: 0 0 1em; }
 #content .page .content .center-aligner,
 #content .page .content .c {
   text-align: center;
+  padding-bottom: 1em;
+}
+
+#content .page .content ul {
+  padding-bottom: 1em;
+  padding-left: 15px;
+  list-style-type: none;
+}
+
+#content .page .content ul li {
+  background: url('/static/img/bullet.gif') no-repeat 0 6px;
+  padding-left: 1.5em;
 }
 
 /*
