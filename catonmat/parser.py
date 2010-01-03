@@ -113,7 +113,6 @@ def extract_tag_name(value):
 
 def process_token(html_state, token, value, prev_token, next_token):
     """ Process a (token, value) based on prev_token, next_token and current html_state """
-    print "Prev: " + str(prev_token) + ", Token: " + str(token)
     if token is Text:
         if not html_state.par_started:
             if html_state.should_p():
