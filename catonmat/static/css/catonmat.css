@@ -221,12 +221,17 @@ p { margin: 0 0 1em; }
   padding: 10px 15px 10px 0px;
 }
 
-#content .page pre {
+#content .page .content pre {
   background: #FFF7F0;
   border: 1px solid #CCCCCC;
   margin: 1em 1em 1em 1em;
 
   overflow: auto;
+}
+
+#content .page .content .center-aligner,
+#content .page .content .c {
+  text-align: center;
 }
 
 /*
