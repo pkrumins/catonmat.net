@@ -133,11 +133,8 @@ def process_token(html_state, token, value, prev_token, next_token):
         html_state.par_started = False
 
     if token is Text.Br:
-        if next_token in (Tag.Close, Tag.End):
-            return ""
-        if prev_token in (Tag.Close, Tag.End):
-            return ""
-        return "<br>"
+        if prev_token is Tag.Text:
+            return "<br>"
 
     if token is Error:
         return "<span style=\"color: red; font-size: 2em\">Error: " + value + "</span>"
