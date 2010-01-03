@@ -71,23 +71,6 @@ class GeneratorWithPeek(object):
             return self.generator.next()
 
 
-class PageFormatter(Formatter):
-    def format(self, tokensource, outfile):
-        for ttype, value in tokensource:
-            if ttype is Text.Br:
-                outfile.write("\n<br>")
-            elif ttype is Text.Par:
-                outfile.write("\n<p>")
-            elif ttype is Whitespace:
-                outfile.write(next_value)
-            elif ttype is Name.Tag:
-                outfile.write(value)
-            elif ttype is Error:
-                outfile.write("<span style=\"color: red\">Error: " + value + "</span>")
-            else:
-                outfile.write(value)
-
-
 class HtmlState(object):
     self_closing_tags = frozenset(['img', 'br', 'hr', 'input'])
     inline_tags = frozenset(['a',      'abbr', 'acronym', 'b',        'bdo',   'big',  'cite',
