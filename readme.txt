@@ -28,6 +28,7 @@ modules (list is not complete):
 
 2009.12.02:
     * added page parser: parser.py
+    * css changes for page content
 2009.12.31-2010.01.01:
     * new year holidays
 2009.12.30:
