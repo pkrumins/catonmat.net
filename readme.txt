@@ -25,6 +25,11 @@ modules (list is not complete):
     * Pygments   for parsing posts and syntax highlighting.
     * Mako       for HTML templates.
 
+
+2009.12.02:
+    * added page parser: parser.py
+2009.12.31-2010.01.01:
+    * new year holidays
 2009.12.30:
     * added category, calendar and comments icons
     * improved how a single page looks
