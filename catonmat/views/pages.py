@@ -19,6 +19,5 @@ def main(request, map):
         'page_path': map.request_path
     }
     map.page.content = parse(map.page.content)
-    map.page.content = map.page.content.replace("\r\n\r\n", "<p>")
     return render_template_with_quote("page", template_data)
 
