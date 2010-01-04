@@ -16,7 +16,59 @@
     ${page.content}
   </div>
   <div class="footer">
+    <div class="hr"></div>
+    hello
 
   </div>
+
+  % if display_comments:
+  <div class="comments">
+    <div class="hr"></div>
+    <div class="add">
+      <h3>Comments</h3>
+      <p>here be the comments</p>
+
+      <h3>Leave a comment</h3>
+      <form action="/ajax/comment" method="POST">
+        <input type="hidden" name="page_id" value="${page.page_id}">
+        <p>
+        <label for="name">Name:</label><br>
+        <input type="text" name="name" id="name">
+        </p>
+
+        <p>
+        <label for="email">E-mail: (will not be published)</label><br>
+        <input type="text" name="email" id="email">
+        </p>
+
+        <p>
+        <label for="website">Website:</label><br>
+        <input type="text" name="website" id="website">
+        </p>
+
+        <p>
+        <label for="comment">Comment:</label><br>
+        <textarea name="comment" rows="10" cols="50" id="comment"></textarea>
+        </p>
+
+        <p>
+        <input type="button" name="preview" value="Preview comment">
+        <p>
+
+        Comment syntax:
+        <ul>
+          <li><code>&lt;b&gt;text&lt;/b&gt;</code> - make the text bold</li>
+          <li><code>&lt;i&gt;text&lt;/i&gt;</code> - make the text italic</li>
+          <li><code>&lt;a href="http://www.website.com"&gt;link title&lt;/a&gt;</code> - link to someone</li>
+          <li><code>&lt;code lang="python"&gt;code snippet&lt;/code&gt;</code> - insert a code snippet</li>
+          <li><code>&lt;q&gt;text&lt;/q&gt;</code> - quote someone</li>
+        </ul>
+        </p>
+
+      </form>
+    </div>
+  </div>
+  % endif
+
 </div>
 
