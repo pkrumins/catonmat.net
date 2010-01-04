@@ -26,6 +26,8 @@ modules (list is not complete):
     * Mako       for HTML templates.
 
 
+2009.12.03:
+    * added comments table, form and worked on comment css
 2009.12.02:
     * added page parser: parser.py
     * css changes for page content

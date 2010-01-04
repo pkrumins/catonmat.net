@@ -20,19 +20,18 @@ from catonmat.urls        import url_map, get_page_from_request
 from catonmat.views.utils import get_view
 from catonmat.fourofour   import log_404
 
-def handle_request(endpoint, values=None, mimetype='text/html'):
-    if values is None:
-        values = {}
+def handle_request(request, endpoint, values=None, mimetype='text/html'):
+    if values is None: values = {}
     handler = get_view(endpoint)
     content = handler(request, **values)
-    return Response(content, mimetype)
+    return Response(content, mimetype=mimetype)
 
 @Request.application
 def application(request):
     try:
         adapter = url_map.bind_to_environ(request.environ)
         endpoint, values = adapter.match()
-        return handle_request(endpoint, values)
+        return handle_request(request, endpoint, values)
     except NotFound:
         map = get_page_from_request(request)
         if map:
@@ -51,6 +50,7 @@ def application(request):
         content = handler(request)
         return Response(content, mimetype='text/html')
     except HTTPException, e:
+        # TODO: log http exception so that I knew exactly what is going on with catonmat!
         print "HTTPException"
         pass
     finally:

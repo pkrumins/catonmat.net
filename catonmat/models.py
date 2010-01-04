@@ -12,8 +12,8 @@
 from datetime import datetime
 from sqlalchemy.orm import dynamic_loader, relation
 from catonmat.database import (
-    pages_table,    revisions_table, urlmaps_table, fourofour_table,
-    blogpages_table
+    pages_table,     revisions_table, urlmaps_table, fourofour_table,
+    blogpages_table, comments_table
 )
 from catonmat.database import mapper
 
@@ -32,6 +32,21 @@ class Page(object):
 
     def __repr__(self):
         return '<Page: %s>' % self.title
+
+class Comment(object):
+    def __init__(self, page_id, name, email, comment, twitter=None, website=None, timestamp=None):
+        self.page_id = page_id
+        self.name = name
+        self.email = email
+        self.comment = comment
+        self.twitter = twitter
+        self.website = website
+
+        if timestamp is None:
+            self.timestamp = datetime.utcnow()
+
+    def __repr__(self):
+        return '<Comment on Page(%s)>' % self.page.title
 
 class Revision(object):
     def __init__(self, page, change_note, timestamp=None):
@@ -83,8 +98,13 @@ mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(Revision,
                     backref='page',
                     order_by=revisions_table.c.revision_id.desc()
+    ),
+    'comments': dynamic_loader(Comment,
+                    backref='page',
+                    order_by=comments_table.c.comment_id.asc()
     )
 })
+mapper(Comment, comments_table)
 mapper(Revision, revisions_table)
 mapper(UrlMap, urlmaps_table, properties={
     'page': relation(Page)

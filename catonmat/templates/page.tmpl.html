@@ -6,7 +6,7 @@
   <div class="header">
     <span class="category"><a href="/category/TODO">Programming</a></span>
     <span class="next comments"><a href="${page_path}/comments"><strong>20</strong> Comments</a></span>
-    <span class="next date right"><!--${page.created}--><a href="sunday">Sundary</a>, <a href="june-2009">June 15</a>, <a href="2009">2009</a></span>
+    <span class="date right"><!--${page.created}--><a href="sunday">Sundary</a>, <a href="june-2009">June 15</a>, <a href="2009">2009</a></span>
     <div class="clear"></div>
     <div class="hr"></div>
     <h1><a href="${page_path}">${page.title}</a></h1>
@@ -33,17 +33,17 @@
         <input type="hidden" name="page_id" value="${page.page_id}">
         <p>
         <label for="name">Name:</label><br>
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" maxlength="64">
         </p>
 
         <p>
         <label for="email">E-mail: (will not be published)</label><br>
-        <input type="text" name="email" id="email">
+        <input type="text" name="email" id="email" maxlength="128">
         </p>
 
         <p>
         <label for="website">Website:</label><br>
-        <input type="text" name="website" id="website">
+        <input type="text" name="website" id="website" maxlength="256">
         </p>
 
         <p>
@@ -52,7 +52,25 @@
         </p>
 
         <p>
-        <input type="button" name="preview" value="Preview comment">
+        <input id="submit" type="submit" name="preview" value="Preview comment">
+        <script>
+          $('#submit').click(
+            function(event) {
+              $.post("/ajax/comment_preview",
+                {
+                  "name":    $('#name').val(),
+                  "email":   $('#email').val(),
+                  "website": $('#website').val(),
+                  "comment": $('#comment').val()
+                },
+                function(data) {
+                  alert(data);
+                }
+              );
+              event.preventDefault();
+            }
+          );
+        </script>
         <p>
 
         Comment syntax:

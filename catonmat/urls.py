@@ -23,9 +23,11 @@ class Rule(RuleBase):
         return self
 
 url_map = Map([
-    Rule('/')                   > 'index.main',
-    Rule('/blog')               > 'index.main',
-    Rule('/quotes')             > 'quotes.main',
-    Rule('/download/<file>')    > 'downloads.main'
+    Rule('/')                     > 'index.main',
+    Rule('/blog')                 > 'index.main',
+    Rule('/quotes')               > 'quotes.main',
+    Rule('/download/<file>')      > 'downloads.main',
+
+    Rule('/ajax/comment_preview') > 'ajax.comment_preview'
 ])
 

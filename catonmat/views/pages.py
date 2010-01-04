@@ -16,7 +16,8 @@ from catonmat.parser      import parse
 def main(request, map):
     template_data = {
         'page':      map.page,
-        'page_path': map.request_path
+        'page_path': map.request_path,
+        'display_comments': True
     }
     map.page.content = parse(map.page.content)
     return render_template_with_quote("page", template_data)

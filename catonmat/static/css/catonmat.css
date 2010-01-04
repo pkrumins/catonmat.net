@@ -158,7 +158,7 @@ p { margin: 0 0 1em; }
 }
 
 /*
-** Page
+** Page Header
 ** --------------------------------------------------------
 */
 
@@ -181,6 +181,7 @@ p { margin: 0 0 1em; }
 }
 
 #content .page .header .comments {
+  /* TODO: font on the page is not right here for some reason */
   background: url('/static/img/comments.gif') no-repeat;
   padding-left: 20px;
 }
@@ -204,6 +205,11 @@ p { margin: 0 0 1em; }
 #content .page .header .lighter {
   border-bottom: 1px solid #EFEFEF;
 }
+
+/*
+** Page Content
+** --------------------------------------------------------
+*/
 
 #content .page .content {
   font-size: 1.3em;
@@ -246,6 +252,47 @@ p { margin: 0 0 1em; }
   background: url('/static/img/bullet.gif') no-repeat 0 6px;
   padding-left: 1.5em;
 }
+
+/*
+** Page Footer
+** --------------------------------------------------------
+*/
+
+#content .page .footer {
+  font-size: 1.2em;
+}
+
+#content .page .footer .hr {
+  border-bottom: 1px solid #CCCCCC;
+  height: 1px;
+  margin: 3px 0 5px 0;
+}
+
+
+/*
+** Page Content
+** --------------------------------------------------------
+*/
+
+#content .page .comments {
+  font-size: 1.2em;
+
+}
+
+#content .page .comments .hr {
+  /* TODO: merge all .hrs from .footer and .header */
+  border-bottom: 1px solid #CCCCCC;
+  height: 1px;
+  margin: 3px 0 5px 0;
+}
+
+#content .page .comments h3 {
+  font-size: 1.25em;
+  font-weight: bold;
+  padding-bottom: 1em;
+}
+
+
 
 /*
 ** Sidebar

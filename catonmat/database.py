@@ -46,6 +46,18 @@ pages_table = Table('pages', Metadata,
     mysql_charset='utf8'
 )
 
+comments_table = Table('comments', Metadata,
+    Column('comment_id',    Integer,    primary_key=True),
+    Column('page_id',       Integer,    ForeignKey('pages.page_id')),
+    Column('timestamp',     DateTime),
+    Column('name',          String(64)),
+    Column('email',         String(128)),
+    Column('twitter',       String(128)),
+    Column('website',       String(256)),
+    Column('comment',       Text),
+    mysql_charset='utf8'
+)
+
 revisions_table = Table('revisions', Metadata,
     Column('revision_id',   Integer,    primary_key=True),
     Column('page_id',       Integer,    ForeignKey('pages.page_id')),
