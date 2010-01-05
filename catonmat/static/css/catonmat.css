@@ -270,7 +270,7 @@ p { margin: 0 0 1em; }
 
 
 /*
-** Page Content
+** Page Comments
 ** --------------------------------------------------------
 */
 
@@ -289,10 +289,24 @@ p { margin: 0 0 1em; }
 #content .page .comments h3 {
   font-size: 1.25em;
   font-weight: bold;
-  padding-bottom: 1em;
+  margin-bottom: 1em;
 }
 
+#content .page .comments #comment_error {
+  background: #FBE3E4;
+  color: #8a1f11;
+  border: 1px solid #FBC2C4;
+  padding: 1em;
+  margin-bottom: 1em;
+}
 
+#content .page .comments #comment_preview {
+  /* TODO: style */
+  background: #EEEEEE;
+  border: 1px solid black;
+  padding: 1em;
+  margin-bottom: 1em;
+}
 
 /*
 ** Sidebar

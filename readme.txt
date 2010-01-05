@@ -24,11 +24,15 @@ modules (list is not complete):
     * SQLAlchemy for ORM.
     * Pygments   for parsing posts and syntax highlighting.
     * Mako       for HTML templates.
+    * SimpleJSON for JSON.
 
 
-2009.12.03:
+2010.01.04:
+    * worked on comment error checking and preview
+2010.01.03:
     * added comments table, form and worked on comment css
-2009.12.02:
+    * progress screenshot: screenshot_2010-01-03.png
+2010.01.02:
     * added page parser: parser.py
     * css changes for page content
 2009.12.31-2010.01.01:

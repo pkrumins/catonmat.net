@@ -29,8 +29,12 @@
       <p>here be the comments</p>
 
       <h3>Leave a comment</h3>
+      <div id="comment_error" class="hidden"></div>
+      <div id="comment_preview" class="hidden"></div>
       <form action="/ajax/comment" method="POST">
         <input type="hidden" name="page_id" value="${page.page_id}">
+        <input type="hidden" name="parent_id">
+
         <p>
         <label for="name">Name:</label><br>
         <input type="text" name="name" id="name" maxlength="64">
@@ -56,6 +60,7 @@
         <script>
           $('#submit').click(
             function(event) {
+              $('#comment_error').slideUp();
               $.post("/ajax/comment_preview",
                 {
                   "name":    $('#name').val(),
@@ -64,8 +69,18 @@
                   "comment": $('#comment').val()
                 },
                 function(data) {
-                  alert(data);
-                }
+                  if (data.status === "error") {
+                    $('#comment_error').
+                      html("<strong>Error:</strong> " + data.msg).
+                      slideDown('fast');
+                  }
+                  else {
+                    $('#comment_preview').
+                      html(data.comment).
+                      slideDown('fast');
+                  }
+                },
+                "json"
               );
               event.preventDefault();
             }

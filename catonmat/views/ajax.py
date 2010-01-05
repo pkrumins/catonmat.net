@@ -10,6 +10,10 @@
 
 from catonmat.models import Comment
 
+import simplejson as json
+
+# todo: factor comment stuff out to comments.py
+
 class CommentError(Exception):
     pass
 
@@ -26,8 +30,13 @@ def extract_comment(request):
     return [request.args[x] for x in fields]
 
 def comment_preview(request):
-    name, email, website, comment = extract_comment(request)
-    return foo
+    try:
+        fields = ['name', 'email', 'website', 'comment']
+        comment_validate(*[request.form[x] for x in fields])
+    except CommentError, e:
+        return json.dumps({'status': 'error', 'msg': e.message})
+
+    return json.dumps({'status': 'success', 'comment': request.form['comment']})
 
 def comment_add(request):
     pass
