@@ -21,37 +21,31 @@ import re
 
 email_rx = re.compile(r'^.+@.+\..+$')
 
-allowed_tags = ['b', 'i', 'q', 'a', 'code']
-
 Tag = Token.Tag
 
 class CommentLexer(RegexLexer):
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
-        'tags': [
+        'a': [
+            (r'\s*',          Whitespace),
+            (r'href="[^"]+"', Tag.Attribute), # TODO: xss
+            (r"href='[^']+'", Tag.Attribute),
+            (r'>',            Tag.Close, '#pop')
+        ],
+        'code': [
+            (r'\s*',          Whitespace),
+            (r'lang="[^"]+"', Tag.Code.Lang),
+            (r"lang='[^']+'", Tag.Code.Lang),
+            (r'>',            Tag.Close, '#pop')
+        ],
+        'root': [
+            (r'\n\n',       Text.Par),
+            (r'[^<\n]+',    Text),
             (r'<(b|i|q)>',  Tag.Allowed),
             (r'<a',         Tag.Allowed, 'a'),
             (r'<code',      Tag.Allowed, 'code'),
-            (r'<',          Tag.Unknown)
-        ],
-        'a': [
-            (r'\s*',        WhiteSpace),
-            (r'')
-        ],
-        'root': [
-            (r'\n\n', Text.Par),
-            (r'[^<\n]+', Text),
-            include('tags'),
-        ],
-        'comment': [
-            (r'[^-]+', Comment),
-            (r'-->',   Comment, '#pop'),
-            (r'-',     Comment),
-        ],
-        'tag': [
-            (r'[^>]+', Tag.Contents),
-            (r'>',     Tag.End, '#pop'),
-        ],
+            (r'<',          Tag.Open)
+        ]
     }
 
 
@@ -64,8 +58,18 @@ class ParseError(CommentError):
 
 
 def parse_comment(comment):
-
-    return comment
+    tokenstream = lex(comment, CommentLexer())
+    outfile = StringIO()
+    for token, value in tokenstream:
+        if token is Error:
+            raise ParseError, "Failed parsing the comment"
+        if token is Tag.Open:
+            outfile.write("&lt;")
+        elif token is Text.Par:
+            outfile.write("\n<p>")
+        else:
+            outfile.write(value)
+    return outfile.getvalue()
 
 
 def validate_comment(request):
@@ -77,6 +81,7 @@ def validate_comment(request):
         raise CommentError, "Invalid e-mail address specified."
     if not len(request.form['comment'].strip()):
         raise CommentError, "The comment is empty."
+
 
     number_of_pages = Page.query.filter_by(
             page_id=request.form['page_id']).count()

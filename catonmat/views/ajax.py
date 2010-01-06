@@ -20,14 +20,12 @@ def preview_comment(request):
     if request.method == "POST":
         try:
             validate_comment(request)
+            comment = parse_comment(request.form['comment'])
         except CommentError, e:
             return json.dumps({
                 'status':  'error',
                 'message': e.message
             })
-
-        try:
-            comment = parse_comment(request.form['comment'])
         except ParseError, e:
             return json.dumps({
                 'status':  'error',
