@@ -10,7 +10,6 @@
 #
 
 from pygments.lexer         import RegexLexer
-from pygments.formatter     import Formatter
 from pygments.token         import *
 from pygments               import format, lex
 

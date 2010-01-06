@@ -28,6 +28,6 @@ url_map = Map([
     Rule('/quotes')               > 'quotes.main',
     Rule('/download/<file>')      > 'downloads.main',
 
-    Rule('/ajax/comment_preview') > 'ajax.comment_preview'
+    Rule('/ajax/comment_preview') > 'ajax.preview_comment'
 ])
 

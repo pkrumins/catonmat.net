@@ -27,6 +27,10 @@ modules (list is not complete):
     * SimpleJSON for JSON.
 
 
+2010.01.05:
+    * finished comment error checking
+    * added error and info icons
+    * worked on comment parser
 2010.01.04:
     * worked on comment error checking and preview
 2010.01.03:

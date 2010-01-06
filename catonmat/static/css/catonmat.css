@@ -293,11 +293,16 @@ p { margin: 0 0 1em; }
 }
 
 #content .page .comments #comment_error {
-  background: #FBE3E4;
+  background: #FFEFF0;
   color: #8a1f11;
-  border: 1px solid #FBC2C4;
+  border: 2px solid #FBC2C4;
   padding: 1em;
   margin-bottom: 1em;
+}
+
+#content .page .comments #comment_error span {
+  background: url('/static/img/exclamation.gif') no-repeat;
+  padding-left: 2em;
 }
 
 #content .page .comments #comment_preview {
@@ -306,6 +311,13 @@ p { margin: 0 0 1em; }
   border: 1px solid black;
   padding: 1em;
   margin-bottom: 1em;
+}
+
+#content .page .comments #comment_please {
+  font-size: 1em;
+  background: url('/static/img/info.gif') no-repeat;
+  margin-left: 1em;
+  padding-left: 2em;
 }
 
 /*

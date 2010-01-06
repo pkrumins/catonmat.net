@@ -56,13 +56,16 @@
         </p>
 
         <p>
-        <input id="submit" type="submit" name="preview" value="Preview comment">
+        <input id="preview" type="submit" name="preview" value="Preview comment">
+        <span id="comment_please">Please <b>preview</b> the comment before submitting to make sure it's OK.<br></span>
+        <input id="submit" type="submit" name="submit" value="Submit comment" class="hidden">
         <script>
-          $('#submit').click(
+          $('#preview').click(
             function(event) {
               $('#comment_error').slideUp();
               $.post("/ajax/comment_preview",
                 {
+                  "page_id": $('#page_id').val(),
                   "name":    $('#name').val(),
                   "email":   $('#email').val(),
                   "website": $('#website').val(),
@@ -71,13 +74,15 @@
                 function(data) {
                   if (data.status === "error") {
                     $('#comment_error').
-                      html("<strong>Error:</strong> " + data.msg).
+                      html("<span><strong>Error:</strong> " + data.message + "</span>").
                       slideDown('fast');
                   }
                   else {
                     $('#comment_preview').
                       html(data.comment).
                       slideDown('fast');
+                    $('#comment_please').hide();
+                    $('#submit').show();
                   }
                 },
                 "json"

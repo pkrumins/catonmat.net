@@ -10,7 +10,8 @@
 #
 
 config = {
-    'database_uri':      'mysql://catonmat@localhost/catonmat',
-    'database_echo': False
+    'database_uri':  'mysql://catonmat@localhost/catonmat',
+    'database_echo': False,
+    'xsrf_key':      'foobarbaz'
 }
 

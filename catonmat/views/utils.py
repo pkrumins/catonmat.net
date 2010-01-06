@@ -14,6 +14,7 @@ from mako.template   import Template
 from mako.lookup     import TemplateLookup
 
 from catonmat.quotes import get_random_quote
+from catonmat.config import config
 
 def get_view(endpoint):
   try:
