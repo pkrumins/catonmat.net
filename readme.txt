@@ -25,8 +25,18 @@ modules (list is not complete):
     * Pygments   for parsing posts and syntax highlighting.
     * Mako       for HTML templates.
     * SimpleJSON for JSON.
+    * jQuery     for AJAX and visual effects.
 
-
+2010.01.09:
+    * added an explanation why I need your email
+    * now can submit comment and it gets put in database
+2010.01.08:
+    * redesigned comment form
+    * added icons for name, email, twitter, website and comment fields
+2010.01.07:
+    * celebrated my birthday
+2010.01.06:
+    * more work on comments, added twitter field for comments
 2010.01.05:
     * finished comment error checking
     * added error and info icons

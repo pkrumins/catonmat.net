@@ -28,6 +28,7 @@ url_map = Map([
     Rule('/quotes')               > 'quotes.main',
     Rule('/download/<file>')      > 'downloads.main',
 
-    Rule('/ajax/comment_preview') > 'ajax.preview_comment'
+    Rule('/ajax/comment_preview') > 'catonmat.comments.preview_comment',
+    Rule('/ajax/comment_add')     > 'catonmat.comments.add_comment'
 ])
 

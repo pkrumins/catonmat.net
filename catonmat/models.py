@@ -34,11 +34,11 @@ class Page(object):
         return '<Page: %s>' % self.title
 
 class Comment(object):
-    def __init__(self, page_id, name, email, comment, twitter=None, website=None, timestamp=None):
+    def __init__(self, page_id, name, comment, email=None, twitter=None, website=None, timestamp=None):
         self.page_id = page_id
         self.name = name
-        self.email = email
         self.comment = comment
+        self.email = email
         self.twitter = twitter
         self.website = website
 

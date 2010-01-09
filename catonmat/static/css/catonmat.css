@@ -214,7 +214,7 @@ p { margin: 0 0 1em; }
 #content .page .content {
   font-size: 1.3em;
   line-height: 160%;
-  text-align: justify;
+  /*text-align: justify;*/
 }
 
 #content .page .content h2 {
@@ -222,6 +222,11 @@ p { margin: 0 0 1em; }
   font-weight: bold;
   color: #196CCF;
   padding-bottom: 10px;
+}
+
+#content .page .content a:hover {
+  background-color: blue;
+  color: white
 }
 
 #content .page .content .post-icon {
@@ -276,7 +281,10 @@ p { margin: 0 0 1em; }
 
 #content .page .comments {
   font-size: 1.2em;
+}
 
+#content .page .comments .add p {
+  margin-bottom: 0.5em;
 }
 
 #content .page .comments .hr {
@@ -316,8 +324,58 @@ p { margin: 0 0 1em; }
 #content .page .comments #comment_please {
   font-size: 1em;
   background: url('/static/img/info.gif') no-repeat;
-  margin-left: 1em;
+  margin-left: 92px;
   padding-left: 2em;
+}
+
+#content .page .comments .small {
+  font-size: 0.833em;
+  margin-left: 1em;
+}
+
+#content .page .comments #why_email_explain {
+  margin-left: 100px;
+}
+
+#content .page .comments input[type=text],
+#content .page .comments textarea {
+  border: 1px solid #707070;
+}
+
+#content .page .comments input[type=text]:focus,
+#content .page .comments textarea:focus {
+  background-color: #fcfada;
+}
+
+#content .page .comments input[id=preview] {
+  margin-left: 92px;
+}
+
+#content .page .comments label {
+  display: block;
+  float: left;
+  padding-left: 22px;
+  width: 70px;
+}
+
+#content .page .comments label.name {
+  background: url('/static/img/user.gif') no-repeat;
+}
+
+#content .page .comments label.email {
+  background: url('/static/img/envelope.gif') no-repeat;
+}
+
+#content .page .comments label.twitter {
+  background: url('/static/img/twitter-comments.gif') no-repeat;
+}
+
+#content .page .comments label.website {
+  background: url('/static/img/world.gif') no-repeat;
+}
+
+#content .page .comments label.comment {
+  background: url('/static/img/balloon.gif') no-repeat;
 }
 
 /*
@@ -350,7 +408,7 @@ p { margin: 0 0 1em; }
   color: #BB7920;
 }
 
-#sidebar .item .contents {
+#sidebar .item .content {
   font-size: 1.2em;
   margin-top: 4px;
   padding: 0 2px;
