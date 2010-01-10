@@ -31,6 +31,7 @@ modules (list is not complete):
     * worked on displaying comments
     * added gravatars for comments
     * improved comment validation
+    * added comment form tabindexes for input elements for better user exp'
 2010.01.09:
     * added an explanation why I need your email
     * now can submit comment and it gets put in database

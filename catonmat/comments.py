@@ -13,6 +13,7 @@ from werkzeug.exceptions    import BadRequest
 
 from catonmat.models        import Page, Comment, UrlMap
 from catonmat.database      import Session
+from catonmat.views.utils   import get_template
 
 from pygments.lexer         import RegexLexer
 from pygments.token         import Token, Whitespace, Text
@@ -130,15 +131,18 @@ def preview_comment(request):
                 'status':  'error',
                 'message': e.message
             })
-        except ParseError, e:
-            return json.dumps({
-                'status':  'error',
-                'message': e.message
-            })
+        # TODO: this is not right:
+        #except ParseError, e:
+        #    return json.dumps({
+        #        'status':  'error',
+        #        'message': e.message
+        #    })
 
         return json.dumps({
             'status':  'success',
-            'comment': comment
+            'comment': get_template('comment').
+                get_def('individual_comment').
+                render(comment=new_comment(request))
         })
 
 
@@ -146,14 +150,17 @@ def add_comment(request):
     if request.method == "POST":
         validate_comment(request)
 
-        comment = Comment(
-                request.form['page_id'],
-                request.form['name'].strip(),
-                request.form['comment'].strip(),
-                request.form['email'].strip(),
-                request.form['twitter'].strip(),
-                request.form['website'].strip()
-        )
+        comment = new_comment(request)
         Session.add(comment)
         Session.commit()
+
+
+def new_comment(request):
+    return Comment(
+            request.form['page_id'],
+            request.form['name'].strip(),
+            request.form['comment'].strip(),
+            request.form['email'].strip(),
+            request.form['twitter'].strip(),
+            request.form['website'].strip())
 

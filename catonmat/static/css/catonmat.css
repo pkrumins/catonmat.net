@@ -314,9 +314,7 @@ p { margin: 0 0 1em; }
 }
 
 #content .page .comments .add #comment_preview {
-  /* TODO: style */
-  background: #EEEEEE;
-  border: 1px solid black;
+  border: 1px solid gray;
   padding: 1em;
   margin-bottom: 1em;
 }
@@ -383,37 +381,37 @@ p { margin: 0 0 1em; }
 ** --------------------------------------------------------
 */
 
-#content .page .comments .list .comment {
+#content .page .comments .comment {
   margin-bottom: 1em;
 }
 
-#content .page .comments .list .comment .gravatar
+#content .page .comments .comment .gravatar
 {
   float: left;
 }
 
-#content .page .comments .list .comment .userinfo {
+#content .page .comments .comment .userinfo {
   float: left;
   margin-left: 1em;
   padding-top: 3px;
 }
 
-#content .page .comments .list .comment .userinfo .name {
+#content .page .comments .comment .userinfo .name {
   font-weight: bold;
 }
 
-#content .page .comments .list .comment .userinfo .twitter {
+#content .page .comments .comment .userinfo .twitter {
   font-size: 0.9em;
   background: url('/static/img/twit.gif') no-repeat 0 2px;
   padding-left: 18px;
   margin-left: 1em;
 }
 
-#content .page .comments .list .comment .userinfo .time {
+#content .page .comments .comment .userinfo .time {
   color: #88978d;
 }
 
-#content .page .comments .list .comment .comment_text {
+#content .page .comments .comment .comment_text {
   margin-top: 0.5em;
 }
 
