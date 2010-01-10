@@ -33,6 +33,7 @@ modules (list is not complete):
     * improved comment validation
     * added comment form tabindexes for input elements for better user exp'
     * added permalinks for comments
+    * screenshot_2010-01-10.png
 2010.01.09:
     * added an explanation why I need your email
     * now can submit comment and it gets put in database
