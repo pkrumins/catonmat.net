@@ -9,13 +9,15 @@
 # Code is licensed under GNU GPL license.
 #
 
-from datetime import datetime
-from sqlalchemy.orm import dynamic_loader, relation
-from catonmat.database import (
+from datetime               import datetime
+from sqlalchemy.orm         import dynamic_loader, relation
+from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table, fourofour_table,
     blogpages_table, comments_table
 )
-from catonmat.database import mapper
+from catonmat.database      import mapper
+
+import hashlib
 
 class Page(object):
     def __init__(self, title, content=None, excerpt=None, created=None, last_update=None):
@@ -39,9 +41,12 @@ class Comment(object):
         self.name = name
         self.comment = comment
         self.email = email
+        self.gravatar_md5 = ""
         self.twitter = twitter
         self.website = website
 
+        if email:
+            self.gravatar_md5 = hashlib.md5(email).hexdigest()
         if timestamp is None:
             self.timestamp = datetime.utcnow()
 
