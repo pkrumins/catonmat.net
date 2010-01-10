@@ -1,0 +1,31 @@
+<%def name="individual_comment(comment)">
+<div class="comment">
+  <div class="gravatar">
+    % if comment.gravatar_md5:
+    <img src="http://www.gravatar.com/avatar/${comment.gravatar_md5}.jpg?s=40" width="40" height="40">
+    % else:
+    <img src="/static/img/nogravatar.gif" width="40" height="40">
+    % endif
+  </div>
+  <div class="userinfo">
+    <div>
+      % if comment.website:
+      <span class="name"><a href="${comment.website}" title="${comment.website}">${comment.name}</a></span>
+      % else:
+      <span class="name">${comment.name}</span>
+      %endif
+
+      % if comment.twitter:
+      <span class="twitter"><a href="http://twitter.com/${comment.twitter}">@${comment.twitter}</a></span>
+      % endif
+    </div>
+    <div>
+      <span class="time">${comment.timestamp}</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    ${comment.comment}
+  </div>
+</div>
+</%def>
