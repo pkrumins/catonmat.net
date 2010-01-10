@@ -224,8 +224,8 @@ p { margin: 0 0 1em; }
   padding-bottom: 10px;
 }
 
-#content .page .content a:hover {
-  background-color: blue;
+#content .page .content a:visited:hover {
+  background-color: #551A8B;
   color: white
 }
 
@@ -283,10 +283,6 @@ p { margin: 0 0 1em; }
   font-size: 1.2em;
 }
 
-#content .page .comments .add p {
-  margin-bottom: 0.5em;
-}
-
 #content .page .comments .hr {
   /* TODO: merge all .hrs from .footer and .header */
   border-bottom: 1px solid #CCCCCC;
@@ -300,7 +296,11 @@ p { margin: 0 0 1em; }
   margin-bottom: 1em;
 }
 
-#content .page .comments #comment_error {
+#content .page .comments .add p {
+  margin-bottom: 0.5em;
+}
+
+#content .page .comments .add #comment_error {
   background: #FFEFF0;
   color: #8a1f11;
   border: 2px solid #FBC2C4;
@@ -308,12 +308,12 @@ p { margin: 0 0 1em; }
   margin-bottom: 1em;
 }
 
-#content .page .comments #comment_error span {
+#content .page .comments .add #comment_error span {
   background: url('/static/img/exclamation.gif') no-repeat;
   padding-left: 2em;
 }
 
-#content .page .comments #comment_preview {
+#content .page .comments .add #comment_preview {
   /* TODO: style */
   background: #EEEEEE;
   border: 1px solid black;
@@ -321,61 +321,100 @@ p { margin: 0 0 1em; }
   margin-bottom: 1em;
 }
 
-#content .page .comments #comment_please {
+#content .page .comments .add #comment_please {
   font-size: 1em;
   background: url('/static/img/info.gif') no-repeat;
   margin-left: 92px;
   padding-left: 2em;
 }
 
-#content .page .comments .small {
+#content .page .comments .add .small {
   font-size: 0.833em;
   margin-left: 1em;
 }
 
-#content .page .comments #why_email_explain {
+#content .page .comments .add #why_email_explain {
   margin-left: 100px;
 }
 
-#content .page .comments input[type=text],
-#content .page .comments textarea {
+#content .page .comments .add input[type=text],
+#content .page .comments .add textarea {
   border: 1px solid #707070;
 }
 
-#content .page .comments input[type=text]:focus,
-#content .page .comments textarea:focus {
+#content .page .comments .add input[type=text]:focus,
+#content .page .comments .add textarea:focus {
   background-color: #fcfada;
 }
 
-#content .page .comments input[id=preview] {
+#content .page .comments .add input[id=preview] {
   margin-left: 92px;
 }
 
-#content .page .comments label {
+#content .page .comments .add label {
   display: block;
   float: left;
   padding-left: 22px;
   width: 70px;
 }
 
-#content .page .comments label.name {
+#content .page .comments .add label.name {
   background: url('/static/img/user.gif') no-repeat;
 }
 
-#content .page .comments label.email {
+#content .page .comments .add label.email {
   background: url('/static/img/envelope.gif') no-repeat;
 }
 
-#content .page .comments label.twitter {
+#content .page .comments .add label.twitter {
   background: url('/static/img/twitter-comments.gif') no-repeat;
 }
 
-#content .page .comments label.website {
+#content .page .comments .add label.website {
   background: url('/static/img/world.gif') no-repeat;
 }
 
-#content .page .comments label.comment {
+#content .page .comments .add label.comment {
   background: url('/static/img/balloon.gif') no-repeat;
+}
+
+/*
+** Comment list
+** --------------------------------------------------------
+*/
+
+#content .page .comments .list .comment {
+  margin-bottom: 1em;
+}
+
+#content .page .comments .list .comment .gravatar
+{
+  float: left;
+}
+
+#content .page .comments .list .comment .userinfo {
+  float: left;
+  margin-left: 1em;
+  padding-top: 3px;
+}
+
+#content .page .comments .list .comment .userinfo .name {
+  font-weight: bold;
+}
+
+#content .page .comments .list .comment .userinfo .twitter {
+  font-size: 0.9em;
+  background: url('/static/img/twit.gif') no-repeat 0 2px;
+  padding-left: 18px;
+  margin-left: 1em;
+}
+
+#content .page .comments .list .comment .userinfo .time {
+  color: #88978d;
+}
+
+#content .page .comments .list .comment .comment_text {
+  margin-top: 0.5em;
 }
 
 /*

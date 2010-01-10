@@ -17,8 +17,7 @@
   </div>
   <div class="footer">
     <div class="hr"></div>
-    hello
-
+    here be the article footer info
   </div>
 
   % if display_comments:
@@ -26,8 +25,43 @@
     <div class="hr"></div>
     <div class="list">
       <h3>Comments</h3>
-      <p>here be the comments</p>
+      % if comments:
+        % for comment in comments:
+        <div class="comment">
+          <div class="gravatar">
+            % if comment.gravatar_md5:
+              <img src="http://www.gravatar.com/avatar/${comment.gravatar_md5}.jpg?s=40" width="40" height="40">
+            % else:
+              <img src="/static/img/nogravatar.gif" width="40" height="40">
+            % endif
+          </div>
+          <div class="userinfo">
+            <div>
+              % if comment.website:
+                <span class="name"><a href="${comment.website}" title="${comment.website}">${comment.name}</a></span>
+              % else:
+                <span class="name">${comment.name}</span>
+              %endif
+
+              % if comment.twitter:
+                <span class="twitter"><a href="http://twitter.com/${comment.twitter}">@${comment.twitter}</a></span>
+              % endif
+            </div>
+            <div>
+              <span class="time">${comment.timestamp}</span>
+            </div>
+          </div>
+          <div class="clear"></div>
+          <div class="comment_text">
+            ${comment.comment}
+          </div>
+        </div>
+        % endfor
+      % else:
+        <p>There are no comments! Be <b>the first</b> to comment!</p>
+      % endif
     </div>
+
     <div class="add">
       <h3>Leave a comment</h3>
       % if comment_error:
@@ -124,7 +158,7 @@
                         slideDown('fast');
                     }
                     else {
-                      /* TODO */
+                      /* TODO: display the comment as it would naturally look */
                       $('#comment_preview').
                         html(data.comment).
                         slideDown('fast');

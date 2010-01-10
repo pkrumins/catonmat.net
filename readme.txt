@@ -27,9 +27,14 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.10:
+    * worked on displaying comments
+    * added gravatars for comments
+    * improved comment validation
 2010.01.09:
     * added an explanation why I need your email
     * now can submit comment and it gets put in database
+    * screenshot_2010-01-09.png
 2010.01.08:
     * redesigned comment form
     * added icons for name, email, twitter, website and comment fields

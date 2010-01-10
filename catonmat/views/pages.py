@@ -32,7 +32,8 @@ def main(request, map):
         'page_path':        map.request_path,
         'display_comments': True,
         'comment_error':    comment_error,
-        'form':             form
+        'form':             form,
+        'comments':         map.page.comments.all()
     }
     map.page.content = parse(map.page.content)
     return render_template_with_quote("page", template_data)
