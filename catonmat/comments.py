@@ -85,11 +85,15 @@ def validate_comment(request):
     def validate_name(name):
         if not name:
             raise CommentError, "You forgot to specify your name!"
+        if len(name) > 64:
+            raise CommentError, "Your name is too long. Maximum length is 64 characters."
 
     def validate_email(email):
         if email:
             if not email_rx.match(email):
                 raise CommentError, "Sorry, the e-mail address is not valid!"
+            if len(email) > 128:
+                raise CommentError, "Your e-mail is too long. Maximum length is 128 characters."
 
     def validate_comment(comment):
         if not comment:
@@ -100,9 +104,19 @@ def validate_comment(request):
         if number_of_pages != 1:
             raise CommentError, "Something went wrong, the page was not found..."
 
+    def validate_twitter(twitter):
+        if len(twitter) > 128:
+            raise CommentError, "Your Twitter name is too long. Maximum length is 128 characters."
+
+    def validate_website(website):
+        if len(website) > 256:
+            raise CommentError, "Your website address is too long. Maximum length is 256 characters."
+
     validate_name(request.form['name'].strip())
     validate_email(request.form['email'].strip())
     validate_comment(request.form['comment'].strip())
+    validate_twitter(request.form['twitter'].strip())
+    validate_website(request.form['website'].strip())
     validate_page_id(request.form['page_id'])
 
 
@@ -134,11 +148,12 @@ def add_comment(request):
 
         comment = Comment(
                 request.form['page_id'],
-                request.form['name'],
-                request.form['comment'],
-                request.form['email'],
-                request.form['twitter'],
-                request.form['website'])
+                request.form['name'].strip(),
+                request.form['comment'].strip(),
+                request.form['email'].strip(),
+                request.form['twitter'].strip(),
+                request.form['website'].strip()
+        )
         Session.add(comment)
         Session.commit()
 
