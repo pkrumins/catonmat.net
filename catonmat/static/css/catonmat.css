@@ -224,6 +224,11 @@ p { margin: 0 0 1em; }
   padding-bottom: 10px;
 }
 
+#content .page .content a:hover {
+  background-color: blue;
+  color: white
+}
+
 #content .page .content a:visited:hover {
   background-color: #551A8B;
   color: white
@@ -402,7 +407,7 @@ p { margin: 0 0 1em; }
 
 #content .page .comments .comment .userinfo .twitter {
   font-size: 0.9em;
-  background: url('/static/img/twit.gif') no-repeat 0 2px;
+  background: url('/static/img/twit.gif') no-repeat 0 3px;
   padding-left: 18px;
   margin-left: 1em;
 }
@@ -414,6 +419,17 @@ p { margin: 0 0 1em; }
 #content .page .comments .comment .comment_text {
   margin-top: 0.5em;
 }
+
+#content .page .comments .comment .comment_text a:hover {
+  background-color: blue;
+  color: white
+}
+
+#content .page .comments .comment .comment_text a:visited:hover {
+  background-color: #551A8B;
+  color: white
+}
+
 
 /*
 ** Sidebar
