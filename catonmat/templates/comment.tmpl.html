@@ -1,4 +1,4 @@
-<%def name="individual_comment(comment)">
+<%def name="individual_comment(comment, page_path='')">
 <div class="comment">
   <div class="gravatar">
     % if comment.gravatar_md5:
@@ -16,7 +16,11 @@
       %endif
 
       % if comment.twitter:
-      <span class="twitter"><a href="http://twitter.com/${comment.twitter}">@${comment.twitter}</a></span>
+      <span class="twitter"><a href="http://twitter.com/${comment.twitter}">${comment.twitter}</a></span>
+      % endif
+
+      % if page_path:
+      <span class="permalink"><a href="${page_path}/comment/${comment.comment_id}">Permalink</a></span>
       % endif
     </div>
     <div>
@@ -27,6 +31,11 @@
   <div class="comment_text">
     ${comment.comment}
   </div>
+  % if page_path:
+  <div class="reply">
+    <a href="#">Add a reply</a>
+  </div>
+  % endif
 </div>
 </%def>
 

@@ -28,7 +28,7 @@
       % if comments:
         <%namespace import="individual_comment" file="comment.tmpl.html"/>
         % for comment in comments:
-          ${individual_comment(comment)}
+          ${individual_comment(comment, page_path)}
         % endfor
       % else:
         <p>There are no comments! Be <b>the first</b> to comment!</p>
