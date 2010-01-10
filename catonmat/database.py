@@ -48,7 +48,7 @@ pages_table = Table('pages', Metadata,
 
 comments_table = Table('comments', Metadata,
     Column('comment_id',    Integer,    primary_key=True),
-    #Column('parent_id',     Integer),
+    Column('parent_id',     Integer),
     Column('page_id',       Integer,    ForeignKey('pages.page_id')),
     Column('timestamp',     DateTime),
     Column('name',          String(64)),

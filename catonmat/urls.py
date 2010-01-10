@@ -11,8 +11,8 @@ import re
 from catonmat.models  import UrlMap
 from werkzeug.routing import Map, Rule as RuleBase, Submount
 
-def get_page_from_request(request):
-    request_path = request.path.rstrip('/')
+def get_page_from_request_path(request_path):
+    request_path = request_path.rstrip('/')
     request_path = re.sub('//+', '/', request_path)
 
     return UrlMap.query.filter_by(request_path=request_path).first()
@@ -23,12 +23,16 @@ class Rule(RuleBase):
         return self
 
 url_map = Map([
-    Rule('/')                     > 'index.main',
-    Rule('/blog')                 > 'index.main',
-    Rule('/quotes')               > 'quotes.main',
-    Rule('/download/<file>')      > 'downloads.main',
+    Rule('/')                       > 'index.main',
+    Rule('/blog')                   > 'index.main',
+    Rule('/quotes')                 > 'quotes.main',
+    Rule('/download/<file>')        > 'downloads.main',
 
-    Rule('/ajax/comment_preview') > 'catonmat.comments.preview_comment',
-    Rule('/ajax/comment_add')     > 'catonmat.comments.add_comment'
+    # TODO: unsure about ajax
+    Rule('/ajax/comment_preview')   > 'catonmat.comments.preview_comment',
+    Rule('/ajax/comment_add')       > 'catonmat.comments.add_comment',
+
+    # comment routing
+    Rule('/<path:path>/comment/<int:id>') > 'pages.comment'
 ])
 

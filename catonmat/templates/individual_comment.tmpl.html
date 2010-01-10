@@ -1,0 +1,17 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">${comment.name} comment on ${page.title}</%def>
+
+<%namespace import="individual_comment" file="comment.tmpl.html"/>
+
+<div class="page">
+  <div class="content">
+    <p>Back to the article "<a href="${page_path}">${page.title}</a>".</p>
+  </div>
+  <div class="comments">
+    <div class="list">
+      ${individual_comment(comment, page_path)}
+    </div>
+  </div>
+</div>
+

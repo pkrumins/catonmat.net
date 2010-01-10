@@ -155,6 +155,9 @@ def add_comment(request):
         Session.commit()
 
 
+def get_comment(id):
+    return Comment.query.filter_by(comment_id=id).first()
+
 def new_comment(request):
     return Comment(
             request.form['page_id'],

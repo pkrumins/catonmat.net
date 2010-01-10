@@ -9,10 +9,13 @@
 # Code is licensed under GNU GPL license.
 #
 
+from werkzeug.exceptions    import NotFound
+
 from catonmat.views.utils   import render_template_with_quote
 from catonmat.quotes        import get_random_quote
 from catonmat.parser        import parse
-from catonmat.comments      import add_comment, CommentError
+from catonmat.comments      import add_comment, get_comment, CommentError
+from catonmat.urls          import get_page_from_request_path
 
 def main(request, map):
     comment_error = ""
@@ -38,3 +41,23 @@ def main(request, map):
     map.page.content = parse(map.page.content)
     return render_template_with_quote("page", template_data)
 
+
+def comment(request, path, id):
+    # have to look up in the UrlMap table to find the matching page
+    path = '/' + path
+    map = get_page_from_request_path(path)
+    if not map:
+        raise NotFound() # TODO: this exception gets caught by `application`,
+                         # which results in getpfrp being called again
+
+    comment = get_comment(id)
+    if not comment:
+        raise NotFound()
+
+    template_data = {
+        'comment':   comment,
+        'page':      map.page,
+        'page_path': path
+    }
+
+    return render_template_with_quote("individual_comment", template_data)

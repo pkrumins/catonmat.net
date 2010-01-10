@@ -16,9 +16,11 @@ from werkzeug.exceptions  import HTTPException, NotFound
 from werkzeug             import SharedDataMiddleware
 
 from catonmat.database    import Session
-from catonmat.urls        import url_map, get_page_from_request
+from catonmat.urls        import url_map, get_page_from_request_path
 from catonmat.views.utils import get_view
 from catonmat.fourofour   import log_404
+
+# ----------------------------------------------------------------------------
 
 def handle_request(request, endpoint, values=None, mimetype='text/html'):
     if values is None: values = {}
@@ -33,7 +35,7 @@ def application(request):
         endpoint, values = adapter.match()
         return handle_request(request, endpoint, values)
     except NotFound:
-        map = get_page_from_request(request)
+        map = get_page_from_request_path(request.path)
         if map:
             if map.handler:
                 handler = get_view(map.handler)
