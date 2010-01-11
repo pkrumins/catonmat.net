@@ -43,7 +43,7 @@ def main(request, map):
 
 
 def comment(request, path, id):
-    # have to look up in the UrlMap table to find the matching page
+    # Look-up the path in the UrlMap table to find the matching page
     path = '/' + path
     map = get_page_from_request_path(path)
     if not map:
@@ -61,3 +61,4 @@ def comment(request, path, id):
     }
 
     return render_template_with_quote("individual_comment", template_data)
+

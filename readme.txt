@@ -27,6 +27,8 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.11:
+    * worked on threaded comments
 2010.01.10:
     * worked on displaying comments
     * added gravatars for comments

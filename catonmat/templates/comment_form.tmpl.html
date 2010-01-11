@@ -1,0 +1,122 @@
+<%def name="comment_form(page, page_path, comment_error, form)">
+
+<div id="comment_form">
+  % if comment_error:
+  <div id="comment_error">${comment_error}</div>
+  % else:
+  <div id="comment_error" class="hidden"></div>
+  % endif
+  <div id="comment_preview" class="hidden"></div>
+
+  <form action="${page_path}" method="POST">
+    <input type="hidden" name="page_id" id="page_id" value="${page.page_id}">
+    <input type="hidden" name="parent_id" id="parent_id">
+
+    <p>
+      <label for="name" class="name">Name:</label>
+      % if form.get('name'):
+      <input tabindex="1" type="text" name="name" id="name" maxlength="64" size="30" value="${form['name']}">
+      % else:
+      <input tabindex="1" type="text" name="name" id="name" maxlength="64" size="30">
+      % endif
+      <div class="clear"></div>
+    </p>
+
+    <p>
+      <label for="email" class="email">E-mail:</label>
+      % if form.get('email'):
+      <input tabindex="2" type="text" name="email" id="email" maxlength="128" size="30" value="${form['email']}">
+      % else:
+      <input tabindex="2" type="text" name="email" id="email" maxlength="128" size="30">
+      % endif
+      <span class="small">(<a href="/why-do-i-need-your-email" id="why_email_a">why do I need your email?</a>)</span>
+      <script>
+        $('#why_email_a').click(
+        function(event) {
+          $('#why_email_explain').slideToggle('fast');
+          event.preventDefault();
+        }
+        );
+      </script>
+      <div class="clear"></div>
+    </p>
+
+    <div id="why_email_explain" class="hidden">
+      <p>
+        It would be nice if you left your e-mail address. If you did, it would be easier for me to get in touch with you. Sometimes I want to send a private message, or just thank for the great comment. Having your e-mail really helps.
+      </p>
+
+      <p><b>I will never ever spam you.</b></p>
+    </div>
+
+    <p>
+      <label for="twitter" class="twitter">Twitter:</label>
+      % if form.get('twitter'):
+      <input tabindex="3" type="text" name="twitter" id="twitter" maxlength="128" size="30" value="${form['twitter']}">
+      % else:
+      <input tabindex="3" type="text" name="twitter" id="twitter" maxlength="128" size="30">
+      % endif
+      <span class="small">(Your twitter name, if you have one.)</span>
+      <div class="clear"></div>
+    </p>
+
+    <p>
+      <label for="website" class="website">Website:</label>
+      % if form.get('website'):
+      <input tabindex="4" type="text" name="website" id="website" maxlength="256" size="50" value="${form['website']}">
+      % else:
+      <input tabindex="4" type="text" name="website" id="website" maxlength="256" size="50">
+      % endif
+      <div class="clear"></div>
+    </p>
+
+    <p>
+      <label for="comment" class="comment">Comment:</label>
+      % if form.get('comment'):
+      <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment">${form['comment']}</textarea>
+      % else:
+      <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment"></textarea>
+      % endif
+      <div class="clear"></div>
+    </p>
+
+    <p>
+      <input tabindex="6" id="preview" type="submit" name="preview" value="Preview comment">
+      <input tabindex="7" id="submit" type="submit" name="submit" value="Submit comment">
+      <script>
+        /* TODO: better error checking (network timeout, etc.) */
+        $('#preview').click(
+          function(event) {
+            $('#comment_error').slideUp();
+            $.post("/_service/comment_preview",
+              $('div#comment_form form').serialize(),
+              function(data) {
+                if (data.status === "error") {
+                  $('#comment_preview').slideUp();
+                  $('#comment_error').
+                  html("<span>" + data.message + "</span>").
+                  slideDown('fast');
+                }
+                else {
+                  $('#comment_preview').
+                  html(data.comment).
+                  slideDown('fast');
+                }
+              },
+              "json"
+            );
+            event.preventDefault();
+          }
+        );
+      </script>
+    </p>
+
+    <p>
+      <span id="comment_please">Please <b>preview</b> the comment before submitting to make sure it's OK.<br></span>
+    </p>
+
+  </form>
+</div>
+
+</%def>
+

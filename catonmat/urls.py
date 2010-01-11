@@ -28,11 +28,12 @@ url_map = Map([
     Rule('/quotes')                 > 'quotes.main',
     Rule('/download/<file>')        > 'downloads.main',
 
-    # TODO: unsure about ajax
-    Rule('/ajax/comment_preview')   > 'catonmat.comments.preview_comment',
-    Rule('/ajax/comment_add')       > 'catonmat.comments.add_comment',
+    Rule('/_service/comment_preview') > 'catonmat.comments.preview_comment',
 
-    # comment routing
+    # This is currently unnecessary
+    Rule('/_service/comment_add')     > 'catonmat.comments.add_comment',
+
+    # Individual comment page
     Rule('/<path:path>/comment/<int:id>') > 'pages.comment'
 ])
 

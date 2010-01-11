@@ -1,1 +1,0 @@
-<span class="site last"><a href="http://friendfeed.com/pkrumins"><img src="/static/img/friendfeed-16x16.gif">Friendfeed</a></span>

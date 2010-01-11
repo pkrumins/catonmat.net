@@ -5,9 +5,15 @@
 <%namespace import="individual_comment" file="comment.tmpl.html"/>
 
 <div class="page">
-  <div class="content">
-    <p>Back to the article "<a href="${page_path}">${page.title}</a>".</p>
+  <div class="header">
+    <h1><a href="${page_path}">${page.title}</a></h1>
+    <div class="hr lighter"></div>
   </div>
+
+  <div class="content">
+    <p>You're viewing the comment thread by <b>${comment.name}</b>.</p>
+  </div>
+
   <div class="comments">
     <div class="list">
       ${individual_comment(comment, page_path)}

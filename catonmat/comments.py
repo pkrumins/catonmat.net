@@ -101,9 +101,9 @@ def validate_comment(request):
             raise CommentError, "You left the comment empty!"
 
     def validate_page_id(page_id):
-        number_of_pages = Page.query.filter_by(page_id=request.form['page_id']).count()
+        number_of_pages = Page.query.filter_by(page_id=page_id).count()
         if number_of_pages != 1:
-            raise CommentError, "Something went wrong, the page was not found..."
+            raise CommentError, "Something went wrong, the page you were commenting on was not found..."
 
     def validate_twitter(twitter):
         if len(twitter) > 128:
@@ -113,12 +113,19 @@ def validate_comment(request):
         if len(website) > 256:
             raise CommentError, "Your website address is too long. Maximum length is 256 characters."
 
+    def validate_parent_id(parent_id):
+        if parent_id:
+            comments = Comment.query.filter_by(comment_id=parent_id).count()
+            if comments != 1:
+                raise CommentError, "Something went wrong, the comment you were responding to was not found..."
+
     validate_name(request.form['name'].strip())
     validate_email(request.form['email'].strip())
     validate_comment(request.form['comment'].strip())
     validate_twitter(request.form['twitter'].strip())
     validate_website(request.form['website'].strip())
     validate_page_id(request.form['page_id'])
+    validate_parent_id(request.form['parent_id'])
 
 
 def preview_comment(request):
@@ -160,10 +167,11 @@ def get_comment(id):
 
 def new_comment(request):
     return Comment(
-            request.form['page_id'],
-            request.form['name'].strip(),
-            request.form['comment'].strip(),
-            request.form['email'].strip(),
-            request.form['twitter'].strip(),
-            request.form['website'].strip())
+            page_id=request.form['page_id'],
+            parent_id=request.form['parent_id'],
+            name=request.form['name'].strip(),
+            comment=request.form['comment'].strip(),
+            email=request.form['email'].strip(),
+            twitter=request.form['twitter'].strip(),
+            website=request.form['website'].strip())
 
