@@ -100,11 +100,6 @@ def validate_comment(request):
         if not comment:
             raise CommentError, "You left the comment empty!"
 
-    def validate_page_id(page_id):
-        number_of_pages = Page.query.filter_by(page_id=page_id).count()
-        if number_of_pages != 1:
-            raise CommentError, "Something went wrong, the page you were commenting on was not found..."
-
     def validate_twitter(twitter):
         if len(twitter) > 128:
             raise CommentError, "Your Twitter name is too long. Maximum length is 128 characters."
@@ -112,6 +107,11 @@ def validate_comment(request):
     def validate_website(website):
         if len(website) > 256:
             raise CommentError, "Your website address is too long. Maximum length is 256 characters."
+
+    def validate_page_id(page_id):
+        number_of_pages = Page.query.filter_by(page_id=page_id).count()
+        if number_of_pages != 1:
+            raise CommentError, "Something went wrong, the page you were commenting on was not found..."
 
     def validate_parent_id(parent_id):
         if parent_id:
@@ -154,6 +154,7 @@ def preview_comment(request):
 
 
 def add_comment(request):
+    # TODO: make it work with web 1.0
     if request.method == "POST":
         validate_comment(request)
 
@@ -164,6 +165,7 @@ def add_comment(request):
 
 def get_comment(id):
     return Comment.query.filter_by(comment_id=id).first()
+
 
 def new_comment(request):
     return Comment(

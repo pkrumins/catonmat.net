@@ -398,8 +398,8 @@ about.
 Send me email when a new comment gets posted on catonmat.
 
 65. Comments And Other Forms Must Work Even If JavaScript Is Disabled
-Can't let Ajax trick me. All forms must be submitable without Ajax the web 1.0
-way. Error checking should also be done the web 1.0 way.
+Can't let Ajax trick me. All forms must be submittable without Ajax the
+web 1.0 way. Error checking should also be done the web 1.0 way.
 
 66. Make Catonmat Lynx Accessible
 Some people are using lynx to read catonmat. Simplify the reading for them and
