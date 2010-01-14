@@ -41,7 +41,7 @@
       <h3>Leave a comment</h3>
       <script>
         function show_comment_reply_form(element, id) {
-          $('#comment_form').insertAfter(element).hide().slideDown('fast');
+          $('#comment_form').insertAfter(element).hide().slideDown('slow');
           $('#parent_id').val(id);
         }
         $('.comment_reply a').click(
