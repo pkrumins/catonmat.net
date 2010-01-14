@@ -60,5 +60,5 @@ def comment(request, path, id):
         'page_path': path
     }
 
-    return render_template_with_quote("individual_comment", template_data)
+    return render_template_with_quote("comment_page", template_data)
 
