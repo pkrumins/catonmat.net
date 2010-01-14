@@ -27,6 +27,11 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.14:
+    * factored out javascript code from html to catonmat.js
+    * added icons for 'reply comment' and 'cancel comment'
+2010.01.12-2010.01.13:
+    * didn't do anything, rested.
 2010.01.11:
     * worked on threaded comments
 2010.01.10:

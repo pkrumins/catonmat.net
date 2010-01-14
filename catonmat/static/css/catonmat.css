@@ -10,11 +10,12 @@ body {
 
 h1,h2,h3,h4,h5,h6 { color: #111; }
 
-/* Text elements
+/* Other elements
 -------------------------------------------------------------- */
 
 a { text-decoration: none; }
 p { margin: 0 0 1em; }
+a img { border: none; }
 
 #container {
   width: 900px;
@@ -281,6 +282,11 @@ p { margin: 0 0 1em; }
   margin-bottom: 1em;
 }
 
+/*
+** Comment form
+** --------------------------------------------------------
+*/
+
 #comment_form p {
   margin-bottom: 0.5em;
 }
@@ -366,10 +372,6 @@ p { margin: 0 0 1em; }
 ** --------------------------------------------------------
 */
 
-#content .page .comments .comment {
-  margin-bottom: 1em;
-}
-
 #content .page .comments .comment .gravatar
 {
   float: left;
@@ -394,7 +396,6 @@ p { margin: 0 0 1em; }
 #content .page .comments .comment .userinfo .permalink {
   float: right;
   padding-right: 1em;
-
 }
 
 #content .page .comments .comment .userinfo .time {
@@ -402,17 +403,31 @@ p { margin: 0 0 1em; }
 }
 
 #content .page .comments .comment .comment_text {
-  margin-top: 0.5em;
+  margin: 0.5em 0 0.3em;
 }
 
 #content .page .comments .comment .comment_text a:hover {
   background-color: blue;
-  color: white
+  color: white;
 }
 
 #content .page .comments .comment .comment_text a:visited:hover {
   background-color: #551A8B;
-  color: white
+  color: white;
+}
+
+#content .page .comments .comment .comment_reply a {
+  margin-bottom: 1em;
+}
+
+#content .page .comments .comment .comment_reply a img {
+  margin-right: 3px;
+  position: relative;
+  top: 2px;
+}
+
+#content .page .comments .comment .comment_reply a.cancel {
+  margin-left: 2em;
 }
 
 

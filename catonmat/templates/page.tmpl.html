@@ -32,6 +32,9 @@
         % for comment in comments:
           ${individual_comment(comment, page_path)}
         % endfor
+        <script>
+          catonmat.init_comments();
+        </script>
       % else:
         <p>There are currently no comments! Be <b>the first</b> to comment!</p>
       % endif
@@ -39,35 +42,6 @@
 
     <div class="add">
       <h3>Leave a comment</h3>
-      <script>
-        function show_comment_reply_form(element, id) {
-          $('#comment_form').insertAfter(element).hide().slideDown('slow');
-          $('#parent_id').val(id);
-        }
-        $('.comment_reply a').click(
-          function(event) {
-            var parent_id = this.id.split('_')[2];
-            show_comment_reply_form(this, parent_id);
-            $('#new_comment_p').show();
-            event.preventDefault();
-          }
-        );
-      </script>
-      <p id="new_comment_p" class="hidden">
-        <a href="#" id="new_comment_a">Click here</a> to leave a new comment instead of replying to someone.
-        <script>
-          $('#new_comment_a').click(
-            function(event) {
-              /* TODO: factor out this pattern with event.preventDefault to
-                       another function */
-              var p = $('#new_comment_p');
-              show_comment_reply_form(p, "");
-              p.hide();
-              event.preventDefault();
-            }
-          );
-        </script>
-      </p>
       ${comment_form(page, page_path, comment_error, form)}
     </div>
   </div>
