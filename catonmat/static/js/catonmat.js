@@ -71,6 +71,23 @@ catonmat = {
         event.preventDefault();
       }
     );
+  },
+
+  init_toggle_contacts: function() {
+    var img_more = $("<img src=\"/static/img/more-10x10.gif\" class=\"more\">");
+    var img_less = $("<img src=\"/static/img/less-10x10.gif\" class=\"more\">");
+    $('#a-more-contacts').click(
+      function(event) {
+        if ($(this).text() === "more") {
+          $(this).text("less").prepend(img_less);
+        }
+        else {
+          $(this).text("more").prepend(img_more);
+        }
+        $('#div-more-contacts').slideToggle('fast');
+        event.preventDefault();
+      }
+    );
   }
 
 };
