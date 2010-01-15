@@ -13,9 +13,10 @@ from werkzeug.exceptions    import NotFound
 
 from catonmat.views.utils   import render_template_with_quote
 from catonmat.quotes        import get_random_quote
-from catonmat.parser        import parse
 from catonmat.comments      import add_comment, get_comment, CommentError
 from catonmat.urls          import get_page_from_request_path
+
+# ----------------------------------------------------------------------------
 
 def main(request, map):
     comment_error = ""
@@ -38,7 +39,6 @@ def main(request, map):
         'form':             form,
         'comments':         map.page.comments.all()
     }
-    map.page.content = parse(map.page.content)
     return render_template_with_quote("page", template_data)
 
 
@@ -59,6 +59,5 @@ def comment(request, path, id):
         'page':      map.page,
         'page_path': path
     }
-
     return render_template_with_quote("comment_page", template_data)
 

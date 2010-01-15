@@ -10,13 +10,14 @@
 #
 
 from pygments.lexer         import RegexLexer
-from pygments.token         import *
+from pygments.token         import Token, Text, Comment, Error, Whitespace
 from pygments               import format, lex
 
 from StringIO               import StringIO
 
 import re
 
+# ----------------------------------------------------------------------------
 
 Tag = Token.Tag
 
@@ -24,22 +25,48 @@ class PageLexer(RegexLexer):
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
         'root': [
-            (r'\n\n', Text.Par),
-            (r'\n',   Text.Br),
-            (r'[^<\n]+', Text),
-            (r'<!--', Comment, 'comment'),
-            (r'<\s*[a-zA-Z0-9:]+', Tag.Open, 'tag'),
-            (r'<\s*/\s*[^>]+>',    Tag.Close),
+            (r'\n\n',               Text.Par),
+            (r'\n',                 Text.Br),
+            (r'[^<\n]+',            Text),
+            (r'<!--',               Comment,    'comment'),
+            (r'<\s*[a-zA-Z0-9:]+',  Tag.Open,   'tag'),
+            (r'<\s*/\s*[^>]+>',     Tag.Close),
         ],
         'comment': [
             (r'[^-]+', Comment),
-            (r'-->',   Comment, '#pop'),
+            (r'-->',   Comment,  '#pop'),
             (r'-',     Comment),
         ],
         'tag': [
             (r'[^>]+', Tag.Contents),
-            (r'>',     Tag.End, '#pop'),
+            (r'>',     Tag.End,  '#pop'),
         ],
+    }
+
+
+class CommentLexer(RegexLexer):
+    flags = re.IGNORECASE | re.DOTALL
+    tokens = {
+        'a': [
+            (r'\s*',          Whitespace),
+            (r'href="[^"]+"', Tag.Attribute), # TODO: xss
+            (r"href='[^']+'", Tag.Attribute),
+            (r'>',            Tag.Close, '#pop')
+        ],
+        'code': [
+            (r'\s*',          Whitespace),
+            (r'lang="[^"]+"', Tag.Code.Lang),
+            (r"lang='[^']+'", Tag.Code.Lang),
+            (r'>',            Tag.Close, '#pop')
+        ],
+        'root': [
+            (r'\n\n',       Text.Par),
+            (r'[^<\n]+',    Text),
+            (r'<(b|i|q)>',  Tag.Allowed),
+            (r'<a',         Tag.Allowed, 'a'),
+            (r'<code',      Tag.Allowed, 'code'),
+            (r'<',          Tag.Open)
+        ]
     }
 
 
@@ -110,7 +137,7 @@ def extract_tag_name(value):
     raise ValueError("Tag '%s' didn't match regex" % value)
 
 
-def process_token(html_state, token, value, prev_token, next_token):
+def page_token_processor(html_state, token, value, prev_token, next_token):
     """ Process a (token, value) based on prev_token, next_token and current html_state """
     if token is Text:
         if not html_state.par_started:
@@ -140,7 +167,17 @@ def process_token(html_state, token, value, prev_token, next_token):
     return value
 
 
-def build_html(tokenstream):
+def comment_token_processor(html_state, token, value, prev_token, next_token):
+    if token is Tag.Open:
+        return "&lt;"
+
+    if token is Text.Par:
+        return "\n<p>"
+
+    return value
+
+
+def build_html(tokenstream, token_processor):
     outfile = StringIO()
     html_state = HtmlState()
     prev_token = None
@@ -151,17 +188,27 @@ def build_html(tokenstream):
         except StopIteration:
             next_token = None
 
-        outfile.write(process_token(html_state, token, value, prev_token, next_token))
+        outfile.write(token_processor(html_state, token, value, prev_token, next_token))
         prev_token = token
 
     return outfile.getvalue()
 
+def parse(text, lexer, processor):
+    text = text.replace("\r\n", "\n")
+    text = text.replace("\r", "\n")
+    text = re.sub(r'\n\n+', '\n\n', text)
 
-def parse(page):
-    page = page.replace("\r\n", "\n")
-    page = page.replace("\r", "\n")
-    page = re.sub(r'\n\n+', '\n\n', page)
+    print text
+    return text
 
-    tokenstream = GeneratorWithPeek(lex(page, PageLexer()))
-    return build_html(tokenstream)
+    tokenstream = GeneratorWithPeek(lex(text, lexer()))
+    return build_html(tokenstream, processor)
+
+
+def parse_page(page):
+    return parse(page, PageLexer, page_token_processor)
+
+
+def parse_comment(comment):
+    return parse(comment, CommentLexer, comment_token_processor)
 

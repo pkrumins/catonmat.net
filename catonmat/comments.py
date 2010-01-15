@@ -28,33 +28,6 @@ import simplejson as json
 
 email_rx = re.compile(r'^.+@.+\..+$')
 
-Tag = Token.Tag
-
-class CommentLexer(RegexLexer):
-    flags = re.IGNORECASE | re.DOTALL
-    tokens = {
-        'a': [
-            (r'\s*',          Whitespace),
-            (r'href="[^"]+"', Tag.Attribute), # TODO: xss
-            (r"href='[^']+'", Tag.Attribute),
-            (r'>',            Tag.Close, '#pop')
-        ],
-        'code': [
-            (r'\s*',          Whitespace),
-            (r'lang="[^"]+"', Tag.Code.Lang),
-            (r"lang='[^']+'", Tag.Code.Lang),
-            (r'>',            Tag.Close, '#pop')
-        ],
-        'root': [
-            (r'\n\n',       Text.Par),
-            (r'[^<\n]+',    Text),
-            (r'<(b|i|q)>',  Tag.Allowed),
-            (r'<a',         Tag.Allowed, 'a'),
-            (r'<code',      Tag.Allowed, 'code'),
-            (r'<',          Tag.Open)
-        ]
-    }
-
 
 class CommentError(Exception):
     pass
@@ -62,24 +35,6 @@ class CommentError(Exception):
 
 class ParseError(CommentError):
     pass
-
-
-def parse_comment(comment):
-    return comment
-
-    tokenstream = lex(comment, CommentLexer())
-    outfile = StringIO()
-    for token, value in tokenstream:
-        if token is Error:
-            # todo, can't trust the comment anymore, html escape everything
-            raise ParseError, "Failed parsing the comment"
-        if token is Tag.Open:
-            outfile.write("&lt;")
-        elif token is Text.Par:
-            outfile.write("\n<p>")
-        else:
-            outfile.write(value)
-    return outfile.getvalue()
 
 
 def validate_comment(request):

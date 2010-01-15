@@ -19,6 +19,8 @@ from catonmat.database      import mapper
 
 import hashlib
 
+# ----------------------------------------------------------------------------
+
 class Page(object):
     def __init__(self, title, content=None, excerpt=None, created=None, last_update=None):
         self.title = title
@@ -31,6 +33,10 @@ class Page(object):
             self.created = datetime.utcnow()
         if self.last_update is None:
             self.last_update = datetime.utcnow()
+
+    @property
+    def parsed_content(self):
+        return parse_page(self.content)
 
     def __repr__(self):
         return '<Page: %s>' % self.title
@@ -50,6 +56,10 @@ class Comment(object):
             self.gravatar_md5 = hashlib.md5(email).hexdigest()
         if timestamp is None:
             self.timestamp = datetime.utcnow()
+
+    @property
+    def parsed_comment(self):
+        return parse_comment(self.comment)
 
     def __repr__(self):
         return '<Comment on Page(%s)>' % self.page.title
@@ -119,4 +129,7 @@ mapper(FouroFour, fourofour_table)
 mapper(BlogPages, blogpages_table, properties={
     'page': relation(Page)
 })
+
+# Cyclic references
+from catonmat.parser    import parse_page, parse_comment
 
