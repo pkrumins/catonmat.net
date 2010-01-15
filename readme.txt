@@ -27,6 +27,10 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.15:
+    * 'reply comment' and 'cancel comment' buttons now work
+    * added a darker border on comment text field focus
+    * screenshot_2010-01-15.png
 2010.01.14:
     * factored out javascript code from html to catonmat.js
     * added icons for 'reply comment' and 'cancel comment'

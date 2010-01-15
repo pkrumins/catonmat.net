@@ -29,6 +29,7 @@ catonmat = {
     var p = $('#cancel_comment');
     catonmat.show_comment_form(p, '');
     p.hide();
+    $('.comment_reply a.cancel').hide();
   },
 
   /* Attach event handler to 'Reply to this comment', etc. */
@@ -36,7 +37,11 @@ catonmat = {
     $('.comment_reply a').click(
       function(event) {
         var parent_id = this.id.split('_')[2];
-        catonmat.show_comment_form(this, parent_id);
+        catonmat.show_comment_form($(this).parent(), parent_id);
+
+        /* Hide all existing 'Cancel' buttons */
+        $('.comment_reply a.cancel').hide();
+        $('#cancel_comment').hide()
 
         /* Add a paragraph at the end of the comment list with a link to
         ** cancel replying, if the user wants just to add a new comment. */
@@ -60,9 +65,9 @@ catonmat = {
           insertAfter(this).click(
             function(event) {
               catonmat.restore_comment_form();
-              $(this).hide();
               event.preventDefault();
-          });
+          }
+        );
         event.preventDefault();
       }
     );

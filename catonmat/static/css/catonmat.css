@@ -287,6 +287,10 @@ a img { border: none; }
 ** --------------------------------------------------------
 */
 
+#comment_form {
+  margin-bottom: 1em;
+}
+
 #comment_form p {
   margin-bottom: 0.5em;
 }
@@ -334,6 +338,7 @@ a img { border: none; }
 #comment_form input[type=text]:focus,
 #comment_form textarea:focus {
   background-color: #fcfada;
+  border: 1px solid #303030;
 }
 
 #comment_form input[id=preview] {
@@ -416,7 +421,7 @@ a img { border: none; }
   color: white;
 }
 
-#content .page .comments .comment .comment_reply a {
+#content .page .comments .comment .comment_reply .buttons {
   margin-bottom: 1em;
 }
 
