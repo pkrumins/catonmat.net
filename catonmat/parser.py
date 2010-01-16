@@ -14,6 +14,7 @@ from pygments.token         import Token, Text, Comment, Error, Whitespace
 from pygments               import format, lex
 
 from StringIO               import StringIO
+from urlparse               import urlparse
 
 import re
 
@@ -45,28 +46,45 @@ class PageLexer(RegexLexer):
 
 
 class CommentLexer(RegexLexer):
+    allowed_a_schemes = frozenset(['http', 'https', 'ftp'])
+    def a_href_checker(lexer, match):
+        href = match.group(1).strip()
+        url = urlparse(href)
+
+        if not url.scheme:
+            href = 'http://' + href
+        else:
+            if url.scheme not in CommentLexer.allowed_a_schemes:
+                yield match.start(), Error, "URL scheme %s is not allowed." % url.scheme
+            else:
+                yield match.start(), Text.A.Href, 'href="%s"' % href
+
+    def code_lang_checker(lexer, match):
+        yield match.start(), Text.A.Href, match.group(0)
+
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
-        'a': [
-            (r'\s*',          Whitespace),
-            (r'href="[^"]+"', Tag.Attribute), # TODO: xss
-            (r"href='[^']+'", Tag.Attribute),
-            (r'>',            Tag.Close, '#pop')
-        ],
-        'code': [
-            (r'\s*',          Whitespace),
-            (r'lang="[^"]+"', Tag.Code.Lang),
-            (r"lang='[^']+'", Tag.Code.Lang),
-            (r'>',            Tag.Close, '#pop')
-        ],
         'root': [
             (r'\n\n',       Text.Par),
             (r'[^<\n]+',    Text),
-            (r'<(b|i|q)>',  Tag.Allowed),
-            (r'<a',         Tag.Allowed, 'a'),
-            (r'<code',      Tag.Allowed, 'code'),
-            (r'<',          Tag.Open)
-        ]
+            (r'<(b|i|q)>',  Tag.Allowed.Open),
+            (r'<a',         Tag.Allowed.Open, 'a'),
+            (r'<code',      Tag.Allowed.Open, 'code'),
+            (r'</(a|code|b|i|q)>', Tag.Allowed.Close),
+            (r'<',          Tag.Unknown.Open)
+        ],
+        'a': [
+            (r'\s+',            Whitespace),
+            (r'href="([^"]+)"', a_href_checker),
+            (r"href='([^']+)'", a_href_checker),
+            (r'>',              Tag.Close, '#pop')
+        ],
+        'code': [
+            (r'\s+',            Whitespace),
+            (r'lang="([^"]+)"', code_lang_checker),
+            (r"lang='([^']+)'", code_lang_checker),
+            (r'>',              Tag.Close, '#pop')
+        ],
     }
 
 
@@ -97,7 +115,7 @@ class GeneratorWithPeek(object):
             return self.generator.next()
 
 
-class HtmlState(object):
+class PageState(object):
     self_closing_tags = frozenset(['img', 'br', 'hr', 'input'])
     inline_tags = frozenset(['a',      'abbr', 'acronym', 'b',        'bdo',   'big',  'cite',
                              'code',   'dfn',  'em',      'font',     'i',     'kbd',  'label',
@@ -110,8 +128,8 @@ class HtmlState(object):
         self.in_tags = []
 
     def should_p(self):
-        a = self.in_tag() not in HtmlState.inline_tags
-        b = self.in_tag() not in HtmlState.dont_p
+        a = self.in_tag() not in PageState.inline_tags
+        b = self.in_tag() not in PageState.dont_p
         return a and b
 
     def in_tag(self):
@@ -120,7 +138,7 @@ class HtmlState(object):
         return None
 
     def enter_tag(self, tag):
-        if tag not in HtmlState.self_closing_tags:
+        if tag not in PageState.self_closing_tags:
             self.in_tags.append(tag)
 
     def leave_tag(self):
@@ -130,6 +148,10 @@ class HtmlState(object):
             pass
 
 
+class CommentState(object):
+    pass
+
+
 def extract_tag_name(value):
     matches = re.match(r'<\s*([a-zA-Z0-9:]+)', value)
     if matches:
@@ -137,25 +159,32 @@ def extract_tag_name(value):
     raise ValueError("Tag '%s' didn't match regex" % value)
 
 
-def page_token_processor(html_state, token, value, prev_token, next_token):
-    """ Process a (token, value) based on prev_token, next_token and current html_state """
+def page_token_processor(state, token, value, prev_token, next_token):
+    """ Process a (token, value) based on prev_token, next_token and current state """
+
+    # Pygments has a nasty feature that it adds a newline at the end,
+    # the following tests if it's this is the last token and if it's newline,
+    # then don't process it.
+    if next_token is None and token is Text.Br:
+        return ''
+    
     if token is Text:
-        if not html_state.par_started:
-            if html_state.should_p():
-                html_state.par_started = True
+        if not state.par_started:
+            if state.should_p():
+                state.par_started = True
                 return "<p>" + value
         return value
 
     if token is Tag.Open:
         tag = extract_tag_name(value)
-        html_state.enter_tag(tag)
+        state.enter_tag(tag)
         return value
 
     if token is Tag.Close:
-        html_state.leave_tag()
+        state.leave_tag()
 
     if token is Text.Par:
-        html_state.par_started = False
+        state.par_started = False
 
     if token is Text.Br:
         if prev_token is Tag.Text:
@@ -167,19 +196,34 @@ def page_token_processor(html_state, token, value, prev_token, next_token):
     return value
 
 
-def comment_token_processor(html_state, token, value, prev_token, next_token):
-    if token is Tag.Open:
-        return "&lt;"
+def comment_token_processor(state, token, value, prev_token, next_token):
+    """ Process a (token, value) based on prev_token, next_token and current state """
+
+    # Pygments has a nasty feature that it adds a newline at the end,
+    # the following tests if it's this is the last token and if it's newline,
+    # then don't process it.
+    if next_token is None and token is Text.Br:
+        return ''
+
+    if token is Tag.Unknown.Open:
+        if prev_token is None:
+            return '<p>&lt;'
 
     if token is Text.Par:
-        return "\n<p>"
+        ret_val = '\n<p>'
 
-    return value
+    if token is Error:
+        return ''
+
+    if prev_token is None:
+        return '<p>' + value
+    else:
+        return value
 
 
-def build_html(tokenstream, token_processor):
+def build_html(tokenstream, token_processor, state_keeper):
     outfile = StringIO()
-    html_state = HtmlState()
+    html_state = state_keeper()
     prev_token = None
 
     for token, value in tokenstream:
@@ -193,22 +237,20 @@ def build_html(tokenstream, token_processor):
 
     return outfile.getvalue()
 
-def parse(text, lexer, processor):
+
+def parse(text, lexer, processor, state_keeper):
     text = text.replace("\r\n", "\n")
     text = text.replace("\r", "\n")
     text = re.sub(r'\n\n+', '\n\n', text)
 
-    print text
-    return text
-
     tokenstream = GeneratorWithPeek(lex(text, lexer()))
-    return build_html(tokenstream, processor)
+    return build_html(tokenstream, processor, state_keeper)
 
 
 def parse_page(page):
-    return parse(page, PageLexer, page_token_processor)
+    return parse(page, PageLexer, page_token_processor, PageState)
 
 
 def parse_comment(comment):
-    return parse(comment, CommentLexer, comment_token_processor)
+    return parse(comment, CommentLexer, comment_token_processor, CommentState)
 
