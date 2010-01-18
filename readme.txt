@@ -29,6 +29,8 @@ modules (list is not complete):
 
 2010.01.18:
     * more work on threaded comments
+    * added basic latex via google charts api
+    * screenshot_2010-01-18.png
 2010.01.17:
     * threaded comments now work
     * a newline in comments now gets converted into a <br>

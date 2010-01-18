@@ -67,7 +67,7 @@ def validate_comment(request):
 
             url = urlparse(website)
             if url.scheme:
-                if scheme not in ('http', 'https', 'ftp'):
+                if url.scheme not in ('http', 'https', 'ftp'):
                     raise CommentError, "The only allowed Website schemes are http://, https:// and ftp://"
 
     def validate_page_id(page_id):

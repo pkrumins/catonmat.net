@@ -61,6 +61,12 @@ class CommentLexer(RegexLexer):
     def code_lang_checker(lexer, match):
         yield match.start(), Text.Code.Lang, match.group(0)
 
+    def latex_handler(lexer, match):
+        latex = match.group(1).strip()
+        google_url = 'http://chart.apis.google.com/chart?cht=tx&chf=bg,s,FFFFFF00&chco=222222&chl='
+        url = google_url + latex
+        yield match.start(), Tag.Latex, '<img src="%s" class="latex" height="12">' % url
+
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
         'root': [
@@ -70,6 +76,7 @@ class CommentLexer(RegexLexer):
             (r'<(b|i|q)>',  Tag.Allowed.Open),
             (r'<a',         Tag.Allowed.Open, 'a'),
             (r'<code',      Tag.Allowed.Open, 'code'),
+            (r'<latex>(.+?)</latex>', latex_handler),
             (r'</(a|code|b|i|q)>', Tag.Allowed.Close),
             (r'<',          Tag.Unknown.Open)
         ],
