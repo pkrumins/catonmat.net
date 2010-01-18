@@ -28,7 +28,7 @@
     <div class="hr"></div>
     <div class="list">
       <h3>Comments</h3>
-      % if comments:
+      % if comments['root']:
         ${display_threaded_comments(comments['root'], comments, page_path)}
         <script>
           catonmat.init_comments();
