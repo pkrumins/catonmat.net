@@ -27,6 +27,8 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.18:
+    * more work on threaded comments
 2010.01.17:
     * threaded comments now work
     * a newline in comments now gets converted into a <br>
