@@ -1,6 +1,6 @@
-<%def name="individual_comment(comment, page_path='')">
+<%def name="individual_comment(comment, page_path='', indent=0)">
 
-<div class="comment">
+<div class="comment" style="margin-left: ${20*indent}px">
   <div class="gravatar">
     % if comment.gravatar_md5:
     <img src="http://www.gravatar.com/avatar/${comment.gravatar_md5}.jpg?s=40" width="40" height="40">
@@ -43,12 +43,12 @@
 
 </%def>
 
-<%def name="display_threaded_comments(root, comments, page_path='')">
+<%def name="display_threaded_comments(root, comments, page_path='', indent=0)">
 
 % for comment in root:
-  ${individual_comment(comment, page_path)}
+  ${individual_comment(comment, page_path, indent)}
   % if comment.comment_id in comments:
-    ${display_threaded_comments(comments[comment.comment_id], comments, page_path)}
+    ${display_threaded_comments(comments[comment.comment_id], comments, page_path, indent+1)}
   % endif
 % endfor
 

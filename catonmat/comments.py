@@ -142,15 +142,15 @@ def thread(comments):
     For example, for data:     it creates this tree:
     comment_id parent_id       root
     5          NULL            `-5
-    6          5                 `-6
-    7          5                 |`-8
-    8          6                 `-7
-    9          NULL              9 
-    10         9                 `-10
-    11         9                 |`-12
-    12         10                | `-13
-    13         12                `-11
-    14         NULL              14
+    6          5               | `-6
+    7          5               | |`-8
+    8          6               | `-7
+    9          NULL            `-9 
+    10         9               | `-10
+    11         9               | |`-12
+    12         10              | | `-13
+    13         12              | `-11
+    14         NULL            `-14
 
     and that tree is represented as the following data structure:
     {
@@ -166,6 +166,8 @@ def thread(comments):
       '13':   [],
       '14':   []
     }
+
+    This data structure is actually the adjacency list representation of a graph.
 
     """
     

@@ -3,8 +3,7 @@
 # Peteris Krumins (peter@catonmat.net)
 # http://www.catonmat.net  --  good coders code, great reuse
 #
-# The new catonmat.net website. See this post for more info:
-# http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
+# The new catonmat.net website.
 #
 # Code is licensed under GNU GPL license.
 #
@@ -229,7 +228,7 @@ def comment_token_processor(state, token, value, prev_token, next_token):
 
 def build_html(tokenstream, token_processor, state_keeper):
     outfile = StringIO()
-    html_state = state_keeper()
+    state = state_keeper()
     prev_token = None
 
     for token, value in tokenstream:
@@ -238,7 +237,7 @@ def build_html(tokenstream, token_processor, state_keeper):
         except StopIteration:
             next_token = None
 
-        outfile.write(token_processor(html_state, token, value, prev_token, next_token))
+        outfile.write(token_processor(state, token, value, prev_token, next_token))
         prev_token = token
 
     return outfile.getvalue()
