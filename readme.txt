@@ -27,6 +27,13 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.17:
+    * threaded comments now work
+    * a newline in comments now gets converted into a <br>
+    * factored preview comment out from html to javascript to catonmat.js file
+2010.01.16:
+    * worked on comment parser
+    * added stricter comment validation for twitter name and website
 2010.01.15:
     * 'reply comment' and 'cancel comment' buttons now work
     * added a darker border on comment text field focus

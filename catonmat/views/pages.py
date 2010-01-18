@@ -13,7 +13,7 @@ from werkzeug.exceptions    import NotFound
 
 from catonmat.views.utils   import render_template_with_quote
 from catonmat.quotes        import get_random_quote
-from catonmat.comments      import add_comment, get_comment, CommentError
+from catonmat.comments      import add_comment, get_comment, thread, CommentError
 from catonmat.urls          import get_page_from_request_path
 
 # ----------------------------------------------------------------------------
@@ -31,13 +31,15 @@ def main(request, map):
         except CommentError, e:
             comment_error = e.message
 
+    comments = thread(map.page.comments.all())
+
     template_data = {
         'page':             map.page,
         'page_path':        map.request_path,
         'display_comments': True,
         'comment_error':    comment_error,
         'form':             form,
-        'comments':         map.page.comments.all()
+        'comments':         comments
     }
     return render_template_with_quote("page", template_data)
 

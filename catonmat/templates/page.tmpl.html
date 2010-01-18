@@ -1,6 +1,6 @@
 <%inherit file="layout.tmpl.html"/>
 
-<%namespace import="individual_comment" file="comment.tmpl.html"/>
+<%namespace import="display_threaded_comments" file="comment.tmpl.html"/>
 <%namespace import="comment_form" file="comment_form.tmpl.html"/>
 
 <%def name="title()">${page.title} - good coders code, great reuse</%def>
@@ -29,9 +29,7 @@
     <div class="list">
       <h3>Comments</h3>
       % if comments:
-        % for comment in comments:
-          ${individual_comment(comment, page_path)}
-        % endfor
+        ${display_threaded_comments(comments['root'], comments, page_path)}
         <script>
           catonmat.init_comments();
         </script>
@@ -43,6 +41,10 @@
     <div class="add">
       <h3>Leave a comment</h3>
       ${comment_form(page, page_path, comment_error, form)}
+      <script>
+        catonmat.init_why_email();
+        catonmat.init_preview_comment();
+      </script>
     </div>
   </div>
   % endif

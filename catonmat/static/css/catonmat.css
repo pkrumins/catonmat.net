@@ -411,12 +411,20 @@ a img { border: none; }
   margin: 0.5em 0 0.3em;
 }
 
-#content .page .comments .comment .comment_text a:hover {
+#content .page .comments .comment .comment_text p {
+  margin-bottom: 0.5em;
+}
+
+#content .page .comments .comment .comment_text p:last-child {
+  margin-bottom: 0;
+}
+
+#content .page .comments .comment .comment_text a[href]:hover {
   background-color: blue;
   color: white;
 }
 
-#content .page .comments .comment .comment_text a:visited:hover {
+#content .page .comments .comment .comment_text a[href]:visited:hover {
   background-color: #551A8B;
   color: white;
 }

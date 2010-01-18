@@ -17,6 +17,8 @@ from catonmat.database      import (
 )
 from catonmat.database      import mapper
 
+from urlparse               import urlparse
+
 import hashlib
 
 # ----------------------------------------------------------------------------
@@ -52,6 +54,13 @@ class Comment(object):
         self.twitter = twitter
         self.website = website
 
+        if website:
+            url = urlparse(website)
+            if not url.scheme:
+                self.website = 'http://' + website
+
+        if parent_id == '':
+            self.parent_id = None
         if email:
             self.gravatar_md5 = hashlib.md5(email).hexdigest()
         if timestamp is None:
@@ -62,7 +71,7 @@ class Comment(object):
         return parse_comment(self.comment)
 
     def __repr__(self):
-        return '<Comment on Page(%s)>' % self.page.title
+        return '<Comment(%d) on Page(%s)>' % (self.comment_id, self.page.title)
 
 class Revision(object):
     def __init__(self, page, change_note, timestamp=None):

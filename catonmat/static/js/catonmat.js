@@ -88,6 +88,42 @@ catonmat = {
         event.preventDefault();
       }
     );
+  },
+
+  init_why_email: function() {
+    $('#why_email_a').click(
+      function(event) {
+        $('#why_email_explain').slideToggle('fast');
+        event.preventDefault();
+      }
+    );
+  },
+
+  init_preview_comment: function() {
+    /* TODO: better error checking (network timeout, etc.) */
+    $('#preview').click(
+      function(event) {
+        $('#comment_error').slideUp();
+        $.post("/_service/comment_preview",
+          $('div#comment_form form').serialize(),
+          function(data) {
+            if (data.status === "error") {
+              $('#comment_preview').slideUp();
+              $('#comment_error').
+              html("<span>" + data.message + "</span>").
+              slideDown('fast');
+            }
+            else {
+              $('#comment_preview').
+              html(data.comment).
+              slideDown('fast');
+            }
+          },
+          "json"
+        );
+        event.preventDefault();
+      }
+    );
   }
 
 };

@@ -60,12 +60,13 @@ class CommentLexer(RegexLexer):
                 yield match.start(), Text.A.Href, 'href="%s"' % href
 
     def code_lang_checker(lexer, match):
-        yield match.start(), Text.A.Href, match.group(0)
+        yield match.start(), Text.Code.Lang, match.group(0)
 
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
         'root': [
             (r'\n\n',       Text.Par),
+            (r'\n',         Text.Br),
             (r'[^<\n]+',    Text),
             (r'<(b|i|q)>',  Tag.Allowed.Open),
             (r'<a',         Tag.Allowed.Open, 'a'),
@@ -208,11 +209,16 @@ def comment_token_processor(state, token, value, prev_token, next_token):
     if token is Tag.Unknown.Open:
         if prev_token is None:
             return '<p>&lt;'
+        return '&lt;'
 
     if token is Text.Par:
-        ret_val = '\n<p>'
+        return '\n<p>'
+
+    if token is Text.Br:
+        return '<br>'
 
     if token is Error:
+        # TODO: better error handling
         return ''
 
     if prev_token is None:

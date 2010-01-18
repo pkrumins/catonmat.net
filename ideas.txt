@@ -360,9 +360,9 @@ Part 3 of a series on "Foo" | Prev | Contents | Next | Subscribe
 And a special post footer:
 "Part 3 of n -- Prev | Contents | Next"
 
-55. Use Open ID For Comments.
-I should try to use OpenID for comments. Could make it two ways: users without
-openid and with.
+55. Use Open ID/Twitter Auth/Facebook Auth For Comments.
+I should try to use OpenID or Twitter authentication or Facebook
+authentication for comments.
 
 56. A Twitter Feed For Latest Posts.
 Post updates about new posts to twitter automatically.

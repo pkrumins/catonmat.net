@@ -43,3 +43,14 @@
 
 </%def>
 
+<%def name="display_threaded_comments(root, comments, page_path='')">
+
+% for comment in root:
+  ${individual_comment(comment, page_path)}
+  % if comment.comment_id in comments:
+    ${display_threaded_comments(comments[comment.comment_id], comments, page_path)}
+  % endif
+% endfor
+
+</%def>
+
