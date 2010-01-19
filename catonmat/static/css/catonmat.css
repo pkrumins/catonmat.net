@@ -377,8 +377,11 @@ a img { border: none; }
 ** --------------------------------------------------------
 */
 
-#content .page .comments .comment .gravatar
-{
+#content .page .comments .comment {
+  background-color: #F4F5F6;
+}
+
+#content .page .comments .comment .gravatar {
   float: left;
 }
 
@@ -400,7 +403,6 @@ a img { border: none; }
 
 #content .page .comments .comment .userinfo .permalink {
   float: right;
-  padding-right: 1em;
 }
 
 #content .page .comments .comment .userinfo .time {
@@ -413,10 +415,6 @@ a img { border: none; }
 
 #content .page .comments .comment .comment_text p {
   margin-bottom: 0.5em;
-}
-
-#content .page .comments .comment .comment_text p:last-child {
-  margin-bottom: 0;
 }
 
 #content .page .comments .comment .comment_text a[href]:hover {

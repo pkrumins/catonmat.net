@@ -44,13 +44,13 @@ def main(request, map):
     return render_template_with_quote("page", template_data)
 
 
-def comment(request, path, id):
+def comment(request, id):
     # Look-up the path in the UrlMap table to find the matching page
-    path = '/' + path
-    map = get_page_from_request_path(path)
-    if not map:
-        raise NotFound() # TODO: this exception gets caught by `application`,
-                         # which results in getpfrp being called again
+    #path = '/' + path
+    #map = get_page_from_request_path(path)
+    #if not map:
+    #    raise NotFound() # TODO: this exception gets caught by `application`,
+    #                     # which results in getpfrp being called again
 
     comment = get_comment(id)
     if not comment:

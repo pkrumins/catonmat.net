@@ -1,4 +1,4 @@
-<%def name="individual_comment(comment, page_path='', indent=0)">
+<%def name="individual_comment(comment, indent=0)">
 
 <div class="comment" style="margin-left: ${20*indent}px">
   <div class="gravatar">
@@ -20,9 +20,7 @@
       <span class="twitter"><a href="http://twitter.com/${comment.twitter}">${comment.twitter}</a></span>
       % endif
 
-      % if page_path:
-      <span class="permalink"><a href="${page_path}/comment/${comment.comment_id}">Permalink</a></span>
-      % endif
+      <span class="permalink"><a href="/c/${comment.comment_id}">Permalink</a></span>
     </div>
     <div>
       <span class="time">${comment.timestamp}</span>
@@ -32,23 +30,22 @@
   <div class="comment_text">
     ${comment.parsed_comment}
   </div>
-  % if page_path:
+
   <div class="comment_reply">
     <div class="buttons">
-      <a href="${page_path}/comment/${comment.comment_id}?reply=true" id="reply_a_${comment.comment_id}"><img src="/static/img/reply-comment.gif" width="16" height="12">Reply to this comment</a>
+      <a href="/c/${comment.comment_id}?reply=true" id="reply_a_${comment.comment_id}"><img src="/static/img/reply-comment.gif" width="16" height="12">Reply to this comment</a>
     </div>
   </div>
-  % endif
 </div>
 
 </%def>
 
-<%def name="display_threaded_comments(root, comments, page_path='', indent=0)">
+<%def name="display_threaded_comments(root, comments, indent=0)">
 
 % for comment in root:
-  ${individual_comment(comment, page_path, indent)}
+  ${individual_comment(comment, indent)}
   % if comment.comment_id in comments:
-    ${display_threaded_comments(comments[comment.comment_id], comments, page_path, indent+1)}
+    ${display_threaded_comments(comments[comment.comment_id], comments, indent+1)}
   % endif
 % endfor
 

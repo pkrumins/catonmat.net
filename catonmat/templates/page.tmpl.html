@@ -29,7 +29,7 @@
     <div class="list">
       <h3>Comments</h3>
       % if comments['root']:
-        ${display_threaded_comments(comments['root'], comments, page_path)}
+        ${display_threaded_comments(comments['root'], comments)}
         <script>
           catonmat.init_comments();
         </script>
