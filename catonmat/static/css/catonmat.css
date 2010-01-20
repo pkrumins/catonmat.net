@@ -377,67 +377,67 @@ a img { border: none; }
 ** --------------------------------------------------------
 */
 
-#content .page .comments .comment {
+#comment_list .comment {
   background-color: #F4F5F6;
 }
 
-#content .page .comments .comment .gravatar {
+#comment_list .comment .gravatar {
   float: left;
 }
 
-#content .page .comments .comment .userinfo {
+#comment_list .comment .userinfo {
   padding-top: 3px;
   margin-left: 45px;
 }
 
-#content .page .comments .comment .userinfo .name {
+#comment_list .comment .userinfo .name {
   font-weight: bold;
 }
 
-#content .page .comments .comment .userinfo .twitter {
+#comment_list .comment .userinfo .twitter {
   font-size: 0.9em;
   background: url('/static/img/twit.gif') no-repeat 0 3px;
   padding-left: 18px;
   margin-left: 1em;
 }
 
-#content .page .comments .comment .userinfo .permalink {
+#comment_list .comment .userinfo .permalink {
   float: right;
 }
 
-#content .page .comments .comment .userinfo .time {
+#comment_list .comment .userinfo .time {
   color: #88978d;
 }
 
-#content .page .comments .comment .comment_text {
+#comment_list .comment .comment_text {
   margin: 0.5em 0 0.3em;
 }
 
-#content .page .comments .comment .comment_text p {
+#comment_list .comment .comment_text p {
   margin-bottom: 0.5em;
 }
 
-#content .page .comments .comment .comment_text a[href]:hover {
+#comment_list .comment .comment_text a[href]:hover {
   background-color: blue;
   color: white;
 }
 
-#content .page .comments .comment .comment_text a[href]:visited:hover {
+#comment_list .comment .comment_text a[href]:visited:hover {
   background-color: #551A8B;
   color: white;
 }
 
-#content .page .comments .comment .comment_reply .buttons {
+#comment_list .comment .comment_reply .buttons {
   margin-bottom: 1em;
 }
 
-#content .page .comments .comment .comment_reply a img {
+#comment_list .comment .comment_reply a img {
   margin-right: 3px;
   position: relative;
   top: 2px;
 }
 
-#content .page .comments .comment .comment_reply a.cancel {
+#comment_list .comment .comment_reply a.cancel {
   margin-left: 2em;
 }
 
