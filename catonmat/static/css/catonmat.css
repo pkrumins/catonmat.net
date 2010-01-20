@@ -310,7 +310,7 @@ a img { border: none; }
 
 #comment_form #comment_preview {
   border: 1px solid gray;
-  padding: 1em;
+  padding: 1em 1em 0 1em;
   margin-bottom: 1em;
 }
 
@@ -389,73 +389,73 @@ a img { border: none; }
 ** --------------------------------------------------------
 */
 
-#comment_list .comment {
+.icomment {
   background-color: #F4F5F6;
 }
 
-#comment_list .comment .gravatar {
+.icomment .gravatar {
   float: left;
 }
 
-#comment_list .comment .userinfo {
+.icomment .userinfo {
   padding-top: 3px;
   margin-left: 45px;
 }
 
-#comment_list .comment .userinfo .name {
+.icomment .userinfo .name {
   font-weight: bold;
 }
 
-#comment_list .comment .userinfo .twitter {
+.icomment .userinfo .twitter {
   font-size: 0.9em;
   background: url('/static/img/twit.gif') no-repeat 0 3px;
   padding-left: 18px;
   margin-left: 1em;
 }
 
-#comment_list .comment .userinfo .permalink {
+.icomment .userinfo .permalink {
   float: right;
 }
 
-#comment_list .comment .userinfo .time {
+.icomment .userinfo .time {
   color: #88978d;
 }
 
-#comment_list .comment .comment_text {
+.icomment .comment_text {
   margin: 0.5em 0 0.3em;
 }
 
-#comment_list .comment .comment_text p {
+.icomment .comment_text p {
   margin-bottom: 0.5em;
 }
 
-#comment_list .comment .comment_text a[href]:hover {
+.icomment .comment_text a[href]:hover {
   background-color: blue;
   color: white;
 }
 
-#comment_list .comment .comment_text a[href]:visited:hover {
+.icomment .comment_text a[href]:visited:hover {
   background-color: #551A8B;
   color: white;
 }
 
-#comment_list .comment .comment_reply .buttons {
+.icomment .comment_reply .buttons {
   margin-bottom: 1em;
 }
 
-#comment_list .comment .comment_reply a img {
+.icomment .comment_reply a img {
   margin-right: 3px;
   position: relative;
   top: 2px;
 }
 
-#comment_list .comment .comment_reply a.cancel {
+.icomment .comment_reply a.cancel {
   background: url('/static/img/cancel-comment.gif') no-repeat 0 1px;
   padding-left: 15px;
   margin-left: 2em;
 }
 
-#comment_list .comment .comment_reply a.reply {
+.icomment .comment_reply a.reply {
   background: url('/static/img/reply-comment.gif') no-repeat 0 2px;
   padding-left: 20px;
   margin-left: 5px;

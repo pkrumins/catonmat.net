@@ -1,6 +1,6 @@
 <%def name="individual_comment(comment, indent=0)">
 
-<div class="comment" style="margin-left: ${20*indent}px">
+<div class="icomment" style="margin-left: ${20*indent}px">
   <div class="gravatar">
     % if comment.gravatar_md5:
     <img src="http://www.gravatar.com/avatar/${comment.gravatar_md5}.jpg?s=40" width="40" height="40">

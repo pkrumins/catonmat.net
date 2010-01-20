@@ -405,3 +405,7 @@ web 1.0 way. Error checking should also be done the web 1.0 way.
 Some people are using lynx to read catonmat. Simplify the reading for them and
 provide lynx-friendly version of catonmat.
 
+67. Resizable TextArea For Comments
+Quite often the default <textarea> size is too small for comments. Make it
+resizable like in stackoverflow.com comments.
+
