@@ -27,6 +27,10 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.20:
+    * comment textarea box now resizes horizontally via css when replying
+2010.01.19:
+    * added /c/ short-url for comments and /p/ short-url for pages
 2010.01.18:
     * more work on threaded comments
     * added basic latex via google charts api

@@ -341,13 +341,17 @@ a img { border: none; }
   border: 1px solid #303030;
 }
 
+#comment_form textarea {
+  width: 95%;
+}
+
 #comment_form input[id=preview] {
   margin-left: 92px;
 }
 
 #comment_form label {
-  display: block;
   float: left;
+  display: block;
   padding-left: 22px;
   width: 70px;
 }
@@ -370,6 +374,14 @@ a img { border: none; }
 
 #comment_form label.comment {
   background: url('/static/img/balloon.gif') no-repeat;
+}
+
+#comment_form .a {
+  margin-left: 92px;
+}
+
+#comment_form .c {
+  margin-bottom: 0.5em;
 }
 
 /*

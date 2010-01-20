@@ -2,7 +2,7 @@
 
 <div id="comment_form">
   % if comment_error:
-  <div id="comment_error">${comment_error}</div>
+  <div id="comment_error"><span>${comment_error}</span></div>
   % else:
   <div id="comment_error" class="hidden"></div>
   % endif
@@ -19,8 +19,8 @@
       % else:
       <input tabindex="1" type="text" name="name" id="name" maxlength="64" size="30">
       % endif
-      <div class="clear"></div>
     </p>
+    <div class="clear"></div>
 
     <p>
       <label for="email" class="email">E-mail:</label>
@@ -30,8 +30,8 @@
       <input tabindex="2" type="text" name="email" id="email" maxlength="128" size="30">
       % endif
       <span class="small">(<a href="/why-do-i-need-your-email" id="why_email_a">why do I need your e-mail?</a>)</span>
-      <div class="clear"></div>
     </p>
+    <div class="clear"></div>
 
     <div id="why_email_explain" class="hidden">
       <p>
@@ -49,8 +49,8 @@
       <input tabindex="3" type="text" name="twitter" id="twitter" maxlength="128" size="30">
       % endif
       <span class="small">(Your twitter name, if you have one.)</span>
-      <div class="clear"></div>
     </p>
+    <div class="clear"></div>
 
     <p>
       <label for="website" class="website">Website:</label>
@@ -59,18 +59,29 @@
       % else:
       <input tabindex="4" type="text" name="website" id="website" maxlength="256" size="50">
       % endif
-      <div class="clear"></div>
     </p>
+    <div class="clear"></div>
 
-    <p>
+    <div class="c">
       <label for="comment" class="comment">Comment:</label>
-      % if form.get('comment'):
-      <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment">${form['comment']}</textarea>
-      % else:
-      <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment"></textarea>
-      % endif
-      <div class="clear"></div>
-    </p>
+      <div class="a">
+        % if form.get('comment'):
+        <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment">${form['comment']}</textarea>
+        % else:
+        <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment"></textarea>
+        % endif
+      </div>
+      <script>
+        if ($.browser.safari) {
+          /* i can't solve the 2px offset bug in chrome via css manipulations */
+          $('#comment_form .a').css('margin-left', '94px');
+
+          /* i also can't solve a problem of labels being offset by 3px in vertical direction */
+          $('#comment_form label').css('margin-top','3px')
+        }
+      </script>
+    </div>
+    <div class="clear"></div>
 
     <p>
       <input tabindex="6" id="preview" type="submit" name="preview" value="Preview comment">

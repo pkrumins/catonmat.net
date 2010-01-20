@@ -105,7 +105,7 @@ catonmat = {
       function(event) {
         $('#comment_error').slideUp();
         $.post("/_service/comment_preview",
-          $('div#comment_form form').serialize(),
+          $('#comment_form form').serialize(),
           function(data) {
             if (data.status === "error") {
               $('#comment_preview').slideUp();
