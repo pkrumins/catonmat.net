@@ -314,10 +314,13 @@ a img { border: none; }
   margin-bottom: 1em;
 }
 
+#comment_form .e {
+  margin-left: 92px;
+}
+
 #comment_form #comment_please {
   font-size: 1em;
   background: url('/static/img/info.gif') no-repeat;
-  margin-left: 92px;
   padding-left: 2em;
 }
 
@@ -343,10 +346,6 @@ a img { border: none; }
 
 #comment_form textarea {
   width: 95%;
-}
-
-#comment_form input[id=preview] {
-  margin-left: 92px;
 }
 
 #comment_form label {
@@ -391,6 +390,7 @@ a img { border: none; }
 
 .icomment {
   background-color: #F4F5F6;
+  margin-bottom: 1em;
 }
 
 .icomment .gravatar {

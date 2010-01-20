@@ -27,6 +27,7 @@ import simplejson as json
 email_rx   = re.compile(r'^.+@.+\..+$')
 twitter_rx = re.compile(r'^[a-zA-Z0-9_]+$')
 
+
 class CommentError(Exception):
     pass
 
@@ -90,6 +91,21 @@ def validate_comment(request):
     validate_comment(request.form['comment'].strip())
 
 
+def validate_comment_ajax(request):
+    if request.method == "POST":
+        try:
+            validate_comment(request)
+        except CommentError, e:
+            return json.dumps({
+                'status':   'error',
+                'message':  e.message
+            })
+
+        return json.dumps({
+            'status': 'success'
+        })
+
+
 def preview_comment(request):
     if request.method == "POST":
         try:
@@ -116,6 +132,13 @@ def add_comment(request):
         comment = new_comment(request)
         Session.add(comment)
         Session.commit()
+
+        return json.dumps({
+            'status':   'success',
+            'comment':  get_template('comment').
+                get_def('individual_comment').
+                render(comment=comment)
+        })
 
 
 def get_comment(id):

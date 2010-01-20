@@ -34,7 +34,7 @@
           catonmat.init_comments();
         </script>
       % else:
-        <p>There are currently no comments! Be <b>the first</b> to comment!</p>
+        <p class="nocomm">There are currently no comments! Be <b>the first</b> to comment!</p>
       % endif
     </div>
 
@@ -44,6 +44,7 @@
       <script>
         catonmat.init_why_email();
         catonmat.init_preview_comment();
+        catonmat.init_submit_comment();
       </script>
     </div>
   </div>

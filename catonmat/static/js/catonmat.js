@@ -102,8 +102,8 @@ catonmat = {
     $('#preview').click(
       function(event) {
         $('#comment_error').slideUp();
-        $.post("/_service/comment_preview",
-          $('#comment_form form').serialize(),
+        catonmat.ajax_comment_and_proceed(
+          "/_service/comment_preview",
           function(data) {
             if (data.status === "error") {
               $('#comment_preview').slideUp();
@@ -116,13 +116,91 @@ catonmat = {
               html(data.comment).
               slideDown('fast');
             }
-          },
-          "json"
+          }
+        );
+        event.preventDefault();
+      }
+    );
+  },
+
+  ajax_comment_and_proceed: function(url, proceed) {
+    $.post(
+      url,
+      $('#comment_form form').serialize(),
+      function(data) {
+        if (data.status === "error") {
+          $('#comment_error').
+          html("<span>" + data.message + "</span>").
+          slideDown('fast');
+        }
+        proceed(data);
+      },
+      "json"
+    );
+  },
+
+  init_submit_comment: function() {
+    $('#submit').click(
+      function(event) {
+        catonmat.ajax_comment_and_proceed(
+          "/_service/comment_validate",
+          function(data) {
+            if (data.status === "error") {
+              $('#comment_error').
+              html("<span>" + data.message + "</span>").
+              slideDown('fast');
+            }
+            else {
+              $.post(
+                "/_service/comment_add",
+                $('#comment_form form').serialize(),
+                function(data) {
+                  if (data.status === "error") {
+                    $('#comment_error').
+                    html("<span>Something went wrong while submitting the comment...</span>").
+                    slideDown('fast')
+                  }
+                  else {
+                    var indent;
+                    /* TODO: simplify + nicer */
+                    var parent = $('#comment_form').parents('.icomment');
+                    if (parent.length) {
+                      indent = parseInt(parent.css('margin-left'));
+                    }
+                    else {
+                      indent = -20;
+                      parent = $('#comment_list .icomment:last');
+                      if (!parent.length) {
+                        parent = $('#comment_list h3');
+                        $('p.nocomm').hide();
+                      }
+                    }
+                    $(data.comment).
+                      css('margin-left', indent+20 + 'px').
+                      css('border', '1px solid #D6A23D').
+                      css('padding', '5px').
+                      insertAfter(parent).
+                      hide().
+                      slideDown('slow');
+
+                    $('#comment_error').hide();
+                    $('#comment_preview').hide();
+                    catonmat.restore_comment_form();
+                    $('#name').val('');
+                    $('#email').val('');
+                    $('#twitter').val('');
+                    $('#website').val('');
+                    $('#comment').val('');
+                  }
+                },
+                "json"
+              );
+            }
+          }
         );
         event.preventDefault();
       }
     );
   }
-
 };
 

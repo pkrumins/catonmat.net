@@ -27,20 +27,19 @@ class Rule(RuleBase):
 
 
 url_map = Map([
-    Rule('/')                         > 'index.main',
-    Rule('/blog')                     > 'index.main',
-    Rule('/quotes')                   > 'quotes.main',
-    Rule('/download/<file>')          > 'downloads.main',
+    Rule('/')                          > 'index.main',
+    Rule('/blog')                      > 'index.main',
+    Rule('/quotes')                    > 'quotes.main',
+    Rule('/download/<file>')           > 'downloads.main',
 
-    Rule('/_service/comment_preview') > 'catonmat.comments.preview_comment',
-
-    # This is currently unnecessary
-    Rule('/_service/comment_add')     > 'catonmat.comments.add_comment',
+    Rule('/_service/comment_preview')  > 'catonmat.comments.preview_comment',
+    Rule('/_service/comment_validate') > 'catonmat.comments.validate_comment_ajax',
+    Rule('/_service/comment_add')      > 'catonmat.comments.add_comment',
 
     # Short URL for comments
-    Rule('/c/<int:id>')               > 'pages.comment',
+    Rule('/c/<int:id>')                > 'pages.comment',
 
     # Short URL for pages
-    Rule('/p/<int:id>')               > 'pages.shorturl'
+    Rule('/p/<int:id>')                > 'pages.shorturl'
 ])
 

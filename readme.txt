@@ -29,6 +29,7 @@ modules (list is not complete):
 
 2010.01.20:
     * comment textarea box now resizes horizontally via css when replying
+    * comments can now be submitted via ajax
 2010.01.19:
     * added /c/ short-url for comments and /p/ short-url for pages
 2010.01.18:
