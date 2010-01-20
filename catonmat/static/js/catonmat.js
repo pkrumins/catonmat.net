@@ -59,9 +59,7 @@ catonmat = {
 
         /* Add the 'Cancel' button, which when clicked cancels the comment form,
         ** and restores it back to the end of the article. */
-        $('<a href="#" class="cancel">').
-          append('<img src="/static/img/cancel-comment.gif" width="12" height="12">').
-          append('Cancel').
+        $('<a href="#" class="cancel">Cancel</a>').
           insertAfter(this).click(
             function(event) {
               catonmat.restore_comment_form();

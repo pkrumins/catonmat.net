@@ -450,9 +450,16 @@ a img { border: none; }
 }
 
 #comment_list .comment .comment_reply a.cancel {
+  background: url('/static/img/cancel-comment.gif') no-repeat 0 1px;
+  padding-left: 15px;
   margin-left: 2em;
 }
 
+#comment_list .comment .comment_reply a.reply {
+  background: url('/static/img/reply-comment.gif') no-repeat 0 2px;
+  padding-left: 20px;
+  margin-left: 5px;
+}
 
 /*
 ** Sidebar
