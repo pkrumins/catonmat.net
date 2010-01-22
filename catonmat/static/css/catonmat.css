@@ -439,7 +439,7 @@ a img { border: none; }
   color: white;
 }
 
-.icomment .comment_reply .buttons {
+.icomment .comment_reply {
   margin-bottom: 1em;
 }
 

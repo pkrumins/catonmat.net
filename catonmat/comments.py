@@ -91,19 +91,17 @@ def validate_comment(request):
     validate_comment(request.form['comment'].strip())
 
 
+def json_response(**data):
+    return json.dumps(data), 'application/json'
+
 def validate_comment_ajax(request):
     if request.method == "POST":
         try:
             validate_comment(request)
         except CommentError, e:
-            return json.dumps({
-                'status':   'error',
-                'message':  e.message
-            })
+            return json_response(status='error', message=e.message)
 
-        return json.dumps({
-            'status': 'success'
-        })
+        return json_response(status='success')
 
 
 def preview_comment(request):
@@ -111,17 +109,12 @@ def preview_comment(request):
         try:
             validate_comment(request)
         except CommentError, e:
-            return json.dumps({
-                'status':  'error',
-                'message': e.message
-            })
+            return json_response(status='error', message=e.message)
 
-        return json.dumps({
-            'status':  'success',
-            'comment': get_template('comment').
-                get_def('individual_comment').
-                render(comment=new_comment(request))
-        })
+        return json_response(status='success',
+                comment=get_template('comment').
+                        get_def('individual_comment').
+                        render(comment=new_comment(request)))
 
 
 def add_comment(request):
@@ -133,12 +126,10 @@ def add_comment(request):
         Session.add(comment)
         Session.commit()
 
-        return json.dumps({
-            'status':   'success',
-            'comment':  get_template('comment').
-                get_def('individual_comment').
-                render(comment=comment)
-        })
+        return json_response(status='success',
+                comment=get_template('comment').
+                        get_def('individual_comment').
+                        render(comment=comment))
 
 
 def get_comment(id):
@@ -206,5 +197,10 @@ def thread(comments):
 
 
 def linear(comments):
+    """
+    Given a list of comments, returns them in linear order (to display them as
+    a simple list and not as a threaded tree.
+    """
+
     return {'root': comments}
 

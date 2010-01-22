@@ -26,15 +26,17 @@ catonmat = {
 
   /* Restores the reply form to the end of the article (cancels replying). */
   restore_comment_form: function() {
-    var p = $('#cancel_comment');
-    catonmat.show_comment_form(p, '');
-    p.hide();
     $('.comment_reply a.cancel').hide();
+    var p = $('#cancel_comment');
+    if (!p.is(':hidden')) {
+      catonmat.show_comment_form(p, '');
+      p.hide();
+    }
   },
 
-  /* Attach event handler to 'Reply to this comment', etc. */
-  init_comments: function() {
-    $('.comment_reply a').click(
+  /* Attaches reply comment handler to the given <a> */
+  attach_reply_comment_handler: function(a) {
+    a.click(
       function(event) {
         var parent_id = this.id.split('_')[2];
         catonmat.show_comment_form($(this).parent(), parent_id);
@@ -67,6 +69,15 @@ catonmat = {
           }
         );
         event.preventDefault();
+      }
+    );
+  },
+
+  /* Attach event handler to 'Reply to this comment', etc. */
+  init_comments: function() {
+    $('.comment_reply a.reply').each(
+      function(_) {
+        catonmat.attach_reply_comment_handler($(this));
       }
     );
   },
@@ -175,22 +186,21 @@ catonmat = {
                         $('p.nocomm').hide();
                       }
                     }
-                    $(data.comment).
-                      css('margin-left', indent+20 + 'px').
-                      css('border', '1px solid #D6A23D').
-                      css('padding', '5px').
-                      insertAfter(parent).
-                      hide().
-                      slideDown('slow');
+                    var comment = $(data.comment).
+                                    css('margin-left', indent+20 + 'px').
+                                    css('border', '1px solid #D6A23D').
+                                    css('padding', '5px').
+                                    insertAfter(parent).
+                                    hide().
+                                    slideDown('slow');
+                    catonmat.attach_reply_comment_handler(
+                        $('.comment_reply a.reply', comment)
+                    );
 
                     $('#comment_error').hide();
                     $('#comment_preview').hide();
                     catonmat.restore_comment_form();
-                    $('#name').val('');
-                    $('#email').val('');
-                    $('#twitter').val('');
-                    $('#website').val('');
-                    $('#comment').val('');
+                    $('#name, #email, #twitter, #website, #comment').val('');
                   }
                 },
                 "json"

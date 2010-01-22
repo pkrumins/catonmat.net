@@ -18,15 +18,6 @@ from catonmat.config import config
 
 # ----------------------------------------------------------------------------
 
-def get_view(endpoint):
-  try:
-    return import_string('catonmat.views.' + endpoint)
-  except (ImportError, AttributeError):
-    try:
-      return import_string(endpoint)
-    except (ImportError, AttributeError):
-      raise RuntimeError('Could not locate view for %r' % endpoint)
-
 mako_lookup = TemplateLookup(
     directories=['catonmat/templates'], output_encoding='utf-8'
 )
@@ -36,10 +27,19 @@ def render_template_with_quote(template_name, template_args=None):
         template_args = {}
     template = get_template(template_name)
     quote = get_random_quote()
-    return template.render(quote=quote, **template_args)
+    return template.render(quote=quote, **template_args), 'text/html'
 
 def get_template(name):
     file = name + ".tmpl.html"
     template = mako_lookup.get_template(file)
     return template
+
+def get_view(endpoint):
+  try:
+    return import_string('catonmat.views.' + endpoint)
+  except (ImportError, AttributeError):
+    try:
+      return import_string(endpoint)
+    except (ImportError, AttributeError):
+      raise RuntimeError('Could not locate view for %r' % endpoint)
 
