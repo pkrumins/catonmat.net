@@ -13,7 +13,9 @@ from werkzeug.exceptions    import NotFound
 
 from catonmat.views.utils   import render_template_with_quote
 from catonmat.quotes        import get_random_quote
-from catonmat.comments      import add_comment, get_comment, thread, CommentError
+from catonmat.comments      import (
+    add_comment, get_comment, thread, linear,CommentError
+)
 from catonmat.urls          import get_page_from_request_path
 
 # ----------------------------------------------------------------------------
@@ -31,7 +33,12 @@ def main(request, map):
         except CommentError, e:
             comment_error = e.message
 
-    comments = thread(map.page.comments.all())
+    if request.args.get('linear') is not None:
+        comment_mode = 'linear'
+        comments = linear(map.page.comments.all())
+    else:
+        comment_mode = 'threaded'
+        comments = thread(map.page.comments.all())
 
     template_data = {
         'page':             map.page,
@@ -39,7 +46,8 @@ def main(request, map):
         'display_comments': True,
         'comment_error':    comment_error,
         'form':             form,
-        'comments':         comments
+        'comments':         comments,
+        'comment_mode':     comment_mode
     }
     return render_template_with_quote("page", template_data)
 

@@ -32,9 +32,9 @@ url_map = Map([
     Rule('/quotes')                    > 'quotes.main',
     Rule('/download/<file>')           > 'downloads.main',
 
-    Rule('/_service/comment_preview')  > 'catonmat.comments.preview_comment',
-    Rule('/_service/comment_validate') > 'catonmat.comments.validate_comment_ajax',
-    Rule('/_service/comment_add')      > 'catonmat.comments.add_comment',
+    # Add and preview comments
+    Rule('/_services/comment_preview') > 'catonmat.comments.preview_comment',
+    Rule('/_services/comment_add')     > 'catonmat.comments.add_comment',
 
     # Short URL for comments
     Rule('/c/<int:id>')                > 'pages.comment',

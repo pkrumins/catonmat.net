@@ -27,6 +27,10 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.24:
+    * factored code for ajax comments
+2010.01.21-2010.01.23:
+    * didn't do much, added linear comment view
 2010.01.20:
     * comment textarea box now resizes horizontally via css when replying
     * comments can now be submitted via ajax

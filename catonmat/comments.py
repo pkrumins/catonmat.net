@@ -69,7 +69,7 @@ def validate_comment(request):
             url = urlparse(website)
             if url.scheme:
                 if url.scheme not in ('http', 'https', 'ftp'):
-                    raise CommentError, "The only allowed Website schemes are http://, https:// and ftp://"
+                    raise CommentError, "The only allowed website schemes are http://, https:// and ftp://"
 
     def validate_page_id(page_id):
         number_of_pages = Page.query.filter_by(page_id=page_id).count()
@@ -94,16 +94,8 @@ def validate_comment(request):
 def json_response(**data):
     return json.dumps(data), 'application/json'
 
-def validate_comment_ajax(request):
-    if request.method == "POST":
-        try:
-            validate_comment(request)
-        except CommentError, e:
-            return json_response(status='error', message=e.message)
 
-        return json_response(status='success')
-
-
+# TODO: @json_response
 def preview_comment(request):
     if request.method == "POST":
         try:
@@ -120,7 +112,10 @@ def preview_comment(request):
 def add_comment(request):
     # TODO: make it work with web 1.0
     if request.method == "POST":
-        validate_comment(request)
+        try:
+            validate_comment(request)
+        except CommentError, e:
+            return json_response(status='error', message=e.message)
 
         comment = new_comment(request)
         Session.add(comment)
