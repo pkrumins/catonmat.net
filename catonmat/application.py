@@ -25,8 +25,7 @@ from os import path
 def handle_request(request, endpoint, values=None):
     if values is None: values = {}
     handler = get_view(endpoint)
-    content, mimetype = handler(request, **values)
-    return Response(content, mimetype=mimetype)
+    return handler(request, **values)
 
 @Request.application
 def application(request):
@@ -39,18 +38,15 @@ def application(request):
         if map:
             if map.handler:
                 handler = get_view(map.handler)
-                content, mimetype = handler(request, map)
-                return Response(content, mimetype=mimetype)
+                return handler(request, map)
             elif map.page:
                 handler = get_view('pages.main')
-                content, mimetype = handler(request, map)
-                return Response(content, mimetype=mimetype)
+                return handler(request, map)
 
         # Log this request in the 404 log and display not found page
         log_404(request)
         handler = get_view('not_found.main')
-        content, mimetype = handler(request)
-        return Response(content, mimetype=mimetype)
+        return handler(request)
     except HTTPException, e:
         # TODO: log http exception so that I knew exactly what is going on with catonmat!
         print "HTTPException"

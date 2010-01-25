@@ -40,7 +40,7 @@
 
     <div class="add">
       <h3>Leave a comment</h3>
-      ${comment_form(page, page_path, comment_error, form)}
+      ${comment_form(page.page_id, comment_submit_path, form)}
       <script>
         catonmat.init_why_email();
         catonmat.init_preview_comment();

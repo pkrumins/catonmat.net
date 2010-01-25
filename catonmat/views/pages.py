@@ -10,6 +10,7 @@
 #
 
 from werkzeug.exceptions    import NotFound
+from werkzeug               import Response
 
 from catonmat.views.utils   import render_template_with_quote
 from catonmat.comments      import (
@@ -50,9 +51,9 @@ def main(request, map):
         'form':                 form,
         'comments':             comments,
         'comment_mode':         comment_mode,
-        'reply':                False
     }
-    return render_template_with_quote("page", template_data)
+    return Response(render_template_with_quote("page", template_data),
+             mimetype='text/html')
 
 
 def comment(request, id):
@@ -74,7 +75,16 @@ def comment_reply(request, id):
 
     if request.method == "POST":
         print request.form
-        if request.form.get('preview') is not None:
+        if request.form.get('submit') is not None:
+            try:
+                validate_comment(request)
+                comment = new_comment(request)
+                Session.add(comment)
+                Session.commit()
+                return redirect('/c/%d' % id)
+            except CommentError, e:
+                comment_error = e.message
+        elif request.form.get('preview') is not None:
             form = request.form
             try:
                 validate_comment(request)
@@ -82,16 +92,6 @@ def comment_reply(request, id):
                 comment_preview = (get_template('comment').
                                      get_def('individual_comment').
                                      render(comment=comment, preview=True))
-            except CommentError, e:
-                comment_error = e.message
-        elif request.form.get('submit') is not None:
-            try:
-                validate_comment(request)
-                comment = new_comment(request)
-                Session.add(comment)
-                Session.commit()
-                # TODO: redirect
-                
             except CommentError, e:
                 comment_error = e.message
 
@@ -114,16 +114,46 @@ def comment_reply(request, id):
         'page_path':            urlmap.request_path,
         'comment_submit_path':  '/c/%d?reply' % id,
         'comment_parent_id':    id,
-        'reply':                True,
         'form':                 form,
         'comment_error':        comment_error,
-        'comment_preview':      comment_preview
+        'comment_preview':      comment_preview,
+        'reply':                True
     }
-    return render_template_with_quote("comment_page", template_data), 'text/html'
+    return Response(render_template_with_quote("comment_page", template_data),
+            mimetype='text/html')
 
 
-def comment_tree(request, root):
+def comment_tree(request, id):
     # to be done
-    return 'coming soon', 'text/html'
-    pass
+    # return Response('coming soon', mimetype='text/html')
+
+    mixergy = (Session.
+                 query(Comment, Page, UrlMap).
+                 join(Page, UrlMap).
+                 filter(Comment.comment_id==id).
+                 first())
+
+    if not mixergy:
+        # TODO: "The requested comment was not found, here are a few latest coments"
+        #       "Here are latest posts, here are most commented posts..."
+        raise NotFound()
+
+    comment, page, urlmap = mixergy
+
+    comments = thread(page.comments.all())
+
+    template_data = {
+        'page':                 page,
+        'page_path':            urlmap.request_path,
+        'comment_submit_path':  '/c/%d?reply' % id,
+        'comment_parent_id':    id,
+        'comment_error':        None,
+        'comment_preview':      None,
+        'form':                 dict(),
+        'comment':              comment,
+        'comments':             comments,
+        'reply':                False
+    }
+    return Response(render_template_with_quote("comment_page", template_data),
+             mimetype='text/html')
 

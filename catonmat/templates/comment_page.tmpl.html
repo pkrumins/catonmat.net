@@ -3,6 +3,7 @@
 <%def name="title()">${comment.name} comment on ${page.title}</%def>
 
 <%namespace import="individual_comment" file="comment.tmpl.html"/>
+<%namespace import="display_threaded_comments" file="comment.tmpl.html"/>
 <%namespace import="comment_form" file="comment_form.tmpl.html"/>
 
 <div class="page">
@@ -13,7 +14,7 @@
 
   <div class="content">
     % if reply:
-      <p>You are replying to a comment by <b>${comment.name}</b>.</p>
+      <p>You're replying to a comment by <b>${comment.name}</b>.</p>
     % else:
       <p>You're viewing a comment by <b>${comment.name}</b> and its responses.</p>
     % endif
@@ -21,10 +22,16 @@
 
   <div class="comments">
     <div class="list">
+    % if reply:
       ${individual_comment(comment, page_path, reply)}
+    % else:
+      ${individual_comment(comment, page_path, reply)}
+      <h3>Comment Responses</h3>
+      ${display_threaded_comments(comments[comment_parent_id], comments)}
+    % endif
     </div>
-    ${comment_form(page.page_id, comment_submit_path,
-                   comment_parent_id, comment_error, comment_preview, form)}
+    ${comment_form(page.page_id, comment_submit_path, form,
+                   comment_parent_id, comment_error, comment_preview)}
   </div>
 </div>
 
