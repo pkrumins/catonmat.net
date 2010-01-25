@@ -64,6 +64,8 @@ def comment(request, id):
 
 from catonmat.comments import validate_comment, new_comment
 from catonmat.views.utils import get_template
+from catonmat.database import Session
+from werkzeug import redirect
 
 def comment_reply(request, id):
     comment_error = None
@@ -71,17 +73,27 @@ def comment_reply(request, id):
     form = dict()
 
     if request.method == "POST":
+        print request.form
         if request.form.get('preview') is not None:
             form = request.form
             try:
                 validate_comment(request)
-            except CommentError, e:
-                comment_error = e.message
-            finally:
                 comment = new_comment(request)
                 comment_preview = (get_template('comment').
                                      get_def('individual_comment').
-                                     render(comment=comment))
+                                     render(comment=comment, preview=True))
+            except CommentError, e:
+                comment_error = e.message
+        elif request.form.get('submit') is not None:
+            try:
+                validate_comment(request)
+                comment = new_comment(request)
+                Session.add(comment)
+                Session.commit()
+                # TODO: redirect
+                
+            except CommentError, e:
+                comment_error = e.message
 
     mixergy = (Session.
                  query(Comment, Page, UrlMap).
@@ -101,6 +113,7 @@ def comment_reply(request, id):
         'page':                 page,
         'page_path':            urlmap.request_path,
         'comment_submit_path':  '/c/%d?reply' % id,
+        'comment_parent_id':    id,
         'reply':                True,
         'form':                 form,
         'comment_error':        comment_error,

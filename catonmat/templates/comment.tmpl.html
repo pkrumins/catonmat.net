@@ -1,4 +1,4 @@
-<%def name="individual_comment(comment, indent=0, reply=False)">
+<%def name="individual_comment(comment, indent=0, preview=False)">
 
 <div class="icomment" style="margin-left: ${20*indent}px">
   <div class="gravatar">
@@ -20,7 +20,9 @@
       <span class="twitter"><a href="http://twitter.com/${comment.twitter}">${comment.twitter}</a></span>
       % endif
 
-      <span class="permalink"><a href="/c/${comment.comment_id}">Permalink</a></span>
+      % if not preview:
+        <span class="permalink"><a href="/c/${comment.comment_id}">Permalink</a></span>
+      % endif
     </div>
     <div>
       <span class="time">${comment.timestamp}</span>
@@ -31,7 +33,7 @@
     ${comment.parsed_comment}
   </div>
 
-  % if not reply:
+  % if not preview:
     <div class="comment_reply">
       <a href="/c/${comment.comment_id}?reply=true" class="reply" id="reply_a_${comment.comment_id}">Reply to this comment</a>
     </div>

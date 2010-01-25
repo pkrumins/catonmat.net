@@ -15,7 +15,7 @@
     % if reply:
       <p>You are replying to a comment by <b>${comment.name}</b>.</p>
     % else:
-      <p>You're viewing the comment thread by <b>${comment.name}</b>.</p>
+      <p>You're viewing a comment by <b>${comment.name}</b> and its responses.</p>
     % endif
   </div>
 
@@ -23,9 +23,8 @@
     <div class="list">
       ${individual_comment(comment, page_path, reply)}
     </div>
-    % if reply:
-      ${comment_form(page, page_path, comment_error, form)}
-    % endif
+    ${comment_form(page.page_id, comment_submit_path,
+                   comment_parent_id, comment_error, comment_preview, form)}
   </div>
 </div>
 

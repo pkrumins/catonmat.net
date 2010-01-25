@@ -1,4 +1,4 @@
-<%def name="comment_form(page, page_path, comment_error, form)">
+<%def name="comment_form(page_id, submit_path, parent_id, comment_error, comment_preview, form)">
 
 <div id="comment_form">
   % if comment_error:
@@ -13,9 +13,9 @@
     <div id="comment_preview" class="hidden"></div>
   % endif
 
-  <form action="${comment_submit_path}" method="POST">
-    <input type="hidden" name="page_id" id="page_id" value="${page.page_id}">
-    <input type="hidden" name="parent_id" id="parent_id">
+  <form action="${submit_path}" method="POST">
+    <input type="hidden" name="page_id" id="page_id" value="${page_id}">
+    <input type="hidden" name="parent_id" id="parent_id" value="${parent_id}">
 
     <p>
       <label for="name" class="name">Name:</label>
