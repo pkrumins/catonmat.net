@@ -3,6 +3,7 @@
 <%def name="title()">${comment.name} comment on ${page.title}</%def>
 
 <%namespace import="individual_comment" file="comment.tmpl.html"/>
+<%namespace import="comment_form" file="comment_form.tmpl.html"/>
 
 <div class="page">
   <div class="header">
@@ -11,13 +12,20 @@
   </div>
 
   <div class="content">
-    <p>You're viewing the comment thread by <b>${comment.name}</b>.</p>
+    % if reply:
+      <p>You are replying to a comment by <b>${comment.name}</b>.</p>
+    % else:
+      <p>You're viewing the comment thread by <b>${comment.name}</b>.</p>
+    % endif
   </div>
 
   <div class="comments">
     <div class="list">
-      ${individual_comment(comment, page_path)}
+      ${individual_comment(comment, page_path, reply)}
     </div>
+    % if reply:
+      ${comment_form(page, page_path, comment_error, form)}
+    % endif
   </div>
 </div>
 

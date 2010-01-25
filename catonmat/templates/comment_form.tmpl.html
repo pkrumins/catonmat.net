@@ -2,13 +2,18 @@
 
 <div id="comment_form">
   % if comment_error:
-  <div id="comment_error"><span>${comment_error}</span></div>
+    <div id="comment_error"><span>${comment_error}</span></div>
   % else:
-  <div id="comment_error" class="hidden"></div>
+    <div id="comment_error" class="hidden"></div>
   % endif
-  <div id="comment_preview" class="hidden"></div>
 
-  <form action="${page_path}" method="POST">
+  % if comment_preview:
+    <div id="comment_preview">${comment_preview}</div>
+  % else:
+    <div id="comment_preview" class="hidden"></div>
+  % endif
+
+  <form action="${comment_submit_path}" method="POST">
     <input type="hidden" name="page_id" id="page_id" value="${page.page_id}">
     <input type="hidden" name="parent_id" id="parent_id">
 

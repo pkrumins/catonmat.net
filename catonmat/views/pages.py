@@ -12,11 +12,12 @@
 from werkzeug.exceptions    import NotFound
 
 from catonmat.views.utils   import render_template_with_quote
-from catonmat.quotes        import get_random_quote
 from catonmat.comments      import (
-    add_comment, get_comment, thread, linear,CommentError
+    add_comment, get_comment, thread, linear, CommentError
 )
 from catonmat.urls          import get_page_from_request_path
+from catonmat.database      import Session
+from catonmat.models        import Comment, Page, UrlMap
 
 # ----------------------------------------------------------------------------
 
@@ -41,33 +42,75 @@ def main(request, map):
         comments = thread(map.page.comments.all())
 
     template_data = {
-        'page':             map.page,
-        'page_path':        map.request_path,
-        'display_comments': True,
-        'comment_error':    comment_error,
-        'form':             form,
-        'comments':         comments,
-        'comment_mode':     comment_mode
+        'page':                 map.page,
+        'page_path':            map.request_path,
+        'comment_submit_path':  map.request_path,
+        'display_comments':     True,
+        'comment_error':        comment_error,
+        'form':                 form,
+        'comments':             comments,
+        'comment_mode':         comment_mode,
+        'reply':                False
     }
     return render_template_with_quote("page", template_data)
 
 
 def comment(request, id):
-    # Look-up the path in the UrlMap table to find the matching page
-    #path = '/' + path
-    #map = get_page_from_request_path(path)
-    #if not map:
-    #    raise NotFound() # TODO: this exception gets caught by `application`,
-    #                     # which results in getpfrp being called again
+    if request.args.get('reply') is not None:
+        return comment_reply(request, id)
+    else:
+        return comment_tree(request, id)
 
-    comment = get_comment(id)
-    if not comment:
+
+from catonmat.comments import validate_comment, new_comment
+from catonmat.views.utils import get_template
+
+def comment_reply(request, id):
+    comment_error = None
+    comment_preview = None
+    form = dict()
+
+    if request.method == "POST":
+        if request.form.get('preview') is not None:
+            form = request.form
+            try:
+                validate_comment(request)
+            except CommentError, e:
+                comment_error = e.message
+            finally:
+                comment = new_comment(request)
+                comment_preview = (get_template('comment').
+                                     get_def('individual_comment').
+                                     render(comment=comment))
+
+    mixergy = (Session.
+                 query(Comment, Page, UrlMap).
+                 join(Page, UrlMap).
+                 filter(Comment.comment_id==id).
+                 first())
+
+    if not mixergy:
+        # TODO: "The requested comment was not found, here are a few latest coments"
+        #       "Here are latest posts, here are most commented posts..."
         raise NotFound()
 
+    comment, page, urlmap = mixergy
+
     template_data = {
-        'comment':   comment,
-        'page':      map.page,
-        'page_path': path
+        'comment':              comment,
+        'page':                 page,
+        'page_path':            urlmap.request_path,
+        'comment_submit_path':  '/c/%d?reply' % id,
+        'reply':                True,
+        'form':                 form,
+        'comment_error':        comment_error,
+        'comment_preview':      comment_preview
     }
-    return render_template_with_quote("comment_page", template_data)
+    return render_template_with_quote("comment_page", template_data), 'text/html'
+
+
+def comment_tree(request, root):
+    # to be done
+    return 'coming soon', 'text/html'
+    pass
 

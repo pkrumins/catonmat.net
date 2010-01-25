@@ -415,6 +415,7 @@ a img { border: none; }
 
 .icomment .userinfo .permalink {
   float: right;
+  margin-right: 6px;
 }
 
 .icomment .userinfo .time {

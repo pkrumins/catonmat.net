@@ -29,6 +29,7 @@ modules (list is not complete):
 
 2010.01.24:
     * factored code for ajax comments
+    * worked on comment preview and submit to work without javascript enabled
 2010.01.21-2010.01.23:
     * didn't do much, added linear comment view
 2010.01.20:

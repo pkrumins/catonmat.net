@@ -3,8 +3,7 @@
 # Peteris Krumins (peter@catonmat.net)
 # http://www.catonmat.net  --  good coders code, great reuse
 #
-# The new catonmat.net website. See this post for more info:
-# http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
+# The new catonmat.net website.
 #
 # Code is licensed under GNU GPL license.
 #
@@ -14,8 +13,8 @@ from sqlalchemy import (
     DateTime, Integer, Text, Boolean, String,
     create_engine
 )
-from sqlalchemy.orm import scoped_session, create_session
-from sqlalchemy.orm import mapper as sqla_mapper
+from sqlalchemy.orm  import scoped_session, create_session
+from sqlalchemy.orm  import mapper as sqla_mapper
 from catonmat.config import config
 
 Metadata = MetaData()
@@ -42,7 +41,7 @@ pages_table = Table('pages', Metadata,
     Column('created',       DateTime),
     Column('last_update',   DateTime),
     Column('content',       Text),
-    Column('excerpt',       Text),
+    Column('excerpt',       Text),  # goes in <meta description="...">
     mysql_charset='utf8'
 )
 
