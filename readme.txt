@@ -27,6 +27,11 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.26:
+    * refactored comment code
+2010.01.25:
+    * comments now work without ajax
+    * comment permalinks now work
 2010.01.24:
     * factored code for ajax comments
     * worked on comment preview and submit to work without javascript enabled

@@ -3,8 +3,7 @@
 # Peteris Krumins (peter@catonmat.net)
 # http://www.catonmat.net  --  good coders code, great reuse
 #
-# The new catonmat.net website. See this post for more info:
-# http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
+# The new catonmat.net website.
 #
 # Code is licensed under GNU GPL license.
 #
@@ -12,7 +11,7 @@
 from werkzeug.exceptions    import NotFound
 from werkzeug               import Response
 
-from catonmat.views.utils   import render_template_with_quote
+from catonmat.views.utils   import display_template_with_quote
 from catonmat.comments      import (
     add_comment, get_comment, thread, linear, CommentError
 )
@@ -22,39 +21,103 @@ from catonmat.models        import Comment, Page, UrlMap
 
 # ----------------------------------------------------------------------------
 
+from catonmat.comments import validate_comment, new_comment
+from catonmat.views.utils import get_template
+from catonmat.database import Session
+from werkzeug import redirect
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 def main(request, map):
-    comment_error = ""
-    form = request.form
-
     if request.method == "POST":
-        # TODO: if request.form.get('ajax')
-        try:
-            add_comment(request)
-            form = dict()
-            # TODO: after adding comment, redirect to this comment's page
-        except CommentError, e:
-            comment_error = e.message
+        return handle_page_post(request, map)
+    return handle_page_get(request, map)
 
-    if request.args.get('linear') is not None:
+
+def handle_page_post(request, map):
+    # Currently POST can only originate from a comment being submitted.
+    if request.form.get('submit'):
+        return handle_comment_submit(request, map)
+
+    if request.form.get('preview'):
+        return handle_comment_preview(request, map)
+
+    raise NotFound()
+
+
+def handle_comment_submit(request, map):
+    try:
+        validate_comment(request)
+    except CommentError, e:
+        return page_with_comment_error(request, map, e.message)
+
+    comment = new_comment(request)
+    Session.add(comment)
+    Session.commit()
+
+    return redirect('/c/%d' % comment.comment_id)
+
+
+def handle_comment_preview(request, map):
+    try:
+        validate_comment(request)
+    except CommentError, e:
+        return page_with_comment_error(request, map, e.message)
+
+    comment = new_comment(request)
+    comment_preview = (get_template('comment').
+                         get_def('individual_comment').
+                         render(comment=comment, preview=True))
+
+    template_data = default_page_template_data(request, map)
+    new_data = {
+        'comment_preview': comment_preview
+    }
+    template_data.update(new_data)
+
+    return display_page(template_data)
+
+
+def page_with_comment_error(request, map, error):
+    template_data = default_page_template_data(request, map)
+    new_data = {
+        'comment_error': error,
+    }
+    template_data.update(new_data)
+    
+    return display_page(template_data)
+
+
+def default_page_template_data(request, map):
+    if request.args.get('linear'):
         comment_mode = 'linear'
         comments = linear(map.page.comments.all())
     else:
         comment_mode = 'threaded'
         comments = thread(map.page.comments.all())
 
-    template_data = {
+    return {
         'page':                 map.page,
         'page_path':            map.request_path,
         'comment_submit_path':  map.request_path,
         'display_comments':     True,
-        'comment_error':        comment_error,
-        'form':                 form,
+        'form':                 request.form,
         'comments':             comments,
-        'comment_mode':         comment_mode,
+        'comment_mode':         comment_mode
     }
-    return Response(render_template_with_quote("page", template_data),
-             mimetype='text/html')
 
+
+def handle_page_get(request, map):
+    return display_page(default_page_template_data(request, map))
+
+
+def display_page(template_data):
+    return display_template_with_quote("page", template_data)
+
+
+# ------------------
+# /c/<id>
+#
 
 def comment(request, id):
     if request.args.get('reply') is not None:
@@ -63,18 +126,12 @@ def comment(request, id):
         return comment_tree(request, id)
 
 
-from catonmat.comments import validate_comment, new_comment
-from catonmat.views.utils import get_template
-from catonmat.database import Session
-from werkzeug import redirect
-
 def comment_reply(request, id):
     comment_error = None
     comment_preview = None
-    form = dict()
+    form = request.form
 
     if request.method == "POST":
-        print request.form
         if request.form.get('submit') is not None:
             try:
                 validate_comment(request)
@@ -85,7 +142,6 @@ def comment_reply(request, id):
             except CommentError, e:
                 comment_error = e.message
         elif request.form.get('preview') is not None:
-            form = request.form
             try:
                 validate_comment(request)
                 comment = new_comment(request)
@@ -119,8 +175,7 @@ def comment_reply(request, id):
         'comment_preview':      comment_preview,
         'reply':                True
     }
-    return Response(render_template_with_quote("comment_page", template_data),
-            mimetype='text/html')
+    return display_template_with_quote("comment_page", template_data)
 
 
 def comment_tree(request, id):
@@ -154,6 +209,5 @@ def comment_tree(request, id):
         'comments':             comments,
         'reply':                False
     }
-    return Response(render_template_with_quote("comment_page", template_data),
-             mimetype='text/html')
+    return display_template_with_quote("comment_page", template_data)
 

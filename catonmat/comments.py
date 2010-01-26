@@ -8,7 +8,7 @@
 # Code is licensed under GNU GPL license.
 #
 
-from werkzeug               import redirect
+from werkzeug               import redirect, Response
 from werkzeug.exceptions    import BadRequest
 
 from catonmat.models        import Page, Comment, UrlMap
@@ -92,7 +92,7 @@ def validate_comment(request):
 
 
 def json_response(**data):
-    return json.dumps(data), 'application/json'
+    return json.dumps(data)
 
 
 # TODO: @json_response
@@ -101,12 +101,16 @@ def preview_comment(request):
         try:
             validate_comment(request)
         except CommentError, e:
-            return json_response(status='error', message=e.message)
+            return Response(json_response(status='error', message=e.message)
+                 ,   mimetype='application/json')
 
-        return json_response(status='success',
-                comment=get_template('comment').
-                        get_def('individual_comment').
-                        render(comment=new_comment(request)))
+        return Response(
+                json_response(status='success',
+                    comment=get_template('comment').
+                            get_def('individual_comment').
+                            render(comment=new_comment(request),
+                    preview=True))
+        , mimetype='application/json')
 
 
 def add_comment(request):
@@ -115,16 +119,19 @@ def add_comment(request):
         try:
             validate_comment(request)
         except CommentError, e:
-            return json_response(status='error', message=e.message)
+            return Response ( json_response(status='error', message=e.message)
+                    , mimetype='application/json')
 
         comment = new_comment(request)
         Session.add(comment)
         Session.commit()
 
-        return json_response(status='success',
-                comment=get_template('comment').
-                        get_def('individual_comment').
-                        render(comment=comment))
+        return Response(
+                json_response(status='success',
+                    comment=get_template('comment').
+                            get_def('individual_comment').
+                            render(comment=comment))
+        , mimetype='application/json')
 
 
 def get_comment(id):

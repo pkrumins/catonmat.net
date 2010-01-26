@@ -39,8 +39,9 @@
     </div>
 
     <div class="add">
-      <h3>Leave a comment</h3>
-      ${comment_form(page.page_id, comment_submit_path, form)}
+      <h3>Leave a new comment</h3>
+      ${comment_form(page.page_id, comment_submit_path, form,
+                     comment_error=comment_error, comment_preview=comment_preview)}
       <script>
         catonmat.init_why_email();
         catonmat.init_preview_comment();
