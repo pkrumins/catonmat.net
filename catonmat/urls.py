@@ -37,9 +37,9 @@ url_map = Map([
     Rule('/_services/comment_add')     > 'catonmat.comments.add_comment',
 
     # Short URL for comments
-    Rule('/c/<int:id>')                > 'pages.comment',
+    Rule('/c/<int:comment_id>')        > 'c.main',
 
     # Short URL for pages
-    Rule('/p/<int:id>')                > 'pages.shorturl'
+    Rule('/p/<int:page_id>')           > 'p.main'
 ])
 
