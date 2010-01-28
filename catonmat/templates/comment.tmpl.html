@@ -17,7 +17,7 @@
   <div class="userinfo">
     <div>
       % if comment.website:
-      <span class="name"><a href="${comment.website | h}" title="${comment.website | h}">${comment.name | h}</a></span>
+      <span class="name"><a href="${comment.website | u,h}" title="${comment.website | h}">${comment.name | h}</a></span>
       % else:
       <span class="name">${comment.name | h}</span>
       %endif

@@ -41,6 +41,8 @@ def handle_comment_submit(request, map):
     except CommentError, e:
         return page_with_comment_error(request, map, e.message)
 
+    # TODO: merge this, c.py and comments.py together,
+    #       otherwise same code is spread over 3 files
     comment = new_comment(request)
     save_comment(comment)
 
