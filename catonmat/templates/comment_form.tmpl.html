@@ -15,12 +15,12 @@
 
   <form action="${submit_path}" method="POST">
     <input type="hidden" name="page_id" id="page_id" value="${page_id}">
-    <input type="hidden" name="parent_id" id="parent_id" value="${parent_id}">
+    <input type="hidden" name="parent_id" id="parent_id" value="${parent_id | h}">
 
     <p>
       <label for="name" class="name">Name:</label>
       % if form.get('name'):
-      <input tabindex="1" type="text" name="name" id="name" maxlength="64" size="30" value="${form['name']}">
+      <input tabindex="1" type="text" name="name" id="name" maxlength="64" size="30" value="${form['name'] | h}">
       % else:
       <input tabindex="1" type="text" name="name" id="name" maxlength="64" size="30">
       % endif
@@ -30,7 +30,7 @@
     <p>
       <label for="email" class="email">E-mail:</label>
       % if form.get('email'):
-      <input tabindex="2" type="text" name="email" id="email" maxlength="128" size="30" value="${form['email']}">
+      <input tabindex="2" type="text" name="email" id="email" maxlength="128" size="30" value="${form['email'] | h}">
       % else:
       <input tabindex="2" type="text" name="email" id="email" maxlength="128" size="30">
       % endif
@@ -49,7 +49,7 @@
     <p>
       <label for="twitter" class="twitter">Twitter:</label>
       % if form.get('twitter'):
-      <input tabindex="3" type="text" name="twitter" id="twitter" maxlength="128" size="30" value="${form['twitter']}">
+      <input tabindex="3" type="text" name="twitter" id="twitter" maxlength="128" size="30" value="${form['twitter'] | h}">
       % else:
       <input tabindex="3" type="text" name="twitter" id="twitter" maxlength="128" size="30">
       % endif
@@ -60,7 +60,7 @@
     <p>
       <label for="website" class="website">Website:</label>
       % if form.get('website'):
-      <input tabindex="4" type="text" name="website" id="website" maxlength="256" size="50" value="${form['website']}">
+      <input tabindex="4" type="text" name="website" id="website" maxlength="256" size="50" value="${form['website'] | h}">
       % else:
       <input tabindex="4" type="text" name="website" id="website" maxlength="256" size="50">
       % endif
@@ -71,7 +71,7 @@
       <label for="comment" class="comment">Comment:</label>
       <div class="a">
         % if form.get('comment'):
-        <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment">${form['comment']}</textarea>
+        <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment">${form['comment'] | h}</textarea>
         % else:
         <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment"></textarea>
         % endif

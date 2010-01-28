@@ -104,7 +104,7 @@ def handle_comment_submit(request, comment_id):
     Session.add(comment)
     Session.commit()
 
-    return redirect('/c/%d' % comment_id)
+    return redirect('/c/%d' % comment.comment_id)
 
 
 def handle_comment_preview(request, comment_id):
