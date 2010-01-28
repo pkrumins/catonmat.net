@@ -8,20 +8,24 @@
 # Code is licensed under GNU GPL license.
 #
 
-from sqlalchemy import (
-    MetaData, Table, Column, ForeignKey,
-    DateTime, Integer, Text, Boolean, String,
-    create_engine
-)
 from sqlalchemy.orm  import scoped_session, create_session
 from sqlalchemy.orm  import mapper as sqla_mapper
+from sqlalchemy      import (
+    MetaData, Table,    Column, ForeignKey, DateTime, Integer,
+    Text,     Boolean,  String,
+    create_engine
+)
+
 from catonmat.config import config
 
+# ----------------------------------------------------------------------------
+
 Metadata = MetaData()
-Engine = create_engine( config['database_uri'],
-                        convert_unicode=True,
-                        echo=config['database_echo'],
-                        pool_recycle=3600
+Engine = create_engine(
+    config['database_uri'],
+    convert_unicode=True,
+    echo=config['database_echo'],
+    pool_recycle=3600
 )
 Session = scoped_session(
     lambda: create_session(Engine, autoflush=True, autocommit=False)

@@ -3,21 +3,20 @@
 # Peteris Krumins (peter@catonmat.net)
 # http://www.catonmat.net  --  good coders code, great reuse
 #
-# The new catonmat.net website. See this post for more info:
-# http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
+# The new catonmat.net website.
 #
 # Code is licensed under GNU GPL license.
 #
 
-from datetime               import datetime
 from sqlalchemy.orm         import dynamic_loader, relation
+
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table, fourofour_table,
-    blogpages_table, comments_table
+    blogpages_table, comments_table,  mapper
 )
-from catonmat.database      import mapper
 
 from urlparse               import urlparse
+from datetime               import datetime
 
 import hashlib
 
@@ -42,6 +41,7 @@ class Page(object):
 
     def __repr__(self):
         return '<Page: %s>' % self.title
+
 
 class Comment(object):
     def __init__(self, page_id, name, comment, parent_id=None, email=None, twitter=None, website=None, timestamp=None):
@@ -73,6 +73,7 @@ class Comment(object):
     def __repr__(self):
         return '<Comment(%d) on Page(%s)>' % (self.comment_id, self.page.title)
 
+
 class Revision(object):
     def __init__(self, page, change_note, timestamp=None):
         self.page = page
@@ -89,6 +90,7 @@ class Revision(object):
     def __repr__(self):
         return '<Revision of Page(%s)>' % self.page.title
 
+
 class UrlMap(object):
     def __init__(self, request_path, page, handler=None):
         self.request_path = request_path
@@ -98,6 +100,7 @@ class UrlMap(object):
     def __repr__(self):
         return '<UrlMap from %s to Page(%s)>' % (self.request_path, self.page.title)
 
+
 class FouroFour(object):
     def __init__(self, request_path, date=None):
         self.request_path = request_path
@@ -106,6 +109,7 @@ class FouroFour(object):
 
     def __repr__(self):
         return '<404 of %s>' % (self.request_path)
+
 
 class BlogPages(object):
     def __init__(self, page, publish_date=None, visible=True):
@@ -118,6 +122,7 @@ class BlogPages(object):
 
     def __repr__(self):
         return '<Blog Page of Page(%s)>' % page.title
+
 
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(Revision,
