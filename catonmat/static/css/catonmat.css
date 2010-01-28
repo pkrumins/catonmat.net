@@ -388,9 +388,17 @@ a img { border: none; }
 ** --------------------------------------------------------
 */
 
+.preview_notice {
+  background: url('/static/img/preview.gif') no-repeat 0 1px;
+  padding-left: 22px;
+  border-bottom: 2px #BB7920 solid;
+  margin-bottom: 1em;
+}
+
 .icomment {
   background-color: #F4F5F6;
   margin-bottom: 1em;
+  overflow: hidden;
 }
 
 .icomment .gravatar {
@@ -441,7 +449,7 @@ a img { border: none; }
 }
 
 .icomment .comment_reply {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
 .icomment .comment_reply a img {
@@ -615,5 +623,9 @@ a img { border: none; }
 .hr {
   border-bottom: 1px solid #CCCCCC;
   height: 1px;
+}
+
+span.notice {
+  font-size: 1em;
 }
 

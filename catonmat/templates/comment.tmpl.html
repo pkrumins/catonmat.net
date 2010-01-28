@@ -1,5 +1,11 @@
 <%def name="individual_comment(comment, indent=0, preview=False, display_reply_link=True)">
 
+% if preview:
+  <div class="preview_notice">
+    <p>This is the comment preview! Don't forget to click "<strong>Submit comment</strong>" below to actually post it!</p>
+  </div>
+% endif
+
 <div class="icomment" style="margin-left: ${20*indent}px">
   <div class="gravatar">
     % if comment.gravatar_md5:

@@ -23,9 +23,9 @@
   <div class="comments">
     <div id="comment_list">
     % if reply:
-      ${individual_comment(comment, page_path, True)}
+      ${individual_comment(comment, page_path, display_reply_link=False)}
     % else:
-      ${individual_comment(comment, page_path, False, False)}
+      ${individual_comment(comment, page_path)}
       % if comment_parent_id in comments:
         <h3>Comment Responses</h3>
         ${display_threaded_comments(comments[comment_parent_id], comments)}
