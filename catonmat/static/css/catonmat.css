@@ -520,6 +520,10 @@ a img { border: none; }
   margin: 9px 10px 0 10px;
 }
 
+#sidebar .aboutsite img.eml {
+  margin-bottom: 5px;
+}
+
 #sidebar .aboutsite p.contact {
   color: #4F79A1;
 }
