@@ -21,26 +21,28 @@
   </div>
 
   <div class="comments">
-    <div class="list">
+    <div id="comment_list">
     % if reply:
       ${individual_comment(comment, page_path, True)}
     % else:
-      ${individual_comment(comment, page_path, False)}
+      ${individual_comment(comment, page_path, False, False)}
       % if comment_parent_id in comments:
         <h3>Comment Responses</h3>
         ${display_threaded_comments(comments[comment_parent_id], comments)}
       % endif
     % endif
     </div>
-    <h3>Reply To This Comment</h3>
-    ${comment_form(page.page_id, comment_submit_path, form,
-                   comment_parent_id, comment_error, comment_preview)}
-    <script>
-      catonmat.init_comments();
-      catonmat.init_why_email();
-      catonmat.init_preview_comment();
-      catonmat.init_submit_comment();
-    </script>
+    <div class="add">
+      <h3>Reply To This Comment</h3>
+      ${comment_form(page.page_id, comment_submit_path, form,
+                     comment_parent_id, comment_error, comment_preview)}
+      <script>
+        catonmat.init_comments('comments', ${comment_parent_id});
+        catonmat.init_why_email();
+        catonmat.init_preview_comment();
+        catonmat.init_submit_comment(${comment_parent_id});
+      </script>
+    </div>
   </div>
 </div>
 

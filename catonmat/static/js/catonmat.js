@@ -39,17 +39,17 @@ catonmat = {
   },
 
   /* Restores the reply form to the end of the article (cancels replying). */
-  restore_comment_form: function() {
+  restore_comment_form: function(default_comment_id) {
     $('.comment_reply a.cancel').hide();
     var p = $('#cancel_comment');
     if (!p.is(':hidden')) {
-      catonmat.show_comment_form(p, '');
+      catonmat.show_comment_form(p, default_comment_id);
       p.hide();
     }
   },
 
   /* Attaches reply comment handler to the given <a> */
-  attach_reply_comment_handler: function(a) {
+  attach_reply_comment_handler: function(a, loc, default_comment_id) {
     a.click(
       function(event) {
         var parent_id = this.id.split('_')[2];
@@ -63,14 +63,23 @@ catonmat = {
         ** cancel replying, if the user wants just to add a new comment. */
         var a = $('<a href="#">Click here</a>').click(
                   function(event) {
-                    catonmat.restore_comment_form();
+                    catonmat.restore_comment_form(default_comment_id);
                     event.preventDefault();
                   }
                 );
+
+        var p_text;
+        if (loc == 'page') {
+          p_text = ' to leave a new comment instead of replying to someone.';
+        }
+        else {
+          p_text = ' to reply to the original comment instead of replying to someone in the comment thread.';
+        }
+
         $('<p>').
           attr('id', 'cancel_comment').
           append(a).
-          append(' to leave a new comment instead of replying to someone.').
+          append(p_text).
           insertAfter('div.add h3');
 
         /* Add the 'Cancel' button, which when clicked cancels the comment form,
@@ -78,7 +87,7 @@ catonmat = {
         $('<a href="#" class="cancel">Cancel</a>').
           insertAfter(this).click(
             function(event) {
-              catonmat.restore_comment_form();
+              catonmat.restore_comment_form(default_comment_id);
               event.preventDefault();
           }
         );
@@ -88,10 +97,10 @@ catonmat = {
   },
 
   /* Attach event handler to 'Reply to this comment', etc. */
-  init_comments: function() {
+  init_comments: function(loc, default_comment_id) {
     $('.comment_reply a.reply').each(
       function(_) {
-        catonmat.attach_reply_comment_handler($(this));
+        catonmat.attach_reply_comment_handler($(this), loc, default_comment_id);
       }
     );
   },
@@ -173,7 +182,7 @@ catonmat = {
     );
   },
 
-  display_new_comment: function(comment) {
+  display_new_comment: function(comment, default_comment_id) {
     var find_parent_and_indent = function() {
       var parent, indent;
      
@@ -221,13 +230,13 @@ catonmat = {
     $('#comment_preview').hide();
 
     /* Restore the comment form to the bottom of the page */
-    catonmat.restore_comment_form();
+    catonmat.restore_comment_form(default_comment_id);
 
     /* Clear the user's comment from comment <textarea> */
     $('#comment').val('');
   },
 
-  init_submit_comment: function() {
+  init_submit_comment: function(default_comment_id) {
     $('#submit').click(
       function(event) {
         catonmat.ajax_comment_and_proceed(
@@ -237,7 +246,7 @@ catonmat = {
               catonmat.comment_error(data.message);
             }
             else {
-              catonmat.display_new_comment(data.comment);
+              catonmat.display_new_comment(data.comment, default_comment_id);
             }
           }
         );

@@ -31,7 +31,7 @@
       % if comments['root']:
         ${display_threaded_comments(comments['root'], comments)}
         <script>
-          catonmat.init_comments();
+          catonmat.init_comments('page', '');
         </script>
       % else:
         <p class="nocomm">There are currently no comments! Be <b>the first</b> to comment!</p>
@@ -45,7 +45,7 @@
       <script>
         catonmat.init_why_email();
         catonmat.init_preview_comment();
-        catonmat.init_submit_comment();
+        catonmat.init_submit_comment('');
       </script>
     </div>
   </div>

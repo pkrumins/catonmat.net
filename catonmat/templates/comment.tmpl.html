@@ -1,4 +1,4 @@
-<%def name="individual_comment(comment, indent=0, preview=False)">
+<%def name="individual_comment(comment, indent=0, preview=False, display_reply_link=True)">
 
 <div class="icomment" style="margin-left: ${20*indent}px">
   <div class="gravatar">
@@ -33,7 +33,7 @@
     ${comment.parsed_comment}
   </div>
 
-  % if not preview:
+  % if not preview and display_reply_link:
     <div class="comment_reply">
       <a href="/c/${comment.comment_id}?reply=true" class="reply" id="reply_a_${comment.comment_id}">Reply to this comment</a>
     </div>
