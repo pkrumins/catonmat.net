@@ -18,7 +18,9 @@ from catonmat.models        import Comment, Page, UrlMap
 from catonmat.database      import Session
 from catonmat.views.utils   import get_template, display_template_with_quote
 
-from catonmat.comments      import validate_comment, new_comment, thread, CommentError
+from catonmat.comments      import (
+    validate_comment, new_comment, save_comment, thread, CommentError
+)
 
 # ----------------------------------------------------------------------------
 
@@ -34,16 +36,13 @@ def handle_comment_get(request, comment_id):
     return comment_tree(request, comment_id)
 
 
-def get_mixergy(comment_id):
-    return (Session.
-             query(Comment, Page, UrlMap).
-             join(Page, UrlMap).
-             filter(Comment.comment_id==comment_id).
-             first())
-
-
 def default_comment_template_data(request, comment_id):
-    mixergy = get_mixergy(comment_id)
+    mixergy = (Session.
+                 query(Comment, Page, UrlMap).
+                 join(Page, UrlMap).
+                 filter(Comment.comment_id==comment_id).
+                 first())
+
     if not mixergy:
         # TODO: "The requested comment was not found, here are a few latest coments"
         #       "Here are latest posts, here are most commented posts..."
@@ -101,8 +100,7 @@ def handle_comment_submit(request, comment_id):
         return comment_error(request, comment_id, e.message)
 
     comment = new_comment(request)
-    Session.add(comment)
-    Session.commit()
+    save_comment(comment)
 
     return redirect('/c/%d' % comment.comment_id)
 

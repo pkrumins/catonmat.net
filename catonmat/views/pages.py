@@ -13,9 +13,8 @@ from werkzeug               import redirect
 
 from catonmat.views.utils   import get_template, display_template_with_quote
 from catonmat.comments      import (
-    validate_comment, new_comment, thread, linear, CommentError
+    validate_comment, new_comment, save_comment, thread, linear, CommentError
 )
-from catonmat.database      import Session
 
 # ----------------------------------------------------------------------------
 
@@ -43,8 +42,7 @@ def handle_comment_submit(request, map):
         return page_with_comment_error(request, map, e.message)
 
     comment = new_comment(request)
-    Session.add(comment)
-    Session.commit()
+    save_comment(comment)
 
     return redirect('/c/%d' % comment.comment_id)
 

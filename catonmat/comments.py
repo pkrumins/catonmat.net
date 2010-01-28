@@ -11,7 +11,7 @@
 from werkzeug               import redirect, Response
 from werkzeug.exceptions    import BadRequest
 
-from catonmat.models        import Page, Comment, UrlMap
+from catonmat.models        import Page, Comment
 from catonmat.database      import Session
 from catonmat.views.utils   import get_template
 
@@ -114,7 +114,6 @@ def preview_comment(request):
 
 
 def add_comment(request):
-    # TODO: make it work with web 1.0
     if request.method == "POST":
         try:
             validate_comment(request)
@@ -123,8 +122,7 @@ def add_comment(request):
                     , mimetype='application/json')
 
         comment = new_comment(request)
-        Session.add(comment)
-        Session.commit()
+        save_comment(comment)
 
         return Response(
                 json_response(status='success',
@@ -148,6 +146,11 @@ def new_comment(request):
         twitter   = request.form['twitter'].strip(),
         website   = request.form['website'].strip()
     )
+
+
+def save_comment(comment):
+    Session.add(comment)
+    Session.commit()
 
 
 def thread(comments):
