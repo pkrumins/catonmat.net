@@ -12,7 +12,8 @@ from sqlalchemy.orm         import dynamic_loader, relation
 
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table, fourofour_table,
-    blogpages_table, comments_table,  mapper
+    blogpages_table, comments_table,  categories_table,
+    mapper
 )
 
 from urlparse               import urlparse
@@ -91,6 +92,17 @@ class Revision(object):
         return '<Revision of Page(%s)>' % self.page.title
 
 
+class Category(object):
+    def __init__(self, name, seo_name, description, count=0):
+        self.name = name
+        self.seo_name = seo_name
+        self.description = description
+        self.count = count
+
+    def __repr__(self):
+        return '<Category %s>' % self.name
+
+
 class UrlMap(object):
     def __init__(self, request_path, page, handler=None):
         self.request_path = request_path
@@ -134,8 +146,9 @@ mapper(Page, pages_table, properties={
                     order_by=comments_table.c.comment_id.asc()
     )
 })
-mapper(Comment, comments_table)
+mapper(Comment,  comments_table)
 mapper(Revision, revisions_table)
+mapper(Category, categories_table)
 mapper(UrlMap, urlmaps_table, properties={
     'page': relation(Page)
 })

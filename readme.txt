@@ -27,9 +27,12 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.28:
+    * short-urls /p/ now fully work
+    * code style changes
 2010.01.27:
     * comments now work with and without ajax
-    * when previewing the message added a reminder notice to not forget submit
+    * added a message that reminds to submit comment after clicking preview
 2010.01.26:
     * refactored comment code
 2010.01.25:
