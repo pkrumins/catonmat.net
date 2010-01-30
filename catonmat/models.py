@@ -24,12 +24,13 @@ import hashlib
 # ----------------------------------------------------------------------------
 
 class Page(object):
-    def __init__(self, title, content=None, excerpt=None, created=None, last_update=None):
+    def __init__(self, title, content=None, excerpt=None, created=None, last_update=None, category_d=None):
         self.title = title
         self.content = content
         self.excerpt = excerpt
         self.created = created
         self.last_update = last_update
+        self.category_id = category_id
         
         if self.created is None:
             self.created = datetime.utcnow()
@@ -137,14 +138,17 @@ class BlogPages(object):
 
 
 mapper(Page, pages_table, properties={
-    'revisions': dynamic_loader(Revision,
+    'revisions': dynamic_loader(
+                    Revision,
                     backref='page',
                     order_by=revisions_table.c.revision_id.desc()
     ),
-    'comments': dynamic_loader(Comment,
+    'comments': dynamic_loader(
+                    Comment,
                     backref='page',
                     order_by=comments_table.c.comment_id.asc()
-    )
+    ),
+    'category': relation(Category)
 })
 mapper(Comment,  comments_table)
 mapper(Revision, revisions_table)
