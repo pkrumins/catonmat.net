@@ -27,12 +27,25 @@ class Rule(RuleBase):
 
 
 url_map = Map([
+    # Main page
     Rule('/')                          > 'index.main',
+
+    # Blog is alias for Main page right now
     Rule('/blog')                      > 'index.main',
+
+    # Categories
+    Rule('/category/<category>')       > 'categories.main',
+
+    # Tags
+    Rule('/tag/<tag>')                 > 'tags.main',
+
+    # Programming quotes
     Rule('/quotes')                    > 'quotes.main',
+
+    # Downloads
     Rule('/download/<file>')           > 'downloads.main',
 
-    # Add and preview comments
+    # Add and preview comments via AJAX
     Rule('/_services/comment_preview') > 'catonmat.comments.preview_comment',
     Rule('/_services/comment_add')     > 'catonmat.comments.add_comment',
 
