@@ -35,9 +35,13 @@ url_map = Map([
 
     # Categories
     Rule('/category/<category>')       > 'categories.main',
+    Rule('/category')                  > 'categories.list',
+    Rule('/categories')                > 'categories.list',
 
     # Tags
     Rule('/tag/<tag>')                 > 'tags.main',
+    Rule('/tag')                       > 'tags.list',
+    Rule('/tags')                      > 'tags.list',
 
     # Programming quotes
     Rule('/quotes')                    > 'quotes.main',

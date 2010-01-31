@@ -1,0 +1,32 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()"></%def>
+<%def name="meta_description()">foo</%def>
+
+<div class="page">
+  <div class="header">
+    <h1>Posts in category "${category.name}"</h1>
+    <div class="hr lighter"></div>
+  </div>
+
+  <div class="content">
+    <p>
+    % if category.count == 0:
+      Category <strong>"${category.name}"</strong> does not contain any posts.
+    % endif
+    % if category.count == 1:
+      Category <strong>"${category.name}"</strong> contains <strong>1</strong> post.
+    % else:
+      Category <strong>"${category.name}"</strong> contains <strong>${category.count}</strong> posts.
+    % endif
+    </p>
+    % if category.count:
+    <ul>
+      % for page, urlmap in pus:
+      <li><a href="${urlmap.request_path}" title="${page.title|h}">${page.title|h}</a></li>
+      % endfor
+    </ul>
+    % endif
+  </div>
+</div>
+
