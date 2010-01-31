@@ -27,6 +27,10 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.30:
+    * added comment count and publish time for articles and comments
+2010.01.29:
+    * added categories
 2010.01.28:
     * short-urls /p/ now fully work
     * code style changes

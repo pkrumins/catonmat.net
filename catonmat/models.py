@@ -41,6 +41,14 @@ class Page(object):
     def parsed_content(self):
         return parse_page(self.content)
 
+    @property
+    def publish_time(self):
+        return self.created.strftime("%B %d, %Y")
+
+    @property
+    def comment_count(self):
+        return Comment.query.filter_by(page_id=self.page_id).count()
+
     def __repr__(self):
         return '<Page: %s>' % self.title
 
@@ -71,6 +79,10 @@ class Comment(object):
     @property
     def parsed_comment(self):
         return parse_comment(self.comment)
+
+    @property
+    def publish_time(self):
+        return self.timestamp.strftime("%B %d, %Y, %H:%M")
 
     def __repr__(self):
         return '<Comment(%d) on Page(%s)>' % (self.comment_id, self.page.title)

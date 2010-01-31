@@ -181,7 +181,7 @@ a img { border: none; }
   padding-left: 20px;
 }
 
-#content .page .header .comments {
+#content .page .header .commentsc {
   /* TODO: font on the page is not right here for some reason */
   background: url('/static/img/comments.gif') no-repeat;
   padding-left: 20px;

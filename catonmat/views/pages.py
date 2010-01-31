@@ -88,7 +88,8 @@ def default_page_template_data(request, map):
         'display_comments':     True,
         'form':                 request.form,
         'comments':             comments,
-        'comment_mode':         comment_mode
+        'comment_mode':         comment_mode,
+        'comment_count':        map.page.comment_count
     }
 
 

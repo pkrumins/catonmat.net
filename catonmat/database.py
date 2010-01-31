@@ -45,7 +45,7 @@ pages_table = Table('pages', Metadata,
     Column('created',       DateTime),
     Column('last_update',   DateTime),
     Column('content',       Text),
-    Column('excerpt',       Text),  # goes in <meta description="...">
+    Column('excerpt',       Text),      # goes in <meta description="...">
     Column('category_id',   Integer,    ForeignKey('categories.category_id')),
     mysql_charset='utf8'
 )
