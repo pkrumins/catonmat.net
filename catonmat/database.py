@@ -83,6 +83,19 @@ categories_table = Table('categories', Metadata,
     Column('count',         Integer),    # number of pages in this category
 )
 
+tags_table = Table('tags', Metadata,
+    Column('tag_id',        Integer,    primary_key=True),
+    Column('name',          String(128)),
+    Column('seo_name',      String(128)),
+    Column('description',   Text),
+    Column('count',         Integer),    # number of pages tagged
+)
+
+page_tags_table = Table('page_tags', Metadata,
+    Column('page_id',       Integer,    ForeignKey('pages.page_id')),
+    Column('tag_id',        Integer,    ForeignKey('tags.tag_id'))
+)
+
 urlmaps_table = Table('url_maps', Metadata,
     Column('url_map_id',    Integer,     primary_key=True),
     Column('request_path',  String(128), unique=True),

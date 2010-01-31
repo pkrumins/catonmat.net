@@ -23,11 +23,11 @@
       %endif
 
       % if comment.twitter:
-      <span class="twitter"><a href="http://twitter.com/${comment.twitter}">${comment.twitter}</a></span>
+      <span class="twitter"><a href="http://twitter.com/${comment.twitter}" title="${comment.twitter} or Twitter">${comment.twitter}</a></span>
       % endif
 
       % if not preview:
-        <span class="permalink"><a href="/c/${comment.comment_id}">Permalink</a></span>
+        <span class="permalink"><a href="/c/${comment.comment_id}" title="Permanent link to the comment">Permalink</a></span>
       % endif
     </div>
     <div>
@@ -41,7 +41,7 @@
 
   % if not preview and display_reply_link:
     <div class="comment_reply">
-      <a href="/c/${comment.comment_id}?reply" class="reply" id="reply_a_${comment.comment_id}">Reply to this comment</a>
+      <a href="/c/${comment.comment_id}?reply" class="reply" id="reply_a_${comment.comment_id}" title="Reply to comment by ${comment.name|h}">Reply to this comment</a>
     </div>
   % endif
 </div>

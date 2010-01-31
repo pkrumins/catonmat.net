@@ -89,7 +89,8 @@ def default_page_template_data(request, map):
         'form':                 request.form,
         'comments':             comments,
         'comment_mode':         comment_mode,
-        'comment_count':        map.page.comment_count
+        'comment_count':        map.page.comment_count,
+        'tags':                 map.page.tags
     }
 
 

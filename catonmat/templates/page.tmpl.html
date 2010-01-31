@@ -8,21 +8,21 @@
 <div class="page">
   <div class="header">
     % if page.category:
-    <span class="category"><a href="/category/${page.category.seo_name}">${page.category.name}</a></span>
+    <span class="category"><a href="/category/${page.category.seo_name}" title="All pages in category &quot;${page.category.name}&quot;">${page.category.name}</a></span>
     % endif
     % if display_comments:
     <span class="next commentsc">
       % if comment_count == 1:
-        <a href="${page_path}#comments"><strong>1</strong> Comment</a>
+        <a href="${page_path}#comments" title="One person has commented on this page"><strong>1</strong> Comment</a>
       % else:
-        <a href="${page_path}#comments"><strong>${page.comment_count}</strong> Comments</a>
+        <a href="${page_path}#comments" title="This page has ${page.comment_count} comments"><strong>${page.comment_count}</strong> Comments</a>
       % endif
     </span>
     % endif
     <span class="date right">${page.publish_time}</span>
     <div class="clear"></div>
     <div class="hr"></div>
-    <h1><a href="${page_path}">${page.title}</a></h1>
+    <h1><a href="${page_path}" title="${page.title|h}">${page.title|h}</a></h1>
     <div class="hr lighter"></div>
   </div>
   <div class="content">
@@ -30,7 +30,11 @@
   </div>
   <div class="footer">
     <div class="hr"></div>
-    here be the article footer info
+    <div class="tags">
+      % for tag in tags:
+        <a href="/tag/${tag.seo_name}" title="All posts tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>
+      % endfor
+    </div>
   </div>
 
   % if display_comments:

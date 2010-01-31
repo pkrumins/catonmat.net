@@ -27,6 +27,9 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.01.31:
+    * added tags
+    * all <a> links now have title="" attributes
 2010.01.30:
     * added comment count and publish time for articles and comments
 2010.01.29:
