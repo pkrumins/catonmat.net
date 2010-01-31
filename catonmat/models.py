@@ -173,7 +173,11 @@ mapper(Page, pages_table, properties={
                     order_by=comments_table.c.comment_id.asc()
     ),
     'category': relation(Category),
-    'tags':     relation(Tag, secondary=page_tags_table, order_by=tags_table.c.name)
+    'tags':     relation(
+                    Tag,
+                    secondary=page_tags_table,
+                    order_by=tags_table.c.name
+    )
 })
 mapper(Comment,  comments_table)
 mapper(Revision, revisions_table)

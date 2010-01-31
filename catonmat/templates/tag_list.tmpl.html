@@ -1,0 +1,40 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Tags on catonmat - good coders code, great reuse</%def>
+<%def name="meta_description()">catonmat tags</%def>
+
+<div class="page">
+  <div class="header">
+    <h1>All tags on catonmat</h1>
+    <div class="hr lighter"></div>
+  </div>
+
+  <div class="content">
+    <%
+      n = len(tags)
+    %>
+    <p>
+    % if n == 0:
+      There are currently no tags.
+    % elif n == 1:
+      There is currently <strong>${n}</strong> tag.
+    % else:
+      There are currently <strong>${n}</strong> tags.
+    % endif
+    </p>
+
+    % for tag in tags:
+      <div class="ctitem">
+        <div class="url">
+          <a href="/tag/${tag.seo_name}" title="${tag.description|h}">${tag.name|h}</a>
+        </div>
+        <!--
+        <div class="stats">
+          <span class="views">x views</span><span class="commentss">x comments</span>
+        </div>
+        -->
+      </div>
+    % endfor
+  </div>
+</div>
+

@@ -16,6 +16,7 @@ h1,h2,h3,h4,h5,h6 { color: #111; }
 a { text-decoration: none; }
 p { margin: 0 0 1em; }
 a img { border: none; }
+em { font-style: italic; }
 
 #container {
   width: 900px;
@@ -256,6 +257,16 @@ a img { border: none; }
 #content .page .content ul li {
   background: url('/static/img/bullet.gif') no-repeat 0 6px;
   padding-left: 1.5em;
+}
+
+/*
+** Categories and Tags list
+*/
+.ctitem {
+  background: url('/static/img/bullet.gif') no-repeat 0 5px;
+  padding-left: 1.5em;
+  margin-left: 1em;
+  margin-bottom: 1em;
 }
 
 /*

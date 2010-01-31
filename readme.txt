@@ -30,6 +30,7 @@ modules (list is not complete):
 2010.01.31:
     * added tags
     * all <a> links now have title="" attributes
+    * added category list and tag list
 2010.01.30:
     * added comment count and publish time for articles and comments
 2010.01.29:
