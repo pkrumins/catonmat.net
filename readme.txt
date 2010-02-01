@@ -27,6 +27,8 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.02.01:
+    * added 301 redirection for broken links via url_maps table
 2010.01.31:
     * added tags
     * all <a> links now have title="" attributes

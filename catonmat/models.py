@@ -13,7 +13,7 @@ from sqlalchemy.orm         import dynamic_loader, relation
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
-    page_tags_table,
+    page_tags_table, 
     mapper
 )
 
@@ -129,10 +129,11 @@ class Tag(object):
 
 
 class UrlMap(object):
-    def __init__(self, request_path, page, handler=None):
+    def __init__(self, request_path, page, handler=None, redirect=None):
         self.request_path = request_path
-        self.page_id = page.page_id
-        self.handler = handler
+        self.page_id  = page.page_id
+        self.handler  = handler
+        self.redirect = redirect
 
     def __repr__(self):
         return '<UrlMap from %s to Page(%s)>' % (self.request_path, self.page.title)
@@ -192,6 +193,7 @@ mapper(FouroFour, fourofour_table)
 mapper(BlogPages, blogpages_table, properties={
     'page': relation(Page)
 })
+
 
 # Cyclic references
 from catonmat.parser    import parse_page, parse_comment
