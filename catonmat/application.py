@@ -36,7 +36,7 @@ def application(request):
         map = get_page_from_request_path(request.path)
         if map:
             if map.redirect:
-                return redirect(map.redirect)
+                return redirect(map.redirect, code=301)
 
             if map.page:
                 return handle_request('pages.main', request, map)
