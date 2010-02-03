@@ -13,7 +13,7 @@ from sqlalchemy.orm         import dynamic_loader, relation
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
-    page_tags_table, 
+    page_tags_table, visitors_table,  rss_table,
     mapper
 )
 
@@ -55,7 +55,7 @@ class Page(object):
 
 
 class Comment(object):
-    def __init__(self, page_id, name, comment, parent_id=None, email=None, twitter=None, website=None, timestamp=None):
+    def __init__(self, page_id, name, comment, visitor, parent_id=None, email=None, twitter=None, website=None, timestamp=None):
         self.page_id = page_id
         self.parent_id = parent_id
         self.name = name
@@ -64,6 +64,7 @@ class Comment(object):
         self.gravatar_md5 = ""
         self.twitter = twitter
         self.website = website
+        self.visitor = visitor
 
         if website:
             url = urlparse(website)
@@ -149,7 +150,7 @@ class FouroFour(object):
         return '<404 of %s>' % (self.request_path)
 
 
-class BlogPages(object):
+class BlogPage(object):
     def __init__(self, page, publish_date=None, visible=True):
         self.page = page
         self.page_id = page.page_id
@@ -160,6 +161,29 @@ class BlogPages(object):
 
     def __repr__(self):
         return '<Blog Page of Page(%s)>' % page.title
+
+
+class Visitor(object):
+    def __init__(self, ip, headers, host=None, timestamp=None):
+        self.ip = ip
+        self.headers = headers
+        self.host = host
+        
+        if timestamp is None:
+            self.timestamp = datetime.utcnow()
+
+    def __repr__(self):
+        return '<Visitor from %s>' % ip
+
+
+class Rss(object):
+    def __init__(self, page, timestamp, visible=True):
+        self.page_id = page.page_id
+        self.timestamp = timestamp
+        self.visible = visible
+
+    def __repr__(self):
+        return '<RSS for Page(%s)>' % page.title
 
 
 mapper(Page, pages_table, properties={
@@ -180,7 +204,9 @@ mapper(Page, pages_table, properties={
                     order_by=tags_table.c.name
     )
 })
-mapper(Comment,  comments_table)
+mapper(Comment,  comments_table, properties={
+    'visitor': relation(Visitor)
+})
 mapper(Revision, revisions_table)
 mapper(Category, categories_table)
 mapper(Tag,      tags_table, properties={
@@ -190,10 +216,13 @@ mapper(UrlMap, urlmaps_table, properties={
     'page': relation(Page)
 })
 mapper(FouroFour, fourofour_table)
-mapper(BlogPages, blogpages_table, properties={
+mapper(BlogPage, blogpages_table, properties={
     'page': relation(Page)
 })
-
+mapper(Rss, rss_table, properties={
+    'page': relation(Page)
+})
+mapper(Visitor, visitors_table)
 
 # Cyclic references
 from catonmat.parser    import parse_page, parse_comment

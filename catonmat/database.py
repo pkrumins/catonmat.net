@@ -54,6 +54,7 @@ comments_table = Table('comments', Metadata,
     Column('comment_id',    Integer,    primary_key=True),
     Column('parent_id',     Integer),
     Column('page_id',       Integer,    ForeignKey('pages.page_id')),
+    Column('visitor_id',    Integer,    ForeignKey('visitors.visitor_id')),
     Column('timestamp',     DateTime),
     Column('name',          String(64)),
     Column('email',         String(128)),
@@ -114,6 +115,23 @@ fourofour_table = Table('404', Metadata,
 
 blogpages_table = Table('blog_pages', Metadata,
     Column('blog_page_id',  Integer,    primary_key=True),
+    Column('page_id',       Integer,    ForeignKey('pages.page_id')),
+    Column('publish_date',  DateTime),
+    Column('visible',       Boolean),
+    mysql_charset='utf8'
+)
+
+visitors_table = Table('visitors', Metadata,
+    Column('visitor_id',    Integer,    primary_key=True),
+    Column('ip',            String(15)),
+    Column('host',          String(256)),
+    Column('headers',       Text),
+    Column('timestamp',     DateTime),
+    mysql_charset='utf8'
+)
+
+rss_table = Table('rss', Metadata,
+    Column('rss_id',        Integer,    primary_key=True),
     Column('page_id',       Integer,    ForeignKey('pages.page_id')),
     Column('publish_date',  DateTime),
     Column('visible',       Boolean),

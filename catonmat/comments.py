@@ -11,7 +11,7 @@
 from werkzeug               import redirect, Response
 from werkzeug.exceptions    import BadRequest
 
-from catonmat.models        import Page, Comment
+from catonmat.models        import Page, Comment, Visitor
 from catonmat.database      import Session
 from catonmat.views.utils   import get_template
 
@@ -144,7 +144,8 @@ def new_comment(request):
         comment   = request.form['comment'].strip(),
         email     = request.form['email']  .strip(),
         twitter   = request.form['twitter'].strip(),
-        website   = request.form['website'].strip()
+        website   = request.form['website'].strip(),
+        visitor   = Visitor(request.remote_addr, str(request.headers))
     )
 
 

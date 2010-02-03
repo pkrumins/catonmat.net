@@ -290,7 +290,8 @@ em { font-style: italic; }
 #content .page .comments h3 {
   font-size: 1.25em;
   font-weight: bold;
-  margin-bottom: 1em;
+  margin-bottom: 0.6em;
+  border-bottom: 1px dotted #CCCCCC;
 }
 
 /*
@@ -638,6 +639,7 @@ em { font-style: italic; }
 .hr {
   border-bottom: 1px solid #CCCCCC;
   height: 1px;
+  margin: 2px 0;
 }
 
 span.notice {
