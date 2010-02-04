@@ -74,12 +74,13 @@ def page_with_comment_error(request, map, error):
 
 
 def default_page_template_data(request, map):
+    plain_old_comments = map.page.comments.all()
     if request.args.get('linear') is not None:
         comment_mode = 'linear'
-        comments = linear(map.page.comments.all())
+        comments = linear(plain_old_comments)
     else:
         comment_mode = 'threaded'
-        comments = thread(map.page.comments.all())
+        comments = thread(plain_old_comments)
 
     return {
         'page':                 map.page,
@@ -89,7 +90,7 @@ def default_page_template_data(request, map):
         'form':                 request.form,
         'comments':             comments,
         'comment_mode':         comment_mode,
-        'comment_count':        map.page.comment_count,
+        'comment_count':        len(plain_old_comments),
         'tags':                 map.page.tags
     }
 

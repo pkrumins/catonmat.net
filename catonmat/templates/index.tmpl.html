@@ -2,7 +2,8 @@
 
 <%namespace import="individual_page" file="individual_page.tmpl.html"/>
 
-% for page in pages:
-  ${individual_page(page, display_comments=False, comment_count=0, comments=[], tag=[])}
+% for page, urlmap in mixergy:
+  ${individual_page(page, urlmap.request_path, '', False, dict(), '', 0, page.tags, None, None)}
+  <div class="hr"></div>
 % endfor
 

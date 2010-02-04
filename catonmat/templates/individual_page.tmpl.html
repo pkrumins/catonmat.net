@@ -1,7 +1,8 @@
 <%namespace import="display_threaded_comments" file="comment.tmpl.html"/>
 <%namespace import="comment_form" file="comment_form.tmpl.html"/>
 
-<%def name="individual_page(page, page_path, display_comments, comment_count, comments, tag)">
+<%def name="individual_page(page, page_path, comment_submit_path, display_comments, form, comment_mode, comment_count, tags, comment_preview, comment_error)">
+## TODO: reduce number of arguments
 
 <div class="page">
   <div class="header">
@@ -13,7 +14,7 @@
       % if comment_count == 1:
         <a href="${page_path}#comments" title="One person has commented on this page"><strong>1</strong> Comment</a>
       % else:
-        <a href="${page_path}#comments" title="This page has ${page.comment_count} comments"><strong>${page.comment_count}</strong> Comments</a>
+        <a href="${page_path}#comments" title="This page has ${comment_count} comments"><strong>${comment_count}</strong> Comments</a>
       % endif
     </span>
     % endif
@@ -29,7 +30,7 @@
   <div class="footer">
     <div class="hr"></div>
     <div class="tags">
-      % for tag in tags:
+      % for tag in page.tags:
         <a href="/tag/${tag.seo_name}" title="All posts tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>
       % endfor
     </div>
@@ -39,7 +40,7 @@
   <a name="comments"></a>
   <div class="comments">
     <div class="hr"></div>
-    <div id="comment_list">
+    <div id="comment_list"><!-- TODO: change id to class -->
       <h3>Comments</h3>
       % if comments['root']:
         ${display_threaded_comments(comments['root'], comments)}
@@ -54,7 +55,7 @@
     <div class="add">
       <h3>Leave a new comment</h3>
       ${comment_form(page.page_id, comment_submit_path, form,
-                     comment_error=comment_error, comment_preview=comment_preview)}
+          comment_error=comment_error, comment_preview=comment_preview)}
       <script>
         catonmat.init_why_email();
         catonmat.init_preview_comment();
