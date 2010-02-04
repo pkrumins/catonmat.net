@@ -3,15 +3,29 @@
 # Peteris Krumins (peter@catonmat.net)
 # http://www.catonmat.net  --  good coders code, great reuse
 #
-# The new catonmat.net website. See this post for more info:
-# http://www.catonmat.net/blog/50-ideas-for-the-new-catonmat-website/
+# The new catonmat.net website.
 #
 # Code is licensed under GNU GPL license.
 #
 
-from catonmat.views.utils import render_template_with_quote
-from catonmat.quotes      import get_random_quote
+from catonmat.views.utils       import display_template_with_quote
+from catonmat.config            import config
+from catonmat.models            import BlogPage, Page
+from catonmat.database          import Session
+
+# ----------------------------------------------------------------------------
 
 def main(request):
-    return render_template_with_quote("index")
+    pages = (Session.
+               query(Page).
+               join(BlogPage).
+               filter(BlogPage.visible==True).
+               limit(config['posts_per_page']).
+               offset(0).
+               all())
+
+    template_data = {
+        'pages':    pages
+    }
+    return display_template_with_quote("index", template_data)
 

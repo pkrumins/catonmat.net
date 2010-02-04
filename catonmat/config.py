@@ -9,8 +9,8 @@
 #
 
 config = {
-    'database_uri':  'mysql://catonmat@localhost/catonmat',
-    'database_echo': True,
-    'xsrf_key':      'foobarbaz'
+    'database_uri':     'mysql://catonmat@localhost/catonmat',
+    'database_echo':    True,
+    'posts_per_page':   5
 }
 

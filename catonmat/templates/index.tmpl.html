@@ -1,1 +1,8 @@
 <%inherit file="layout.tmpl.html"/>
+
+<%namespace import="individual_page" file="individual_page.tmpl.html"/>
+
+% for page in pages:
+  ${individual_page(page, display_comments=False, comment_count=0, comments=[], tag=[])}
+% endfor
+

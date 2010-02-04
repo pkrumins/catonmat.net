@@ -1,70 +1,8 @@
 <%inherit file="layout.tmpl.html"/>
 
-<%namespace import="display_threaded_comments" file="comment.tmpl.html"/>
-<%namespace import="comment_form" file="comment_form.tmpl.html"/>
+<%namespace import="individual_page" file="individual_page.tmpl.html"/>
 
 <%def name="title()">${page.title} - good coders code, great reuse</%def>
 
-<div class="page">
-  <div class="header">
-    % if page.category:
-    <span class="category"><a href="/category/${page.category.seo_name}" title="All pages in category &quot;${page.category.name}&quot;">${page.category.name}</a></span>
-    % endif
-    % if display_comments:
-    <span class="next commentsc">
-      % if comment_count == 1:
-        <a href="${page_path}#comments" title="One person has commented on this page"><strong>1</strong> Comment</a>
-      % else:
-        <a href="${page_path}#comments" title="This page has ${page.comment_count} comments"><strong>${page.comment_count}</strong> Comments</a>
-      % endif
-    </span>
-    % endif
-    <span class="date right">${page.publish_time}</span>
-    <div class="clear"></div>
-    <div class="hr"></div>
-    <h1><a href="${page_path}" title="${page.title|h}">${page.title|h}</a></h1>
-    <div class="hr lighter"></div>
-  </div>
-  <div class="content">
-    ${page.parsed_content}
-  </div>
-  <div class="footer">
-    <div class="hr"></div>
-    <div class="tags">
-      % for tag in tags:
-        <a href="/tag/${tag.seo_name}" title="All posts tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>
-      % endfor
-    </div>
-  </div>
-
-  % if display_comments:
-  <a name="comments"></a>
-  <div class="comments">
-    <div class="hr"></div>
-    <div id="comment_list">
-      <h3>Comments</h3>
-      % if comments['root']:
-        ${display_threaded_comments(comments['root'], comments)}
-        <script>
-          catonmat.init_comments('page', '');
-        </script>
-      % else:
-        <p class="nocomm">There are currently no comments! Be <b>the first</b> to comment!</p>
-      % endif
-    </div>
-
-    <div class="add">
-      <h3>Leave a new comment</h3>
-      ${comment_form(page.page_id, comment_submit_path, form,
-                     comment_error=comment_error, comment_preview=comment_preview)}
-      <script>
-        catonmat.init_why_email();
-        catonmat.init_preview_comment();
-        catonmat.init_submit_comment('');
-      </script>
-    </div>
-  </div>
-  % endif
-
-</div>
+${individual_page(page, display_comments, comment_count, comments, tag)}
 

@@ -27,6 +27,9 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.02.04:
+    * factored out individual pages to individual_page.tmpl.html
+    * worked on front page
 2010.02.03:
     * added visitors and rss tables
     * adding a comment now stores user's info in visitors table
