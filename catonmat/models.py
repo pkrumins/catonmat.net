@@ -13,7 +13,7 @@ from sqlalchemy.orm         import dynamic_loader, relation
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
-    page_tags_table, visitors_table,  rss_table,
+    page_tags_table, visitors_table,  rss_table, page_meta,
     mapper
 )
 
@@ -54,6 +54,33 @@ class Page(object):
         return '<Page: %s>' % self.title
 
 
+class PageMeta(object):
+    def __init__(self, page_id, meta_key, meta_val):
+        self.page_id  = page_id
+        self.meta_key = meta_key
+        self.meta_val = meta_val
+
+    def __repr__(self):
+        return '<PageMeta for Page(id=%s)' % self.page_id
+
+
+class Revision(object):
+    def __init__(self, page, change_note, timestamp=None):
+        self.page = page
+        self.change_note = change_note
+        self.timestamp = timestamp
+
+        self.title = page.title
+        self.content = page.content
+        self.excerpt = page.excerpt
+
+        if self.timestamp is None:
+            self.timestamp = datetime.utcnow()
+
+    def __repr__(self):
+        return '<Revision of Page(%s)>' % self.page.title
+
+
 class Comment(object):
     def __init__(self, page_id, name, comment, visitor, parent_id=None, email=None, twitter=None, website=None, timestamp=None):
         self.page_id = page_id
@@ -88,23 +115,6 @@ class Comment(object):
 
     def __repr__(self):
         return '<Comment(%d) on Page(%s)>' % (self.comment_id, self.page.title)
-
-
-class Revision(object):
-    def __init__(self, page, change_note, timestamp=None):
-        self.page = page
-        self.change_note = change_note
-        self.timestamp = timestamp
-
-        self.title = page.title
-        self.content = page.content
-        self.excerpt = page.excerpt
-
-        if self.timestamp is None:
-            self.timestamp = datetime.utcnow()
-
-    def __repr__(self):
-        return '<Revision of Page(%s)>' % self.page.title
 
 
 class Category(object):
@@ -202,12 +212,18 @@ mapper(Page, pages_table, properties={
                     Tag,
                     secondary=page_tags_table,
                     order_by=tags_table.c.name
+    ),
+    'properties': dynamic_loader(
+                    PageMeta,
+                    backref='page',
+                    order_by=page_meta.c.meta_id
     )
 })
+mapper(PageMeta, page_meta)
+mapper(Revision, revisions_table)
 mapper(Comment,  comments_table, properties={
     'visitor': relation(Visitor)
 })
-mapper(Revision, revisions_table)
 mapper(Category, categories_table)
 mapper(Tag,      tags_table, properties={
     'pages': dynamic_loader(Page, secondary=page_tags_table)

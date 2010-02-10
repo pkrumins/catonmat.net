@@ -12,7 +12,7 @@ from sqlalchemy.orm  import scoped_session, create_session
 from sqlalchemy.orm  import mapper as sqla_mapper
 from sqlalchemy      import (
     MetaData, Table,    Column, ForeignKey, DateTime, Integer,
-    Text,     Boolean,  String,
+    Text,     Boolean,  String, Binary,
     create_engine
 )
 
@@ -50,6 +50,25 @@ pages_table = Table('pages', Metadata,
     mysql_charset='utf8'
 )
 
+pagemeta_table = Table('page_meta', Metadata,
+    Column('meta_id',       Integer,     primary_key=True),
+    Column('page_id',       Integer,     ForeignKey('pages.page_id')),
+    Column('meta_key',      String(128)),
+    Column('meta_val',      Binary),
+    mysql_charset='utf8'
+)
+
+revisions_table = Table('revisions', Metadata,
+    Column('revision_id',   Integer,    primary_key=True),
+    Column('page_id',       Integer,    ForeignKey('pages.page_id')),
+    Column('timestamp',     DateTime),
+    Column('change_note',   Text),
+    Column('title',         String(256)),
+    Column('content',       Text),
+    Column('excerpt',       Text),
+    mysql_charset='utf8'
+)
+
 comments_table = Table('comments', Metadata,
     Column('comment_id',    Integer,    primary_key=True),
     Column('parent_id',     Integer),
@@ -62,17 +81,6 @@ comments_table = Table('comments', Metadata,
     Column('twitter',       String(128)),
     Column('website',       String(256)),
     Column('comment',       Text),
-    mysql_charset='utf8'
-)
-
-revisions_table = Table('revisions', Metadata,
-    Column('revision_id',   Integer,    primary_key=True),
-    Column('page_id',       Integer,    ForeignKey('pages.page_id')),
-    Column('timestamp',     DateTime),
-    Column('change_note',   Text),
-    Column('title',         String(256)),
-    Column('content',       Text),
-    Column('excerpt',       Text),
     mysql_charset='utf8'
 )
 

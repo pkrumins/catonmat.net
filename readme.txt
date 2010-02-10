@@ -27,6 +27,14 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+
+2010.02.10:
+    * added page_meta table
+2010.02.06-2010.02.09:
+    * didn't do anything
+2010.02.05:
+    * front page now works
+    * added tags icon
 2010.02.04:
     * factored out individual pages to individual_page.tmpl.html
     * worked on front page

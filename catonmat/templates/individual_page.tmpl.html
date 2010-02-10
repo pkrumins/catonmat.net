@@ -7,10 +7,10 @@
 <div class="page">
   <div class="header">
     % if page.category:
-    <span class="category"><a href="/category/${page.category.seo_name}" title="All pages in category &quot;${page.category.name}&quot;">${page.category.name}</a></span>
+    <span class="category next"><a href="/category/${page.category.seo_name}" title="All posts in category &quot;${page.category.name}&quot;">${page.category.name}</a></span>
     % endif
     % if display_comments:
-    <span class="next commentsc">
+    <span class="commentsc">
       % if comment_count == 1:
         <a href="${page_path}#comments" title="One person has commented on this page"><strong>1</strong> Comment</a>
       % else:
@@ -22,18 +22,22 @@
     <div class="clear"></div>
     <div class="hr"></div>
     <h1><a href="${page_path}" title="${page.title|h}">${page.title|h}</a></h1>
+    <!--
     <div class="hr lighter"></div>
+    -->
   </div>
   <div class="content">
     ${page.parsed_content}
   </div>
   <div class="footer">
     <div class="hr"></div>
-    <div class="tags">
-      % for tag in page.tags:
-        <a href="/tag/${tag.seo_name}" title="All posts tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>
-      % endfor
-    </div>
+    % if tags:
+      <div class="tags">Page tags: 
+        % for tag in tags:
+          <a href="/tag/${tag.seo_name}" title="All posts tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>
+        % endfor
+      </div>
+    % endif
   </div>
 
   % if display_comments:

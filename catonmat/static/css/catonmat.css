@@ -159,6 +159,11 @@ em { font-style: italic; }
   padding: 10px;
 }
 
+#content .page-separator {
+  /* TODO */
+  margin: 1em 0;
+}
+
 /*
 ** Page Header
 ** --------------------------------------------------------
@@ -175,6 +180,10 @@ em { font-style: italic; }
   line-height: 1.25;
   font-weight: bold;
   letter-spacing: 1px;
+}
+
+#content .page .header h1 a {
+  color: #196CCF;
 }
 
 #content .page .header .category {
@@ -195,7 +204,7 @@ em { font-style: italic; }
 }
 
 #content .page .header .next {
-  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #content .page .header .lighter {
@@ -217,7 +226,7 @@ em { font-style: italic; }
   font-size: 1.23em;
   font-weight: bold;
   color: #196CCF;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 #content .page .content a:hover {
@@ -276,6 +285,11 @@ em { font-style: italic; }
 
 #content .page .footer {
   font-size: 1.2em;
+}
+
+#content .page .footer .tags {
+  background: url('/static/img/tags.gif') no-repeat 0 2px;
+  padding-left: 22px;
 }
 
 /*
