@@ -87,15 +87,15 @@ comments_table = Table('comments', Metadata,
 categories_table = Table('categories', Metadata,
     Column('category_id',   Integer,     primary_key=True),
     Column('name',          String(128)),
-    Column('seo_name',      String(128)),
+    Column('seo_name',      String(128), unique=True),
     Column('description',   Text),
     Column('count',         Integer),    # number of pages in this category
 )
 
 tags_table = Table('tags', Metadata,
-    Column('tag_id',        Integer,    primary_key=True),
+    Column('tag_id',        Integer,     primary_key=True),
     Column('name',          String(128)),
-    Column('seo_name',      String(128)),
+    Column('seo_name',      String(128), unique=True),
     Column('description',   Text),
     Column('count',         Integer),    # number of pages tagged
 )

@@ -13,8 +13,9 @@ from sqlalchemy.orm         import dynamic_loader, relation
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
-    page_tags_table, visitors_table,  rss_table, page_meta,
-    mapper
+    page_tags_table, visitors_table,  rss_table,        pagemeta_table,
+    mapper,
+    Session
 )
 
 from urlparse               import urlparse
@@ -25,7 +26,7 @@ import hashlib
 # ----------------------------------------------------------------------------
 
 class Page(object):
-    def __init__(self, title, content=None, excerpt=None, created=None, last_update=None, category_d=None):
+    def __init__(self, title, content=None, excerpt=None, created=None, last_update=None, category_id=None):
         self.title = title
         self.content = content
         self.excerpt = excerpt
@@ -40,6 +41,7 @@ class Page(object):
 
     @property
     def parsed_content(self):
+        from catonmat.parser import parse_page
         return parse_page(self.content)
 
     @property
@@ -49,6 +51,21 @@ class Page(object):
     @property
     def comment_count(self):
         return Comment.query.filter_by(page_id=self.page_id).count()
+
+    def save(self):
+        Session.add(self)
+        Session.commit()
+
+    def add_tag(self, tag):
+        real_tag = tag
+        t = Tag.query.filter_by(seo_name=tag.seo_name).first()
+        if t:
+            real_tag = t
+        self.tags.append(real_tag)
+        real_tag.count += 1
+
+    def add_comment(self, comment):
+        self.comments.append(comment)
 
     def __repr__(self):
         return '<Page: %s>' % self.title
@@ -61,7 +78,7 @@ class PageMeta(object):
         self.meta_val = meta_val
 
     def __repr__(self):
-        return '<PageMeta for Page(id=%s)' % self.page_id
+        return '<PageMeta(%s) for Page(id=%s)' % (self.meta_key, self.page_id)
 
 
 class Revision(object):
@@ -92,6 +109,7 @@ class Comment(object):
         self.twitter = twitter
         self.website = website
         self.visitor = visitor
+        self.timestamp = timestamp
 
         if website:
             url = urlparse(website)
@@ -107,29 +125,38 @@ class Comment(object):
 
     @property
     def parsed_comment(self):
+        from catonmat.parser import parse_comment
         return parse_comment(self.comment)
 
     @property
     def publish_time(self):
         return self.timestamp.strftime("%B %d, %Y, %H:%M")
 
+    def save(self):
+        Session.add(self)
+        Session.commit()
+
     def __repr__(self):
         return '<Comment(%d) on Page(%s)>' % (self.comment_id, self.page.title)
 
 
 class Category(object):
-    def __init__(self, name, seo_name, description, count=0):
+    def __init__(self, name, seo_name, description=None, count=0):
         self.name = name
         self.seo_name = seo_name
         self.description = description
         self.count = count
+
+    def save(self):
+        Session.add(self)
+        Session.commit()
 
     def __repr__(self):
         return '<Category %s>' % self.name
 
 
 class Tag(object):
-    def __init__(self, name, seo_name, description, count=0):
+    def __init__(self, name, seo_name, description=None, count=0):
         self.name = name
         self.seo_name = seo_name
         self.description = description
@@ -140,11 +167,15 @@ class Tag(object):
 
 
 class UrlMap(object):
-    def __init__(self, request_path, page, handler=None, redirect=None):
+    def __init__(self, request_path, page_id, handler=None, redirect=None):
         self.request_path = request_path
-        self.page_id  = page.page_id
+        self.page_id  = page_id
         self.handler  = handler
         self.redirect = redirect
+
+    def save(self):
+        Session.add(self)
+        Session.commit()
 
     def __repr__(self):
         return '<UrlMap from %s to Page(%s)>' % (self.request_path, self.page.title)
@@ -163,18 +194,22 @@ class FouroFour(object):
 class BlogPage(object):
     def __init__(self, page, publish_date=None, visible=True):
         self.page = page
-        self.page_id = page.page_id
+        self.publish_date = publish_date
         self.visible = visible
 
         if publish_date is None:
             self.publish_date = date.utcnow()
+
+    def save(self):
+        Session.add(self)
+        Session.commit()
 
     def __repr__(self):
         return '<Blog Page of Page(%s)>' % page.title
 
 
 class Visitor(object):
-    def __init__(self, ip, headers, host=None, timestamp=None):
+    def __init__(self, ip, headers=None, host=None, timestamp=None):
         self.ip = ip
         self.headers = headers
         self.host = host
@@ -187,10 +222,14 @@ class Visitor(object):
 
 
 class Rss(object):
-    def __init__(self, page, timestamp, visible=True):
-        self.page_id = page.page_id
-        self.timestamp = timestamp
+    def __init__(self, page, publish_date, visible=True):
+        self.page = page
+        self.publish_date = publish_date
         self.visible = visible
+
+    def save(self):
+        Session.add(self)
+        Session.commit()
 
     def __repr__(self):
         return '<RSS for Page(%s)>' % page.title
@@ -211,15 +250,15 @@ mapper(Page, pages_table, properties={
     'tags':     relation(
                     Tag,
                     secondary=page_tags_table,
-                    order_by=tags_table.c.name
+                    order_by=tags_table.c.seo_name
     ),
     'properties': dynamic_loader(
                     PageMeta,
                     backref='page',
-                    order_by=page_meta.c.meta_id
+                    order_by=pagemeta_table.c.meta_id
     )
 })
-mapper(PageMeta, page_meta)
+mapper(PageMeta, pagemeta_table)
 mapper(Revision, revisions_table)
 mapper(Comment,  comments_table, properties={
     'visitor': relation(Visitor)
@@ -239,7 +278,4 @@ mapper(Rss, rss_table, properties={
     'page': relation(Page)
 })
 mapper(Visitor, visitors_table)
-
-# Cyclic references
-from catonmat.parser    import parse_page, parse_comment
 

@@ -9,8 +9,8 @@
 #
 
 config = {
-    'database_uri':     'mysql://catonmat@localhost/catonmat',
-    'database_echo':    True,
+    'database_uri':     'mysql://catonmat@localhost/catonmat?charset=utf8',
+    'database_echo':    False,
     'posts_per_page':   5
 }
 
