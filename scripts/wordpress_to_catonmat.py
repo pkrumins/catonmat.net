@@ -91,6 +91,8 @@ def import_page_tags(wp_page, cm_page, wp_tags_dict):
 def import_page_category(wp_page, cm_page, wp_categories_dict):
     wp_cat = get_page_category(wp_page)
     cm_page.category = wp_categories_dict[wp_cat].cm_cat
+    if wp_page.post_type == 'post' and wp_page.post_status == 'publish':
+        cm_page.category.count += 1
 
 def import_page_comments(wp_page, cm_page_id, wp_comments_dict):
     for comment in wp_comments_dict[wp_page.ID]:
@@ -140,6 +142,7 @@ def get_wp_comments():
     all_comments = session.query(wp_comments_table). \
                      filter(wp_comments_table.c.comment_type==''). \
                      filter(wp_comments_table.c.comment_approved=='1'). \
+                     order_by(wp_comments_table.c.comment_ID.asc()). \
                      all()
     wp_comments_dict = defaultdict(list)
     for comment in all_comments:
