@@ -30,12 +30,8 @@ modules (list is not complete):
 
 2010.02.25:
     * added wordpress_to_catonmat.py script that converts wordpress to cm db
-2010.02.11-2010.02.24
-    * didn't work on catonmat, was reading books and doing other stuff
 2010.02.10:
     * added page_meta table
-2010.02.06-2010.02.09:
-    * didn't do anything
 2010.02.05:
     * front page now works
     * added tags icon
