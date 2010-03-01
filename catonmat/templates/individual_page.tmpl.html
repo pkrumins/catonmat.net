@@ -1,53 +1,77 @@
 <%namespace import="display_threaded_comments" file="comment.tmpl.html"/>
 <%namespace import="comment_form" file="comment_form.tmpl.html"/>
 
-<%def name="individual_page(page, page_path, comment_submit_path, display_comments, form, comment_mode, comment_count, tags, comment_preview, comment_error)">
-## TODO: reduce number of arguments
+<%def name="individual_page(
+  page_data,
+  comment_data,
+  tag_data,
+  display_options,
+
+)">
+
+<%doc>
+  page,
+  page_path,
+  display_options,
+  comment_submit_path,
+  comment_submit_form,
+  display_comments,
+  comment_mode,
+  comment_count,
+  tags,
+  comment_preview,
+  comment_error
+</%doc>
 
 <div class="page">
   <div class="header">
-    % if page.category:
-    <span class="category next"><a href="/category/${page.category.seo_name}" title="All posts in category &quot;${page.category.name}&quot;">${page.category.name}</a></span>
+    % if display_options.display_category and page_data.page.category:
+    <span class="category next"><a href="/category/${page_data.page.category.seo_name}" title="All posts in category &quot;${page_data.page.category.name}&quot;">${page_data.page.category.name}</a></span>
     % endif
-    % if display_comments:
+
+    % if display_options.display_comment_count:
     <span class="commentsc">
-      % if comment_count == 1:
-        <a href="${page_path}#comments" title="One person has commented on this page"><strong>1</strong> Comment</a>
+      % if comment_data.comment_count == 1:
+        <a href="${page_data.page_path}#comments" title="One person has commented on &quot;${page_data.page.title|h}&quot;"><strong>1</strong> Comment</a>
       % else:
-        <a href="${page_path}#comments" title="This page has ${comment_count} comments"><strong>${comment_count}</strong> Comments</a>
+      <a href="${page_data.page_path}#comments" title="&quot;${page_data.page.title|h}%quote has ${comment_data.comment_count} comments"><strong>${comment_data.comment_count}</strong> Comments</a>
       % endif
     </span>
     % endif
-    <span class="date right">${page.publish_time}</span>
+
+    % if display_options.display_publish_time:
+    <span class="date right">${page_data.page.publish_time}</span>
+    % endif
+
     <div class="clear"></div>
     <div class="hr"></div>
-    <h1><a href="${page_path}" title="${page.title|h}">${page.title|h}</a></h1>
+    <h1><a href="${page_data.page_path}" title="${page_data.page.title|h}">${page_data.page.title|h}</a></h1>
     <!--
     <div class="hr lighter"></div>
     -->
   </div>
   <div class="content">
-    ${page.parsed_content}
+    ${page_data.page.parsed_content}
   </div>
   <div class="footer">
     <div class="hr"></div>
-    % if tags:
+    % if display_options.display_tags and tags_data.tags:
       <div class="tags">Page tags: 
-        % for tag in tags:
+        % for tag in tags_data.tags:
           <a href="/tag/${tag.seo_name}" title="All posts tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>
         % endfor
       </div>
     % endif
   </div>
 
-  % if display_comments:
+  % if display_options.display_comments:
   <a name="comments"></a>
   <div class="comments">
     <div class="hr"></div>
     <div id="comment_list"><!-- TODO: change id to class -->
       <h3>Comments</h3>
-      % if comments['root']:
-        ${display_threaded_comments(comments['root'], comments)}
+      % if comment_data.comments['root']:
+        ${display_threaded_comments(comment_data.comments['root'], comment_data.comments)}
         <script>
           catonmat.init_comments('page', '');
         </script>
@@ -58,8 +82,8 @@
 
     <div class="add">
       <h3>Leave a new comment</h3>
-      ${comment_form(page.page_id, comment_submit_path, form,
-          comment_error=comment_error, comment_preview=comment_preview)}
+      ${comment_form(page_data.page.page_id, comment_data.comment_submit_path, comment_data.form,
+          comment_error=comment_data.comment_error, comment_preview=comment_data.comment_preview)}
       <script>
         catonmat.init_why_email();
         catonmat.init_preview_comment();
