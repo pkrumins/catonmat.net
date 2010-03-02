@@ -30,6 +30,9 @@ url_map = Map([
     # Main page
     Rule('/')                          > 'index.main',
 
+    # Pagination
+    Rule('/page/<int:page_nr>')        > 'index.page',
+
     # Blog is alias for Main page right now
     Rule('/blog')                      > 'index.main',
 
