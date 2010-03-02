@@ -28,7 +28,8 @@ modules (list is not complete):
     * jQuery     for AJAX and visual effects.
 
 2010.03.02:
-    * added pagination
+    * added pagination for front page
+    * fixed individual pages that was broken after refactoring
 2010.03.01:
     * refactored individual page
 2010.02.25:
