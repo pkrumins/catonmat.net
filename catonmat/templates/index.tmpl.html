@@ -2,8 +2,98 @@
 
 <%namespace import="individual_page" file="individual_page.tmpl.html"/>
 
-% for page, urlmap in mixergy:
-  ${individual_page(page, urlmap.request_path, '', False, dict(), '', 0, page.tags, None, None)}
+% for item in page_array:
+  ${individual_page(item.page_data, item.comment_data, item.tag_data, item.display_options)}
   <div class="page-separator"></div>
 % endfor
+
+<div class="pagination">
+  <div>
+    This is page <span class="accentp">${pagination.current_page}</span> of <span class="accentb">${pagination.physical_pages}</span>.
+  </div>
+  <div class="buttons">
+    <%
+      prev_page = pagination.current_page-1
+      curr_page = pagination.current_page
+      next_page = pagination.current_page+1
+
+      last_but_one = pagination.physical_pages-1
+      last = pagination.physical_pages
+
+      button_proximity = 5
+    %>
+    % if prev_page == 0:
+      <span class="justbutton">&lt;- previous</span>
+    % else:
+      <a href="/page/${prev_page}" title="Previous page" class="button prev">&lt;- previous</a>
+    % endif
+
+    % if curr_page == 1:
+      <a href="/page/1" title="First page" class="currbutton">1</a>
+    % else:
+      <a href="/page/1" title="First page" class="button">1</a>
+    % endif
+
+    % if curr_page == 2:
+      <a href="/page/2" title="Second page" class="currbutton">2</a>
+    % else:
+      <a href="/page/2" title="Second page" class="button">2</a>
+    % endif
+
+    % if curr_page <= button_proximity:
+      % for x in range(3, curr_page+button_proximity):
+        % if curr_page == x:
+          <a href="/page/${x}" title="Page ${x} of ${pagination.physical_pages}" class="currbutton">${x}</a>
+        % else:
+          <a href="/page/${x}" title="Page ${x} of ${pagination.physical_pages}" class="button">${x}</a>
+        % endif
+      % endfor
+      <span class="nobutton">...</span>
+    % endif
+
+    % if button_proximity < curr_page < pagination.physical_pages-button_proximity:
+      <span class="nobutton">...</span>
+      % for x in range(curr_page-(button_proximity/2), curr_page+(button_proximity/2)+1):
+        % if curr_page == x:
+          <a href="/page/${x}" title="Page ${x} of ${pagination.physical_pages}" class="currbutton">${x}</a>
+        % else:
+          <a href="/page/${x}" title="Page ${x} of ${pagination.physical_pages}" class="button">${x}</a>
+        % endif
+      % endfor
+      <span class="nobutton">...</span>
+    % endif
+
+    % if curr_page >= pagination.physical_pages-button_proximity:
+      <span class="nobutton">...</span>
+      % for x in range(curr_page-button_proximity, pagination.physical_pages-2+1):
+        % if curr_page == x:
+          <a href="/page/${x}" title="Page ${x} of ${pagination.physical_pages}" class="currbutton">${x}</a>
+        % else:
+          <a href="/page/${x}" title="Page ${x} of ${pagination.physical_pages}" class="button">${x}</a>
+        % endif
+      % endfor
+    % endif
+
+    % if curr_page == last_but_one:
+      <a href="/page/${last_but_one}" title="Page ${last_but_one} of ${pagination.physical_pages}" class="currbutton">${last_but_one}</a>
+    % else:
+      <a href="/page/${last_but_one}" title="Page ${last_but_one} of ${pagination.physical_pages}" class="button">${last_but_one}</a>
+    % endif
+
+    % if curr_page == last:
+      <a href="/page/${last}" title="Last page" class="currbutton">${last}</a>
+    % else:
+      <a href="/page/${last}" title="Last page" class="button">${last}</a>
+    % endif
+
+    % if next_page > pagination.physical_pages:
+      <span class="justbutton">next -&gt;</span>
+    % else:
+      <a href="/page/${next_page}" title="Next page" class="button next">next -&gt;</a>
+    % endif
+  </div>
+  <div>
+    See the <a href="/pages" title="All catonmat articles categorized by page">list of all articles by page.</a>
+  </div>
+</div>
 
