@@ -17,6 +17,8 @@ a { text-decoration: none; }
 p { margin: 0 0 1em; }
 a img { border: none; }
 em { font-style: italic; }
+pre, code { font-family: "Courier New", Courier, monospace; }
+code { background-color: #FFF7F0; padding: 0 2px; }
 
 #container {
   width: 900px;
@@ -162,6 +164,7 @@ em { font-style: italic; }
 #content .page-separator {
   /* TODO */
   margin: 1em 0;
+  overflow: hidden
 }
 
 /*
@@ -269,7 +272,63 @@ em { font-style: italic; }
 }
 
 /*
+** Page footer
+** --------------------------------------------------------
+*/
+#content .pagination {
+  font-size: 1.2em;
+  text-align: center;
+  font-family: Verdana;
+}
+
+#content .pagination .accentb {
+  color: #0063DC;
+  font-weight: bold;
+}
+
+#content .pagination .accentp {
+  color: #FF0084;
+  font-weight: bold;
+}
+
+#content .pagination div.buttons {
+  font-size: 0.916em;
+  margin: 10px 0;
+}
+
+#content .pagination div.buttons .button {
+  border: 1px solid #666;
+  padding: 2px 5px;
+  color: #0063DC;
+}
+
+#content .pagination div.buttons .justbutton {
+  border: 1px solid #666;
+  padding: 2px 5px;
+  color: gray;
+}
+
+#content .pagination div.buttons .nobutton {
+  padding: 2px 5px;
+  color: gray;
+}
+
+#content .pagination div.buttons .currbutton {
+  border: 1px solid #666;
+  padding: 2px 5px;
+  color: #FF0084;
+  font-weight: bold;
+}
+
+#content .pagination div.buttons .button:hover {
+  background-color: #0063DC;
+  border-color: #0063DC;
+  color: #FFF;
+}
+
+/*
 ** Categories and Tags list
+** --------------------------------------------------------
 */
 .ctitem {
   background: url('/static/img/bullet.gif') no-repeat 0 5px;
