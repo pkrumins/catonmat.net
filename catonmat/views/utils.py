@@ -18,6 +18,28 @@ from catonmat.config import config
 
 # ----------------------------------------------------------------------------
 
+class MakoDict(object):
+    """
+    Given a dict d, MakoDict makes its keys accessible via dot.
+    It also returns None if the key doesn't exist.
+    >>> d = DotDict({'apple': 5, 'peach': { 'kiwi': 9 } })
+    >>> d.apple
+    5
+    >>> d.peach.kiwi
+    9
+    >>> d.coco
+    None
+    """
+    def __init__(self, d):
+        for k, v in d.items():
+            if isinstance(v, dict):
+                v = MakoDict(v)
+            self.__dict__[k] = v
+
+    def __getattr__(self, name):
+        return None
+
+
 mako_lookup = TemplateLookup(
     directories=['catonmat/templates'], output_encoding='utf-8'
 )
@@ -25,14 +47,12 @@ mako_lookup = TemplateLookup(
 
 def display_template_with_quote(template, template_data):
     return Response(
-        render_template_with_quote(template, template_data),
+        render_template_with_quote(template, **template_data),
         mimetype='text/html'
     )
 
 
-def render_template_with_quote(template_name, template_args=None):
-    if template_args is None:
-        template_args = {}
+def render_template_with_quote(template_name, **template_args):
     template = get_template(template_name)
     quote = get_random_quote()
     return template.render(quote=quote, **template_args), 'text/html'
