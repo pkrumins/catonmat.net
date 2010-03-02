@@ -27,7 +27,10 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
-
+2010.03.02:
+    * added pagination
+2010.03.01:
+    * refactored individual page
 2010.02.25:
     * added wordpress_to_catonmat.py script that converts wordpress to cm db
 2010.02.10:
