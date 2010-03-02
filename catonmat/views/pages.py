@@ -11,7 +11,9 @@
 from werkzeug.exceptions    import NotFound
 from werkzeug               import redirect
 
-from catonmat.views.utils   import get_template, display_template_with_quote
+from catonmat.views.utils   import (
+    get_template, display_template_with_quote, MakoDict
+)
 from catonmat.comments      import (
     validate_comment, new_comment, save_comment, thread, linear, CommentError
 )
@@ -83,15 +85,31 @@ def default_page_template_data(request, map):
         comments = thread(plain_old_comments)
 
     return {
-        'page':                 map.page,
-        'page_path':            map.request_path,
-        'comment_submit_path':  map.request_path,
-        'display_comments':     True,
-        'form':                 request.form,
-        'comments':             comments,
-        'comment_mode':         comment_mode,
-        'comment_count':        len(plain_old_comments),
-        'tags':                 map.page.tags
+        'display_options': MakoDict(default_display_options()),
+        'page_data':       MakoDict({
+            'page':                 map.page,
+            'page_path':            map.request_path
+        }),
+        'comment_data':    MakoDict({
+            'comment_count':        len(plain_old_comments),
+            'comments':             comments,
+            'comment_submit_path':  map.request_path,
+            'comment_mode':         comment_mode,
+            'form':                 request.form,
+        }, ['comments', 'form']),
+        'tags_data':       MakoDict({
+            'tags':                 map.page.tags
+        })
+    }
+
+
+def default_display_options():
+    return {
+        'display_category':      True,
+        'display_comment_count': True,
+        'display_publish_time':  True,
+        'display_tags':          True,
+        'display_comments':      True
     }
 
 

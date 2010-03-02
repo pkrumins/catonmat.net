@@ -2,7 +2,7 @@
 
 <%namespace import="individual_page" file="individual_page.tmpl.html"/>
 
-<%def name="title()">${page.title} - good coders code, great reuse</%def>
+<%def name="title()">${page_data.page.title} - good coders code, great reuse</%def>
 
-${individual_page(page, page_path, comment_submit_path, display_comments, form, comment_mode, comment_count, tags, comment_preview, comment_error)}
+${individual_page(page_data, comment_data, tag_data, display_options)}
 
