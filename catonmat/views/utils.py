@@ -30,9 +30,12 @@ class MakoDict(object):
     >>> d.coco
     None
     """
-    def __init__(self, d):
+    def __init__(self, d, exclude=None):
+        if exclude is None:
+            exclude = []
+
         for k, v in d.items():
-            if isinstance(v, dict):
+            if isinstance(v, dict) and k not in exclude:
                 v = MakoDict(v)
             self.__dict__[k] = v
 
