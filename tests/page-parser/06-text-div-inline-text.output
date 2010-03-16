@@ -1,0 +1,15 @@
+<p>This is the 9th part in an article series on foo.</p>
+
+<div class="c">
+<p><img src="foo"><br>
+<small>text</small><br>
+text here<br>
+more text</p>
+
+<p>even more text<br>
+text<br>
+<small>te<br>
+xt</small></p>
+</div>
+
+<p>Hello world.</p>

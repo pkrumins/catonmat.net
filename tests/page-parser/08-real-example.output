@@ -1,0 +1,32 @@
+<p><a href="foo"><img src='http://www.catonmat.net/blog/wp-content/uploads/2010/03/visual-math-friday.gif' alt='Visual Math Friday' class="post-icon" align="left" />Hey everyone, I'm starting a new article series here on catonmat that will be published on Fridays. It's called "<strong>Visual Math Friday</strong>."</a> The <code><strong><em>goal of</em> this</strong></code> article series is to assemble all the wonderful mathematical proofs and identities that can be proven in a single picture or drawing. I have been collecting them for years from various books, math journals, websites and video lectures and have collected several hundred of them.</p>
+
+<p>If you have been following my blog, you'll have noticed that I love to explain things. I'll use the same writing style in this series as well. I'll post the visual proof together with my explanation. In the explanations I'll walk you through the proof, suggesting how to think about the visual image. But it's best if you try to understand the proof without reading my explanation and only then read it.</p>
+
+<p>The proofs come from algebra, number theory, geometry, calculus, complex analysis, topology and various other fields of mathematics. I'll do one proof a week and will try to alternate between really easy, moderate and difficult proofs every week so that readers with various mathematical backgrounds can enjoy the series.</p>
+
+<p>I'll start with a really easy integer sum proof this week. Without further ado, here it is.</p>
+
+<div class="center-aligner" style="padding: 10px 0">
+<p><img src='http://www.catonmat.net/blog/wp-content/uploads/2010/03/visual-math-proof-1-3-5-7-9-11-13-n2.gif' alt='1 + 3 + 5 + 7 + 9 + 11 + 13 + ... = n²' /></p>
+</div>
+
+<p>...</p>
+
+<div class="center-aligner">
+<table width="100%">
+<tr align="center">
+<td width="130">
+<iframe src="http://rcm.amazon.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=freesciencand-20&o=1&p=8&l=as1&m=amazon&f=ifr&md=10FE9736YVPPT7A0FBG2&asins=0883857006" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+</td>
+<td width="20"></td>
+<td width="130">
+<iframe src="http://rcm.amazon.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=freesciencand-20&o=1&p=8&l=as1&m=amazon&f=ifr&md=10FE9736YVPPT7A0FBG2&asins=0883857219" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+</td>
+<td width="20"></td>
+<td width="130">
+<iframe src="http://rcm.amazon.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=freesciencand-20&o=1&p=8&l=as1&m=amazon&f=ifr&md=10FE9736YVPPT7A0FBG2&asins=0883857464" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+</td>
+</tr>
+</table>
+</div>
+
