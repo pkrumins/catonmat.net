@@ -27,6 +27,11 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.03.15:
+    * added tests for the new page parser
+    * added "this space reserved for jelly stains" banner
+2010.03.12:
+    * replaced the state based article parser with a recursive descent one
 2010.03.02:
     * added pagination for front page
     * fixed individual pages that was broken after refactoring
