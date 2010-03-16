@@ -8,6 +8,13 @@
 # Code is licensed under GNU GPL license.
 #
 
+from pygments           import lex
+from pygments.token     import Token
+
+import re
+
+# ----------------------------------------------------------------------------
+
 SELF_CLOSING_TAGS = frozenset(['img', 'br', 'hr', 'input'])
 INLINE_TAGS = frozenset([
     'a',      'abbr', 'acronym', 'b',        'bdo',   'big',  'cite',
@@ -15,6 +22,14 @@ INLINE_TAGS = frozenset([
     'q',      's',    'samp',    'select',   'small', 'span', 'strike',
     'strong', 'sub',  'sup',     'textarea', 'tt',    'u',    'var'
 ])
+
+def tag_type_by_name(tag_name):
+    if tag_name in SELF_CLOSING_TAGS:
+        return Token.Tag.SelfClosingTag
+    elif tag_name in INLINE_TAGS:
+        return Token.Tag.InlineTag
+    else:
+        return Token.Tag.BlockTag
 
 def extract_tag_name(value):
     matches = re.match(r'<([a-zA-Z0-9]+)', value)
@@ -78,7 +93,6 @@ class TokenGenerator(object):
         else:
             return self.generator.next()
 
-
 def GeneratorWithoutLast(generator):
     """
     Pygments has a nasty property that it adds a new-line at the end of the
@@ -88,6 +102,9 @@ def GeneratorWithoutLast(generator):
     for val in generator:
         yield last
         last = val
+
+def get_lexer(text, lexer):
+    return TokenGenerator(GeneratorWithoutLast(lex(text, lexer())))
 
 class Node(object):
     def __init__(self, value=None):
@@ -128,14 +145,14 @@ class SelfClosingTagNode(Node):
 class BlockTagNode(Node):
     pass
 
-def accept(token_stream, token):
+def accept_token(token_stream, token):
     return token_stream.peek_token == token
 
 def skip_token(token_stream):
     token_stream.next()
 
 def walk(root, indent=0):
-    for node in root.children:
+    for node in root:
         if indent:
             print " "*(4*indent), node, node.value
         else:

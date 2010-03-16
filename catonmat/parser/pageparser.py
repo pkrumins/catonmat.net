@@ -8,25 +8,25 @@
 # Code is licensed under GNU GPL license.
 #
 
-from catonmat.parser.util   import *
+from catonmat.parser.util   import (
+    tag_type_by_name, get_lexer, extract_tag_name, accept_token, skip_token,
+    DocumentNode, ParagraphNode, TextNode, CommentNode, InlineTagNode,
+    SelfClosingTagNode, BlockTagNode,
+)
 
 from pygments.lexer         import RegexLexer
 from pygments.token         import Token
-from pygments               import format, lex
 
 from StringIO               import StringIO
 
 import re
 
+# ----------------------------------------------------------------------------
+
 class PageLexer(RegexLexer):
     def open_tag(lexer, match):
         tag_name = match.group(1).lower()
-        if tag_name in SELF_CLOSING_TAGS:
-            tag_type = Token.Tag.SelfClosingTag
-        elif tag_name in INLINE_TAGS:
-            tag_type = Token.Tag.InlineTag
-        else:
-            tag_type = Token.Tag.BlockTag
+        tag_type = tag_type_by_name(tag_name)
         yield match.start(), tag_type, match.group(0).lower()
 
     flags = re.IGNORECASE | re.DOTALL
@@ -45,22 +45,22 @@ class PageLexer(RegexLexer):
 def gdocument(token_stream):
     root = DocumentNode()
     while True:
-        if accept(token_stream, Token.Par):
+        if accept_token(token_stream, Token.Par):
             skip_token(token_stream)
-        elif accept(token_stream, Token.Br):
+        elif accept_token(token_stream, Token.Br):
             skip_token(token_stream)
-        elif accept(token_stream, Token.Comment):
+        elif accept_token(token_stream, Token.Comment):
             root.append(CommentNode(token_stream.value))
-        elif accept(token_stream, Token.Text):
+        elif accept_token(token_stream, Token.Text):
             p = gparagraph(token_stream)
             root.append(p)
-        elif accept(token_stream, Token.Tag.SelfClosingTag):
+        elif accept_token(token_stream, Token.Tag.SelfClosingTag):
             p = gparagraph(token_stream)
             root.append(p)
-        elif accept(token_stream, Token.Tag.InlineTag):
+        elif accept_token(token_stream, Token.Tag.InlineTag):
             p = gparagraph(token_stream)
             root.append(p)
-        elif accept(token_stream, Token.Tag.BlockTag):
+        elif accept_token(token_stream, Token.Tag.BlockTag):
             block = gblock(token_stream)
             root.append(block)
         else:
@@ -69,21 +69,21 @@ def gdocument(token_stream):
 def gparagraph(token_stream):
     p = ParagraphNode()
     while True:
-        if accept(token_stream, Token.Par):
+        if accept_token(token_stream, Token.Par):
             skip_token(token_stream)
             return p
-        elif accept(token_stream, Token.Br):
+        elif accept_token(token_stream, Token.Br):
             p.append(gbr(token_stream))
-        elif accept(token_stream, Token.Comment):
+        elif accept_token(token_stream, Token.Comment):
             p.append(CommentNode(token_stream.value))
-        elif accept(token_stream, Token.Text):
+        elif accept_token(token_stream, Token.Text):
             p.append(TextNode(token_stream.value))
-        elif accept(token_stream, Token.Tag.SelfClosingTag):
+        elif accept_token(token_stream, Token.Tag.SelfClosingTag):
             p.append(SelfClosingTagNode(token_stream.value))
-        elif accept(token_stream, Token.Tag.InlineTag):
+        elif accept_token(token_stream, Token.Tag.InlineTag):
             inline_tag = ginline_tag(token_stream)
             p.append(inline_tag)
-        elif accept(token_stream, Token.Tag.BlockTag):
+        elif accept_token(token_stream, Token.Tag.BlockTag):
             return p
         else:
             return p
@@ -91,30 +91,30 @@ def gparagraph(token_stream):
 def gbr(token_stream):
     skip_token(token_stream)
     br = SelfClosingTagNode("<br>")
-    if not accept(token_stream, Token.Tag.Close):
+    if not accept_token(token_stream, Token.Tag.Close):
         return br
     return None
 
 def ginline_tag(token_stream):
     inline_tag = InlineTagNode(token_stream.value)
     while True:
-        if accept(token_stream, Token.Tag.Close): # assume correctly nested and closed tags
+        if accept_token(token_stream, Token.Tag.Close): # assume correctly nested and closed tags
             skip_token(token_stream)
             return inline_tag
-        elif accept(token_stream, Token.Par):
+        elif accept_token(token_stream, Token.Par):
             skip_token(token_stream)
-        elif accept(token_stream, Token.Br):
+        elif accept_token(token_stream, Token.Br):
             inline_tag.append(gbr(token_stream))
-        elif accept(token_stream, Token.Comment):
+        elif accept_token(token_stream, Token.Comment):
             inline_tag.append(CommentNode(token_stream.value))
-        elif accept(token_stream, Token.Text):
+        elif accept_token(token_stream, Token.Text):
             inline_tag.append(TextNode(token_stream.value))
-        elif accept(token_stream, Token.Tag.SelfClosingTag):
+        elif accept_token(token_stream, Token.Tag.SelfClosingTag):
             inline_tag.append(SelfClosingTagNode(token_stream.value))
-        elif accept(token_stream, Token.Tag.InlineTag):
+        elif accept_token(token_stream, Token.Tag.InlineTag):
             nested_inline_tag = ginline_tag(token_stream)
             inline_tag.append(nested_inline_tag)
-        elif accept(token_stream, Token.Tag.BlockTag):
+        elif accept_token(token_stream, Token.Tag.BlockTag):
             return inline_tag
         else:
             return inline_tag
@@ -122,25 +122,25 @@ def ginline_tag(token_stream):
 def gblock(token_stream):
     block = BlockTagNode(token_stream.value)
     while True:
-        if accept(token_stream, Token.Tag.Close): #assume correctly nested and closed tags
+        if accept_token(token_stream, Token.Tag.Close): #assume correctly nested and closed tags
             skip_token(token_stream)
             return block
-        elif accept(token_stream, Token.Par):
+        elif accept_token(token_stream, Token.Par):
             skip_token(token_stream)
-        elif accept(token_stream, Token.Br):
+        elif accept_token(token_stream, Token.Br):
             skip_token(token_stream)
-        elif accept(token_stream, Token.Comment):
+        elif accept_token(token_stream, Token.Comment):
             block.append(CommentNode(token_stream.value))
-        elif accept(token_stream, Token.Text):
+        elif accept_token(token_stream, Token.Text):
             p = gparagraph(token_stream)
             block.append(p)
-        elif accept(token_stream, Token.Tag.SelfClosingTag):
+        elif accept_token(token_stream, Token.Tag.SelfClosingTag):
             p = gparagraph(token_stream)
             block.append(p)
-        elif accept(token_stream, Token.Tag.InlineTag):
+        elif accept_token(token_stream, Token.Tag.InlineTag):
             p = gparagraph(token_stream)
             block.append(p)
-        elif accept(token_stream, Token.Tag.BlockTag):
+        elif accept_token(token_stream, Token.Tag.BlockTag):
             nested_block = gblock(token_stream)
             block.append(nested_block)
         else:
@@ -205,7 +205,7 @@ def build_html(tree, out_file):
             out_file.write("</%s>\n" % tag)
 
 def page_lexer(text):
-    return TokenGenerator(GeneratorWithoutLast(lex(text, PageLexer())))
+    return get_lexer(text, PageLexer)
 
 def parse_page(text):
     text = text.replace("\r\n", "\n")
