@@ -50,7 +50,6 @@ def gdocument(token_stream):
         elif accept(token_stream, Token.Br):
             skip_token(token_stream)
         elif accept(token_stream, Token.Comment):
-            skip_token(token_stream)
             root.append(CommentNode(token_stream.value))
         elif accept(token_stream, Token.Text):
             p = gparagraph(token_stream)
