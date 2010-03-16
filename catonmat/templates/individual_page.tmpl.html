@@ -19,7 +19,7 @@
       % if comment_data.comment_count == 1:
         <a href="${page_data.page_path}#comments" title="One person has commented on &quot;${page_data.page.title|h}&quot;"><strong>1</strong> Comment</a>
       % else:
-      <a href="${page_data.page_path}#comments" title="&quot;${page_data.page.title|h}%quote has ${comment_data.comment_count} comments"><strong>${comment_data.comment_count}</strong> Comments</a>
+      <a href="${page_data.page_path}#comments" title="&quot;${page_data.page.title|h}&quot; has ${comment_data.comment_count} comments"><strong>${comment_data.comment_count}</strong> Comments</a>
       % endif
     </span>
     % endif
@@ -42,8 +42,11 @@
     <div class="hr"></div>
     % if display_options.display_tags and tags_data.tags:
       <div class="tags">Page tags: 
-        % for tag in tags_data.tags:
-          <a href="/tag/${tag.seo_name}" title="All posts tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>
+        <%
+          total_tags = len(tags_data.tags)
+        %>
+        % for npk, tag in enumerate(tags_data.tags):
+        <a href="/tag/${tag.seo_name}" title="All posts tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>${"," if npk!=(total_tags-1) else ""}
         % endfor
       </div>
     % endif
