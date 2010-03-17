@@ -271,6 +271,10 @@ code { background-color: #FFF7F0; padding: 0 2px; }
   padding-left: 1.5em;
 }
 
+#content .page .content ul li p {
+  margin: 0;
+}
+
 /*
 ** Page footer
 ** --------------------------------------------------------
@@ -718,4 +722,69 @@ code { background-color: #FFF7F0; padding: 0 2px; }
 span.notice {
   font-size: 1em;
 }
+
+/*
+** Code Highlighting
+** --------------------------------------------------------
+*/
+.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #888888 }
+.highlight .err { color: #a61717; background-color: #e3d2d2 }
+.highlight .k { color: #008800; font-weight: bold }
+.highlight .cm { color: #888888 }
+.highlight .cp { color: #cc0000; font-weight: bold }
+.highlight .c1 { color: #888888 }
+.highlight .cs { color: #cc0000; font-weight: bold; background-color: #fff0f0 }
+.highlight .gd { color: #000000; background-color: #ffdddd }
+.highlight .ge { font-style: italic }
+.highlight .gr { color: #aa0000 }
+.highlight .gh { color: #303030 }
+.highlight .gi { color: #000000; background-color: #ddffdd }
+.highlight .go { color: #888888 }
+.highlight .gp { color: #555555 }
+.highlight .gs { font-weight: bold }
+.highlight .gu { color: #606060 }
+.highlight .gt { color: #aa0000 }
+.highlight .kc { color: #008800; font-weight: bold }
+.highlight .kd { color: #008800; font-weight: bold }
+.highlight .kn { color: #008800; font-weight: bold }
+.highlight .kp { color: #008800 }
+.highlight .kr { color: #008800; font-weight: bold }
+.highlight .kt { color: #888888; font-weight: bold }
+.highlight .m { color: #0000DD; font-weight: bold }
+.highlight .s { color: #dd2200; background-color: #fff0f0 }
+.highlight .na { color: #336699 }
+.highlight .nb { color: #003388 }
+.highlight .nc { color: #bb0066; font-weight: bold }
+.highlight .no { color: #003366; font-weight: bold }
+.highlight .nd { color: #555555 }
+.highlight .ne { color: #bb0066; font-weight: bold }
+.highlight .nf { color: #0066bb; font-weight: bold }
+.highlight .nl { color: #336699; font-style: italic }
+.highlight .nn { color: #bb0066; font-weight: bold }
+.highlight .py { color: #336699; font-weight: bold }
+.highlight .nt { color: #bb0066; font-weight: bold }
+.highlight .nv { color: #336699 }
+.highlight .ow { color: #008800 }
+.highlight .w { color: #bbbbbb }
+.highlight .mf { color: #0000DD; font-weight: bold }
+.highlight .mh { color: #0000DD; font-weight: bold }
+.highlight .mi { color: #0000DD; font-weight: bold }
+.highlight .mo { color: #0000DD; font-weight: bold }
+.highlight .sb { color: #dd2200; background-color: #fff0f0 }
+.highlight .sc { color: #dd2200; background-color: #fff0f0 }
+.highlight .sd { color: #dd2200; background-color: #fff0f0 }
+.highlight .s2 { color: #dd2200; background-color: #fff0f0 }
+.highlight .se { color: #0044dd; background-color: #fff0f0 }
+.highlight .sh { color: #dd2200; background-color: #fff0f0 }
+.highlight .si { color: #3333bb; background-color: #fff0f0 }
+.highlight .sx { color: #22bb22; background-color: #f0fff0 }
+.highlight .sr { color: #008800; background-color: #fff0ff }
+.highlight .s1 { color: #dd2200; background-color: #fff0f0 }
+.highlight .ss { color: #aa6600; background-color: #fff0f0 }
+.highlight .bp { color: #003388 }
+.highlight .vc { color: #336699 }
+.highlight .vg { color: #dd7700 }
+.highlight .vi { color: #3333bb }
+.highlight .il { color: #0000DD; font-weight: bold }
 

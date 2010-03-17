@@ -133,6 +133,9 @@ class ParagraphNode(Node):
 class TextNode(Node):
     pass
 
+class LiteralNode(Node):
+    pass
+
 class CommentNode(Node):
     pass
 

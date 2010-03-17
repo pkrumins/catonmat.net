@@ -11,11 +11,14 @@
 from catonmat.parser.util   import (
     tag_type_by_name, get_lexer, extract_tag_name, accept_token, skip_token,
     DocumentNode, ParagraphNode, TextNode, CommentNode, InlineTagNode,
-    SelfClosingTagNode, BlockTagNode,
+    SelfClosingTagNode, BlockTagNode, LiteralNode
 )
 
-from pygments.lexer         import RegexLexer
+from pygments               import highlight
 from pygments.token         import Token
+from pygments.lexer         import RegexLexer, bygroups, using
+from pygments.lexers        import get_lexer_by_name
+from pygments.formatters    import HtmlFormatter
 
 from StringIO               import StringIO
 
@@ -24,10 +27,20 @@ import re
 # ----------------------------------------------------------------------------
 
 class PageLexer(RegexLexer):
-    def open_tag(lexer, match):
+    def open_tag_handler(lexer, match):
         tag_name = match.group(1).lower()
         tag_type = tag_type_by_name(tag_name)
         yield match.start(), tag_type, match.group(0).lower()
+
+    def pure_pre_handler(lexer, match):
+        print match.group(0)
+        yield match.start(), Token.Literal, match.group(0)
+
+    def lang_pre_handler(lexer, match):
+        lang = match.group(1)
+        code = match.group(2)
+        lang_lexer = get_lexer_by_name(lang, stripall=True)
+        yield match.start(), Token.Literal, highlight(code, lang_lexer, HtmlFormatter())
 
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
@@ -36,8 +49,9 @@ class PageLexer(RegexLexer):
             (r'\n',                  Token.Br),
             (r'[^<\n]+',             Token.Text),
             (r'<!--.*?-->',          Token.Comment),
-            (r'<pre>(.+?)</pre>',    Token.Text.Pre),
-            (r'<([a-zA-Z0-9]+).*?>', open_tag),
+            (r'<pre>(.+?)</pre>',    pure_pre_handler),
+            (r'<pre lang="(.+?)">(.+?)</pre>',    lang_pre_handler),
+            (r'<([a-zA-Z0-9]+).*?>', open_tag_handler),
             (r'</[^>]+>',            Token.Tag.Close)
         ],
     }
@@ -49,6 +63,8 @@ def gdocument(token_stream):
             skip_token(token_stream)
         elif accept_token(token_stream, Token.Br):
             skip_token(token_stream)
+        elif accept_token(token_stream, Token.Literal):
+            root.append(LiteralNode(token_stream.value))
         elif accept_token(token_stream, Token.Comment):
             root.append(CommentNode(token_stream.value))
         elif accept_token(token_stream, Token.Text):
@@ -74,6 +90,8 @@ def gparagraph(token_stream):
             return p
         elif accept_token(token_stream, Token.Br):
             p.append(gbr(token_stream))
+        elif accept_token(token_stream, Token.Literal):
+            p.append(LiteralNode(token_stream.value))
         elif accept_token(token_stream, Token.Comment):
             p.append(CommentNode(token_stream.value))
         elif accept_token(token_stream, Token.Text):
@@ -105,6 +123,8 @@ def ginline_tag(token_stream):
             skip_token(token_stream)
         elif accept_token(token_stream, Token.Br):
             inline_tag.append(gbr(token_stream))
+        elif accept_token(token_stream, Token.Literal):
+            inline_tag.append(LiteralNode(token_stream.value))
         elif accept_token(token_stream, Token.Comment):
             inline_tag.append(CommentNode(token_stream.value))
         elif accept_token(token_stream, Token.Text):
@@ -129,6 +149,8 @@ def gblock(token_stream):
             skip_token(token_stream)
         elif accept_token(token_stream, Token.Br):
             skip_token(token_stream)
+        elif accept_token(token_stream, Token.Literal):
+            block.append(LiteralNode(token_stream.value))
         elif accept_token(token_stream, Token.Comment):
             block.append(CommentNode(token_stream.value))
         elif accept_token(token_stream, Token.Text):
@@ -178,6 +200,8 @@ def build_html(tree, out_file):
         if isinstance(node, ParagraphNode):
             out_file.write("<p>")
         elif isinstance(node, TextNode):
+            out_file.write(node.value)
+        elif isinstance(node, LiteralNode):
             out_file.write(node.value)
         elif isinstance(node, CommentNode):
             out_file.write(node.value)
