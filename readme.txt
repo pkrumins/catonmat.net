@@ -27,6 +27,8 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.03.16:
+    * added syntax highlighting for <pre lang="...">...</pre> tags
 2010.03.15:
     * added tests for the new page parser
     * added "this space reserved for jelly stains" banner
