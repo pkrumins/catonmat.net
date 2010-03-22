@@ -11,7 +11,8 @@
 from catonmat.parser.util   import (
     tag_type_by_name, get_lexer, extract_tag_name, accept_token, skip_token,
     DocumentNode, ParagraphNode, TextNode, CommentNode, InlineTagNode,
-    SelfClosingTagNode, BlockTagNode, LiteralNode
+    SelfClosingTagNode, BlockTagNode, LiteralNode,
+    DONT_P
 )
 
 from pygments               import highlight
@@ -33,13 +34,21 @@ class PageLexer(RegexLexer):
         yield match.start(), tag_type, match.group(0).lower()
 
     def pure_pre_handler(lexer, match):
-        yield match.start(), Token.Literal, match.group(0)
+        yield_items = [
+            (Token.Tag.BlockTag, "<pre>"),
+            (Token.Text, match.group(1)),
+            (Token.Tag.Close, "</pre>")
+        ]
+        for token, value in yield_items:
+            yield match.start(), token, value
 
     def lang_pre_handler(lexer, match):
         lang = match.group(1)
         code = match.group(2)
         lang_lexer = get_lexer_by_name(lang, stripall=True)
-        yield match.start(), Token.Literal, highlight(code, lang_lexer, HtmlFormatter())
+        token_stream = page_lexer(highlight(code, lang_lexer, HtmlFormatter()))
+        for token, value in token_stream:
+            yield match.start(), token, value
 
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
@@ -108,9 +117,11 @@ def gparagraph(token_stream):
 def gbr(token_stream):
     skip_token(token_stream)
     br = SelfClosingTagNode("<br>")
-    if not accept_token(token_stream, Token.Tag.Close):
-        return br
-    return None
+    if accept_token(token_stream, Token.Tag.BlockTag):
+        return None
+    if accept_token(token_stream, Token.Tag.Close):
+        return None
+    return br
 
 def ginline_tag(token_stream):
     inline_tag = InlineTagNode(token_stream.value)
@@ -137,9 +148,18 @@ def ginline_tag(token_stream):
             return inline_tag
         else:
             return inline_tag
-        
+
+def block_try_p(tag_name, token_stream, node_type, nonterminal=None):
+    if tag_name in DONT_P:
+        if nonterminal:
+            return nonterminal(token_stream)
+        return node_type(token_stream.value)
+    else:
+        return gparagraph(token_stream)
+
 def gblock(token_stream):
     block = BlockTagNode(token_stream.value)
+    tag_name = extract_tag_name(block.value)
     while True:
         if accept_token(token_stream, Token.Tag.Close): #assume correctly nested and closed tags
             skip_token(token_stream)
@@ -153,14 +173,11 @@ def gblock(token_stream):
         elif accept_token(token_stream, Token.Comment):
             block.append(CommentNode(token_stream.value))
         elif accept_token(token_stream, Token.Text):
-            p = gparagraph(token_stream)
-            block.append(p)
+            block.append(block_try_p(tag_name, token_stream, TextNode))
         elif accept_token(token_stream, Token.Tag.SelfClosingTag):
-            p = gparagraph(token_stream)
-            block.append(p)
+            block.append(block_try_p(tag_name, token_stream, SelfClosingTagNode))
         elif accept_token(token_stream, Token.Tag.InlineTag):
-            p = gparagraph(token_stream)
-            block.append(p)
+            block.append(block_try_p(tag_name, token_stream, InlineTagNode, ginline_tag))
         elif accept_token(token_stream, Token.Tag.BlockTag):
             nested_block = gblock(token_stream)
             block.append(nested_block)
@@ -225,7 +242,7 @@ def build_html(tree, out_file):
             out_file.write("</%s>" % tag)
         elif isinstance(node, BlockTagNode):
             tag = extract_tag_name(node.value)
-            out_file.write("</%s>\n" % tag)
+            out_file.write("\n</%s>\n" % tag)
 
 def page_lexer(text):
     return get_lexer(text, PageLexer)
