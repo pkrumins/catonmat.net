@@ -33,7 +33,6 @@ class PageLexer(RegexLexer):
         yield match.start(), tag_type, match.group(0).lower()
 
     def pure_pre_handler(lexer, match):
-        print match.group(0)
         yield match.start(), Token.Literal, match.group(0)
 
     def lang_pre_handler(lexer, match):
