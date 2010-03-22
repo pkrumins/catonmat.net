@@ -18,25 +18,19 @@ import os
 def slurp_file(filename):
     return file(filename).read()
 
-def empty_list_nl(things):
-    return not [t for t in things if t != '\n' and t != '\r' and t != '\r\n']
-
-def equal(thing1, thing2):
-    if isinstance(thing1, basestring) and isinstance(thing2, basestring):
-        stripped_thing1 = thing1.replace('\r', '').replace('\n', '')
-        stripped_thing2 = thing2.replace('\r', '').replace('\n', '')
-        return stripped_thing1 == stripped_thing2
-    if isinstance(thing1, basestring) or isinstance(thing2, basestring):
-        return False
-    return equal_bs(thing1.contents, thing2.contents)
+def simplify_bs(bs):
+    ret = []
+    for item in bs:
+        if isinstance(item, basestring):
+            item = item.strip()
+            if item:
+                ret.append(item.replace('\r', '').replace('\n', ''))
+        else:
+            ret.append([item.name, simplify_bs(item.contents)])
+    return ret
 
 def equal_bs(bs1, bs2):
-    if empty_list_nl(bs1) and empty_list_nl(bs2):
-        return True
-    if empty_list_nl(bs1) or empty_list_nl(bs2):
-        return False
-    return equal(bs1[0], bs2[0]) and \
-            equal_bs(bs1[1:], bs2[1:])
+    return bs1 == bs2
 
 def run_page_parser_tests():
     success = True
@@ -55,12 +49,17 @@ def run_page_parser_tests():
         input_bs =  BS(parsed_input)
         output_bs = BS(expected_output)
 
-        status = equal_bs(input_bs.contents, output_bs.contents)
+        simplified_input_bs = simplify_bs(input_bs)
+        simplified_output_bs = simplify_bs(output_bs)
+
+        status = equal_bs(simplified_input_bs, simplified_output_bs)
 
         if status:
             print "Success: %s." % input_file
         else:
             print "Failed: %s." % input_file
+            print "Expected:", simplified_output_bs
+            print "Got:", simplified_input_bs
             success = False
     return success
 
