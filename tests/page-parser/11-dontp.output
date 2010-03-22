@@ -1,0 +1,14 @@
+<pre>This shouldn't be p'd</pre>
+
+<ul>
+ <li>neither should this</li>
+ <li>nor <a href="foo">this</a></li>
+ <li><strong>oh, hello</strong></li>
+</ul>
+
+<h1>Nor h1 this</h1>
+<h2><a href="http://catonmat.net#hello">Nor this</a> h2</h2>
+<h3>Nor h3 this</h3>
+<h4><strong>Also not this</strong></h4>
+<h5>Nor h5 this</h5>
+<h6>Nor h6 this</h6>
