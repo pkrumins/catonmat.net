@@ -76,7 +76,8 @@ class PreLexer(DocumentLexer):
         return yield_items
 
 from catonmat.parser.commentparser import ALLOWED_COMMENT_TAGS
-allowed_tag_re = re.compile('|'.join('<(%s)>' % tag for tag in ALLOWED_COMMENT_TAGS))
+allowed_open_tag_re = re.compile('|'.join('<(%s)>|<(%s)\W+.*?>' % (tag, tag) for tag in ALLOWED_COMMENT_TAGS))
+allowed_close_tag_re = re.compile('|'.join('</(%s)>' % tag for tag in ALLOWED_COMMENT_TAGS))
 
 class CommentLexer(DocumentLexer):
     def open_tag(lexer, _):
@@ -93,10 +94,8 @@ class CommentLexer(DocumentLexer):
             (r'[^<\n]+',              Token.Text),
             (r'<pre>(.+?)</pre>',     DocumentLexer.pure_pre_handler),
             (r'<pre lang="(.+?)">(.+?)</pre>', DocumentLexer.lang_pre_handler),
-            (allowed_tag_re,          comment_open_tag_handler),
-            (r'<(div).*?>',           comment_open_tag_handler),
-            (r'<(span).*?>',          comment_open_tag_handler),
-            (r'</[^>]+>',             Token.Tag.Close),
+            (allowed_open_tag_re,     comment_open_tag_handler),
+            (allowed_close_tag_re,    Token.Tag.Close),
             (r'<',                    open_tag)
         ],
     }

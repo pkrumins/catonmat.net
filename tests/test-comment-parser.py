@@ -12,14 +12,14 @@ import sys
 sys.path.append('/home/pkrumins/catonmat')
 
 from tests.page_comment_tests import run_parser_tests
-from catonmat.parser import parse_page
+from catonmat.parser import parse_comment
 
 # ---------------------------------------------------------------------------
 
-PATH = '/home/pkrumins/catonmat/tests/page-parser'
+PATH = '/home/pkrumins/catonmat/tests/comment-parser'
 
 def run_tests():
-    success = run_parser_tests(PATH, parse_page)
+    success = run_parser_tests(PATH, parse_comment)
     if not success:
         sys.exit(1)
 

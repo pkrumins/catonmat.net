@@ -1,0 +1,29 @@
+Cool post !
+
+I digged inside your (nice) code, and came
+out with another version using curl. The
+output name is always out.flv thought ...
+
+What was interesting is to look at the server
+header with curl -i.
+First web page hit is apache, and the videos
+are served with lighttd, as they say in the
+google video explaining youtube guts.
+
+<pre>
+#!/bin/sh
+
+test $# -eq 1 || {
+        echo "Usage: mytube.sh "
+        exit 1
+}
+url=$1
+
+# Get video ID.
+video_url=`curl -s $url | awk '{ if (match($0, /"video_id": "([^"]+)".+"t": "([^"]+)"/, matches)) { print "video_id=" matches[1] "&t=" matches[2] } }'`
+
+# Download video to output.flv
+youtube=http://www.youtube.com
+curl -L $youtube/get_video?$video_url -o out.flv
+</pre>
+

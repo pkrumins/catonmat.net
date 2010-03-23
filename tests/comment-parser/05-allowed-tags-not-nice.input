@@ -1,0 +1,8 @@
+<a href="http://google.com" onmouseover="alert('gotcha')">google</a>
+
+<code>this <script>alert('foo')</script> is code</code>
+
+<pre>
+this is pre
+<script>alert('foo')</script>
+</pre>

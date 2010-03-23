@@ -1,0 +1,21 @@
+<p><a href="http://google.com">google</a></p>
+
+<p><b>this is bold</b></p>
+
+<p><strong>this is strong</strong></p>
+
+<p><i>this is i</i></p>
+
+<p><em>this is em</em></p>
+
+<p><q>this is q</q></p>
+
+<blockquote><p>this is blockquote</p></blockquote>
+
+<p><code>this is code</code></p>
+
+<pre>this is pre</pre>
+
+<p><sub>4</sub></p>
+
+<p>x<sup>3</sup></p>

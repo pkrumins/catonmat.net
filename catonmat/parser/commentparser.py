@@ -25,7 +25,8 @@ import re
 # ----------------------------------------------------------------------------
 
 ALLOWED_COMMENT_TAGS = [
-    'a', 'b', 'strong', 'i', 'em', 'q', 'blockquote', 'em', 'code', 'pre',
+    'a', 'b', 'strong', 'i', 'em', 'q', 'blockquote', 'code', 'pre', 'sub',
+    'sup',
     'div', 'span'
 ]
 ALLOWED_COMMENT_URL_SCHEMES = [ 'http', 'https', 'ftp' ]
@@ -123,7 +124,7 @@ def build_html(parse_tree, writable):
                 writable.write("</%s>" % tag)
             elif isinstance(node, BlockTagNode):
                 tag = extract_tag_name(node.value)
-                writable.write("\n</%s>\n" % tag)
+                writable.write("</%s>\n" % tag)
 
 def parse_comment(text):
     from catonmat.parser.lexer   import CommentLexer

@@ -1,0 +1,24 @@
+<p>Here is some <code>code</code> that I wrote:</p>
+
+<div class="highlight">
+<pre>
+<span class="k">struct</span> <span class="n">person</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="n">person</span> <span class="o">*</span>
+<span class="nf">new_person</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">age</span><span class="p">)</span>
+
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">person</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">person</span><span class="p">));</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">p</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+
+    <span class="n">p</span><span class="o">-&gt;</span><span class="n">age</span>  <span class="o">=</span> <span class="n">age</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+

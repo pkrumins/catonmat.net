@@ -1,0 +1,16 @@
+Here is some <code>code</code> that I wrote:
+<pre lang="c">
+struct person {
+    char *name;
+    unsigned int age;
+};
+struct person *
+new_person(const char *name, unsigned age)
+{
+    struct person *p = malloc(sizeof(struct person));
+    if (!p) return NULL;
+    p->name = name;
+    p->age  = age;
+    return p;
+}
+</pre>

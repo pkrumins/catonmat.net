@@ -1,0 +1,7 @@
+<hax>bax</hax>
+
+<script>alert('foo')</script>
+
+<IMG SRC=" &#14;  javascript:alert('XSS');">
+
+<IMG SRC="javascript:alert('XSS');">

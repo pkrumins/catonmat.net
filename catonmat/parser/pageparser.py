@@ -39,7 +39,6 @@ def build_html(tree, writable):
             writable.write(node.value)
         elif isinstance(node, BlockTagNode):
             writable.write(node.value)
-            writable.write("\n")
         elif isinstance(node, SelfClosingTagNode):
             tag = extract_tag_name(node.value)
             if tag == 'br':
@@ -56,7 +55,7 @@ def build_html(tree, writable):
             writable.write("</%s>" % tag)
         elif isinstance(node, BlockTagNode):
             tag = extract_tag_name(node.value)
-            writable.write("\n</%s>\n" % tag)
+            writable.write("</%s>\n" % tag)
 
 def parse_page(text):
     text = text.replace("\r\n", "\n")

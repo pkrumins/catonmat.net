@@ -17,6 +17,8 @@ from catonmat.parser.util   import (
 
 from pygments.token         import Token
 
+# ----------------------------------------------------------------------------
+
 def gdocument(token_stream):
     root = DocumentNode()
     while True:

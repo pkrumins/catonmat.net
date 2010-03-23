@@ -1,0 +1,8 @@
+<p><a href="http://google.com">google</a></p>
+
+<p><code>this &lt;script>alert('foo')&lt;/script> is code</code></p>
+
+<pre>
+this is pre
+&lt;script>alert('foo')&lt;/script></p>
+</pre>
