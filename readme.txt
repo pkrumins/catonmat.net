@@ -27,6 +27,13 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.03.23:
+    * rewrote the state based comment parser with a recursive descent one
+    * added tests for comments
+    * added a script that generates pygments code highlighting css
+2010.03.22:
+    * page parser now doesn't <p> contents of certain block tags
+    * added 3 more tests for page parser for <pre>, <pre lang> and above test
 2010.03.16:
     * added syntax highlighting for <pre lang="...">...</pre> tags
 2010.03.15:
