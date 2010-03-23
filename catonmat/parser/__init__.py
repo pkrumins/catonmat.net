@@ -9,5 +9,5 @@
 #
  
 from catonmat.parser.pageparser import parse_page
-#from catonmat.parser.commentparser import parse_comment
+from catonmat.parser.commentparser import parse_comment
 

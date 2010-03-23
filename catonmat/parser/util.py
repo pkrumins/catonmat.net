@@ -22,6 +22,7 @@ INLINE_TAGS = frozenset([
     'q',      's',    'samp',    'select',   'small', 'span', 'strike',
     'strong', 'sub',  'sup',     'textarea', 'tt',    'u',    'var'
 ])
+DONT_P = frozenset(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'li', 'pre'])
 
 def tag_type_by_name(tag_name):
     if tag_name in SELF_CLOSING_TAGS:
@@ -105,6 +106,9 @@ def GeneratorWithoutLast(generator):
 
 def get_lexer(text, lexer):
     return TokenGenerator(GeneratorWithoutLast(lex(text, lexer())))
+
+def document_lexer(text, lexer):
+    return get_lexer(text, lexer)
 
 class Node(object):
     def __init__(self, value=None):
