@@ -19,6 +19,7 @@ from catonmat.models    import (
     Page, Tag, Category, Comment, Visitor, UrlMap, BlogPage, Rss, Download
 )
 
+from mimetypes          import guess_type
 from collections        import defaultdict
 from urlparse           import urlparse
 
@@ -59,10 +60,22 @@ def wordpress_to_catonmat():
     import_pages(wp_pages, wp_tags_dict, wp_comments_dict, wp_categories_dict)
 
 def import_downloads(wp_downloads):
+    def get_mimetype(filename):
+        plaintext_mimes = "awk php phps vb vbs pl pm perl conf py python c cpp".split()
+        try:
+            ext = filename.split('.')[1]
+            if ext in plaintext_mimes:
+                return 'text/plain'
+        except (IndexError, KeyError):
+            pass
+        return guess_type(filename)[0]
+
     flush_write("Importing downloads. ")
     for wp_download in wp_downloads:
         filename = re.sub(r'.*/', '', wp_download.filename)
-        cm_download = Download(wp_download.title, filename)
+        mimetype = get_mimetype(filename)
+        cm_download = Download(wp_download.title, filename, \
+                        mimetype, wp_download.hits, wp_download.postDate)
         cm_download.save()
     flush_write("Done.\n")
 
