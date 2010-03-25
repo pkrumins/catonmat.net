@@ -16,11 +16,13 @@ from sqlalchemy         import Table
 from sqlalchemy.orm     import sessionmaker
 
 from catonmat.models    import (
-    Page, Tag, Category, Comment, Visitor, UrlMap, BlogPage, Rss
+    Page, Tag, Category, Comment, Visitor, UrlMap, BlogPage, Rss, Download
 )
 
 from collections        import defaultdict
 from urlparse           import urlparse
+
+import re
 
 # ----------------------------------------------------------------------------
 
@@ -35,6 +37,7 @@ wp_post2tag_table = Table('wp_post2tag', metadata, autoload=True)
 wp_comments_table = Table('wp_comments', metadata, autoload=True)
 wp_categories_table = Table('wp_categories', metadata, autoload=True)
 wp_post2cat_table = Table('wp_post2cat', metadata, autoload=True)
+wp_downloads_table = Table('wp_DLM_DOWNLOADS', metadata, autoload=True)
 
 def enumerate1(iterable):
     for a, b in enumerate(iterable):
@@ -49,9 +52,19 @@ def wordpress_to_catonmat():
     wp_tags_dict = get_wp_tags()
     wp_comments_dict = get_wp_comments()
     wp_categories_dict = get_wp_categories()
+    wp_downloads = get_wp_downloads()
 
     import_categories(wp_categories_dict)
+    import_downloads(wp_downloads)
     import_pages(wp_pages, wp_tags_dict, wp_comments_dict, wp_categories_dict)
+
+def import_downloads(wp_downloads):
+    flush_write("Importing downloads. ")
+    for wp_download in wp_downloads:
+        filename = re.sub(r'.*/', '', wp_download.filename)
+        cm_download = Download(wp_download.title, filename)
+        cm_download.save()
+    flush_write("Done.\n")
 
 def import_categories(wp_categories_dict):
     flush_write("Importing categories. ")
@@ -159,6 +172,13 @@ def get_wp_categories():
     flush_write("Got %d wordpress categories.\n" % len(wp_cat_dict))
     return wp_cat_dict
 
+def get_wp_downloads():
+    flush_write("Getting wordpress downloads. ")
+    wp_downloads = session.query(wp_downloads_table). \
+                    order_by(wp_downloads_table.c.id).all()
+    flush_write("Got %d wordpress downloads.\n" % len(wp_downloads))
+    return wp_downloads
+
 def get_page_tags(page, wp_tags):
     tags = session. \
              query(wp_post2tag_table). \
@@ -174,5 +194,6 @@ def get_page_category(page):
              first()
     return cats.category_id
 
-wordpress_to_catonmat()
+if __name__ == "__main__":
+    wordpress_to_catonmat()
 

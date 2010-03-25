@@ -47,6 +47,7 @@ pages_table = Table('pages', Metadata,
     Column('content',       Text),
     Column('excerpt',       Text),      # goes in <meta description="...">
     Column('category_id',   Integer,    ForeignKey('categories.category_id')),
+    Column('views',         Integer),   # should factor out to pagemeta_table
     mysql_charset='utf8'
 )
 
@@ -131,7 +132,7 @@ blogpages_table = Table('blog_pages', Metadata,
 
 visitors_table = Table('visitors', Metadata,
     Column('visitor_id',    Integer,    primary_key=True),
-    Column('ip',            String(15)),
+    Column('ip',            String(39)),
     Column('host',          String(256)),
     Column('headers',       Text),
     Column('timestamp',     DateTime),
@@ -144,5 +145,22 @@ rss_table = Table('rss', Metadata,
     Column('publish_date',  DateTime),
     Column('visible',       Boolean),
     mysql_charset='utf8'
+)
+
+downloads_table = Table('downloads', Metadata,
+    Column('download_id',   Integer,    primary_key=True),
+    Column('title',         String(128)),
+    Column('filename',      String(128)),
+    Column('mimetype',      String(64)),
+    Column('timestamp',     DateTime),
+    Column('downloads',     Integer),
+    mysql_charset='utf8'
+)
+
+download_stats_table = Table('download_stats', Metadata,
+    Column('stat_id',       Integer,    primary_key=True),
+    Column('download_id',   Integer,    ForeignKey('downloads.download_id')),
+    Column('timestamp',     DateTime),
+    Column('ip',            String(39))
 )
 

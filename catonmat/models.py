@@ -14,6 +14,7 @@ from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
     page_tags_table, visitors_table,  rss_table,        pagemeta_table,
+    downloads_table, download_stats_table, 
     mapper,
     Session
 )
@@ -234,6 +235,24 @@ class Rss(object):
     def __repr__(self):
         return '<RSS for Page(%s)>' % page.title
 
+class Download(object):
+    def __init__(self, title, filename, mimetype=None, downloads=0, timestamp=None):
+        self.title = title
+        self.filename = filename
+        self.mimetype = mimetype
+        self.downloads = downloads
+        if timestamp is None:
+            self.timestamp = datetime.utcnow()
+
+    def save(self):
+        Session.add(self)
+        Session.commit()
+
+    def __repr__(self):
+        return '<Download %s>' % self.filename
+
+class DownloadStats(object):
+    pass
 
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(
@@ -278,4 +297,6 @@ mapper(Rss, rss_table, properties={
     'page': relation(Page)
 })
 mapper(Visitor, visitors_table)
+mapper(Download, downloads_table)
+mapper(DownloadStats, download_stats_table)
 
