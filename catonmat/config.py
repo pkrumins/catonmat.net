@@ -11,6 +11,8 @@
 config = {
     'database_uri':     'mysql://catonmat@localhost/catonmat?charset=utf8',
     'database_echo':    False,
-    'posts_per_page':   5
+    'posts_per_page':   5,
+    'use_cache':        True,
+    'download_path':    '/home/pkrumins/catonmat/downloads'
 }
 

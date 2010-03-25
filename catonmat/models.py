@@ -248,11 +248,28 @@ class Download(object):
         Session.add(self)
         Session.commit()
 
+    def another_download(self, request):
+        self.downloads = Download.downloads + 1 # this creates an update statement
+        download_stat = DownloadStats(self, request.remote_addr)
+        self.save()
+        download_stat.save()
+
     def __repr__(self):
         return '<Download %s>' % self.filename
 
 class DownloadStats(object):
-    pass
+    def __init__(self, download, ip, timestamp=None):
+        self.download = download
+        self.ip = ip
+        if timestamp is None:
+            self.timestamp = datetime.utcnow()
+
+    def save(self):
+        Session.add(self)
+        Session.commit()
+
+    def __repr__(self):
+        return '<DownloadStat of %s>' % self.download.filename
 
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(
@@ -297,6 +314,12 @@ mapper(Rss, rss_table, properties={
     'page': relation(Page)
 })
 mapper(Visitor, visitors_table)
-mapper(Download, downloads_table)
+mapper(Download, downloads_table, properties={
+    'stats': dynamic_loader(
+                DownloadStats,
+                backref='download',
+                order_by=download_stats_table.c.stat_id.asc()
+    )
+})
 mapper(DownloadStats, download_stats_table)
 

@@ -50,7 +50,7 @@ url_map = Map([
     Rule('/quotes')                    > 'quotes.main',
 
     # Downloads
-    Rule('/download/<file>')           > 'downloads.main',
+    Rule('/download/<filename>')       > 'downloads.main',
 
     # Add and preview comments via AJAX
     Rule('/_services/comment_preview') > 'catonmat.comments.preview_comment',

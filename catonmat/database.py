@@ -160,7 +160,7 @@ downloads_table = Table('downloads', Metadata,
 download_stats_table = Table('download_stats', Metadata,
     Column('stat_id',       Integer,    primary_key=True),
     Column('download_id',   Integer,    ForeignKey('downloads.download_id')),
+    Column('ip',            String(39)),
     Column('timestamp',     DateTime),
-    Column('ip',            String(39))
 )
 
