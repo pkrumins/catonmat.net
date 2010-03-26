@@ -27,13 +27,14 @@ import hashlib
 # ----------------------------------------------------------------------------
 
 class Page(object):
-    def __init__(self, title, content=None, excerpt=None, created=None, last_update=None, category_id=None):
+    def __init__(self, title, content=None, excerpt=None, created=None, last_update=None, category_id=None, views=0):
         self.title = title
         self.content = content
         self.excerpt = excerpt
         self.created = created
         self.last_update = last_update
         self.category_id = category_id
+        self.views = views
         
         if self.created is None:
             self.created = datetime.utcnow()
@@ -235,6 +236,7 @@ class Rss(object):
     def __repr__(self):
         return '<RSS for Page(%s)>' % page.title
 
+
 class Download(object):
     def __init__(self, title, filename, mimetype=None, downloads=0, timestamp=None):
         self.title = title
@@ -257,6 +259,7 @@ class Download(object):
     def __repr__(self):
         return '<Download %s>' % self.filename
 
+
 class DownloadStats(object):
     def __init__(self, download, ip, timestamp=None):
         self.download = download
@@ -270,6 +273,7 @@ class DownloadStats(object):
 
     def __repr__(self):
         return '<DownloadStat of %s>' % self.download.filename
+
 
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(
