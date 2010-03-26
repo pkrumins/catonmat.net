@@ -54,8 +54,8 @@ class DocumentLexer(RegexLexer):
 
     def download_error(lexer, download_id):
         yield_items = [
-            (Token.Text, "Oops, download with id %d wasn't found. " \
-                         "Please let me know about this error via the " % download_id),
+            (Token.Text, "Oops, download with id %s wasn't found. " % download_id),
+            (Token.Text, "Please let me know about this error via the "),
             (Token.Tag.InlineTag, '<a href="/feedback/">'),
             (Token.Text, "feedback"),
             (Token.Tag.Close, "</a>"),
@@ -70,7 +70,8 @@ class DocumentLexer(RegexLexer):
             token_stream = lexer.download_error(download_id)
         else:
             token_stream = [
-                (Token.Tag.InlineTag, '<a href="/download/%s" title="Download %s">' % \
+                (Token.Tag.InlineTag,
+                    '<a href="/download/%s" title="Download &quot;%s&quot;">' % \
                                         (download.filename, download.title)),
                 (Token.Text, download.title),
                 (Token.Tag.Close, "</a>")
@@ -83,29 +84,34 @@ class DocumentLexer(RegexLexer):
         download = Download.query.filter_by(download_id=download_id).first()
         if not download:
             token_stream = lexer.download_error(download_id)
-            for token, value in token_stream:
-                yield 0, token, value
         else:
-            yield 0, Token.Text, download.downloads
+            token_stream = [(0, Token.Text, download.downloads)]
+        for token, value in token_stream:
+            yield 0, token, value
 
     def download_nohits_handler(lexer, match):
         for v in lexer.download_handler(match):
             yield v
 
+    def open_tag(lexer, _):
+        yield 0, Token.Text, '&lt;'
+
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
         'root': [
-            (r'\n\n+',               Token.Par),
-            (r'\n',                  Token.Br),
-            (r'[^<\n]+',             Token.Text),
-            (r'<!--.*?-->',          Token.Comment),
-            (r'<download#(\d+)#nohits>', download_nohits_handler),
-            (r'<download#(\d+)#hits>',   download_hits_handler),
-            (r'<download#(\d+)>',        download_handler),
-            (r'<pre>(.+?)</pre>',        pure_pre_handler),
+            (r'\n\n+',                         Token.Par),
+            (r'\n',                            Token.Br),
+            (r'[^[<\n]+',                      Token.Text),
+            (r'\[download#(\d+)#nohits\]',     download_nohits_handler),
+            (r'\[download#(\d+)#hits\]',       download_hits_handler),
+            (r'\[download#(\d+)\]',            download_handler),
+            (r'<!--.*?-->',                    Token.Comment),
+            (r'<pre>(.+?)</pre>',              pure_pre_handler),
             (r'<pre lang="(.+?)">(.+?)</pre>', lang_pre_handler),
-            (r'<([a-zA-Z0-9]+).*?>', open_tag_handler),
-            (r'</[^>]+>',            Token.Tag.Close)
+            (r'<([a-zA-Z0-9]+).*?>',           open_tag_handler),
+            (r'</[^>]+>',                      Token.Tag.Close),
+            (r'<',                             open_tag),
+            (r'\[',                            Token.Text)
         ],
     }
 
@@ -123,9 +129,6 @@ allowed_open_tag_re = re.compile('|'.join('<(%s)>|<(%s)\W+.*?>' % (tag, tag) for
 allowed_close_tag_re = re.compile('|'.join('</(%s)>' % tag for tag in ALLOWED_COMMENT_TAGS))
 
 class CommentLexer(DocumentLexer):
-    def open_tag(lexer, _):
-        yield 0, Token.Text, '&lt;'
-
     def comment_open_tag_handler(lexer, match):
         tag_name = [t for t in match.groups() if t][0]
         yield lexer.open_tag_handler_yielder(tag_name, match.group(0))
@@ -139,7 +142,7 @@ class CommentLexer(DocumentLexer):
             (r'<pre lang="(.+?)">(.+?)</pre>', DocumentLexer.lang_pre_handler),
             (allowed_open_tag_re,     comment_open_tag_handler),
             (allowed_close_tag_re,    Token.Tag.Close),
-            (r'<',                    open_tag)
+            (r'<',                    DocumentLexer.open_tag)
         ],
     }
 
