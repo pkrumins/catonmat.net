@@ -38,6 +38,7 @@ wp_post2tag_table = Table('wp_post2tag', metadata, autoload=True)
 wp_comments_table = Table('wp_comments', metadata, autoload=True)
 wp_categories_table = Table('wp_categories', metadata, autoload=True)
 wp_post2cat_table = Table('wp_post2cat', metadata, autoload=True)
+wp_postmeta_table = Table('wp_postmeta', metadata, autoload=True)
 wp_downloads_table = Table('wp_DLM_DOWNLOADS', metadata, autoload=True)
 
 def enumerate1(iterable):
@@ -98,6 +99,7 @@ def import_pages(wp_pages, wp_tags_dict, wp_comments_dict, wp_categories_dict):
 
         cm_page = Page(wp_page.post_title, wp_page.post_content, wp_page.post_excerpt, 
                        wp_page.post_date, wp_page.post_modified)
+        import_page_views(wp_page, cm_page)
         import_page_tags(wp_page, cm_page, wp_tags_dict)
         import_page_category(wp_page, cm_page, wp_categories_dict)
         cm_page.save() # to generate cm_page.page_id
@@ -106,6 +108,17 @@ def import_pages(wp_pages, wp_tags_dict, wp_comments_dict, wp_categories_dict):
         insert_blogpage(wp_page, cm_page)
         insert_rss(wp_page, cm_page)
     flush_write("Done.\n")
+
+def import_page_views(wp_page, cm_page):
+    views = session. \
+              query(wp_postmeta_table). \
+              filter(wp_postmeta_table.c.post_id==wp_page.ID). \
+              filter(wp_postmeta_table.c.meta_key=='views'). \
+              first()
+    if views:
+        cm_page.views = views.meta_value
+    else:
+        cm_page.views = 0
 
 def import_page_tags(wp_page, cm_page, wp_tags_dict):
     wp_tags = get_page_tags(wp_page, wp_tags_dict)
