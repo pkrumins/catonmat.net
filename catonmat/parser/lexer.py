@@ -85,7 +85,7 @@ class DocumentLexer(RegexLexer):
         if not download:
             token_stream = lexer.download_error(download_id)
         else:
-            token_stream = [(0, Token.Text, download.downloads)]
+            token_stream = [(Token.Text, download.downloads)]
         for token, value in token_stream:
             yield 0, token, value
 
