@@ -19,7 +19,7 @@
       % if comment_data.comment_count == 1:
         <a href="${page_data.page_path}#comments" title="One person has commented on &quot;${page_data.page.title|h}&quot;"><strong>1</strong> Comment</a>
       % else:
-      <a href="${page_data.page_path}#comments" title="&quot;${page_data.page.title|h}&quot; has ${comment_data.comment_count} comments"><strong>${comment_data.comment_count}</strong> Comments</a>
+      <a href="${page_data.page_path}#comments" title="${comment_data.comment_count} people have commented on &quot;${page_data.page.title|h}&quot;"><strong>${comment_data.comment_count}</strong> Comments</a>
       % endif
     </span>
     % endif
