@@ -1,0 +1,22 @@
+six < seven. seven > six.
+
+< six.
+
+<
+
+>
+
+[foo] [bar] [baz]
+
+[foo bar baz]
+
+[[foo]]
+
+[
+
+]
+
+[ foo
+
+[ bar baz ]
+
