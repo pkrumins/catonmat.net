@@ -27,6 +27,8 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.03.25:
+    * lexer now handles [download#id] and converts it to <a> download link
 2010.03.23:
     * rewrote the state based comment parser with a recursive descent one
     * added tests for comments
