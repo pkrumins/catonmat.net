@@ -17,6 +17,8 @@ from pygments.formatters    import HtmlFormatter
 
 from catonmat.parser.util   import tag_type_by_name, get_lexer
 from catonmat.models        import Download
+from catonmat.database      import session
+
 import re
 
 # ----------------------------------------------------------------------------
@@ -65,7 +67,7 @@ class DocumentLexer(RegexLexer):
 
     def download_handler(lexer, match):
         download_id = match.group(1)
-        download = Download.query.filter_by(download_id=download_id).first()
+        download = session.query(Download).filter_by(download_id=download_id).first()
         if not download:
             token_stream = lexer.download_error(download_id)
         else:
@@ -81,7 +83,7 @@ class DocumentLexer(RegexLexer):
 
     def download_hits_handler(lexer, match):
         download_id = match.group(1)
-        download = Download.query.filter_by(download_id=download_id).first()
+        download = session.query(Download).filter_by(download_id=download_id).first()
         if not download:
             token_stream = lexer.download_error(download_id)
         else:

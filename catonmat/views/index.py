@@ -11,13 +11,24 @@
 from werkzeug.exceptions        import BadRequest
 
 from catonmat.views.utils       import display_template_with_quote, MakoDict
+from catonmat.database          import session
+from catonmat.models            import Page, BlogPage, UrlMap
 from catonmat.config            import config
-from catonmat.models            import BlogPage, Page, UrlMap
-from catonmat.database          import Session
 
 from math                       import ceil
 
 # ----------------------------------------------------------------------------
+
+class Pagination(object):
+    def __init__(self, current_page, total_pages, items_per_page):
+        self.current_page = current_page
+        self.total_pages = total_pages
+        self.items_per_page = items_per_page
+
+    @property
+    def physical_pages(self):
+        return int(ceil(self.total_pages/(self.items_per_page + 0.0)))
+
 
 def main(request):
     return handle_page()
@@ -33,17 +44,6 @@ def page(request, page_nr):
         raise BadRequest()
 
     return handle_page(page_nr)
-
-
-class Pagination(object):
-    def __init__(self, current_page, total_pages, items_per_page):
-        self.current_page = current_page
-        self.total_pages = total_pages
-        self.items_per_page = items_per_page
-
-    @property
-    def physical_pages(self):
-        return int(ceil(self.total_pages/(self.items_per_page + 0.0)))
 
 
 def handle_page(page_nr=1):
@@ -64,20 +64,18 @@ def handle_page(page_nr=1):
 
 
 def total_blogpages():
-    return BlogPage.query.count()
-
+    session.query(BlogPage).count()
 
 def get_mixergy(page=1):
     # TODO: narrow down the query
-    mixergy = (Session.  
-                query(Page, UrlMap). 
-                join(BlogPage, UrlMap). 
-                order_by(BlogPage.publish_date.desc()). 
-                filter(BlogPage.visible==True).  
-                limit(config['posts_per_page']). 
-                offset((page-1)*config['posts_per_page']). 
-                all())
-    return mixergy
+    return = session. \
+                query(Page, UrlMap). \
+                join(BlogPage, UrlMap). \
+                order_by(BlogPage.publish_date.desc()). \
+                filter(BlogPage.visible==True). \
+                limit(config['posts_per_page']). \
+                offset((page-1)*config['posts_per_page']). \
+                all() 
 
 
 def default_display_options():

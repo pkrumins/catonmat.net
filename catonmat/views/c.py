@@ -15,7 +15,7 @@ from werkzeug.exceptions    import NotFound
 from sqlalchemy             import join
 
 from catonmat.models        import Comment, Page, UrlMap
-from catonmat.database      import Session
+from catonmat.database      import session
 from catonmat.views.utils   import get_template, display_template_with_quote
 
 from catonmat.comments      import (
@@ -37,11 +37,11 @@ def handle_comment_get(request, comment_id):
 
 
 def default_comment_template_data(request, comment_id):
-    mixergy = (Session.
-                 query(Comment, Page, UrlMap).
-                 join(Page, UrlMap).
-                 filter(Comment.comment_id==comment_id).
-                 first())
+    mixergy = session. \
+                query(Comment, Page, UrlMap). \
+                join(Page, UrlMap). \
+                filter(Comment.comment_id==comment_id). \
+                first()
 
     if not mixergy:
         # TODO: "The requested comment was not found, here are a few latest coments"

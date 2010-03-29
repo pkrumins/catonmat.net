@@ -8,24 +8,22 @@
 # Code is licensed under GNU GPL license.
 #
 
-from sqlalchemy                     import join
-
 from werkzeug.exceptions            import NotFound
 
-from catonmat.views.utils           import display_template_with_quote
 from catonmat.models                import Tag, Page, UrlMap
-from catonmat.database              import Session, page_tags_table
+from catonmat.database              import session
+from catonmat.views.utils           import display_template_with_quote
 
 # ----------------------------------------------------------------------------
 
 def main(request, tag):
     # TODO: perhaps this query is not necessary
-    tag = Tag.query.filter_by(seo_name=tag).first()
+    tag = session.query(Tag).filter_by(seo_name=tag).first()
     if not tag:
         raise NotFound()
 
     # TODO: more effective selection
-    pus = Session.query(Page, UrlMap).join(
+    pus = session.query(Page, UrlMap).join(
                 (page_tags_table, Page.page_id==page_tags_table.c.page_id),
                 (Tag, Tag.tag_id==page_tags_table.c.tag_id),
                 UrlMap
@@ -40,7 +38,7 @@ def main(request, tag):
 
 
 def list(request):
-    tags = Tag.query.all()
+    tags = session.query(Tag).all()
     template_data = {
         'tags': tags
     }

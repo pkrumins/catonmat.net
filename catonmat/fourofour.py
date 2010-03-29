@@ -10,9 +10,9 @@
 #
 
 from catonmat.models   import FouroFour
-from catonmat.database import Session
+from catonmat.database import session
 
 def log_404(request):
-    Session.add(FouroFour(request.path))
-    Session.commit()
+    session.add(FouroFour(request.path))
+    session.commit()
 

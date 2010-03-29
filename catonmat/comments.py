@@ -12,7 +12,7 @@ from werkzeug               import redirect, Response
 from werkzeug.exceptions    import BadRequest
 
 from catonmat.models        import Page, Comment, Visitor
-from catonmat.database      import Session
+from catonmat.database      import session
 from catonmat.views.utils   import get_template
 
 from StringIO               import StringIO
@@ -72,13 +72,13 @@ def validate_comment(request):
                     raise CommentError, "The only allowed website schemes are http://, https:// and ftp://"
 
     def validate_page_id(page_id):
-        number_of_pages = Page.query.filter_by(page_id=page_id).count()
+        number_of_pages = session.query(Page).filter_by(page_id=page_id).count()
         if number_of_pages != 1:
             raise CommentError, "Something went wrong, the page you were commenting on was not found..."
 
     def validate_parent_id(parent_id):
         if parent_id:
-            comments = Comment.query.filter_by(comment_id=parent_id).count()
+            comments = session.query(Comment).filter_by(comment_id=parent_id).count()
             if comments != 1:
                 raise CommentError, "Something went wrong, the comment you were responding to was not found..."
 
@@ -133,7 +133,7 @@ def add_comment(request):
 
 
 def get_comment(id):
-    return Comment.query.filter_by(comment_id=id).first()
+    return session.query(Comment).filter_by(comment_id=id).first()
 
 
 def new_comment(request):
@@ -150,8 +150,8 @@ def new_comment(request):
 
 
 def save_comment(comment):
-    Session.add(comment)
-    Session.commit()
+    session.add(comment)
+    session.commit()
 
 
 def thread(comments):

@@ -8,15 +8,16 @@
 # Code is licensed under GNU GPL license.
 #
 
-from sqlalchemy.orm         import dynamic_loader, relation
+from sqlalchemy.orm         import dynamic_loader, relation, mapper
 
+from catonmat.models        import Comment, Tag
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
     page_tags_table, visitors_table,  rss_table,        pagemeta_table,
-    downloads_table, download_stats_table, 
-    mapper,
-    Session
+    downloads_table,
+    download_stats_table,
+    session
 )
 
 from urlparse               import urlparse
@@ -52,15 +53,15 @@ class Page(object):
 
     @property
     def comment_count(self):
-        return Comment.query.filter_by(page_id=self.page_id).count()
+        return session.query(Comment).filter_by(page_id=self.page_id).count()
 
     def save(self):
-        Session.add(self)
-        Session.commit()
+        session.add(self)
+        session.commit()
 
     def add_tag(self, tag):
         real_tag = tag
-        t = Tag.query.filter_by(seo_name=tag.seo_name).first()
+        t = session.query(Tag).filter_by(seo_name=tag.seo_name).first()
         if t:
             real_tag = t
         self.tags.append(real_tag)
@@ -135,8 +136,8 @@ class Comment(object):
         return self.timestamp.strftime("%B %d, %Y, %H:%M")
 
     def save(self):
-        Session.add(self)
-        Session.commit()
+        session.add(self)
+        session.commit()
 
     def __repr__(self):
         return '<Comment(%d) on Page(%s)>' % (self.comment_id, self.page.title)
@@ -150,8 +151,8 @@ class Category(object):
         self.count = count
 
     def save(self):
-        Session.add(self)
-        Session.commit()
+        session.add(self)
+        session.commit()
 
     def __repr__(self):
         return '<Category %s>' % self.name
@@ -176,8 +177,8 @@ class UrlMap(object):
         self.redirect = redirect
 
     def save(self):
-        Session.add(self)
-        Session.commit()
+        session.add(self)
+        session.commit()
 
     def __repr__(self):
         return '<UrlMap from %s to Page(%s)>' % (self.request_path, self.page.title)
@@ -203,8 +204,8 @@ class BlogPage(object):
             self.publish_date = date.utcnow()
 
     def save(self):
-        Session.add(self)
-        Session.commit()
+        session.add(self)
+        session.commit()
 
     def __repr__(self):
         return '<Blog Page of Page(%s)>' % page.title
@@ -230,8 +231,8 @@ class Rss(object):
         self.visible = visible
 
     def save(self):
-        Session.add(self)
-        Session.commit()
+        session.add(self)
+        session.commit()
 
     def __repr__(self):
         return '<RSS for Page(%s)>' % page.title
@@ -247,8 +248,8 @@ class Download(object):
             self.timestamp = datetime.utcnow()
 
     def save(self):
-        Session.add(self)
-        Session.commit()
+        session.add(self)
+        session.commit()
 
     def another_download(self, request):
         self.downloads = Download.downloads + 1 # this creates an update statement
@@ -268,8 +269,8 @@ class DownloadStats(object):
             self.timestamp = datetime.utcnow()
 
     def save(self):
-        Session.add(self)
-        Session.commit()
+        session.add(self)
+        session.commit()
 
     def __repr__(self):
         return '<DownloadStat of %s>' % self.download.filename

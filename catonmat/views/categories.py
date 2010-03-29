@@ -9,25 +9,24 @@
 #
 
 from sqlalchemy                     import join
-
 from werkzeug.exceptions            import NotFound
-
-from catonmat.views.utils           import display_template_with_quote
 from catonmat.models                import Category, Page, UrlMap
-from catonmat.database              import Session
+from catonmat.database              import session
+from catonmat.views.utils           import display_template_with_quote
 
 # ----------------------------------------------------------------------------
 
 def main(request, category):
-    category = Category.query.filter_by(seo_name=category).first()
+    category = session.query(Category).filter_by(seo_name=category).first() 
     if not category:
         raise NotFound()
 
     # TODO: select only the necessary fields
-    mixergy = (Session.
-                 query(Page, UrlMap).
-                 join(UrlMap).
-                 filter(Page.category_id==category.category_id).all())
+    mixergy = session. \
+                query(Page, UrlMap). \
+                join(UrlMap). \
+                filter(Page.category_id==category.category_id). \
+                all() 
 
     # TODO: add comment-count for each page, add excerpt, add publish date
     template_data = {
@@ -38,7 +37,7 @@ def main(request, category):
 
 
 def list(request):
-    categories = Category.query.all()
+    categories = session.query(Category).all() 
     template_data = {
         'categories': categories
     }

@@ -8,11 +8,11 @@
 # Code is licensed under GNU GPL license.
 #
 
-from sqlalchemy.orm  import scoped_session, create_session
-from sqlalchemy.orm  import mapper as sqla_mapper
+from sqlalchemy.orm  import mapper, sessionmaker, scoped_session
 from sqlalchemy      import (
-    MetaData, Table,    Column, ForeignKey, DateTime, Integer,
-    Text,     Boolean,  String, Binary,
+    MetaData,
+    Table,    Column,   ForeignKey,
+    String,   Text,     Integer,        DateTime,   Boolean,    LargeBinary,
     create_engine
 )
 
@@ -20,26 +20,18 @@ from catonmat.config import config
 
 # ----------------------------------------------------------------------------
 
-Metadata = MetaData()
-Engine = create_engine(
+metadata = MetaData()
+engine = create_engine(
     config['database_uri'],
     convert_unicode=True,
     echo=config['database_echo'],
     pool_recycle=3600
 )
-Session = scoped_session(
-    lambda: create_session(Engine, autoflush=True, autocommit=False)
-)
 
-def session_mapper(scoped_session_):
-    def mapper(cls, *arg, **kw):
-        cls.query = scoped_session_.query_property()
-        return sqla_mapper(cls, *arg, **kw)
-    return mapper
+Session = sessionmaker(bind=engine, autoflush=True, autocommit=False)
+session = scoped_session(Session)
 
-mapper = session_mapper(Session)
-
-pages_table = Table('pages', Metadata,
+pages_table = Table('pages', metadata,
     Column('page_id',       Integer,    primary_key=True),
     Column('title',         String(256)),
     Column('created',       DateTime),
@@ -51,15 +43,15 @@ pages_table = Table('pages', Metadata,
     mysql_charset='utf8'
 )
 
-pagemeta_table = Table('page_meta', Metadata,
+pagemeta_table = Table('page_meta', metadata,
     Column('meta_id',       Integer,     primary_key=True),
     Column('page_id',       Integer,     ForeignKey('pages.page_id')),
     Column('meta_key',      String(128)),
-    Column('meta_val',      Binary),
+    Column('meta_val',      LargeBinary),
     mysql_charset='utf8'
 )
 
-revisions_table = Table('revisions', Metadata,
+revisions_table = Table('revisions', metadata,
     Column('revision_id',   Integer,    primary_key=True),
     Column('page_id',       Integer,    ForeignKey('pages.page_id')),
     Column('timestamp',     DateTime),
@@ -70,7 +62,7 @@ revisions_table = Table('revisions', Metadata,
     mysql_charset='utf8'
 )
 
-comments_table = Table('comments', Metadata,
+comments_table = Table('comments', metadata,
     Column('comment_id',    Integer,    primary_key=True),
     Column('parent_id',     Integer),
     Column('page_id',       Integer,    ForeignKey('pages.page_id')),
@@ -85,7 +77,7 @@ comments_table = Table('comments', Metadata,
     mysql_charset='utf8'
 )
 
-categories_table = Table('categories', Metadata,
+categories_table = Table('categories', metadata,
     Column('category_id',   Integer,     primary_key=True),
     Column('name',          String(128)),
     Column('seo_name',      String(128), unique=True),
@@ -93,7 +85,7 @@ categories_table = Table('categories', Metadata,
     Column('count',         Integer),    # number of pages in this category
 )
 
-tags_table = Table('tags', Metadata,
+tags_table = Table('tags', metadata,
     Column('tag_id',        Integer,     primary_key=True),
     Column('name',          String(128)),
     Column('seo_name',      String(128), unique=True),
@@ -101,12 +93,12 @@ tags_table = Table('tags', Metadata,
     Column('count',         Integer),    # number of pages tagged
 )
 
-page_tags_table = Table('page_tags', Metadata,
+page_tags_table = Table('page_tags', metadata,
     Column('page_id',       Integer,    ForeignKey('pages.page_id')),
     Column('tag_id',        Integer,    ForeignKey('tags.tag_id'))
 )
 
-urlmaps_table = Table('url_maps', Metadata,
+urlmaps_table = Table('url_maps', metadata,
     Column('url_map_id',    Integer,     primary_key=True),
     Column('request_path',  String(256), unique=True),
     Column('page_id',       Integer,     ForeignKey('pages.page_id')),
@@ -115,14 +107,14 @@ urlmaps_table = Table('url_maps', Metadata,
     mysql_charset='utf8'
 )
 
-fourofour_table = Table('404', Metadata,
+fourofour_table = Table('404', metadata,
     Column('404_id',        Integer,    primary_key=True),
     Column('request_path',  Text),
     Column('date',          DateTime),
     mysql_charset='utf8'
 )
 
-blogpages_table = Table('blog_pages', Metadata,
+blogpages_table = Table('blog_pages', metadata,
     Column('blog_page_id',  Integer,    primary_key=True),
     Column('page_id',       Integer,    ForeignKey('pages.page_id')),
     Column('publish_date',  DateTime),
@@ -130,7 +122,7 @@ blogpages_table = Table('blog_pages', Metadata,
     mysql_charset='utf8'
 )
 
-visitors_table = Table('visitors', Metadata,
+visitors_table = Table('visitors', metadata,
     Column('visitor_id',    Integer,    primary_key=True),
     Column('ip',            String(39)),
     Column('host',          String(256)),
@@ -139,7 +131,7 @@ visitors_table = Table('visitors', Metadata,
     mysql_charset='utf8'
 )
 
-rss_table = Table('rss', Metadata,
+rss_table = Table('rss', metadata,
     Column('rss_id',        Integer,    primary_key=True),
     Column('page_id',       Integer,    ForeignKey('pages.page_id')),
     Column('publish_date',  DateTime),
@@ -147,7 +139,7 @@ rss_table = Table('rss', Metadata,
     mysql_charset='utf8'
 )
 
-downloads_table = Table('downloads', Metadata,
+downloads_table = Table('downloads', metadata,
     Column('download_id',   Integer,    primary_key=True),
     Column('title',         String(128)),
     Column('filename',      String(128)),
@@ -157,7 +149,7 @@ downloads_table = Table('downloads', Metadata,
     mysql_charset='utf8'
 )
 
-download_stats_table = Table('download_stats', Metadata,
+download_stats_table = Table('download_stats', metadata,
     Column('stat_id',       Integer,    primary_key=True),
     Column('download_id',   Integer,    ForeignKey('downloads.download_id')),
     Column('ip',            String(39)),

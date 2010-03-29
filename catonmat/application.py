@@ -12,7 +12,7 @@ from werkzeug             import Request, redirect
 from werkzeug.exceptions  import HTTPException, NotFound
 from werkzeug             import SharedDataMiddleware
 
-from catonmat.database    import Session
+from catonmat.database    import session
 from catonmat.urls        import url_map, get_page_from_request_path
 from catonmat.views.utils import get_view
 from catonmat.fourofour   import log_404
@@ -52,7 +52,7 @@ def application(request):
         print "HTTPException"
         pass
     finally:
-        Session.remove()
+        session.remove()
 
 application = SharedDataMiddleware(application,
     { '/static': path.join(path.dirname(__file__), 'static') }

@@ -6,8 +6,10 @@
 # Code is licensed under MIT license.
 #
 
-from catonmat.models  import UrlMap
-from werkzeug.routing import Map, Rule as RuleBase, Submount
+from catonmat.models    import UrlMap
+from catonmat.database  import session
+
+from werkzeug.routing   import Map, Rule as RuleBase, Submount
 
 import re
 
@@ -16,8 +18,7 @@ import re
 def get_page_from_request_path(request_path):
     request_path = request_path.rstrip('/')
     request_path = re.sub('//+', '/', request_path)
-
-    return UrlMap.query.filter_by(request_path=request_path).first()
+    return session.query(UrlMap).filter_by(request_path=request_path).first()
 
 
 class Rule(RuleBase):
