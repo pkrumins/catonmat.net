@@ -37,7 +37,7 @@ def main(request, category):
 
 
 def list(request):
-    categories = session.query(Category).all() 
+    categories = session.query(Category).order_by(Category.name).all() 
     template_data = {
         'categories': categories
     }
