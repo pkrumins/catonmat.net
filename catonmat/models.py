@@ -10,7 +10,6 @@
 
 from sqlalchemy.orm         import dynamic_loader, relation, mapper
 
-from catonmat.models        import Comment, Tag
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
