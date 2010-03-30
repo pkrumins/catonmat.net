@@ -5,7 +5,7 @@
 
 <div class="page">
   <div class="header">
-    <h1>Posts tagged "${tag.name}"</h1>
+    <h1>Posts tagged "${tag.name|h}"</h1>
     <div class="hr lighter"></div>
   </div>
 
@@ -15,11 +15,11 @@
     % endif
     <p>
     % if tag.count == 0:
-      There are currently no posts with a tag <strong>"${tag.name}"</strong>.
+      There are currently no posts with a tag <strong>"${tag.name|h}"</strong>.
     % elif tag.count == 1:
-      There is <strong>1</strong> post with a tag <strong>"${tag.name}"</strong>.
+      There is <strong>1</strong> post with a tag <strong>"${tag.name|h}"</strong>.
     % else:
-      There are <strong>${tag.count}</strong> posts with a tag <strong>"${category.name}"</strong>.
+      There are <strong>${tag.count}</strong> posts with a tag <strong>"${tag.name|h}"</strong>.
     % endif
     </p>
 
