@@ -19,7 +19,7 @@ a img { border: none; }
 em { font-style: italic; }
 pre, code { font-family: "Courier New", Courier, monospace; }
 pre { padding: 1em; }
-code { background-color: #FFF7F0; padding: 0 2px; }
+code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 
 #container {
   width: 900px;
