@@ -13,11 +13,11 @@
     <p><em>${category.description|h}</em></p>
     <p>
     % if category.count == 0:
-      Category <strong>"${category.name}"</strong> does not contain any posts.
+      Category <strong>"${category.name|h}"</strong> does not contain any posts.
     % elif category.count == 1:
-      Category <strong>"${category.name}"</strong> contains <strong>1</strong> post.
+      Category <strong>"${category.name|h}"</strong> contains <strong>1</strong> post.
     % else:
-      Category <strong>"${category.name}"</strong> contains <strong>${category.count}</strong> posts.
+      Category <strong>"${category.name|h}"</strong> contains <strong>${category.count}</strong> posts.
     % endif
     </p>
 
