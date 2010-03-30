@@ -14,15 +14,19 @@ from werkzeug.exceptions    import NotFound
 
 from sqlalchemy             import join
 
+from catonmat.cache         import cache_del
 from catonmat.models        import Comment, Page, UrlMap
 from catonmat.database      import session
-from catonmat.views.utils   import get_template, display_template_with_quote
+from catonmat.views.utils   import get_template, display_template
 
 from catonmat.comments      import (
-    validate_comment, new_comment, save_comment, thread, CommentError
+    validate_comment,       new_comment, save_comment, thread, CommentError,
+    invalidate_page_cache
 )
 
 # ----------------------------------------------------------------------------
+
+# TODO: add caching
 
 def main(request, comment_id):
     if request.method == "POST":
@@ -102,6 +106,8 @@ def handle_comment_submit(request, comment_id):
     comment = new_comment(request)
     save_comment(comment)
 
+    invalidate_page_cache(request.form['page_id'])
+
     return redirect('/c/%d' % comment.comment_id)
 
 
@@ -124,5 +130,5 @@ def handle_comment_preview(request, comment_id):
 
 
 def display_page(template_data):
-    return display_template_with_quote("comment_page", template_data)
+    return display_template("comment_page", template_data)
 

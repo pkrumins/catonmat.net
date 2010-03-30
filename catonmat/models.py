@@ -296,7 +296,8 @@ mapper(Page, pages_table, properties={
                     PageMeta,
                     backref='page',
                     order_by=pagemeta_table.c.meta_id
-    )
+    ),
+    'url_map': relation(UrlMap)
 })
 mapper(PageMeta, pagemeta_table)
 mapper(Revision, revisions_table)

@@ -11,8 +11,11 @@
 from werkzeug.exceptions    import NotFound
 from werkzeug               import redirect
 
+from catonmat.database      import session
+from catonmat.cache         import cache_del
+from catonmat.config        import config
 from catonmat.views.utils   import (
-    get_template, display_template_with_quote, MakoDict
+    MakoDict, cached_template_response, render_template, display_template
 )
 from catonmat.comments      import (
     validate_comment, new_comment, save_comment, thread, linear, CommentError
@@ -21,6 +24,7 @@ from catonmat.comments      import (
 # ----------------------------------------------------------------------------
 
 def main(request, map):
+    map = session.merge(map)
     if request.method == "POST":
         return handle_page_post(request, map)
     return handle_page_get(request, map)
@@ -48,6 +52,9 @@ def handle_comment_submit(request, map):
     comment = new_comment(request)
     save_comment(comment)
 
+    if config.use_cache:
+        cache_del('individual_page_%s' % map.request_path)
+    
     return redirect('/c/%d' % comment.comment_id)
 
 
@@ -71,7 +78,7 @@ def handle_comment_preview(request, map):
 def page_with_comment_error(request, map, error):
     template_data = default_page_template_data(request, map)
     template_data['comment_error'] = error
-    
+
     return display_page(template_data)
 
 
@@ -114,9 +121,18 @@ def default_display_options():
 
 
 def handle_page_get(request, map):
-    return display_page(default_page_template_data(request, map))
+    return cached_template_response(
+             'individual_page_%s' % map.request_path,
+             compute_handle_page_get,
+             request,
+             map)
+
+
+def compute_handle_page_get(request, map):
+    template_data = default_page_template_data(request, map)
+    return render_template("page", **template_data)
 
 
 def display_page(template_data):
-    return display_template_with_quote("page", template_data)
+    return display_template("page", template_data)
 

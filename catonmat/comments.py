@@ -11,6 +11,8 @@
 from werkzeug               import redirect, Response
 from werkzeug.exceptions    import BadRequest
 
+from catonmat.config        import config
+from catonmat.cache         import cache_del
 from catonmat.models        import Page, Comment, Visitor
 from catonmat.database      import session
 from catonmat.views.utils   import get_template
@@ -124,12 +126,21 @@ def add_comment(request):
         comment = new_comment(request)
         save_comment(comment)
 
+        invalidate_page_cache(request.form['page_id'])
+
         return Response(
                 json_response(status='success',
                     comment=get_template('comment').
                             get_def('individual_comment').
                             render(comment=comment))
         , mimetype='application/json')
+
+
+def invalidate_page_cache(page_id):
+    if config.use_cache:
+        page = session.query(Page).filter_by(page_id=page_id).first()
+        for map in page.url_map:
+            cache_del('individual_page_%s' % map.request_path)
 
 
 def get_comment(id):

@@ -11,14 +11,22 @@
 from werkzeug.exceptions            import NotFound
 
 from catonmat.models                import Tag, Page, UrlMap
-from catonmat.database              import session
-from catonmat.views.utils           import display_template_with_quote
+from catonmat.database              import page_tags_table, session
+from catonmat.views.utils           import cached_template_response, render_template
 
 # ----------------------------------------------------------------------------
 
-def main(request, tag):
+def main(request, seo_name):
+    return cached_template_response(
+             'tag_page_%s' % seo_name,
+             compute_main,
+             request,
+             seo_name)
+
+
+def compute_main(request, seo_name):
     # TODO: perhaps this query is not necessary
-    tag = session.query(Tag).filter_by(seo_name=tag).first()
+    tag = session.query(Tag).filter_by(seo_name=seo_name).first()
     if not tag:
         raise NotFound()
 
@@ -34,17 +42,20 @@ def main(request, tag):
         'tag': tag,
         'pus': pus
     }
-    return display_page('tag', template_data)
+    return render_template('tag', **template_data)
 
 
 def list(request):
-    tags = session.query(Tag).all()
+    return cached_template_response(
+             'tag_list',
+             compute_list,
+             request)
+
+
+def compute_list(request):
+    tags = session.query(Tag).order_by(Tag.name).all()
     template_data = {
         'tags': tags
     }
-    return display_page('tag_list', template_data)
-
-
-def display_page(template, template_data):
-    return display_template_with_quote(template, template_data)
+    return render_template('tag_list', **template_data)
 

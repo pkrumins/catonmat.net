@@ -8,12 +8,13 @@
 # Code is licensed under GNU GPL license.
 #
 
-from werkzeug.exceptions        import BadRequest
+from werkzeug.exceptions        import NotFound
 
-from catonmat.views.utils       import display_template_with_quote, MakoDict
+from catonmat.views.utils       import MakoDict, cached_template_response, render_template
 from catonmat.database          import session
 from catonmat.models            import Page, BlogPage, UrlMap
 from catonmat.config            import config
+from catonmat.cache             import cache
 
 from math                       import ceil
 
@@ -36,18 +37,24 @@ def main(request):
 
 def page(request, page_nr):
     blogpages = total_blogpages()
-    last_page = int(ceil(blogpages/(config['posts_per_page'] + 0.0)))
+    last_page = int(ceil(blogpages/(config.posts_per_page + 0.0)))
 
     if page_nr <= 0 or page_nr > last_page:
         # TODO: display nice error that page is out of range,
         #       and point the user to latest posts, other interesting stuff.
-        raise BadRequest()
+        raise NotFound()
 
     return handle_page(page_nr)
 
 
 def handle_page(page_nr=1):
-    # cached_page = get_cached_page("index", page_nr)
+    return cached_template_response(
+             'index_page_%s' % page_nr,
+             compute_handle_page,
+             page_nr)
+
+
+def compute_handle_page(page_nr=1):
     mixergy = get_mixergy(page_nr)
 
     page_array = []
@@ -58,24 +65,29 @@ def handle_page(page_nr=1):
 
     template_data = {
         'page_array': page_array,
-        'pagination': Pagination(page_nr, total_blogpages(), config['posts_per_page'])
+        'pagination': Pagination(page_nr, total_blogpages(), config.posts_per_page)
     }
-    return display_template_with_quote("index", template_data)
+    return render_template("index", **template_data)
 
 
+@cache('total_blogpages')
 def total_blogpages():
-    session.query(BlogPage).count()
+    return session. \
+             query(BlogPage). \
+             filter(BlogPage.visible==True). \
+             count()
+
 
 def get_mixergy(page=1):
     # TODO: narrow down the query
-    return = session. \
-                query(Page, UrlMap). \
-                join(BlogPage, UrlMap). \
-                order_by(BlogPage.publish_date.desc()). \
-                filter(BlogPage.visible==True). \
-                limit(config['posts_per_page']). \
-                offset((page-1)*config['posts_per_page']). \
-                all() 
+    return session. \
+             query(Page, UrlMap). \
+             join(BlogPage, UrlMap). \
+             order_by(BlogPage.publish_date.desc()). \
+             filter(BlogPage.visible==True). \
+             limit(config.posts_per_page). \
+             offset((page-1)*config.posts_per_page). \
+             all() 
 
 
 def default_display_options():

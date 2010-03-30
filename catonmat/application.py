@@ -13,9 +13,9 @@ from werkzeug.exceptions  import HTTPException, NotFound
 from werkzeug             import SharedDataMiddleware
 
 from catonmat.database    import session
-from catonmat.urls        import url_map, get_page_from_request_path
 from catonmat.views.utils import get_view
 from catonmat.fourofour   import log_404
+from catonmat.urls        import url_map, url_map_for_path
 
 from os import path
 
@@ -33,16 +33,16 @@ def application(request):
         endpoint, values = adapter.match()
         return handle_request(endpoint, request, **values)
     except NotFound:
-        map = get_page_from_request_path(request.path)
+        map = url_map_for_path(request.path)
         if map:
             if map.redirect:
                 return redirect(map.redirect, code=301)
 
-            if map.page:
-                return handle_request('pages.main', request, map)
-
             if map.handler:
                 return handle_request(map.handler, request, map)
+
+            # else it must be map.page
+            return handle_request('pages.main', request, map)
 
         # Log this request in the 404 log and display not found page
         log_404(request)

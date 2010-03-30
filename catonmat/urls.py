@@ -6,19 +6,36 @@
 # Code is licensed under MIT license.
 #
 
-from catonmat.models    import UrlMap
-from catonmat.database  import session
+from catonmat.config        import config
+from catonmat.cache         import cache_get, cache_set
+from catonmat.models        import UrlMap
+from catonmat.database      import session
 
-from werkzeug.routing   import Map, Rule as RuleBase, Submount
+from werkzeug.routing       import Map, Rule as RuleBase, Submount
 
 import re
 
 # ----------------------------------------------------------------------------
 
-def get_page_from_request_path(request_path):
+def url_map_for_path(request_path):
+    cache_key = 'not_found_%s' % request_path
+
     request_path = request_path.rstrip('/')
     request_path = re.sub('//+', '/', request_path)
-    return session.query(UrlMap).filter_by(request_path=request_path).first()
+
+    if config.use_cache:
+        url_map = cache_get(cache_key)
+        if url_map is not None:
+            return url_map
+
+    url_map = session.query(UrlMap).filter_by(request_path=request_path).first()
+    if not url_map:
+        return None
+
+    if config.use_cache:
+        cache_set(cache_key, url_map)
+
+    return url_map
 
 
 class Rule(RuleBase):
@@ -38,12 +55,12 @@ url_map = Map([
     Rule('/blog')                      > 'index.main',
 
     # Categories
-    Rule('/category/<category>')       > 'categories.main',
+    Rule('/category/<seo_name>')       > 'categories.main',
     Rule('/category')                  > 'categories.list',
     Rule('/categories')                > 'categories.list',
 
     # Tags
-    Rule('/tag/<tag>')                 > 'tags.main',
+    Rule('/tag/<seo_name>')            > 'tags.main',
     Rule('/tag')                       > 'tags.list',
     Rule('/tags')                      > 'tags.list',
 

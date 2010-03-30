@@ -8,13 +8,13 @@
 # Code is licensed under GNU GPL license.
 #
 
-from werkzeug        import import_string, Response
+from werkzeug               import import_string, Response
 
-from mako.template   import Template
-from mako.lookup     import TemplateLookup
+from mako.template          import Template
+from mako.lookup            import TemplateLookup
 
-from catonmat.quotes import get_random_quote
-from catonmat.config import config
+from catonmat.cache         import from_cache_or_compute
+from catonmat.quotes        import get_random_quote
 
 # ----------------------------------------------------------------------------
 
@@ -39,6 +39,9 @@ class MakoDict(object):
                 v = MakoDict(v)
             self.__dict__[k] = v
 
+    def __getitem__(self, k):
+        return self.__dict__[k]
+
     def __getattr__(self, name):
         return None
 
@@ -47,18 +50,26 @@ mako_lookup = TemplateLookup(
     directories=['catonmat/templates'], output_encoding='utf-8'
 )
 
-
-def display_template_with_quote(template, template_data):
+def template_response(rendered_template):
     return Response(
-        render_template_with_quote(template, **template_data),
+        rendered_template,
         mimetype='text/html'
     )
 
 
-def render_template_with_quote(template_name, **template_args):
+def cached_template_response(cache_key, computef, *args, **kw):
+    return template_response(from_cache_or_compute(computef, cache_key, *args, **kw))
+
+
+def display_template(template, template_data):
+    rendered_template = render_template(template, **template_data)
+    return template_response(rendered_template)
+
+
+def render_template(template_name, **template_args):
     template = get_template(template_name)
     quote = get_random_quote()
-    return template.render(quote=quote, **template_args), 'text/html'
+    return template.render(quote=quote, **template_args)
 
 
 def get_template(name):

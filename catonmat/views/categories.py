@@ -8,16 +8,22 @@
 # Code is licensed under GNU GPL license.
 #
 
-from sqlalchemy                     import join
 from werkzeug.exceptions            import NotFound
 from catonmat.models                import Category, Page, UrlMap
 from catonmat.database              import session
-from catonmat.views.utils           import display_template_with_quote
+from catonmat.views.utils           import cached_template_response, render_template
 
 # ----------------------------------------------------------------------------
 
-def main(request, category):
-    category = session.query(Category).filter_by(seo_name=category).first() 
+def main(request, seo_name):
+    return cached_template_response(
+             'category_page_%s' % seo_name,
+             compute_main,
+             request,
+             seo_name)
+
+def compute_main(request, seo_name):
+    category = session.query(Category).filter_by(seo_name=seo_name).first() 
     if not category:
         raise NotFound()
 
@@ -33,17 +39,19 @@ def main(request, category):
         'category':     category,
         'pus':          mixergy,
     }
-    return display_page('category', template_data)
+    return render_template('category', **template_data)
 
 
 def list(request):
+    return cached_template_response(
+             'category_list',
+             compute_list,
+             request)
+
+def compute_list(request):
     categories = session.query(Category).order_by(Category.name).all() 
     template_data = {
         'categories': categories
     }
-    return display_page('category_list', template_data)
-
-
-def display_page(template, template_data):
-    return display_template_with_quote(template, template_data)
+    return render_page('category_list', **template_data)
 
