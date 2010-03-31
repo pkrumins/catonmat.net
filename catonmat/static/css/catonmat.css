@@ -718,16 +718,18 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   font-size: 1.1em;
 }
 
-#sidebar .list ol,
 #sidebar .list ul {
   list-style-type: none;
 }
 
-#sidebar .list ol li,
 #sidebar .list ul li {
   background: url('/static/img/bullet.gif') no-repeat 0 2px;
   padding-left: 1.5em;
   margin-bottom: 5px;
+}
+
+#sidebar .list ul li a {
+  color: #753206;
 }
 
 /*
