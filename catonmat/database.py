@@ -102,8 +102,14 @@ urlmaps_table = Table('url_maps', metadata,
     Column('url_map_id',    Integer,     primary_key=True),
     Column('request_path',  String(256), unique=True),
     Column('page_id',       Integer,     ForeignKey('pages.page_id')),
-    Column('handler',       String(128)),
-    Column('redirect',      String(256)),
+    mysql_charset='utf8'
+)
+
+redirects_table = Table('redirects', metadata,
+    Column('redirect_id',   Integer,     primary_key=True),
+    Column('old_path',      String(256), unique=True),
+    Column('new_path',      String(256)),
+    Column('code',          Integer),
     mysql_charset='utf8'
 )
 
