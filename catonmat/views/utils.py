@@ -15,6 +15,7 @@ from mako.lookup            import TemplateLookup
 
 from catonmat.cache         import from_cache_or_compute
 from catonmat.quotes        import get_random_quote
+from catonmat.statistics    import get_most_popular_pages, get_most_downloads, get_recent_pages
 
 # ----------------------------------------------------------------------------
 
@@ -69,7 +70,15 @@ def display_template(template, template_data):
 def render_template(template_name, **template_args):
     template = get_template(template_name)
     quote = get_random_quote()
-    return template.render(quote=quote, **template_args)
+    top_pages = get_most_popular_pages()
+    top_downloads = get_most_downloads()
+    recent_pages = get_recent_pages()
+    return template.render(
+             quote=quote,
+             top_pages=top_pages,
+             top_downloads=top_downloads,
+             recent_pages = recent_pages,
+             **template_args)
 
 
 def get_template(name):
