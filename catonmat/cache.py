@@ -26,6 +26,7 @@ def cache(key, duration=0):
             value = cache_get(key)
             if value is not None:
                 return value
+
             value = function(*args, **kw)
             cache_set(key, value, duration)
             return value
@@ -45,7 +46,7 @@ def cache_del(key):
     mc.delete(str(key))
 
 
-def from_cache_or_compute(computef, key, *args, **kw):
+def from_cache_or_compute(computef, key, duration, *args, **kw):
     if not config.use_cache:
         return computef(*args, **kw)
 
@@ -55,6 +56,6 @@ def from_cache_or_compute(computef, key, *args, **kw):
     
     # if data is not cached, compute, cache and return it
     cached_data = computef(*args, **kw)
-    cache_set(key, cached_data)
+    cache_set(key, cached_data, duration)
     return cached_data
 
