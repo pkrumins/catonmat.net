@@ -58,8 +58,8 @@ def template_response(rendered_template):
     )
 
 
-def cached_template_response(cache_key, computef, *args, **kw):
-    return template_response(from_cache_or_compute(computef, cache_key, *args, **kw))
+def cached_template_response(computef, cache_key, duration, *args, **kw):
+    return template_response(from_cache_or_compute(computef, cache_key, duration, *args, **kw))
 
 
 def display_template(template, template_data):
