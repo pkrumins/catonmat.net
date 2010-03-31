@@ -22,14 +22,19 @@ modules (list is not complete):
 
     * Werkzeug   for WSGI and local development HTTP server.
     * SQLAlchemy for ORM.
+    * Memcached  for caching.
     * Pygments   for parsing posts and syntax highlighting.
     * Mako       for HTML templates.
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.03.31:
+    * added progress screenshot screenshot_2010-03-31.png
+    * added top ten {articles,downloads} and recent articles to the sidebar
 2010.03.30:
     * added caching
 2010.03.25:
+    * /download/<file> now works
     * lexer now handles [download#id] and converts it to <a> download link
 2010.03.23:
     * rewrote the state based comment parser with a recursive descent one
