@@ -125,8 +125,9 @@ def handle_page_get(request, map):
     map.page.views = Page.views + 1
     map.page.save()
     return cached_template_response(
-             'individual_page_%s' % map.request_path,
              compute_handle_page_get,
+             'individual_page_%s' % map.request_path,
+             3600,
              request,
              map)
 

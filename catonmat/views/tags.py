@@ -18,8 +18,9 @@ from catonmat.views.utils           import cached_template_response, render_temp
 
 def main(request, seo_name):
     return cached_template_response(
-             'tag_page_%s' % seo_name,
              compute_main,
+             'tag_page_%s' % seo_name,
+             0,
              request,
              seo_name)
 
@@ -47,8 +48,9 @@ def compute_main(request, seo_name):
 
 def list(request):
     return cached_template_response(
-             'tag_list',
              compute_list,
+             'tag_list',
+             0,
              request)
 
 

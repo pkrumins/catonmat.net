@@ -49,8 +49,9 @@ def page(request, page_nr):
 
 def handle_page(page_nr=1):
     return cached_template_response(
-             'index_page_%s' % page_nr,
              compute_handle_page,
+             'index_page_%s' % page_nr,
+             3600,
              page_nr)
 
 
