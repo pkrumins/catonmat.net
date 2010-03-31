@@ -11,10 +11,10 @@
 import sys
 sys.path.append('/home/pkrumins/catonmat')
 
-from catonmat.database import Metadata, Engine
+from catonmat.database import metadata, engine
 
 def init_database():
-    Metadata.create_all(Engine)
+    metadata.create_all(engine)
 
 print "Initing catonmat database."
 init_database()
