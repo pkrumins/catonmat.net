@@ -14,7 +14,7 @@ from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
     page_tags_table, visitors_table,  rss_table,        pagemeta_table,
-    downloads_table,
+    downloads_table, redirects_table,
     download_stats_table,
     session
 )
@@ -53,6 +53,10 @@ class Page(object):
     @property
     def comment_count(self):
         return session.query(Comment).filter_by(page_id=self.page_id).count()
+
+    @property
+    def request_path(self):
+        pass # TODO
 
     def save(self):
         session.add(self)
@@ -169,11 +173,9 @@ class Tag(object):
 
 
 class UrlMap(object):
-    def __init__(self, request_path, page_id, handler=None, redirect=None):
+    def __init__(self, request_path, page_id):
         self.request_path = request_path
         self.page_id  = page_id
-        self.handler  = handler
-        self.redirect = redirect
 
     def save(self):
         session.add(self)
@@ -181,6 +183,16 @@ class UrlMap(object):
 
     def __repr__(self):
         return '<UrlMap from %s to Page(%s)>' % (self.request_path, self.page.title)
+
+
+class Redirect(object):
+    def __init__(self, old_path, new_path, code=301):
+        self.old_path = old_path
+        self.new_path = new_path
+        self.code     = code
+
+    def __repr__(self):
+        return '<Redirect from %s to %s (%d)>' % (self.old_path, self.new_path, self.code)
 
 
 class FouroFour(object):
@@ -311,6 +323,7 @@ mapper(Tag,      tags_table, properties={
 mapper(UrlMap, urlmaps_table, properties={
     'page': relation(Page)
 })
+mapper(Redirect, redirects_table)
 mapper(FouroFour, fourofour_table)
 mapper(BlogPage, blogpages_table, properties={
     'page': relation(Page)
