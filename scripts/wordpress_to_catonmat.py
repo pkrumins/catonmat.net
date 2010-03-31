@@ -22,6 +22,7 @@ from catonmat.models    import (
 from mimetypes          import guess_type
 from collections        import defaultdict
 from urlparse           import urlparse
+from datetime           import timedelta
 
 import re
 
@@ -76,7 +77,9 @@ def import_downloads(wp_downloads):
         filename = re.sub(r'.*/', '', wp_download.filename)
         mimetype = get_mimetype(filename)
         cm_download = Download(wp_download.title, filename, \
-                        mimetype, wp_download.hits, wp_download.postDate)
+                        mimetype, wp_download.hits, \
+                        wp_download.postDate)
+        cm_download.download_id = wp_download.id
         cm_download.save()
     flush_write("Done.\n")
 
@@ -97,8 +100,14 @@ def import_pages(wp_pages, wp_tags_dict, wp_comments_dict, wp_categories_dict):
     for npk, wp_page in enumerate1(wp_pages):
         print_status(npk)
 
+        post_date=wp_page.post_date
+        if post_date:
+            post_date = post_date-timedelta(hours=3)            # 3 hr diff in my wp config
+        post_modified=wp_page.post_modified
+        if post_modified:
+            post_modified = post_modified-timedelta(hours=3)    # same
         cm_page = Page(wp_page.post_title, wp_page.post_content, wp_page.post_excerpt, 
-                       wp_page.post_date, wp_page.post_modified)
+                       post_date, post_modified)
         import_page_views(wp_page, cm_page)
         import_page_tags(wp_page, cm_page, wp_tags_dict)
         import_page_category(wp_page, cm_page, wp_categories_dict)
