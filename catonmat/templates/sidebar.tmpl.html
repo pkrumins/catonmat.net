@@ -85,10 +85,36 @@
   </div>
 </div>
 
-<div class="item">
-  <div class="title">Top articles:</div>
+<div class="item list">
+  <div class="title">Top ten articles:</div>
   <div class="content">
-    foobar
+    <ul>
+    % for page in top_pages:
+      <li><a href="..." title="Read &quot;${page.title}&quot; (has been read ${page.views} times)">${page.title|h}</a></li>
+    % endfor
+    </ul>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">Top ten downloads:</div>
+  <div class="content">
+    <ul>
+    % for download in top_downloads:
+      <li><a href="/download/${download.filename}" title="Download &quot;${download.title|h}&quot;">${download.title|h}</a> (${download.downloads})</li>
+    % endfor
+    </ul>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">Recent articles:</div>
+  <div class="content">
+    <ul>
+    % for page in recent_pages:
+    <li><a href="..." title="Read &quot;${page.title}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
+    % endfor
+    </ul>
   </div>
 </div>
 
