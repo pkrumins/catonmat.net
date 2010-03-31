@@ -12,6 +12,7 @@ from werkzeug.exceptions    import NotFound
 from werkzeug               import redirect
 
 from catonmat.database      import session
+from catonmat.models        import Page
 from catonmat.cache         import cache_del
 from catonmat.config        import config
 from catonmat.views.utils   import (
@@ -121,6 +122,8 @@ def default_display_options():
 
 
 def handle_page_get(request, map):
+    map.page.views = Page.views + 1
+    map.page.save()
     return cached_template_response(
              'individual_page_%s' % map.request_path,
              compute_handle_page_get,
