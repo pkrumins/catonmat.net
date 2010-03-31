@@ -15,7 +15,7 @@ from werkzeug             import SharedDataMiddleware
 from catonmat.database    import session
 from catonmat.views.utils import get_view
 from catonmat.fourofour   import log_404
-from catonmat.urls        import url_map, url_map_for_path
+from catonmat.urls        import url_map, find_url_map, find_redirect
 
 from os import path
 
@@ -33,15 +33,12 @@ def application(request):
         endpoint, values = adapter.match()
         return handle_request(endpoint, request, **values)
     except NotFound:
-        map = url_map_for_path(request.path)
+        redir = find_redirect(request.path)
+        if redir:
+            return redirect(redir.new_path, code=redir.code)
+
+        map = find_url_map(request.path)
         if map:
-            if map.redirect:
-                return redirect(map.redirect, code=301)
-
-            if map.handler:
-                return handle_request(map.handler, request, map)
-
-            # else it must be map.page
             return handle_request('pages.main', request, map)
 
         # Log this request in the 404 log and display not found page
