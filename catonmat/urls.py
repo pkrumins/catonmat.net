@@ -7,8 +7,8 @@
 #
 
 from catonmat.config        import config
-from catonmat.cache         import cache_get, cache_set
-from catonmat.models        import UrlMap
+from catonmat.cache         import from_cache_or_compute
+from catonmat.models        import UrlMap, Redirect
 from catonmat.database      import session
 
 from werkzeug.routing       import Map, Rule as RuleBase, Submount
@@ -17,25 +17,31 @@ import re
 
 # ----------------------------------------------------------------------------
 
-def url_map_for_path(request_path):
-    cache_key = 'not_found_%s' % request_path
-
+def agreed_path(request_path):
     request_path = request_path.rstrip('/')
     request_path = re.sub('//+', '/', request_path)
+    return request_path
 
-    if config.use_cache:
-        url_map = cache_get(cache_key)
-        if url_map is not None:
-            return url_map
 
-    url_map = session.query(UrlMap).filter_by(request_path=request_path).first()
-    if not url_map:
-        return None
 
-    if config.use_cache:
-        cache_set(cache_key, url_map)
+def find_redirect(request_path):
+    request_path = agreed_path(request_path)
+    cache_key = 'redirect_%s' % request_path
+    return from_cache_or_compute(find_redirect_compute, cache_key, 0, request_path)
 
-    return url_map
+
+def find_redirect_compute(request_path):
+    return session.query(Redirect).filter_by(old_path=request_path).first()
+
+
+def find_url_map(request_path):
+    request_path = agreed_path(request_path)
+    cache_key = 'not_found_%s' % request_path
+    return from_cache_or_compute(url_map_for, cache_key, 0, request_path)
+
+
+def find_url_map(request_path):
+    return session.query(UrlMap).filter_by(request_path=request_path).first()
 
 
 class Rule(RuleBase):
@@ -47,6 +53,10 @@ class Rule(RuleBase):
 url_map = Map([
     # Main page
     Rule('/')                          > 'index.main',
+
+    # RSS and Atom
+    Rule('/feed')                      > 'rss.rss_feed',
+    Rule('/feed/atom')                 > 'rss.atom_feed',
 
     # Pagination
     Rule('/page/<int:page_nr>')        > 'index.page',
@@ -69,6 +79,7 @@ url_map = Map([
 
     # Downloads
     Rule('/download/<filename>')       > 'downloads.main',
+    Rule('/wp-content/plugins/wp-downloadMonitor/user_uploads/<filename>') > 'downloads.old_wp_download',
 
     # Add and preview comments via AJAX
     Rule('/_services/comment_preview') > 'catonmat.comments.preview_comment',
