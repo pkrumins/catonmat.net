@@ -14,9 +14,11 @@ from catonmat.models            import Page, Download, BlogPage
 def get_most_popular_pages(count=10):
     return session. \
              query(Page). \
+             join(BlogPage). \
              order_by(Page.views.desc()). \
              limit(count). \
              all()
+
 
 def get_most_downloads(count=10):
     return session. \
@@ -24,6 +26,7 @@ def get_most_downloads(count=10):
              order_by(Download.downloads.desc()). \
              limit(count). \
              all()
+
 
 def get_recent_pages(count=10):
     return session. \
