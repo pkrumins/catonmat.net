@@ -9,7 +9,7 @@
 #
 # This file handles /p/<page_id> short page URLS.
 
-from werkzeug               import Response
+from werkzeug               import Response, redirect
 from werkzeug.exceptions    import NotFound
 from werkzeug.utils         import wrap_file
 
@@ -34,4 +34,8 @@ def main(request, filename):
     download.another_download(request)
     return Response(wrap_file(request.environ, file), mimetype=download.mimetype,
             direct_passthrough=True)
+
+
+def old_wp_download(request, filename):
+    return redirect('/download/%s' % filename, code=301)
 
