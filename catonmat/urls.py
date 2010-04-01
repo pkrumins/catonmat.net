@@ -54,8 +54,8 @@ url_map = Map([
     # Main page
     Rule('/')                          > 'index.main',
 
-    # RSS and Atom
-    Rule('/feed')                      > 'rss.rss_feed',
+    # Atom feed
+    Rule('/feed')                      > 'rss.atom_feed',
     Rule('/feed/atom')                 > 'rss.atom_feed',
 
     # Pagination
