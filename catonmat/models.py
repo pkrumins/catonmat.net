@@ -48,7 +48,9 @@ class Page(object):
 
     @property
     def publish_time(self):
-        return self.created.strftime("%B %d, %Y")
+        if self.blog_page:
+            return self.blog_page.publish_date.strftime("%B %d, %Y")
+        return None
 
     @property
     def comment_count(self):
@@ -56,7 +58,9 @@ class Page(object):
 
     @property
     def request_path(self):
-        pass # TODO
+        if self.url_map:
+            return self.url_map.request_path
+        return None
 
     def save(self):
         session.add(self)
@@ -309,7 +313,9 @@ mapper(Page, pages_table, properties={
                     backref='page',
                     order_by=pagemeta_table.c.meta_id
     ),
-    'url_map': relation(UrlMap)
+    'url_map':   relation(UrlMap, uselist=False),
+    'blog_page': relation(BlogPage, uselist=False),
+    'rss_page':  relation(Rss, uselist=False)
 })
 mapper(PageMeta, pagemeta_table)
 mapper(Revision, revisions_table)
@@ -321,12 +327,12 @@ mapper(Tag,      tags_table, properties={
     'pages': dynamic_loader(Page, secondary=page_tags_table)
 })
 mapper(UrlMap, urlmaps_table, properties={
-    'page': relation(Page)
+    'page': relation(Page, uselist=False)
 })
 mapper(Redirect, redirects_table)
 mapper(FouroFour, fourofour_table)
 mapper(BlogPage, blogpages_table, properties={
-    'page': relation(Page)
+    'page': relation(Page, uselist=False)
 })
 mapper(Rss, rss_table, properties={
     'page': relation(Page)
