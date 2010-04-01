@@ -23,7 +23,6 @@ from catonmat.config import config
 metadata = MetaData()
 engine = create_engine(
     config['database_uri'],
-    convert_unicode=True,
     echo=config['database_echo'],
     pool_recycle=3600
 )
