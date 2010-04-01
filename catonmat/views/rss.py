@@ -40,10 +40,14 @@ peteris = {
     'email': 'peter@catonmat.net'
 }
 
+catonmat_title    = "good coders code, great reuse"
+catonmat_subtitle = "Peteris Krumins' blog about programming, hacking, software reuse, software ideas, computer security, google and technology."
+
 @cache('atom_feed')
 def compute_atom_feed(request):
     feed = AtomFeed(
-             title     = 'good coders code, great reuse',
+             title     = catonmat_title,
+             subtitle  = catonmat_subtitle,
              feed_url  = 'http://www.catonmat.net/feed',
              url       = 'http://www.catonmat.net',
              author    = peteris,
