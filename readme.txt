@@ -28,6 +28,8 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.04.01:
+    * added atom feed
 2010.03.31:
     * added progress screenshot screenshot_2010-03-31.png
     * added top ten {articles,downloads} and recent articles to the sidebar
