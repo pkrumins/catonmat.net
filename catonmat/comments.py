@@ -139,8 +139,7 @@ def add_comment(request):
 def invalidate_page_cache(page_id):
     if config.use_cache:
         page = session.query(Page).filter_by(page_id=page_id).first()
-        for map in page.url_map:
-            cache_del('individual_page_%s' % map.request_path)
+        cache_del('individual_page_%s' % page.request_path)
 
 
 def get_comment(id):
