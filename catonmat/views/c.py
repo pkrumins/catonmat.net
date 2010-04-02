@@ -20,7 +20,7 @@ from catonmat.database      import session
 from catonmat.views.utils   import get_template, display_template
 
 from catonmat.comments      import (
-    validate_comment,       new_comment, save_comment, thread, CommentError,
+    validate_comment,       new_comment, thread, CommentError,
     invalidate_page_cache
 )
 
@@ -104,7 +104,7 @@ def handle_comment_submit(request, comment_id):
         return comment_error(request, comment_id, e.message)
 
     comment = new_comment(request)
-    save_comment(comment)
+    comment.save()
 
     invalidate_page_cache(request.form['page_id'])
 
