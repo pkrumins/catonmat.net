@@ -1,0 +1,32 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Leave feedback - good coders code, great reuse</%def>
+<%def name="meta_description()">Leave Peteris Krumins a feedback message</%def>
+
+<div class="page">
+  <div class="header">
+    <h1><a href="/feedback/" title="Leave feedback">Leave Feedback</a></h1>
+    <div class="hr"></div>
+  </div>
+
+  <div class="content">
+    <form action="/feedback" method="POST">
+      <p>
+        <label for="name" class="name">Your Name:</label>
+        <input tabindex="1" type="text" name="name" id="name" maxlength="64">
+      </p>
+      <p>
+        <label for="email" class="email">Your E-mail:</label>
+        <input tabindex="2" type="text" email="email" id="email" maxlength="128">
+      </p>
+      <p>
+        <label for="website" class="website">Your Website:</label>
+        <input tabindex="3" type="text" website="website" id="website" maxlength="128">
+      </p>
+      <label for="website" class="website">Message:</label>
+      <textarea tabindex="4" name="message" rows="8" cols="50" id="message"></textarea>
+      <input tabindex="5" id="submit" type="submit" name="submit" value="Submit Feedback">
+    </form>
+  </div>
+</div>
+
