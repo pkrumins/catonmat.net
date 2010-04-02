@@ -43,6 +43,11 @@
       <div class="clear"></div>
       <div style="padding-bottom: 5px"></div>
       <ul>
+        <li><a href="http://google.com/profiles/peteris.krumins" title="Peteris Krumins on Google Buzz"><img src="/static/img/buzz-16x16.gif">Google Buzz</a></li>
+      </ul>
+      <div class="clear"></div>
+      <div style="padding-bottom: 5px"></div>
+      <ul>
         <li><a href="irc://irc.freenode.net/catonmat" title="Catonmat IRC Channel"><img src="/static/img/mirc-16x16.gif">irc.freenode.net, channel #catonmat</a></li>
       </ul>
       <div class="clear"></div>
@@ -90,7 +95,7 @@
   <div class="content">
     <ul>
     % for page in top_pages:
-      <li><a href="..." title="Read &quot;${page.title}&quot; (has been read ${page.views} times)">${page.title|h}</a></li>
+     <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (has been read ${page.views} times)">${page.title|h}</a></li>
     % endfor
     </ul>
   </div>
@@ -112,7 +117,7 @@
   <div class="content">
     <ul>
     % for page in recent_pages:
-    <li><a href="..." title="Read &quot;${page.title}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
+     <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
     % endfor
     </ul>
   </div>
