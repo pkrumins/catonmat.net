@@ -23,7 +23,6 @@ def agreed_path(request_path):
     return request_path
 
 
-
 def find_redirect(request_path):
     request_path = agreed_path(request_path)
     cache_key = 'redirect_%s' % request_path
@@ -50,7 +49,7 @@ class Rule(RuleBase):
         return self
 
 
-url_map = Map([
+predefined_urls = Map([
     # Main page
     Rule('/')                          > 'index.main',
 
@@ -63,6 +62,9 @@ url_map = Map([
 
     # Blog is alias for Main page right now
     Rule('/blog')                      > 'index.main',
+
+    # Feedback
+    Rule('/feedback')                  > 'feedback.main',
 
     # Categories
     Rule('/category/<seo_name>')       > 'categories.main',
