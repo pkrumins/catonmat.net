@@ -284,8 +284,15 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   padding-left: 1.5em;
 }
 
+#content .page .stuff {
+  background-color: red;
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+
+}
+
 /*
-** Page footer
+** Pagination
 ** --------------------------------------------------------
 */
 #content .pagination {
@@ -351,17 +358,56 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 /*
+** Page and Pagination separator
+**
+*/
+#content .ppseparator {
+  margin-bottom: 1em;
+}
+
+/*
 ** Page Footer
 ** --------------------------------------------------------
 */
 
 #content .page .footer {
   font-size: 1.2em;
+  background-color: #cde6fe;
+  border-top: 1px dotted #606060;
+  border-bottom: 1px dotted #606060;
+  padding: 1em 0.5em;
+  margin-bottom: 1em;
+}
+
+#content .page .footer .comment_url {
+  background: url('/static/img/comments.gif') no-repeat;
+  padding-left: 21px;
+  margin-right: 10px;
+}
+
+#content .page .footer .views {
+  background: url('/static/img/views.gif') no-repeat;
+  padding-left: 21px;
+  margin-right: 10px;
 }
 
 #content .page .footer .tags {
-  background: url('/static/img/tags.gif') no-repeat 0 2px;
+  background: url('/static/img/tags.gif') no-repeat 0px 2px;
   padding-left: 22px;
+  margin-bottom: 0.5em;
+}
+
+#content .page .footer .short_url {
+  background: url('/static/img/short_url.gif') no-repeat 0px 0px;
+  padding-left: 22px;
+  margin-bottom: 0.5em;
+}
+
+#content .page .footer .short_url input {
+  font-size: 0.9166em;
+  padding: 1px;
+  font-family: Verdana;
+  border: 1px solid gray;
 }
 
 /*
@@ -580,7 +626,6 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 #sidebar .hr {
-  border-bottom: 1px solid #CCCCCC;
   margin-bottom: 0.5em;
 }
 
@@ -745,10 +790,14 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   display: none;
 }
 
-.hr {
+.hr, .hrb {
   border-bottom: 1px solid #CCCCCC;
   height: 1px;
   margin: 2px 0;
+}
+
+.hrb {
+  margin-bottom: 5px;
 }
 
 span.notice {
