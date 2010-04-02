@@ -116,8 +116,11 @@ def default_display_options():
         'display_category':      True,
         'display_comment_count': True,
         'display_publish_time':  True,
+        'display_comments':      True,
+        'display_comment_url':   True,
         'display_tags':          True,
-        'display_comments':      True
+        'display_views':         True,
+        'display_short_url':     True
     }
 
 
