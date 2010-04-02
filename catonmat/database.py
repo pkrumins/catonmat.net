@@ -116,6 +116,17 @@ fourofour_table = Table('404', metadata,
     Column('404_id',        Integer,    primary_key=True),
     Column('request_path',  Text),
     Column('date',          DateTime),
+    Column('visitor_id',    Integer,    ForeignKey('visitors.visitor_id')),
+    mysql_charset='utf8'
+)
+
+exceptions_table = Table('exceptions', metadata,
+    Column('exception_id',  Integer,    primary_key=True),
+    Column('request_path',  Text),
+    Column('traceback',     Text),
+    Column('last_error',    Text),
+    Column('date',          DateTime),
+    Column('visitor_id',    Integer,    ForeignKey('visitors.visitor_id')),
     mysql_charset='utf8'
 )
 
@@ -159,5 +170,15 @@ download_stats_table = Table('download_stats', metadata,
     Column('download_id',   Integer,    ForeignKey('downloads.download_id')),
     Column('ip',            String(39)),
     Column('timestamp',     DateTime),
+)
+
+feedback_table = Table('feedback', metadata,
+    Column('feedback_id',   Integer,    primary_key=True),
+    Column('name',          String(64)),
+    Column('email',         String(128)),
+    Column('website',       String(256)),
+    Column('message',       Text),
+    Column('timestamp',     DateTime),
+    mysql_charset='utf8'
 )
 
