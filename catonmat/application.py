@@ -14,8 +14,8 @@ from werkzeug             import SharedDataMiddleware
 
 from catonmat.database    import session
 from catonmat.views.utils import get_view
-from catonmat.fourofour   import log_404
-from catonmat.urls        import url_map, find_url_map, find_redirect
+from catonmat.errorlog    import log_404, log_exception
+from catonmat.urls        import predefined_urls, find_url_map, find_redirect
 
 from os import path
 
@@ -29,7 +29,7 @@ def handle_request(view, *values, **kw_values):
 @Request.application
 def application(request):
     try:
-        adapter = url_map.bind_to_environ(request.environ)
+        adapter = predefined_urls.bind_to_environ(request.environ)
         endpoint, values = adapter.match()
         return handle_request(endpoint, request, **values)
     except NotFound:
@@ -45,6 +45,7 @@ def application(request):
         log_404(request)
         return handle_request('not_found.main', request)
     except HTTPException, e:
+        log_exception(request, e)
         # TODO: log http exception so that I knew exactly what is going on with catonmat!
         print "HTTPException"
         pass
