@@ -22,9 +22,14 @@ def main(request, page_id):
 
 
 def find_url(page_id):
-    map = session.query(UrlMap).filter_by(page_id=page_id).first()
+    map = session. \
+            query(UrlMap). \
+            filter_by(page_id=page_id). \
+            first()
+
     if not map:
         # TODO: 'page you were looking for was not found, perhaps you want to see ...'
         raise NotFound()
+
     return map.request_path
 
