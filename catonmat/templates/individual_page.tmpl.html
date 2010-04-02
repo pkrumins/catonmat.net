@@ -11,7 +11,7 @@
 <div class="page">
   <div class="header">
     % if display_options.display_category and page_data.page.category:
-    <span class="category next"><a href="/category/${page_data.page.category.seo_name}" title="All posts in category &quot;${page_data.page.category.name}&quot;">${page_data.page.category.name}</a></span>
+    <span class="category next"><a href="/category/${page_data.page.category.seo_name}" title="See all posts in category &quot;${page_data.page.category.name}&quot;">${page_data.page.category.name}</a></span>
     % endif
 
     % if display_options.display_comment_count:
@@ -19,7 +19,7 @@
       % if comment_data.comment_count == 1:
         <a href="${page_data.page_path}#comments" title="One person has commented on &quot;${page_data.page.title|h}&quot;"><strong>1</strong> Comment</a>
       % else:
-      <a href="${page_data.page_path}#comments" title="${comment_data.comment_count} people have commented on &quot;${page_data.page.title|h}&quot;"><strong>${comment_data.comment_count}</strong> Comments</a>
+        <a href="${page_data.page_path}#comments" title="${comment_data.comment_count} people have commented on &quot;${page_data.page.title|h}&quot;"><strong>${comment_data.comment_count}</strong> Comments</a>
       % endif
     </span>
     % endif
@@ -29,33 +29,59 @@
     % endif
 
     <div class="clear"></div>
-    <div class="hr"></div>
+    <div class="hrb"></div>
     <h1><a href="${page_data.page_path}" title="${page_data.page.title|h}">${page_data.page.title|h}</a></h1>
     <!--
     <div class="hr lighter"></div>
     -->
   </div>
+
   <div class="content">
     ${page_data.page.parsed_content}
   </div>
+
   <div class="footer">
-    <div class="hr"></div>
     % if display_options.display_tags and tags_data.tags:
-      <div class="tags">Page tags: 
+      <div class="tags">Tags:
         <%
           total_tags = len(tags_data.tags)
         %>
         % for npk, tag in enumerate(tags_data.tags):
-        <a href="/tag/${tag.seo_name}" title="All posts tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>${"," if npk!=(total_tags-1) else ""}
+        <a href="/tag/${tag.seo_name}" title="See all pages tagged &quot;${tag.name|h}&quot;">${tag.name|h}</a>${", " if npk!=(total_tags-1) else ""}
         % endfor
       </div>
+    % endif
+
+    % if display_options.display_comment_url:
+    <span class="comment_url">
+      % if comment_data.comment_count == 1:
+        <a href="${page_data.page_path}#comments" title="Comment on &quot;${page_data.page.title|h}&quot;"><strong>1</strong> Comment</a>
+      % else:
+        <a href="${page_data.page_path}#comments" title="Comment on &quot;${page_data.page.title|h}&quot;"><strong>${comment_data.comment_count}</strong> Comments</a>
+      % endif
+    </span>
+    % endif
+
+    % if display_options.display_views:
+    <span class="views">
+      % if page_data.page.views == 1:
+       <strong>1</strong> View
+      % else:
+       <strong>${page_data.page.us_views}</strong> Views
+      % endif
+    </span>
+    % endif
+
+    % if display_options.display_short_url:
+    <span class="short_url">
+      Short URL: <input type="text" size="25" value="http://catonmat.net/p/${page_data.page.page_id}" onclick="this.select()" readonly>
+    </span>
     % endif
   </div>
 
   % if display_options.display_comments:
   <a name="comments"></a>
   <div class="comments">
-    <div class="hr"></div>
     <div id="comment_list"><!-- TODO: change id to class -->
       <h3>Comments</h3>
       % if comment_data.comments['root']:
