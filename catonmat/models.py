@@ -14,7 +14,7 @@ from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
     page_tags_table, visitors_table,  rss_table,        pagemeta_table,
-    downloads_table, redirects_table,
+    downloads_table, redirects_table, feedback_table,   exceptions_table,
     download_stats_table,
     session
 )
@@ -26,7 +26,13 @@ import hashlib
 
 # ----------------------------------------------------------------------------
 
-class Page(object):
+class ModelBase(object):
+    def save(self):
+        session.add(self)
+        session.commit()
+
+
+class Page(ModelBase):
     def __init__(self, title, content=None, excerpt=None, created=None, last_update=None, category_id=None, views=0):
         self.title = title
         self.content = content
@@ -62,10 +68,6 @@ class Page(object):
             return self.url_map.request_path
         return None
 
-    def save(self):
-        session.add(self)
-        session.commit()
-
     def add_tag(self, tag):
         real_tag = tag
         t = session.query(Tag).filter_by(seo_name=tag.seo_name).first()
@@ -81,7 +83,7 @@ class Page(object):
         return '<Page: %s>' % self.title
 
 
-class PageMeta(object):
+class PageMeta(ModelBase):
     def __init__(self, page_id, meta_key, meta_val):
         self.page_id  = page_id
         self.meta_key = meta_key
@@ -91,7 +93,7 @@ class PageMeta(object):
         return '<PageMeta(%s) for Page(id=%s)' % (self.meta_key, self.page_id)
 
 
-class Revision(object):
+class Revision(ModelBase):
     def __init__(self, page, change_note, timestamp=None):
         self.page = page
         self.change_note = change_note
@@ -108,7 +110,7 @@ class Revision(object):
         return '<Revision of Page(%s)>' % self.page.title
 
 
-class Comment(object):
+class Comment(ModelBase):
     def __init__(self, page_id, name, comment, visitor, parent_id=None, email=None, twitter=None, website=None, timestamp=None):
         self.page_id = page_id
         self.parent_id = parent_id
@@ -142,30 +144,22 @@ class Comment(object):
     def publish_time(self):
         return self.timestamp.strftime("%B %d, %Y, %H:%M")
 
-    def save(self):
-        session.add(self)
-        session.commit()
-
     def __repr__(self):
         return '<Comment(%d) on Page(%s)>' % (self.comment_id, self.page.title)
 
 
-class Category(object):
+class Category(ModelBase):
     def __init__(self, name, seo_name, description=None, count=0):
         self.name = name
         self.seo_name = seo_name
         self.description = description
         self.count = count
 
-    def save(self):
-        session.add(self)
-        session.commit()
-
     def __repr__(self):
         return '<Category %s>' % self.name
 
 
-class Tag(object):
+class Tag(ModelBase):
     def __init__(self, name, seo_name, description=None, count=0):
         self.name = name
         self.seo_name = seo_name
@@ -176,20 +170,16 @@ class Tag(object):
         return '<Tag %s>' % self.name
 
 
-class UrlMap(object):
+class UrlMap(ModelBase):
     def __init__(self, request_path, page_id):
         self.request_path = request_path
         self.page_id  = page_id
-
-    def save(self):
-        session.add(self)
-        session.commit()
 
     def __repr__(self):
         return '<UrlMap from %s to Page(%s)>' % (self.request_path, self.page.title)
 
 
-class Redirect(object):
+class Redirect(ModelBase):
     def __init__(self, old_path, new_path, code=301):
         self.old_path = old_path
         self.new_path = new_path
@@ -199,17 +189,29 @@ class Redirect(object):
         return '<Redirect from %s to %s (%d)>' % (self.old_path, self.new_path, self.code)
 
 
-class FouroFour(object):
-    def __init__(self, request_path, date=None):
-        self.request_path = request_path
-        if self.date is None:
-            self.date = datetime.utcnow()
+class FouroFour(ModelBase):
+    def __init__(self, request):
+        self.request_path = request.path
+        self.visitor = Visitor(request)
+        self.date = datetime.utcnow()
 
     def __repr__(self):
-        return '<404 of %s>' % (self.request_path)
+        return '<404 of %s>' % self.request_path
 
 
-class BlogPage(object):
+class Exception(ModelBase):
+    def __init__(self, request, traceback, last_error):
+        self.request_path = request.path
+        self.traceback = traceback
+        self.last_error = last_error
+        self.visitor = Visitor(request)
+        self.date = datetime.utcnow()
+
+    def __repr__(self):
+        return '<Exception: %s>' % self.last_error
+
+
+class BlogPage(ModelBase):
     def __init__(self, page, publish_date=None, visible=True):
         self.page = page
         self.publish_date = publish_date
@@ -218,42 +220,32 @@ class BlogPage(object):
         if publish_date is None:
             self.publish_date = date.utcnow()
 
-    def save(self):
-        session.add(self)
-        session.commit()
-
     def __repr__(self):
         return '<Blog Page of Page(%s)>' % page.title
 
 
-class Visitor(object):
-    def __init__(self, ip, headers=None, host=None, timestamp=None):
-        self.ip = ip
-        self.headers = headers
-        self.host = host
-        
-        if timestamp is None:
-            self.timestamp = datetime.utcnow()
+class Visitor(ModelBase):
+    def __init__(self, request):
+        self.ip = request.remote_addr
+        self.headers = str(request.headers)
+        self.host = None
+        self.timestamp = datetime.utcnow()
 
     def __repr__(self):
         return '<Visitor from %s>' % ip
 
 
-class Rss(object):
+class Rss(ModelBase):
     def __init__(self, page, publish_date, visible=True):
         self.page = page
         self.publish_date = publish_date
         self.visible = visible
 
-    def save(self):
-        session.add(self)
-        session.commit()
-
     def __repr__(self):
         return '<RSS for Page(%s)>' % page.title
 
 
-class Download(object):
+class Download(ModelBase):
     def __init__(self, title, filename, mimetype=None, downloads=0, timestamp=None):
         self.title = title
         self.filename = filename
@@ -261,10 +253,6 @@ class Download(object):
         self.downloads = downloads
         if timestamp is None:
             self.timestamp = datetime.utcnow()
-
-    def save(self):
-        session.add(self)
-        session.commit()
 
     def another_download(self, request):
         self.downloads = Download.downloads + 1 # this creates an update statement
@@ -276,19 +264,27 @@ class Download(object):
         return '<Download %s>' % self.filename
 
 
-class DownloadStats(object):
+class DownloadStats(ModelBase):
     def __init__(self, download, ip, timestamp=None):
         self.download = download
         self.ip = ip
         if timestamp is None:
             self.timestamp = datetime.utcnow()
 
-    def save(self):
-        session.add(self)
-        session.commit()
-
     def __repr__(self):
         return '<DownloadStat of %s>' % self.download.filename
+
+
+class Feedback(ModelBase):
+    def __init__(self, name, email, message, website=None):
+        self.name = name
+        self.email = email
+        self.message = message
+        self.website = website
+        self.timestamp = datetime.utcnow()
+
+    def __repr__(self):
+        return '<Feedback from %s>' % self.name
 
 
 mapper(Page, pages_table, properties={
@@ -320,7 +316,7 @@ mapper(Page, pages_table, properties={
 mapper(PageMeta, pagemeta_table)
 mapper(Revision, revisions_table)
 mapper(Comment,  comments_table, properties={
-    'visitor': relation(Visitor)
+    'visitor': relation(Visitor, uselist=False)
 })
 mapper(Category, categories_table)
 mapper(Tag,      tags_table, properties={
@@ -330,7 +326,12 @@ mapper(UrlMap, urlmaps_table, properties={
     'page': relation(Page, uselist=False)
 })
 mapper(Redirect, redirects_table)
-mapper(FouroFour, fourofour_table)
+mapper(FouroFour, fourofour_table, properties={
+    'visitor': relation(Visitor, uselist=False)
+})
+mapper(Exception, exceptions_table, properties={
+    'visitor': relation(Visitor, uselist=False)
+})
 mapper(BlogPage, blogpages_table, properties={
     'page': relation(Page, uselist=False)
 })
@@ -346,4 +347,5 @@ mapper(Download, downloads_table, properties={
     )
 })
 mapper(DownloadStats, download_stats_table)
+mapper(Feedback, feedback_table)
 
