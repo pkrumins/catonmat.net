@@ -36,7 +36,7 @@ def find_redirect_compute(request_path):
 def find_url_map(request_path):
     request_path = agreed_path(request_path)
     cache_key = 'not_found_%s' % request_path
-    return from_cache_or_compute(url_map_for, cache_key, 0, request_path)
+    return from_cache_or_compute(find_url_map, cache_key, 0, request_path)
 
 
 def find_url_map(request_path):
@@ -65,6 +65,12 @@ predefined_urls = Map([
 
     # Feedback
     Rule('/feedback')                  > 'feedback.main',
+
+    # Sitemap
+    Rule('/sitemap')                   > 'sitemap.main',
+
+    # Projects
+    Rule('/projects')                  > 'projects.main',
 
     # Categories
     Rule('/category/<seo_name>')       > 'categories.main',
