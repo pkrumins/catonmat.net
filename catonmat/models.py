@@ -23,6 +23,7 @@ from urlparse               import urlparse
 from datetime               import datetime
 
 import hashlib
+import re
 
 # ----------------------------------------------------------------------------
 
@@ -67,6 +68,10 @@ class Page(ModelBase):
         if self.url_map:
             return self.url_map.request_path
         return None
+
+    @property
+    def us_views(self):
+        return (','.join(re.findall(r'\d{1,3}', str(self.views)[::-1])))[::-1]
 
     def add_tag(self, tag):
         real_tag = tag
