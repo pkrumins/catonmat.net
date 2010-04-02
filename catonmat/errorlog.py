@@ -9,10 +9,15 @@
 # Code is licensed under GNU GPL license.
 #
 
-from catonmat.models   import FouroFour
-from catonmat.database import session
+from catonmat.models   import FouroFour, Exception
 
 def log_404(request):
-    session.add(FouroFour(request.path))
-    session.commit()
+    fof = FouroFour(request)
+    fof.save()
+
+def log_exception(request, e):
+    last_error = str(e)
+    print "---------------------"
+    print last_error
+    print "---------------------"
 
