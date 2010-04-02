@@ -19,7 +19,7 @@ from catonmat.views.utils   import (
     MakoDict, cached_template_response, render_template, display_template
 )
 from catonmat.comments      import (
-    validate_comment, new_comment, save_comment, thread, linear, CommentError
+    validate_comment, new_comment, thread, linear, CommentError
 )
 
 # ----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ def handle_comment_submit(request, map):
     # TODO: merge this, c.py and comments.py together,
     #       otherwise same code is spread over 3 files
     comment = new_comment(request)
-    save_comment(comment)
+    comment.save()
 
     if config.use_cache:
         cache_del('individual_page_%s' % map.request_path)
