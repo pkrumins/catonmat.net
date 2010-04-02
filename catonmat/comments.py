@@ -124,7 +124,7 @@ def add_comment(request):
                     , mimetype='application/json')
 
         comment = new_comment(request)
-        save_comment(comment)
+        comment.save()
 
         invalidate_page_cache(request.form['page_id'])
 
@@ -155,13 +155,8 @@ def new_comment(request):
         email     = request.form['email']  .strip(),
         twitter   = request.form['twitter'].strip(),
         website   = request.form['website'].strip(),
-        visitor   = Visitor(request.remote_addr, str(request.headers))
+        visitor   = Visitor(request)
     )
-
-
-def save_comment(comment):
-    session.add(comment)
-    session.commit()
 
 
 def thread(comments):
