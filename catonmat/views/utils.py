@@ -13,6 +13,7 @@ from werkzeug               import import_string, Response
 from mako.template          import Template
 from mako.lookup            import TemplateLookup
 
+from catonmat.models        import Category, session
 from catonmat.cache         import from_cache_or_compute
 from catonmat.quotes        import get_random_quote
 from catonmat.statistics    import get_most_popular_pages, get_most_downloads, get_recent_pages
@@ -73,11 +74,13 @@ def render_template(template_name, **template_args):
     top_pages = get_most_popular_pages()
     top_downloads = get_most_downloads()
     recent_pages = get_recent_pages()
+    categories = session.query(Category).order_by(Category.name.asc()).all()
     return template.render(
              quote=quote,
              top_pages=top_pages,
              top_downloads=top_downloads,
              recent_pages = recent_pages,
+             categories = categories,
              **template_args)
 
 
