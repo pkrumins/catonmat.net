@@ -177,6 +177,7 @@ feedback_table = Table('feedback', metadata,
     Column('name',          String(64)),
     Column('email',         String(128)),
     Column('website',       String(256)),
+    Column('subject',       Text),
     Column('message',       Text),
     Column('timestamp',     DateTime),
     mysql_charset='utf8'
