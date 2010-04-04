@@ -153,9 +153,12 @@ def import_page_comments(wp_page, cm_page_id, wp_comments_dict):
                 timestamp=comment.comment_date).save()
 
 def generate_urlmap(wp_page, cm_page_id):
+    skip_paths = ['/sitemap', '/feedback']
     parsed = urlparse(wp_page.guid)
     path = parsed.path.rstrip('/')
     if path:
+        if path in skip_paths:
+            return
         UrlMap(parsed.path.rstrip('/'), cm_page_id).save()
     elif wp_page.ID==2: # 2nd post for some reason doesn't have a path in my db
         UrlMap('/about', cm_page_id).save()
