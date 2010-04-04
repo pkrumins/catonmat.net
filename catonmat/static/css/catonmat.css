@@ -394,18 +394,18 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 #content .page .footer .tags {
   background: url('/static/img/tags.gif') no-repeat 0px 2px;
   padding-left: 22px;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 #content .page .footer .short_url {
   background: url('/static/img/short_url.gif') no-repeat 0px 0px;
   padding-left: 22px;
-  margin-bottom: 0.5em;
 }
 
 #content .page .footer .short_url input {
-  font-size: 0.9166em;
   padding: 1px;
+  text-align: center;
+  font-size: 0.9166em;
   font-family: Verdana;
   border: 1px solid gray;
 }
