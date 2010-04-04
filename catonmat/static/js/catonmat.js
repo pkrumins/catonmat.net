@@ -133,7 +133,7 @@ catonmat = {
 
   comment_error: function(error) {
     $('#comment_error').
-      html('<span>' + error + '</span>').
+      html('<span class="error">' + error + '</span>').
       slideDown('fast');
   },
 
