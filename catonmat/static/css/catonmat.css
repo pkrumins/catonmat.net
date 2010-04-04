@@ -848,6 +848,13 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   margin-bottom: 2em;
 }
 
+#feedback #feedback_ok {
+  background: #E6EFC2;
+  color: #264409;
+  border: 2px solid #C6D880;
+  padding: 1em;
+  margin-bottom: 2em;
+}
 
 /*
 ** Utilities
@@ -878,6 +885,11 @@ span.notice {
 
 span.error {
   background: url('/static/img/exclamation.gif') no-repeat;
+  padding-left: 2em; /* TODO: 22px not 2em */
+}
+
+span.ok {
+  background: url('/static/img/ok.gif') no-repeat;
   padding-left: 2em;
 }
 
