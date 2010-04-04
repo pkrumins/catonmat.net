@@ -37,9 +37,9 @@ def application(request):
         if redir:
             return redirect(redir.new_path, code=redir.code)
 
-        map = find_url_map(request.path)
-        if map:
-            return handle_request('pages.main', request, map)
+        url_map = find_url_map(request.path)
+        if url_map:
+            return handle_request('pages.main', request, url_map)
 
         # Log this request in the 404 log and display not found page
         log_404(request)
