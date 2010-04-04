@@ -91,7 +91,7 @@
 </div>
 
 <div class="item list">
-  <div class="title">Top ten articles:</div>
+  <div class="title">Top Ten Articles:</div>
   <div class="content">
     <ul>
     % for page in top_pages:
@@ -102,7 +102,7 @@
 </div>
 
 <div class="item list">
-  <div class="title">Top ten downloads:</div>
+  <div class="title">Top Ten Downloads:</div>
   <div class="content">
     <ul>
     % for download in top_downloads:
@@ -113,12 +113,29 @@
 </div>
 
 <div class="item list">
-  <div class="title">Recent articles:</div>
+  <div class="title">Recent Articles:</div>
   <div class="content">
     <ul>
     % for page in recent_pages:
      <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
     % endfor
+    </ul>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">Article Categories:</div>
+  <div class="content">
+    <ul>
+     % for category in categories:
+      <%
+        if category.description:
+          title = "%s: %s" % (category.name, category.description)
+        else:
+          title = 'All articles in "%s" category' % category.name
+      %>
+      <li><a href="/category/${category.seo_name}" title="${title|h}">${category.name|h}</a> (${category.count})</li>
+     % endfor
     </ul>
   </div>
 </div>
