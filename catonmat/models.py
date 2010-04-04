@@ -288,9 +288,10 @@ class DownloadStats(ModelBase):
 
 
 class Feedback(ModelBase):
-    def __init__(self, name, email, message, website=None):
+    def __init__(self, name, email, subject, message, website=None):
         self.name = name
         self.email = email
+        self.subject = subject
         self.message = message
         self.website = website
         self.timestamp = datetime.utcnow()
