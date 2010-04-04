@@ -140,4 +140,16 @@
   </div>
 </div>
 
+<div class="item list">
+  <div class="title">Article Archive:</div>
+  <div class="content">
+    <ul>
+     % for year, month, count in post_archive:
+     <li><a href="/archive/${year}/${month}" title="All articles written in ${month}, ${year}">${month}, ${year}</a> (${count})</li>
+     % endfor
+    </ul>
+  </div>
+</div>
+
 <!-- end sidebar.tmpl.html -->
+
