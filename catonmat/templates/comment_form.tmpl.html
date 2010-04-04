@@ -2,7 +2,7 @@
 
 <div id="comment_form">
   % if comment_error:
-    <div id="comment_error"><span>${comment_error}</span></div>
+    <div id="comment_error"><span class="error">${comment_error}</span></div>
   % else:
     <div id="comment_error" class="hidden"></div>
   % endif
@@ -42,7 +42,6 @@
       <p>
         It would be nice if you left your e-mail address. Sometimes I want to send a private message, or just thank for the great comment. Having your e-mail really helps.
       </p>
-
       <p><b>I will never ever spam you.</b></p>
     </div>
 
@@ -57,7 +56,7 @@
     </p>
     <div class="clear"></div>
 
-    <p>
+    <p class="website">
       <label for="website" class="website">Website:</label>
       % if form.get('website'):
       <input tabindex="4" type="text" name="website" id="website" maxlength="256" size="50" value="${form['website'] | h}">
