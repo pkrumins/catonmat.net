@@ -27,6 +27,9 @@ import re
 
 # ----------------------------------------------------------------------------
 
+def number_to_us(num):
+    return (','.join(re.findall(r'\d{1,3}', str(num)[::-1])))[::-1]
+
 class ModelBase(object):
     def save(self):
         session.add(self)
@@ -71,7 +74,7 @@ class Page(ModelBase):
 
     @property
     def us_views(self):
-        return (','.join(re.findall(r'\d{1,3}', str(self.views)[::-1])))[::-1]
+        return number_to_us(self.views)
 
     def add_tag(self, tag):
         real_tag = tag
@@ -264,6 +267,10 @@ class Download(ModelBase):
         download_stat = DownloadStats(self, request.remote_addr)
         self.save()
         download_stat.save()
+
+    @property
+    def us_downloads(self):
+        return number_to_us(self.downloads)
 
     def __repr__(self):
         return '<Download %s>' % self.filename
