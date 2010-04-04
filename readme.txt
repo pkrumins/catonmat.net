@@ -28,6 +28,15 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.04.04:
+    * added categories to the sidebar
+    * added post archive to the sidebar
+2010.04.02:
+    * added page-stuff - views, comment count, tags, short url
+    * added Google Buzz to 'meet me on'
+    * added /sitemap, /projects and /feedback pages
+    * added exception table to log Python exceptions
+    * 404 log now logs also http headers
 2010.04.01:
     * added atom feed
 2010.03.31:
