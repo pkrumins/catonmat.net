@@ -1,7 +1,7 @@
 <%inherit file="layout.tmpl.html"/>
 
 <%def name="title()">Leave feedback - good coders code, great reuse</%def>
-<%def name="meta_description()">Leave Peteris Krumins a feedback message</%def>
+<%def name="meta_description()">Send Peteris Krumins a message!</%def>
 
 <div class="page">
   <div class="header">
@@ -10,23 +10,53 @@
   </div>
 
   <div class="content">
+    <p>Use the following form to contact me.</p>
+  </div>
+
+  <div style="height: 1em"></div>
+
+  <div id="feedback">
+    % if error:
+      <div id="feedback_error">
+        <span class="error">${error}</span>
+      </div>
+    % endif
     <form action="/feedback" method="POST">
       <p>
         <label for="name" class="name">Your Name:</label>
-        <input tabindex="1" type="text" name="name" id="name" maxlength="64">
+        <input tabindex="1" type="text" name="name" id="name" size="30" maxlength="64">
       </p>
+      <div class="clear"></div>
       <p>
         <label for="email" class="email">Your E-mail:</label>
-        <input tabindex="2" type="text" email="email" id="email" maxlength="128">
+        <input tabindex="2" type="text" name="email" id="email" size="30" maxlength="128">
       </p>
-      <p>
+      <div class="clear"></div>
+      <p class="website">
         <label for="website" class="website">Your Website:</label>
-        <input tabindex="3" type="text" website="website" id="website" maxlength="128">
+        <input tabindex="3" type="text" name="website" id="website" size="55" maxlength="128">
       </p>
-      <label for="website" class="website">Message:</label>
-      <textarea tabindex="4" name="message" rows="8" cols="50" id="message"></textarea>
-      <input tabindex="5" id="submit" type="submit" name="submit" value="Submit Feedback">
+      <div class="clear"></div>
+      <p>
+        <label for="subject" class="subject">Subject:</label>
+        <input tabindex="4" type="text" name="subject" id="subject" size="55" maxlength="128">
+      </p>
+      <div class="clear"></div>
+      <div class="f">
+        <label for="message" class="message">Message:</label>
+        <textarea tabindex="5" name="message" rows="10" cols="50" id="message"></textarea>
+      </div>
+      <div class="e">
+        <input tabindex="6" id="submit" type="submit" name="submit" value="Submit Feedback">
+      </div>
     </form>
+  </div>
+
+  <div style="height: 2em"></div>
+
+  <div class="content">
+    <p>Please note that I am usually very busy and it can take several days before I read your message and write a response.</p>
+    <p>Usually a quicker way to reach me is on IRC. I am usually idling in the <strong>#catonmat</strong> channel on <strong>irc.freenode.net</strong>. Just join and write your message, I check the channel several times a day for activity and you'll get a response much faster.</p>
   </div>
 </div>
 
