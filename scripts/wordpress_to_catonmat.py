@@ -15,6 +15,7 @@ from sqlalchemy         import MetaData, create_engine
 from sqlalchemy         import Table
 from sqlalchemy.orm     import sessionmaker
 
+from catonmat.views.utils import MakoDict
 from catonmat.models    import (
     Page, Tag, Category, Comment, Visitor, UrlMap, BlogPage, Rss, Download
 )
@@ -144,7 +145,12 @@ def import_page_category(wp_page, cm_page, wp_categories_dict):
 
 def import_page_comments(wp_page, cm_page_id, wp_comments_dict):
     for comment in wp_comments_dict[wp_page.ID]:
-        visitor = Visitor(comment.comment_author_IP, timestamp=comment.comment_date)
+        # fake request
+        request = MakoDict({
+                    'remote_addr': comment.comment_author_IP,
+                    'headers': '' })
+        visitor = Visitor(request)
+        visitor.timestamp = comment.comment_date
         Comment(cm_page_id, comment.comment_author,
                 comment.comment_content,
                 visitor,
@@ -153,7 +159,7 @@ def import_page_comments(wp_page, cm_page_id, wp_comments_dict):
                 timestamp=comment.comment_date).save()
 
 def generate_urlmap(wp_page, cm_page_id):
-    skip_paths = ['/sitemap', '/feedback']
+    skip_paths = ['/sitemap', '/feedback', '/post-archive']
     parsed = urlparse(wp_page.guid)
     path = parsed.path.rstrip('/')
     if path:
