@@ -439,17 +439,16 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   margin-bottom: 0.5em;
 }
 
+#comment_form p.website {
+  margin-bottom: 1em;
+}
+
 #comment_form #comment_error {
   background: #FFEFF0;
   color: #8a1f11;
   border: 2px solid #FBC2C4;
   padding: 1em;
   margin-bottom: 1em;
-}
-
-#comment_form #comment_error span {
-  background: url('/static/img/exclamation.gif') no-repeat;
-  padding-left: 2em;
 }
 
 #comment_form #comment_preview {
@@ -479,7 +478,7 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 
 #comment_form input[type=text],
 #comment_form textarea {
-  border: 1px solid #707070;
+  border: 1px solid #808080;
 }
 
 #comment_form input[type=text]:focus,
@@ -778,6 +777,79 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 /*
+** Feedback
+** --------------------------------------------------------
+*/
+/* TODO: lots of duplication from comment_form */
+
+#feedback {
+  font-size: 1.2em;
+}
+
+#feedback p {
+  margin-bottom: 0.5em;
+}
+
+#feedback p.website {
+  margin-bottom: 1em;
+}
+
+#feedback label {
+  float: left;
+  display: block;
+  padding-left: 22px;
+  width: 100px;
+}
+
+#feedback label.name {
+  background: url('/static/img/user.gif') no-repeat;
+}
+
+#feedback label.email {
+  background: url('/static/img/envelope.gif') no-repeat;
+}
+
+#feedback label.website {
+  background: url('/static/img/world.gif') no-repeat;
+}
+
+#feedback label.subject {
+  background: url('/static/img/subject.gif') no-repeat;
+}
+
+#feedback label.message {
+  background: url('/static/img/balloon.gif') no-repeat;
+}
+
+#feedback input[type=text],
+#feedback textarea {
+  border: 1px solid #808080;
+}
+
+#feedback input[type=text]:focus,
+#feedback textarea:focus {
+  background-color: #fcfada;
+  border: 1px solid #303030;
+}
+
+#feedback .f {
+  margin-bottom: 0.5em;
+}
+
+#feedback .e {
+  margin-left: 122px;
+}
+
+#feedback #feedback_error {
+  background: #FFEFF0;
+  color: #8a1f11;
+  border: 2px solid #FBC2C4;
+  padding: 1em;
+  margin-bottom: 2em;
+}
+
+
+/*
 ** Utilities
 ** --------------------------------------------------------
 */
@@ -802,6 +874,11 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 
 span.notice {
   font-size: 1em;
+}
+
+span.error {
+  background: url('/static/img/exclamation.gif') no-repeat;
+  padding-left: 2em;
 }
 
 /*
