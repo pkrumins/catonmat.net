@@ -3,10 +3,11 @@
 # Peteris Krumins (peter@catonmat.net)
 # http://www.catonmat.net  --  good coders code, great reuse
 #
+# The new catonmat.net website.
+#
 # Code is licensed under MIT license.
 #
 
-from catonmat.config        import config
 from catonmat.cache         import from_cache_or_compute
 from catonmat.models        import UrlMap, Redirect
 from catonmat.database      import session
@@ -36,10 +37,10 @@ def find_redirect_compute(request_path):
 def find_url_map(request_path):
     request_path = agreed_path(request_path)
     cache_key = 'not_found_%s' % request_path
-    return from_cache_or_compute(find_url_map, cache_key, 0, request_path)
+    return from_cache_or_compute(find_url_map_compute, cache_key, 0, request_path)
 
 
-def find_url_map(request_path):
+def find_url_map_compute(request_path):
     return session.query(UrlMap).filter_by(request_path=request_path).first()
 
 
@@ -82,6 +83,11 @@ predefined_urls = Map([
     Rule('/tag')                       > 'tags.list',
     Rule('/tags')                      > 'tags.list',
 
+    # Article archive
+    Rule('/archive')                        > 'archive.main',
+    Rule('/archive/<int:year>')             > 'archive.year',
+    Rule('/archive/<int:year>/<int:month>') > 'archive.year_month',
+
     # Programming quotes
     Rule('/quotes')                    > 'quotes.main',
 
@@ -98,5 +104,6 @@ predefined_urls = Map([
 
     # Short URL for pages
     Rule('/p/<int:page_id>')           > 'p.main'
-])
+],
+strict_slashes=False)
 
