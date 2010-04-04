@@ -52,5 +52,5 @@ def get_post_archive():
              order_by(fm(bp).desc()). \
              all()
     for y, m, c in ymc:
-        yield y, MONTH[m], c
+        yield y, m, MONTH[m], c
 
