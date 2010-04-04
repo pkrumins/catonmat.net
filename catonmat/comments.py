@@ -43,28 +43,26 @@ def validate_comment(request):
 
     def validate_email(email):
         if email:
-            if not email_rx.match(email):
-                raise CommentError, "Sorry, the e-mail address is not valid!"
             if len(email) > 128:
                 raise CommentError, "Your e-mail is too long. Maximum length is 128 characters."
+            if not email_rx.match(email):
+                raise CommentError, "Sorry, your e-mail address is not valid!"
 
     def validate_comment(comment):
         if not comment:
             raise CommentError, "You left the comment empty!"
 
     def validate_twitter(twitter):
-        if len(twitter) > 128:
-            raise CommentError, "Your Twitter name is too long. Maximum length is 128 characters."
-        
         if twitter:
+            if len(twitter) > 128:
+                raise CommentError, "Your Twitter name is too long. Maximum length is 128 characters."
             if not twitter_rx.match(twitter):
-                raise CommentError, "Your Twitter name is incorrect! It can consist only of letters, numbers and underscore symbol."
+                raise CommentError, "Your Twitter name is incorrect! It can consist only of letters, numbers and the underscore symbol."
 
     def validate_website(website):
-        if len(website) > 256:
-            raise CommentError, "Your website address is too long. Maximum length is 256 characters."
-
         if website:
+            if len(website) > 256:
+                raise CommentError, "Your website address is too long. Maximum length is 256 characters."
             if '.' not in website:
                 raise CommentError, "Your website address is invalid!"
 
