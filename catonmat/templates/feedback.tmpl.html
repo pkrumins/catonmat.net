@@ -20,31 +20,59 @@
       <div id="feedback_error">
         <span class="error">${error}</span>
       </div>
+    % elif thank_you:
+      <div id="feedback_ok">
+        <span class="ok">Thank you! Your message was successfully sent! :)</span>
+      </div>
     % endif
     <form action="/feedback" method="POST">
       <p>
         <label for="name" class="name">Your Name:</label>
-        <input tabindex="1" type="text" name="name" id="name" size="30" maxlength="64">
+        % if form.get('name'):
+          <input tabindex="1" type="text" name="name" id="name"
+            size="30" maxlength="64" value="${form.get('name')|h}">
+        % else:
+          <input tabindex="1" type="text" name="name" id="name" size="30" maxlength="64">
+        % endif
       </p>
       <div class="clear"></div>
       <p>
         <label for="email" class="email">Your E-mail:</label>
+        % if form.get('email'):
+          <input tabindex="2" type="text" name="email" id="email"
+            size="30" maxlength="128" value="${form.get('email')|h}">
+        % else:
         <input tabindex="2" type="text" name="email" id="email" size="30" maxlength="128">
+        % endif
       </p>
       <div class="clear"></div>
       <p class="website">
         <label for="website" class="website">Your Website:</label>
-        <input tabindex="3" type="text" name="website" id="website" size="55" maxlength="128">
+        % if form.get('website'):
+          <input tabindex="3" type="text" name="website" id="website"
+            size="55" maxlength="256" value="${form.get('website')|h}">
+        % else:
+          <input tabindex="3" type="text" name="website" id="website" size="55" maxlength="256">
+        % endif
       </p>
       <div class="clear"></div>
       <p>
         <label for="subject" class="subject">Subject:</label>
-        <input tabindex="4" type="text" name="subject" id="subject" size="55" maxlength="128">
+        % if form.get('subject'):
+          <input tabindex="4" type="text" name="subject" id="subject"
+          size="55" value="${form.get('subject')|h}">
+        % else:
+          <input tabindex="4" type="text" name="subject" id="subject" size="55">
+        % endif
       </p>
       <div class="clear"></div>
       <div class="f">
         <label for="message" class="message">Message:</label>
-        <textarea tabindex="5" name="message" rows="10" cols="50" id="message"></textarea>
+        % if form.get('message'):
+          <textarea tabindex="5" name="message" rows="10" cols="50" id="message">${form.get('message')|h}</textarea>
+        % else:
+          <textarea tabindex="5" name="message" rows="10" cols="50" id="message"></textarea>
+        % endif
       </div>
       <div class="e">
         <input tabindex="6" id="submit" type="submit" name="submit" value="Submit Feedback">
@@ -56,7 +84,7 @@
 
   <div class="content">
     <p>Please note that I am usually very busy and it can take several days before I read your message and write a response.</p>
-    <p>Usually a quicker way to reach me is on IRC. I am usually idling in the <strong>#catonmat</strong> channel on <strong>irc.freenode.net</strong>. Just join and write your message, I check the channel several times a day for activity and you'll get a response much faster.</p>
+    <p>Usually a quicker way to reach me is on <strong>IRC</strong>. I am usually idling in the <strong>#catonmat</strong> channel on <strong>irc.freenode.net</strong>. Just join and write your message, I check the channel several times a day for activity and you'll get a response much faster.</p>
   </div>
 </div>
 
