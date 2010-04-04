@@ -130,5 +130,5 @@ def handle_comment_preview(request, comment_id):
 
 
 def display_page(template_data):
-    return display_template("comment_page", template_data)
+    return display_template("comment_page", **template_data)
 

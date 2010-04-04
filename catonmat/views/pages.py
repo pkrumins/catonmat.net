@@ -141,5 +141,5 @@ def compute_handle_page_get(request, map):
 
 
 def display_page(template_data):
-    return display_template("page", template_data)
+    return display_template("page", **template_data)
 
