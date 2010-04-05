@@ -885,12 +885,12 @@ span.notice {
 
 span.error {
   background: url('/static/img/exclamation.gif') no-repeat;
-  padding-left: 2em; /* TODO: 22px not 2em */
+  padding-left: 24px;
 }
 
 span.ok {
   background: url('/static/img/ok.gif') no-repeat;
-  padding-left: 2em;
+  padding-left: 24px;
 }
 
 /*
