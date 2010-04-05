@@ -9,7 +9,7 @@
 #
 
 from catonmat.views.utils       import display_template
-from catonmat.models            import Feedback
+from catonmat.models            import Feedback, Visitor
 
 from urlparse                   import urlparse
 
@@ -77,6 +77,7 @@ def handle_feedback_post(request):
     try:
         validate_feedback(request)
         Feedback(
+          Visitor(request),
           request.form['name'].strip(), 
           request.form['email'].strip(),
           request.form['subject'].strip(),
