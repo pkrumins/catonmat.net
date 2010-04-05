@@ -8,12 +8,9 @@
 # Code is licensed under GNU GPL license.
 #
 
-from catonmat.cache             import cache
 from catonmat.views.utils       import (
     MakoDict, cached_template_response, render_template
 )
-from catonmat.models            import Page, Category, BlogPage
-from catonmat.database          import session
 
 # ----------------------------------------------------------------------------
 
