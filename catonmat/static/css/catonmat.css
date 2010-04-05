@@ -778,7 +778,7 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   float: left;
   display: block;
   padding-left: 22px;
-  width: 100px;
+  width: 90px;
 }
 
 #feedback .f {
@@ -786,7 +786,7 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 #feedback .e {
-  margin-left: 122px;
+  margin-left: 112px;
 }
 
 #feedback #feedback_error {
@@ -844,7 +844,6 @@ textarea:focus {
   background-color: #fcfada;
   border: 1px solid #303030;
 }
-
 
 /*
 ** Utilities
