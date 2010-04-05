@@ -233,6 +233,13 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   margin-bottom: 10px;
 }
 
+#content .page .content h3 {
+  font-size: 1.1538em;
+  font-weight: bold;
+  color: #196CCF;
+  margin-bottom: 10px;
+}
+
 #content .page .content a:hover {
   background-color: blue;
   color: white
@@ -251,7 +258,6 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   background: #FFF7F0;
   border: 1px solid #CCCCCC;
   margin: 1em 1em 1em 1em;
-
   overflow: auto;
 }
 
@@ -264,13 +270,15 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 #content .page .content .download {
   border: 2px solid #B8860B;
   padding: 1em;
+  margin-bottom: 1em;
 }
 
 #content .page .content .download-title {
   font-weight: bold;
   margin-bottom: 1em;
-  padding-left: 25px;
+  padding-left: 24px;
   font-size: 140%;
+  background: url('/static/img/download.gif') no-repeat 0px 4px;
 }
 
 #content .page .content ul {
@@ -856,6 +864,10 @@ textarea:focus {
 
 .hidden {
   display: none;
+}
+
+.indent {
+  margin-left: 1em;
 }
 
 .hr, .hrb {
