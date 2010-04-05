@@ -1,7 +1,7 @@
 <%inherit file="layout.tmpl.html"/>
 
-<%def name="title()">Leave feedback - good coders code, great reuse</%def>
-<%def name="meta_description()">Leave Peteris Krumins a feedback message</%def>
+<%def name="title()">catonmat sitemap - good coders code, great reuse</%def>
+<%def name="meta_description()">The sitemap of catonmat.net website.</%def>
 
 <div class="page">
   <div class="header">
@@ -10,7 +10,31 @@
   </div>
 
   <div class="content">
-    oh, hello, here is the sitemap of catonmat.
+    <p>This is the sitemap of the catonmat.net website. It lists all the posts and pages on the site.</p>
+
+    <h2>All Posts by Category</h2>
+
+    <div class="indent">
+    % for category in categories:
+      <h3>${category.name|h}</h3>
+      <ul>
+        % for page in category.blog_pages.all():
+        <li><a href="${page.request_path}">${page.title|h}</a></li>
+        % endfor
+      </ul>
+      <p class="indent"><a href="/category/${category.seo_name}" class="more_detailed">More detailed list of articles in "${category.name|h}"</a></p>
+    % endfor
+    </div>
+
+    <h2>Individual Pages</h2>
+
+    <div class="indent">
+      <ul>
+      % for page in pages:
+        <li><a href="${page.path}" title="${page.title}">${page.name}</a></li>
+      % endfor
+      </ul>
+    </div>
   </div>
 </div>
 
