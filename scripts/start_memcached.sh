@@ -3,7 +3,7 @@
 # Peteris Krumins (peter@catonmat.net)
 # http://www.catonmat.net  --  good coders code, great reuse
 #
-# This script launched memcached with the right parameters.
+# This script launches memcached with the right parameters.
 #
 # Code is licensed under GNU GPL license.
 #
