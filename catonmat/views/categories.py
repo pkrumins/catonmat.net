@@ -9,7 +9,7 @@
 #
 
 from werkzeug.exceptions            import NotFound
-from catonmat.models                import Category, Page, UrlMap
+from catonmat.models                import Category, BlogPage
 from catonmat.database              import session
 from catonmat.views.utils           import (
     cached_template_response, render_template, number_to_us
@@ -30,9 +30,8 @@ def compute_main(request, seo_name):
     if not category:
         raise NotFound()
 
-    pages = category.blog_pages.all()
+    pages = category.blog_pages.order_by(BlogPage.publish_date.desc()).all()
 
-    # TODO: add comment-count for each page, add excerpt, add publish date
     return render_template('category', category=category, pages=pages,
              number_to_us=number_to_us)
 
@@ -47,4 +46,4 @@ def list(request):
 
 def compute_list(request):
     return render_template('category_list')
-
+ 
