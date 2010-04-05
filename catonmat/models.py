@@ -163,6 +163,13 @@ class Category(ModelBase):
         self.description = description
         self.count = count
 
+    @property
+    def blog_pages(self): # TODO: Don't know to make it via dynamic_loader
+       return session. \
+                query(Page). \
+                join(BlogPage). \
+                filter(Page.category_id==self.category_id)
+
     def __repr__(self):
         return '<Category %s>' % self.name
 
