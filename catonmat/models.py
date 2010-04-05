@@ -235,7 +235,7 @@ class BlogPage(ModelBase):
 class Visitor(ModelBase):
     def __init__(self, request):
         self.ip = request.remote_addr
-        self.headers = str(request.headers)
+        self.headers = str(request.headers).strip()
         self.host = None
         self.timestamp = datetime.utcnow()
 
@@ -288,7 +288,8 @@ class DownloadStats(ModelBase):
 
 
 class Feedback(ModelBase):
-    def __init__(self, name, email, subject, message, website=None):
+    def __init__(self, visitor, name, email, subject, message, website=None):
+        self.visitor = visitor
         self.name = name
         self.email = email
         self.subject = subject
