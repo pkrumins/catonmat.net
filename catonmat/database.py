@@ -174,6 +174,7 @@ download_stats_table = Table('download_stats', metadata,
 
 feedback_table = Table('feedback', metadata,
     Column('feedback_id',   Integer,    primary_key=True),
+    Column('visitor_id',    Integer,    ForeignKey('visitors.visitor_id')),
     Column('name',          String(64)),
     Column('email',         String(128)),
     Column('website',       String(256)),
