@@ -8,11 +8,29 @@
 # Code is licensed under GNU GPL license.
 #
 
-from catonmat.views.utils       import display_template
-from catonmat.models            import Feedback
+from catonmat.cache             import cache
+from catonmat.views.utils       import (
+    MakoDict, cached_template_response, render_template
+)
+from catonmat.models            import Page, Category, BlogPage
+from catonmat.database          import session
 
 # ----------------------------------------------------------------------------
 
+# TODO: make this dynamic
+
+PAGES_D = [
+    { 'path': '/projects', 'name': 'Projects', 'title': "Peteris Krumins' projects" },
+    { 'path': '/sitemap',  'name': 'Sitemap',  'title': "Catonmat sitemap" },
+    { 'path': '/feedback', 'name': 'Feedback', 'title': "Contact Peteris Krumins" }
+]
+
+PAGES = [ MakoDict(d) for d in PAGES_D ]
+
 def main(request):
-    return display_template("sitemap", dict())
+    return cached_template_response(compute_sitemap, 'sitemap', 0)
+
+
+def compute_sitemap():
+    return render_template('sitemap', pages=PAGES)
 
