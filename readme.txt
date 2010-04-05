@@ -28,6 +28,8 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.04.06:
+    * improved /category list and individual post list in /category/<name>
 2010.04.05:
     * /feedback now fully works.
     * /sitemap now fully works.
