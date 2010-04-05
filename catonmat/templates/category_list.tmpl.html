@@ -5,7 +5,7 @@
 
 <div class="page">
   <div class="header">
-    <h1>Article categories on catonmat</h1>
+    <h1><a href="/category">Article categories on catonmat</a></h1>
     <div class="hr lighter"></div>
   </div>
 
@@ -26,13 +26,9 @@
     % for category in categories:
       <div class="ctitem">
         <div class="url">
-          <a href="/category/${category.seo_name}" title="${category.description|h}">${category.name|h}</a>
+          <a href="/category/${category.seo_name}" title="${category.description|h}">${category.name|h}</a> (<strong>${category.count}</strong> posts).
         </div>
-        <!--
-        <div class="stats">
-          <span class="views">x views</span><span class="commentss">x comments</span>
-        </div>
-        -->
+        <div class="description"><p>${category.description|h}</p></div>
       </div>
     % endfor
   </div>
