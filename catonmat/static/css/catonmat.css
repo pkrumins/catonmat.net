@@ -498,26 +498,6 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   width: 70px;
 }
 
-#comment_form label.name {
-  background: url('/static/img/user.gif') no-repeat;
-}
-
-#comment_form label.email {
-  background: url('/static/img/envelope.gif') no-repeat;
-}
-
-#comment_form label.twitter {
-  background: url('/static/img/twitter-comments.gif') no-repeat;
-}
-
-#comment_form label.website {
-  background: url('/static/img/world.gif') no-repeat;
-}
-
-#comment_form label.comment {
-  background: url('/static/img/balloon.gif') no-repeat;
-}
-
 #comment_form .a {
   margin-left: 92px;
 }
@@ -801,37 +781,6 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   width: 100px;
 }
 
-#feedback label.name {
-  background: url('/static/img/user.gif') no-repeat;
-}
-
-#feedback label.email {
-  background: url('/static/img/envelope.gif') no-repeat;
-}
-
-#feedback label.website {
-  background: url('/static/img/world.gif') no-repeat;
-}
-
-#feedback label.subject {
-  background: url('/static/img/subject.gif') no-repeat;
-}
-
-#feedback label.message {
-  background: url('/static/img/balloon.gif') no-repeat;
-}
-
-#feedback input[type=text],
-#feedback textarea {
-  border: 1px solid #808080;
-}
-
-#feedback input[type=text]:focus,
-#feedback textarea:focus {
-  background-color: #fcfada;
-  border: 1px solid #303030;
-}
-
 #feedback .f {
   margin-bottom: 0.5em;
 }
@@ -855,6 +804,47 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   padding: 1em;
   margin-bottom: 2em;
 }
+
+/*
+** Form stuff
+** --------------------------------------------------------
+*/
+label.name {
+  background: url('/static/img/user.gif') no-repeat;
+}
+
+label.email {
+  background: url('/static/img/envelope.gif') no-repeat;
+}
+
+label.website {
+  background: url('/static/img/world.gif') no-repeat;
+}
+
+label.twitter {
+  background: url('/static/img/twitter-comments.gif') no-repeat;
+}
+
+label.subject {
+  background: url('/static/img/subject.gif') no-repeat;
+}
+
+label.message,
+label.comment {
+  background: url('/static/img/balloon.gif') no-repeat;
+}
+
+input[type=text],
+textarea {
+  border: 1px solid #808080;
+}
+
+input[type=text]:focus,
+textarea:focus {
+  background-color: #fcfada;
+  border: 1px solid #303030;
+}
+
 
 /*
 ** Utilities
