@@ -11,7 +11,9 @@
 from werkzeug.exceptions            import NotFound
 from catonmat.models                import Category, Page, UrlMap
 from catonmat.database              import session
-from catonmat.views.utils           import cached_template_response, render_template
+from catonmat.views.utils           import (
+    cached_template_response, render_template, number_to_us
+)
 
 # ----------------------------------------------------------------------------
 
@@ -28,19 +30,11 @@ def compute_main(request, seo_name):
     if not category:
         raise NotFound()
 
-    # TODO: select only the necessary fields
-    mixergy = session. \
-                query(Page, UrlMap). \
-                join(UrlMap). \
-                filter(Page.category_id==category.category_id). \
-                all() 
+    pages = category.blog_pages.all()
 
     # TODO: add comment-count for each page, add excerpt, add publish date
-    template_data = {
-        'category':     category,
-        'pus':          mixergy,
-    }
-    return render_template('category', **template_data)
+    return render_template('category', category=category, pages=pages,
+             number_to_us=number_to_us)
 
 
 def list(request):
@@ -50,10 +44,7 @@ def list(request):
              0,
              request)
 
+
 def compute_list(request):
-    categories = session.query(Category).order_by(Category.name).all() 
-    template_data = {
-        'categories': categories
-    }
-    return render_page('category_list', **template_data)
+    return render_template('category_list')
 
