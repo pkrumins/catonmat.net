@@ -361,5 +361,7 @@ mapper(Download, downloads_table, properties={
     )
 })
 mapper(DownloadStats, download_stats_table)
-mapper(Feedback, feedback_table)
+mapper(Feedback, feedback_table, properties={
+    'visitor': relation(Visitor, uselist=False)
+})
 
