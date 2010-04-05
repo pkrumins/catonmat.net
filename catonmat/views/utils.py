@@ -13,12 +13,10 @@ from werkzeug               import import_string, Response
 from mako.template          import Template
 from mako.lookup            import TemplateLookup
 
-from catonmat.models        import Category, session
 from catonmat.cache         import from_cache_or_compute
 from catonmat.quotes        import get_random_quote
-from catonmat.statistics    import (
-    get_most_popular_pages, get_most_downloads, get_recent_pages, get_post_archive
-)
+
+import re
 
 # ----------------------------------------------------------------------------
 
@@ -48,6 +46,10 @@ class MakoDict(object):
 
     def __getattr__(self, name):
         return None
+
+
+def number_to_us(num):
+    return (','.join(re.findall(r'\d{1,3}', str(num)[::-1])))[::-1]
 
 
 mako_lookup = TemplateLookup(
@@ -102,4 +104,10 @@ def get_view(endpoint):
       return import_string(endpoint)
     except (ImportError, AttributeError):
       raise RuntimeError('Could not locate view for %r' % endpoint)
+
+
+from catonmat.models        import Category, session
+from catonmat.statistics    import (
+    get_most_popular_pages, get_most_downloads, get_recent_pages, get_post_archive
+)
 

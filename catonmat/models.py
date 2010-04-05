@@ -10,6 +10,7 @@
 
 from sqlalchemy.orm         import dynamic_loader, relation, mapper
 
+from catonmat.views.utils   import number_to_us
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
@@ -23,12 +24,8 @@ from urlparse               import urlparse
 from datetime               import datetime
 
 import hashlib
-import re
 
 # ----------------------------------------------------------------------------
-
-def number_to_us(num):
-    return (','.join(re.findall(r'\d{1,3}', str(num)[::-1])))[::-1]
 
 class ModelBase(object):
     def save(self):
