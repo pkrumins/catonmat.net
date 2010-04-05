@@ -231,10 +231,11 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   font-weight: bold;
   color: #196CCF;
   margin-bottom: 10px;
+  border-bottom: 1px dotted #DDD;
 }
 
 #content .page .content h3 {
-  font-size: 1.1538em;
+  font-size: 1.077em;
   font-weight: bold;
   color: #196CCF;
   margin-bottom: 10px;
@@ -267,6 +268,16 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   padding-bottom: 1em;
 }
 
+#content .page .content blockquote {
+  background-color: #EEEEEE;
+  padding: 1em;
+  margin: 1em;
+}
+
+#content .page .content blockquote p {
+  margin-bottom: 0;
+}
+
 #content .page .content .download {
   border: 2px solid #B8860B;
   padding: 1em;
@@ -297,6 +308,11 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   border-top: 1px solid #CCCCCC;
   border-bottom: 1px solid #CCCCCC;
 
+}
+
+#content .page .content .more_detailed {
+  background: url('/static/img/arrow_right.gif') no-repeat 1px 0;
+  padding-left: 24px;
 }
 
 /*
