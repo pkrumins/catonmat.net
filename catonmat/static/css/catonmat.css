@@ -196,7 +196,6 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 #content .page .header .commentsc {
-  /* TODO: font on the page is not right here for some reason */
   background: url('/static/img/comments.gif') no-repeat;
   padding-left: 20px;
 }
@@ -379,6 +378,35 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   padding-left: 1.5em;
   margin-left: 1em;
   margin-bottom: 1em;
+}
+
+.ctitem .stats {
+  font-size: 0.923em;
+}
+
+.ctitem .stats .ctstat {
+  float: left;
+}
+
+.ctitem .commentsct {
+  background: url('/static/img/comments.gif') no-repeat 0 2px;
+  padding-left: 21px;
+  width: 95px;
+}
+
+.ctitem .views {
+  background: url('/static/img/views.gif') no-repeat 0 3px;
+  padding-left: 21px;
+  width: 95px;
+}
+
+.ctitem .published {
+  background: url('/static/img/calendar.gif') no-repeat 0 2px;
+  padding-left: 21px;
+}
+
+.ctitem .description {
+  font-size: 0.923em;
 }
 
 /*
