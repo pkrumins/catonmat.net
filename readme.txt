@@ -30,6 +30,7 @@ modules (list is not complete):
 
 2010.04.05:
     * /feedback now fully works.
+    * /sitemap now fully works.
 2010.04.04:
     * added categories to the sidebar
     * added post archive to the sidebar
