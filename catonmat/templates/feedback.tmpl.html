@@ -80,6 +80,13 @@
     </form>
   </div>
 
+  <script> 
+    if ($.browser.safari) {
+      /* i can't solve a problem of labels being offset by 3px in vertical direction */
+      $('#feedback label').css('margin-top','3px')
+    }
+  </script> 
+
   <div style="height: 2em"></div>
 
   <div class="content">
