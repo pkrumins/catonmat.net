@@ -808,6 +808,10 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   color: #753206;
 }
 
+#sidebar .list .moreinfo {
+  margin-left: 1.5em;
+}
+
 /*
 ** Feedback
 ** --------------------------------------------------------
