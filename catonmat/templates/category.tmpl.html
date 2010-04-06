@@ -24,11 +24,9 @@
     % endif
     </p>
 
-    % if category.count:
-      % for page in pages:
-        ${detailed_page(page)}
-      % endfor
-    % endif
+    % for page in pages:
+      ${detailed_page(page)}
+    % endfor
 
     <p>Category "<strong>${category.name|h}</strong>" statistics:</p>
 
@@ -41,7 +39,7 @@
         total_comments += page.comment_count
     %>
 
-    <p>Total comments: <strong>${number_to_us(total_comments)}</strong>. Total views: <strong>${number_to_us(total_views)}</strong>.</p>
+    <p>Total comments: <strong>${number_to_us(total_comments)}</strong>. Total views: <strong>${number_to_us(total_views)}</strong></p>
   </div>
 </div>
 
