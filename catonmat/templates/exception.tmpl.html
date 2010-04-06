@@ -1,0 +1,56 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Code exception - good coders code, great reuse</%def>
+<%def name="meta_description()">Code exception happened. Python threw ${exception_type|h} exception with message ${exception_message|h}.</%def>
+
+<div class="page">
+  <div class="header">
+    <h1>Code exception happened!</h1>
+    <div class="hr lighter"></div>
+  </div>
+
+  <div class="content">
+    <div class="sorry404exc">
+      Oh no, the code did something unexpected! The page couldn't be served. :(
+    </div>
+
+    <h2>How did that happen?</h2>
+    <p>I admit it, I must have made an error somewhere in the code!</p>
+    <!--
+    <p>PS. catonmat's code is actually 100% open-source. See the <a href="http://github.com/pkrumins/catonmat.net">catonmat's code repository at GitHub</a>!</p>
+    -->
+
+    <h2>What exactly happened?</h2>
+    <p>The Python code threw a <code>${exception_type|h}</code> exception with message a "<strong>${exception_message|h}</strong>". Here is the traceback:</p>
+
+    ${traceback}
+
+    <h2>What I am going to do about it?</h2>
+    <p>My goal is to provide the best user-experience to my website visitors. Therefore this exceptional event <strong>has been logged to database</strong> for further investigation. I wrote code that displays me the summary of all the exceptional events that have happened, and I often go through the list and fix the mistakes.</p>
+
+    <h2>Meanwhile...</h2>
+    <p>Meanwhile, while I investigate and fix this code error, you can <strong>view my most popular posts</strong>:</p>
+
+    <ul>
+    % for page in top_pages:
+     <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (has been read ${page.us_views} times)">${page.title|h}</a></li>
+    % endfor
+    </ul>
+
+    <p>Or, you can <strong>view my most recent posts</strong>:</p>
+
+    <ul>
+    % for page in recent_pages:
+     <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
+    % endfor
+    </ul>
+
+    <h2>Thank you!</h2>
+    <p>Thank you for understanding!</p>
+    <p>
+      Sincerely,<br>
+      Peteris Krumins
+    </p>
+  </div>
+</div>
+
