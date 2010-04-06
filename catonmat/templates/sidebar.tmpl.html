@@ -144,7 +144,9 @@
       <li><a href="/category/${category.seo_name}" title="${title|h}">${category.name|h}</a> (<span title="There are ${category.count} articles in &quot;${category.name|h}&quot; category">${category.count}</span>)</li>
      % endfor
     </ul>
-    <p class="moreinfo"><a href="/categories" title="Detailed catonmat category information">More detailed category information</a></p>
+    <p class="moreinfo">
+      <a href="/categories" title="Detailed catonmat category information">See more detailed category information</a>
+    </p>
   </div>
 </div>
 
@@ -156,6 +158,9 @@
      <li><a href="/archive/${year}/${"%02d" % nmonth}" title="All articles written in ${month}, ${year}">${month}, ${year}</a> (<span title="${count} articles were published in ${month}, ${year}">${count}</span>)</li>
      % endfor
     </ul>
+    <p class="moreinfo">
+      <a href="/archive" title="All catonmat articles">See a detailed list of all articles</a>
+    </p>
   </div>
 </div>
 
