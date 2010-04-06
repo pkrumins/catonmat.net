@@ -1,0 +1,35 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Catonmat article archive for ${month}, ${year} - good coders code, great reuse</%def>
+<%def name="meta_description()">TODO</%def>
+
+<%namespace import="detailed_page" file="detailed_page.tmpl.html"/>
+
+<div class="page">
+  <div class="header">
+    <h1><a href="/archive/${year}/${nmonth}">Catonmat articles for ${month}, ${year}</a></h1>
+    <div class="hr lighter"></div>
+  </div>
+
+  <div class="content">
+    <p>The archive for ${month}, ${year} contains <strong>${len(pages)}</strong> posts:</p>
+
+    % for page in pages:
+      ${detailed_page(page)}
+    % endfor
+
+    <p>Archive statistics for ${month}, ${year}:</p>
+    <%
+      total_views = 0
+      total_comments = 0
+
+      for page in pages:
+        total_views += page.views
+        total_comments += page.comment_count
+    %>
+
+    <p>Total comments: <strong>${number_to_us(total_comments)}</strong>. Total views: <strong>${number_to_us(total_views)}</strong>.</p>
+
+  </div>
+</div>
+
