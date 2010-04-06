@@ -18,7 +18,6 @@ p { margin: 0 0 1em; }
 a img { border: none; }
 em { font-style: italic; }
 pre, code { font-family: "Courier New", Courier, monospace; }
-pre { padding: 1em; overflow: auto; }
 code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 
 #container {
@@ -255,9 +254,11 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 #content .page .content pre {
+  line-height: 1.3em;
   background: #FFF7F0;
   border: 1px solid #CCCCCC;
-  margin: 1em 1em 1em 1em;
+  margin: 1em;
+  padding: 1em;
   overflow: auto;
 }
 
@@ -864,6 +865,19 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   border: 2px solid #C6D880;
   padding: 1em;
   margin-bottom: 2em;
+}
+
+/*
+** 404, exception
+** --------------------------------------------------------
+*/
+.sorry404exc {
+  text-align: center;
+  padding: 2em 0;
+  background: #FFEFF0;
+  color: #8a1f11;
+  border: 2px solid #FBC2C4;
+  margin-bottom: 1em;
 }
 
 /*
