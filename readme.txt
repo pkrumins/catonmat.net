@@ -32,6 +32,7 @@ modules (list is not complete):
     * improved /tag list and individual post list in /tag/<name>
     * improved /category list and individual post list in /category/<name>
     * /archive, /archive/<year>, /archive/<year>/<month>
+    * exceptions now get logged
 2010.04.05:
     * /feedback now fully works.
     * /sitemap now fully works.
