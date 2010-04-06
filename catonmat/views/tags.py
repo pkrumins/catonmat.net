@@ -48,8 +48,5 @@ def list(request):
 
 def compute_list(request):
     tags = session.query(Tag).order_by(Tag.name).all()
-    template_data = {
-        'tags': tags
-    }
-    return render_template('tag_list', **template_data)
+    return render_template('tag_list', tags=tags)
 
