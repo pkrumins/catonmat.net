@@ -21,7 +21,7 @@ def main(request, seo_name):
     return cached_template_response(
              compute_main,
              'category_page_%s' % seo_name,
-             0,
+             3600,
              request,
              seo_name)
 
@@ -40,10 +40,10 @@ def list(request):
     return cached_template_response(
              compute_list,
              'category_list',
-             0,
+             3600,
              request)
 
 
 def compute_list(request):
     return render_template('category_list')
- 
+
