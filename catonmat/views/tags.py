@@ -10,9 +10,11 @@
 
 from werkzeug.exceptions            import NotFound
 
-from catonmat.models                import Tag, Page, UrlMap
+from catonmat.models                import Tag, BlogPage
 from catonmat.database              import page_tags_table, session
-from catonmat.views.utils           import cached_template_response, render_template
+from catonmat.views.utils           import (
+    cached_template_response, render_template, number_to_us
+)
 
 # ----------------------------------------------------------------------------
 
@@ -20,7 +22,7 @@ def main(request, seo_name):
     return cached_template_response(
              compute_main,
              'tag_page_%s' % seo_name,
-             0,
+             3600,
              request,
              seo_name)
 
@@ -31,26 +33,16 @@ def compute_main(request, seo_name):
     if not tag:
         raise NotFound()
 
-    # TODO: more effective selection
-    pus = session.query(Page, UrlMap).join(
-                (page_tags_table, Page.page_id==page_tags_table.c.page_id),
-                (Tag, Tag.tag_id==page_tags_table.c.tag_id),
-                UrlMap
-          ).filter(Tag.tag_id==tag.tag_id).all()
+    pages = tag.blog_pages.order_by(BlogPage.publish_date.desc()).all()
 
-    # TODO: add comment-count for each page, add excerpt, add publish date
-    template_data = {
-        'tag': tag,
-        'pus': pus
-    }
-    return render_template('tag', **template_data)
+    return render_template('tag', tag=tag, pages=pages, number_to_us=number_to_us)
 
 
 def list(request):
     return cached_template_response(
              compute_list,
              'tag_list',
-             0,
+             3600,
              request)
 
 
