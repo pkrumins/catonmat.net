@@ -44,11 +44,9 @@ def application(request):
         # Log this request in the 404 log and display not found page
         log_404(request)
         return handle_request('not_found.main', request)
-    except HTTPException, e:
-        log_exception(request, e)
-        # TODO: log http exception so that I knew exactly what is going on with catonmat!
-        print "HTTPException"
-        pass
+    except:
+        log_exception(request)
+        return handle_request('exception.main', request)
     finally:
         session.remove()
 
