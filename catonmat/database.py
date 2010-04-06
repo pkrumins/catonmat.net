@@ -121,12 +121,13 @@ fourofour_table = Table('404', metadata,
 )
 
 exceptions_table = Table('exceptions', metadata,
-    Column('exception_id',  Integer,    primary_key=True),
-    Column('request_path',  Text),
-    Column('traceback',     Text),
-    Column('last_error',    Text),
-    Column('date',          DateTime),
-    Column('visitor_id',    Integer,    ForeignKey('visitors.visitor_id')),
+    Column('exception_id',   Integer,    primary_key=True),
+    Column('request_path',   Text),
+    Column('exception_type', Text),
+    Column('traceback',      Text),
+    Column('last_error',     Text),
+    Column('date',           DateTime),
+    Column('visitor_id',     Integer,    ForeignKey('visitors.visitor_id')),
     mysql_charset='utf8'
 )
 
