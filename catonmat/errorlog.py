@@ -19,12 +19,15 @@ import sys
 def log_404(request):
     FouroFour(request).save()
 
-def log_exception(request):
-    exc_type, exc_value, tb = sys.exc_info()
+
+def str_traceback(exc_type, exc_value, tb):
     buffer = StringIO()
     traceback.print_exception(exc_type, exc_value, tb, file=buffer)
-    Exception(request,
-              str(exc_type),
-              str(exc_value),
-              buffer.getvalue()).save()
+    return buffer.getvalue()
+
+
+def log_exception(request):
+    exc_type, exc_value, tb = sys.exc_info()
+    str_tb = str_traceback(exc_type, exc_value, tb)
+    Exception(request, str(exc_type), str(exc_value), str_tb).save()
 
