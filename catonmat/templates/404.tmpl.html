@@ -1,3 +1,54 @@
 <%inherit file="layout.tmpl.html"/>
 
-404 not found
+<%def name="title()">404 page not found - good coders code, great reuse</%def>
+<%def name="meta_description()">The page you were looking for was not found! Request path was: ${path}.</%def>
+
+<div class="page">
+  <div class="header">
+    <h1>The page you were looking for was not found!</h1>
+    <div class="hr lighter"></div>
+  </div>
+
+  <div class="content">
+    <div class="sorry404exc">
+      I'm sorry, the page you were looking for was not found.
+    </div>
+
+    <h2>How did that happen?</h2>
+    <p>I am not exactly sure why the page you were looking for was not found. There are several possible reasons:</p>
+    <ul>
+      <li>Someone sent you a broken link,</li>
+      <li>It's my mistake, I haven't set up the page properly,</li>
+      <li>You made a mistake when typing the address.</li>
+    </ul>
+
+    <h2>What I am going to do about it?</h2>
+    <p>My goal is to provide the best user-experience to my website visitors. Therefore this event of page not being found <strong>has been logged to database</strong> for further investigation. I wrote code that displays me the summary of all the pages that were not found. I often correct the non-existing page requests and redirect them to existing pages so that visitors are satisfied.</p>
+
+
+    <h2>Meanwhile...</h2>
+    <p>Meanwhile, while I investigate and fix this mistake, you can <strong>view my most popular posts</strong>:</p>
+
+    <ul>
+    % for page in top_pages:
+     <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (has been read ${page.us_views} times)">${page.title|h}</a></li>
+    % endfor
+    </ul>
+
+    <p>Or, you can <strong>view my most recent posts</strong>:</p>
+
+    <ul>
+    % for page in recent_pages:
+     <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
+    % endfor
+    </ul>
+
+    <h2>Thank you!</h2>
+    <p>Thank you for understanding!</p>
+    <p>
+      Sincerely,<br>
+      Peteris Krumins
+    </p>
+  </div>
+</div>
+
