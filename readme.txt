@@ -28,6 +28,8 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2010.04.07:
+    * added user friendly 404 and exception pages
 2010.04.06:
     * improved /tag list and individual post list in /tag/<name>
     * improved /category list and individual post list in /category/<name>
