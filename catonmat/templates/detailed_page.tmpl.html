@@ -1,0 +1,19 @@
+<%def name="detailed_page(page)">
+  <div class="ctitem">
+    <div class="url">
+      <a href="${page.request_path}" title="${page.title|h}">${page.title|h}</a>
+    </div>
+
+    <div class="stats">
+      <%
+        comment_str = 'comments' if page.comment_count > 1 else 'comment'
+        views_str   = 'views'    if page.views         > 1 else 'view'
+      %>
+      <div class="ctstat commentsct"><strong>${page.comment_count}</strong> ${comment_str}</div>
+      <div class="ctstat views"><strong>${page.us_views}</strong> ${views_str}</div>
+      <div class="ctstat published">${page.publish_time}</div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</%def>
+
