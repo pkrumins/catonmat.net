@@ -462,6 +462,11 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   border: 1px solid gray;
 }
 
+#content .page .footer .tags_link {
+  color: #222;
+  font-weight: bold;
+}
+
 /*
 ** Page Comments
 ** --------------------------------------------------------
