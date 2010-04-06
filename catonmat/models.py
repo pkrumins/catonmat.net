@@ -10,7 +10,6 @@
 
 from sqlalchemy.orm         import dynamic_loader, relation, mapper
 
-from catonmat.views.utils   import number_to_us
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
     blogpages_table, comments_table,  categories_table, tags_table,
@@ -23,9 +22,15 @@ from catonmat.database      import (
 from urlparse               import urlparse
 from datetime               import datetime
 
+import re
 import hashlib
 
 # ----------------------------------------------------------------------------
+
+# Copied back from catonmat.views.utils due to circular references
+def number_to_us(num):
+    return (','.join(re.findall(r'\d{1,3}', str(num)[::-1])))[::-1]
+
 
 class ModelBase(object):
     def save(self):
@@ -177,6 +182,17 @@ class Tag(ModelBase):
         self.seo_name = seo_name
         self.description = description
         self.count = count
+
+    @property
+    def blog_pages(self): # TODO: Don't know to make it via dynamic_loader
+       return session. \
+                query(Page). \
+                join(BlogPage). \
+                join(
+                  (page_tags_table, Page.page_id == page_tags_table.c.page_id),
+                  (Tag,             Tag.tag_id   == page_tags_table.c.tag_id)
+                ). \
+                filter(Tag.tag_id==self.tag_id)
 
     def __repr__(self):
         return '<Tag %s>' % self.name
