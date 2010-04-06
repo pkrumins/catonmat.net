@@ -29,7 +29,9 @@ modules (list is not complete):
     * jQuery     for AJAX and visual effects.
 
 2010.04.06:
+    * improved /tag list and individual post list in /tag/<name>
     * improved /category list and individual post list in /category/<name>
+    * /archive, /archive/<year>, /archive/<year>/<month>
 2010.04.05:
     * /feedback now fully works.
     * /sitemap now fully works.
