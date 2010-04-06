@@ -228,10 +228,11 @@ class FouroFour(ModelBase):
 
 
 class Exception(ModelBase):
-    def __init__(self, request, traceback, last_error):
+    def __init__(self, request, exception_type, last_error, traceback):
         self.request_path = request.path
-        self.traceback = traceback
+        self.exception_type = exception_type
         self.last_error = last_error
+        self.traceback = traceback
         self.visitor = Visitor(request)
         self.date = datetime.utcnow()
 
