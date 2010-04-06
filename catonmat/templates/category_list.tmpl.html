@@ -18,7 +18,7 @@
       There are currently no categories.
     % elif n == 1:
       There is currently <strong>${n}</strong> category.
-    % elif n > 0:
+    % elif n > 1:
       There are currently <strong>${n}</strong> categories.
     % endif
     </p>
@@ -26,9 +26,14 @@
     % for category in categories:
       <div class="ctitem">
         <div class="url">
-          <a href="/category/${category.seo_name}" title="${category.description|h}">${category.name|h}</a> (<strong>${category.count}</strong> posts).
+          <%
+            posts_txt = 'post' if category.count == 1 else 'posts'
+          %>
+          <a href="/category/${category.seo_name}" title="${category.description|h}">${category.name|h}</a> (<strong>${category.count} ${posts_txt}</strong>).
         </div>
-        <div class="description"><p>${category.description|h}</p></div>
+        <blockquote>
+          <div class="description"><p>${category.description|h}</p></div>
+        </blockquote>
       </div>
     % endfor
   </div>
