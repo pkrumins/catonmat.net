@@ -15,7 +15,7 @@ from catonmat.database      import (
     blogpages_table, comments_table,  categories_table, tags_table,
     page_tags_table, visitors_table,  rss_table,        pagemeta_table,
     downloads_table, redirects_table, feedback_table,   exceptions_table,
-    download_stats_table,
+    download_stats_table, article_series_table, pages_to_series_table,
     session
 )
 
@@ -322,6 +322,15 @@ class Feedback(ModelBase):
         return '<Feedback from %s>' % self.name
 
 
+class ArticleSeries(ModelBase):
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        return '<Article Series %s>' % self.name
+
+
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(
                     Revision,
@@ -385,4 +394,5 @@ mapper(DownloadStats, download_stats_table)
 mapper(Feedback, feedback_table, properties={
     'visitor': relation(Visitor, uselist=False)
 })
+mapper(ArticleSeries, article_series_table)
 

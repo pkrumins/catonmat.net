@@ -171,6 +171,7 @@ download_stats_table = Table('download_stats', metadata,
     Column('download_id',   Integer,    ForeignKey('downloads.download_id')),
     Column('ip',            String(39)),
     Column('timestamp',     DateTime),
+    mysql_charset='utf8'
 )
 
 feedback_table = Table('feedback', metadata,
@@ -183,5 +184,18 @@ feedback_table = Table('feedback', metadata,
     Column('message',       Text),
     Column('timestamp',     DateTime),
     mysql_charset='utf8'
+)
+
+article_series_table = Table('article_series', metadata,
+    Column('series_id',     Integer,    primary_key=True),
+    Column('name',          String(128)),
+    Column('description',   Text),
+    mysql_charset='utf8'
+)
+
+pages_to_series_table = Table('pages_to_series', metadata,
+    Column('page_id',       Integer,    ForeignKey('pages.page_id')),
+    Column('series_id',     Integer,    ForeignKey('article_series.series_id')),
+    Column('order',         Integer),
 )
 
