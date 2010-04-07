@@ -1,7 +1,7 @@
 <%def name="display_series(page)">
 <% series = page.series %>
 <div class="series">
-<form action="/change_series">
+<form action="/series" method="POST">
   <div class="snote">
     This article is part of the article series "<a href="/series/${series.seo_name}" title="Article series &quot;${series.name|h}&quot;">${series.name|h}</a>."
   </div>
@@ -9,27 +9,30 @@
     % if series.pages[0] == page:
       <span class="sprev" title="This is the first part in the series (there is no previous article)">&lt;- previous article</span>
     % else:
-      <span class="sprev"><a href="TODO">&lt;- previous article</a></span>
+      <% prev_page = series.pages[series.pages.index(page)-1] %>
+      <span class="sprev"><a href="${prev_page.request_path}" title="${prev_page.title|h}">&lt;- previous article</a></span>
     % endif
     <span class="toc">
-      <select name="menu">
+      <select name="navigate">
         % for idx, spage in enumerate(series.pages):
           % if spage == page:
-           <option selected>${idx+1}. ${spage.title|h}</option>
+           <option value="${spage.request_path}" selected>${idx+1}. ${spage.title|h}</option>
           % else:
-           <option>${idx+1}. ${spage.title|h}</option>
+           <option value="${spage.request_path}">${idx+1}. ${spage.title|h}</option>
           % endif
         % endfor
       </select>
-      <input type="submit" value="Go">
+      <input type="submit" value="Go" name="go">
       </form>
     </span>
     % if series.pages[-1] == page:
       <span class="snext" title="This is currently the last part in the series (there is no next article)">next article -&gt;</span>
     % else:
-      <span class="snext"><a href="TODO">next article -></a></span>
+      <% next_page = series.pages[series.pages.index(page)+1] %>
+      <span class="snext"><a href="${next_page.request_path}" title="${next_page.title|h}">next article -></a></span>
     % endif
   </div>
 </form>
 </div>
 </%def>
+
