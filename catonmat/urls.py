@@ -75,6 +75,10 @@ predefined_urls = Map([
     # Projects
     Rule('/projects')                  > 'projects.main',
 
+    # Article Series
+    Rule('/series')                    > 'series.main',
+    Rule('/series/<seo_name>')         > 'series.list',
+
     # Categories
     Rule('/category/<seo_name>')       > 'categories.main',
     Rule('/category')                  > 'categories.list',
