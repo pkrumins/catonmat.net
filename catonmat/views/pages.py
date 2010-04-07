@@ -15,6 +15,7 @@ from catonmat.database      import session
 from catonmat.models        import Page
 from catonmat.cache         import cache_del
 from catonmat.config        import config
+from catonmat.similarity    import related_posts
 from catonmat.views.utils   import (
     MakoDict, cached_template_response, render_template, display_template
 )
@@ -107,7 +108,8 @@ def default_page_template_data(request, map):
         }, ['comments', 'form']),
         'tags_data':       MakoDict({
             'tags':                 map.page.tags
-        })
+        }),
+        'related_posts':   related_posts(map.page)
     }
 
 
@@ -122,6 +124,7 @@ def default_display_options():
         'display_views':         True,
         'display_short_url':     True,
         'display_series_after':  True,
+        'display_related_posts': True
     }
 
 
