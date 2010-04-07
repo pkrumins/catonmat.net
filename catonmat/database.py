@@ -191,6 +191,7 @@ article_series_table = Table('article_series', metadata,
     Column('name',          String(128)),
     Column('seo_name',      String(128)),
     Column('description',   Text),
+    Column('count',         Integer),
     mysql_charset='utf8'
 )
 
