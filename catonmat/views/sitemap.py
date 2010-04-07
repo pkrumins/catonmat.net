@@ -8,6 +8,7 @@
 # Code is licensed under GNU GPL license.
 #
 
+from catonmat.models            import ArticleSeries, session
 from catonmat.views.utils       import (
     MakoDict, cached_template_response, render_template
 )
@@ -25,9 +26,10 @@ PAGES_D = [
 PAGES = [ MakoDict(d) for d in PAGES_D ]
 
 def main(request):
-    return cached_template_response(compute_sitemap, 'sitemap', 0)
+    return cached_template_response(compute_sitemap, 'sitemap', 3600)
 
 
 def compute_sitemap():
-    return render_template('sitemap', pages=PAGES)
+    series = session.query(ArticleSeries).order_by(ArticleSeries.name).all()
+    return render_template('sitemap', pages=PAGES, series=series)
 

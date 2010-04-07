@@ -10,10 +10,21 @@
   </div>
 
   <div class="content">
-    <p>This is the sitemap of the catonmat.net website. It lists all the posts and pages on the site.</p>
+    <p>This is the sitemap of the catonmat.net website. It lists all <a href="#article-series">article series</a>, <a href="#posts">all posts</a> and <a href="#pages">pages</a> on the site.</p>
 
+    <a name="article-series"></a>
+    <h2>All Article Series</h2>
+    <div class="indent">
+      <ul>
+      % for single_series in series:
+        <li><a href="/series/${single_series.seo_name}" title="${single_series.description|h}">${single_series.name}</li>
+      % endfor
+      </ul>
+      <p class="indent"><a href="/series" class="more_detailed" title="All article series">More detailed list of article series</a></p>
+    </div>
+
+    <a name="posts"></a>
     <h2>All Posts by Category</h2>
-
     <div class="indent">
     % for category in categories:
       <h3>${category.name|h}</h3>
@@ -26,8 +37,8 @@
     % endfor
     </div>
 
+    <a name="pages"></a>
     <h2>Individual Pages</h2>
-
     <div class="indent">
       <ul>
       % for page in pages:
