@@ -1,0 +1,45 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Article series "${series.name|h}" - good coders code, great reuse</%def>
+<%def name="meta_description()">${series.description|h}</%def>
+
+<%namespace import="detailed_page" file="detailed_page.tmpl.html"/>
+
+<div class="page">
+  <div class="header">
+    <h1><a href="/series/${series.seo_name}">Article series "${series.name|h}"</a></h1>
+    <div class="hr lighter"></div>
+  </div>
+
+  <div class="content">
+    <p>Article series description:</p>
+    <blockquote>${series.description|h}</blockquote>
+    <p>
+    % if series.count == 0:
+      Article series does not have any posts.
+    % elif series.count == 1:
+      Article series has <strong>1</strong> post:
+    % else:
+      Article series has <strong>${series.count}</strong> posts:
+    % endif
+    </p>
+
+    % for page in series.pages:
+      ${detailed_page(page)}
+    % endfor
+
+    <p>Article series statistics:</p>
+
+    <%
+      total_views = 0
+      total_comments = 0
+
+      for page in series.pages:
+        total_views += page.views
+        total_comments += page.comment_count
+    %>
+
+    <p>Total comments: <strong>${number_to_us(total_comments)}</strong>. Total views: <strong>${number_to_us(total_views)}</strong>.</p>
+  </div>
+</div>
+

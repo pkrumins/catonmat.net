@@ -1,0 +1,39 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Article series on catonmat - good coders code, great reuse</%def>
+<%def name="meta_description()">TODO</%def>
+
+<div class="page">
+  <div class="header">
+    <h1><a href="/series">Article series on catonmat</a></h1>
+    <div class="hr lighter"></div>
+  </div>
+
+  <div class="content">
+    <% n = len(series) %>
+    <p>
+    % if n == 0:
+      There are currently no article series.
+    % elif n == 1:
+      There is currently <strong>1</strong> article series.
+    % elif n > 1:
+      There are currently <strong>${n}</strong> article series.
+    % endif
+    </p>
+
+    % for single_series in series:
+      <div class="ctitem">
+        <div class="url">
+          <%
+            posts_txt = 'post' if single_series.count == 1 else 'posts'
+          %>
+          <a href="/series/${single_series.seo_name}" title="${single_series.description|h}">${single_series.name|h}</a> (<strong>${single_series.count} ${posts_txt}</strong>).
+        </div>
+        <blockquote>
+          <div class="description"><p>${single_series.description|h}</p></div>
+        </blockquote>
+      </div>
+    % endfor
+  </div>
+</div>
+
