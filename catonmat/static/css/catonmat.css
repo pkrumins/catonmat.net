@@ -513,6 +513,35 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 /*
+** Related Posts
+** --------------------------------------------------------
+*/
+
+#content .page .related-posts {
+  font-size: 1.2em;
+  line-height: 160%;
+}
+
+#content .page .related-posts h3 {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin-bottom: 0.6em;
+  border-bottom: 1px dotted #CCCCCC;
+}
+
+#content .page .related-posts ul {
+  padding-bottom: 1em;
+  padding-left: 15px;
+  list-style-type: none;
+}
+
+#content .page .related-posts ul li {
+  background: url('/static/img/bullet.gif') no-repeat 0 6px;
+  padding-left: 1.5em;
+}
+
+
+/*
 ** Page Comments
 ** --------------------------------------------------------
 */
