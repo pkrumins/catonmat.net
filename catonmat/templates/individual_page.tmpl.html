@@ -1,5 +1,6 @@
 <%namespace import="display_threaded_comments" file="comment.tmpl.html"/>
 <%namespace import="comment_form" file="comment_form.tmpl.html"/>
+<%namespace import="display_series" file="display_series.tmpl.html"/>
 
 <%def name="individual_page(
   page_data,
@@ -9,6 +10,7 @@
 )">
 
 <div class="page">
+
   <div class="header">
     % if display_options.display_category and page_data.page.category:
     <span class="category next"><a href="/category/${page_data.page.category.seo_name}" title="See all posts in category &quot;${page_data.page.category.name}&quot;">${page_data.page.category.name}</a></span>
@@ -35,6 +37,10 @@
     <div class="hr lighter"></div>
     -->
   </div>
+
+  % if page_data.page.series:
+    ${display_series(page_data.page)}
+  % endif
 
   <div class="content">
     ${page_data.page.parsed_content}
@@ -78,6 +84,10 @@
     </span>
     % endif
   </div>
+
+  % if page_data.page.series:
+    ${display_series(page_data.page)}
+  % endif
 
   % if display_options.display_comments:
   <a name="comments"></a>

@@ -1,0 +1,35 @@
+<%def name="display_series(page)">
+<% series = page.series %>
+<div class="series">
+<form action="/change_series">
+  <div class="snote">
+    This article is part of the article series "<a href="/series/${series.seo_name}" title="Article series &quot;${series.name|h}&quot;">${series.name|h}</a>."
+  </div>
+  <div class="snav">
+    % if series.pages[0] == page:
+      <span class="sprev" title="This is the first part in the series (there is no previous article)">&lt;- previous article</span>
+    % else:
+      <span class="sprev"><a href="TODO">&lt;- previous article</a></span>
+    % endif
+    <span class="toc">
+      <select name="menu">
+        % for idx, spage in enumerate(series.pages):
+          % if spage == page:
+           <option selected>${idx+1}. ${spage.title|h}</option>
+          % else:
+           <option>${idx+1}. ${spage.title|h}</option>
+          % endif
+        % endfor
+      </select>
+      <input type="submit" value="Go">
+      </form>
+    </span>
+    % if series.pages[-1] == page:
+      <span class="snext" title="This is currently the last part in the series (there is no next article)">next article -&gt;</span>
+    % else:
+      <span class="snext"><a href="TODO">next article -></a></span>
+    % endif
+  </div>
+</form>
+</div>
+</%def>
