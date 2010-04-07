@@ -89,6 +89,18 @@
     ${display_series(page_data.page)}
   % endif
 
+  % if display_options.display_related_posts and related_posts:
+  <div class="related-posts">
+    <h3>Related Posts</h3>
+    <ul>
+      % for post in related_posts:
+      <li><a href="${post.request_path}" title="${post.title|h}">${post.title|h}</a></li>
+      % endfor
+      <li>
+    </ul>
+  </div>
+  % endif
+
   % if display_options.display_comments:
   <a name="comments"></a>
   <div class="comments">
