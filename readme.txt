@@ -30,6 +30,7 @@ modules (list is not complete):
 
 2010.04.07:
     * added user friendly 404 and exception pages
+    * added easy navigation for article series
 2010.04.06:
     * improved /tag list and individual post list in /tag/<name>
     * improved /category list and individual post list in /category/<name>
