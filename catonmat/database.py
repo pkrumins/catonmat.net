@@ -189,6 +189,7 @@ feedback_table = Table('feedback', metadata,
 article_series_table = Table('article_series', metadata,
     Column('series_id',     Integer,    primary_key=True),
     Column('name',          String(128)),
+    Column('seo_name',      String(128)),
     Column('description',   Text),
     mysql_charset='utf8'
 )
