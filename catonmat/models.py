@@ -8,7 +8,7 @@
 # Code is licensed under GNU GPL license.
 #
 
-from sqlalchemy.orm         import dynamic_loader, relation, mapper
+from sqlalchemy.orm         import dynamic_loader, relation, mapper, backref
 
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
@@ -323,8 +323,9 @@ class Feedback(ModelBase):
 
 
 class ArticleSeries(ModelBase):
-    def __init__(self, name, description):
+    def __init__(self, name, seo_name, description):
         self.name = name
+        self.seo_name = seo_name
         self.description = description
 
     def __repr__(self):
@@ -394,5 +395,12 @@ mapper(DownloadStats, download_stats_table)
 mapper(Feedback, feedback_table, properties={
     'visitor': relation(Visitor, uselist=False)
 })
-mapper(ArticleSeries, article_series_table)
+mapper(ArticleSeries, article_series_table, properties={
+    'pages': relation(
+                Page,
+                secondary=pages_to_series_table,
+                order_by=pages_to_series_table.c.order.asc(),
+                backref=backref('series', uselist=False)
+    )
+})
 
