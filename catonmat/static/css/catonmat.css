@@ -214,6 +214,50 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 /*
+** Article series
+** --------------------------------------------------------
+*/
+#content .page .series {
+  border: 1px solid #CCC;
+  background-color: #d2f6ce;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+#content .page .series .snote {
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
+#content .page .series .snav {
+  text-align: center;
+  font-size: 1.1em;
+}
+
+#content .page .series .snext,
+#content .page .series .sprev {
+  font-family: Verdana;
+}
+
+#content .page .series .sprev {
+  margin-right: 3px;
+}
+
+#content .page .series .snext {
+  margin-left: 3px;
+}
+
+#content .page .series select {
+  width: 330px;
+  font-size: 1em;
+}
+
+#content .page .series input {
+  font-size: 1em;
+}
+
+/*
 ** Page Content
 ** --------------------------------------------------------
 */
