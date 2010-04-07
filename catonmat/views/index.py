@@ -100,7 +100,8 @@ def default_display_options():
         'display_comments':      False,
         'display_comment_url':   True,
         'display_views':         True,
-        'display_short_url':     False
+        'display_short_url':     False,
+        'display_series_after':  False
     }
 
     

@@ -120,7 +120,8 @@ def default_display_options():
         'display_comment_url':   True,
         'display_tags':          True,
         'display_views':         True,
-        'display_short_url':     True
+        'display_short_url':     True,
+        'display_series_after':  True,
     }
 
 
