@@ -54,6 +54,9 @@ predefined_urls = Map([
     # Main page
     Rule('/')                          > 'index.main',
 
+    # Search
+    Rule('/search')                    > 'search.main',
+
     # Atom feed
     Rule('/feed')                      > 'rss.atom_feed',
     Rule('/feed/atom')                 > 'rss.atom_feed',
