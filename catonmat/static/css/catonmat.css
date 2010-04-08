@@ -519,7 +519,6 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 
 #content .page .related-posts {
   font-size: 1.2em;
-  line-height: 160%;
 }
 
 #content .page .related-posts h3 {
@@ -536,10 +535,10 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 #content .page .related-posts ul li {
-  background: url('/static/img/bullet.gif') no-repeat 0 6px;
+  background: url('/static/img/bullet.gif') no-repeat 0 3px;
   padding-left: 1.5em;
+  margin-bottom: 3px;
 }
-
 
 /*
 ** Page Comments
