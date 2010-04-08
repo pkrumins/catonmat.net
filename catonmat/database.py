@@ -201,3 +201,11 @@ pages_to_series_table = Table('pages_to_series', metadata,
     Column('order',         Integer),
 )
 
+search_history_table = Table('search_history', metadata,
+    Column('search_id',     Integer,    primary_key=True),
+    Column('query',         Text),
+    Column('timestamp',     DateTime),
+    Column('visitor_id',    Integer,    ForeignKey('visitors.visitor_id')),
+    mysql_charset='utf8'
+)
+

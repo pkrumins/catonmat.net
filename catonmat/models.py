@@ -16,6 +16,7 @@ from catonmat.database      import (
     page_tags_table, visitors_table,  rss_table,        pagemeta_table,
     downloads_table, redirects_table, feedback_table,   exceptions_table,
     download_stats_table, article_series_table, pages_to_series_table,
+    search_history_table,
     session
 )
 
@@ -332,6 +333,16 @@ class ArticleSeries(ModelBase):
         return '<Article Series %s>' % self.name
 
 
+class SearchHistory(ModelBase):
+    def __init__(self, query, request):
+        self.query = query
+        self.visitor = Visitor(request)
+        self.timestamp = datetime.utcnow()
+
+    def __repr__(self):
+        return '<Search for %s>' % self.query
+
+
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(
                     Revision,
@@ -403,4 +414,6 @@ mapper(ArticleSeries, article_series_table, properties={
                 backref=backref('series', uselist=False)
     )
 })
-
+mapper(SearchHistory, search_history_table, properties={
+    'visitor': relation(Visitor, uselist=False)
+})
