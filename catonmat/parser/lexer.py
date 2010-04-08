@@ -44,6 +44,11 @@ class DocumentLexer(RegexLexer):
         for token, value in lexer.pure_pre_token_stream(match.group(1)):
             yield 0, token, value
 
+    def html_pre_handler(lexer, match):
+        yield 0, Token.Tag.BlockTag, "<pre>"
+        yield 0, Token.Text, match.group(1)
+        yield 0, Token.Tag.Close, "</pre>"
+
     def lang_pre_handler(lexer, match):
         try:
             lang, code = match.groups()
@@ -109,6 +114,7 @@ class DocumentLexer(RegexLexer):
             (r'\[download#(\d+)\]',            download_handler),
             (r'<!--.*?-->',                    Token.Comment),
             (r'<pre>(.+?)</pre>',              pure_pre_handler),
+            (r'<pre html>(.+?)</pre>',         html_pre_handler),
             (r'<pre lang="(.+?)">(.+?)</pre>', lang_pre_handler),
             (r'<([a-zA-Z0-9]+).*?>',           open_tag_handler),
             (r'</[^>]+>',                      Token.Tag.Close),
