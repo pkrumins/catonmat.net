@@ -46,8 +46,9 @@
 <%def name="display_tags(tags)">
 % if tags:
  <ul>
-  % for tag in tags:
-  <li><a href="/tag/${tag.seo_name}">${tag.name|h}</a></a></li>
+ % for tag in tags:
+  <% posts_txt = 'post' if tag.count == 1 else 'posts' %>
+  <li><a href="/tag/${tag.seo_name}">${tag.name|h}</a> (${tag.count} ${posts_txt})</li>
   % endfor
  </ul>
 % endif
@@ -57,7 +58,8 @@
 % if cats:
  <ul>
   % for cat in cats:
-  <li><a href="/category/${cat.seo_name}">${cat.name|h}</a></a></li>
+  <% posts_txt = 'post' if cats.count == 1 else 'posts' %>
+  <li><a href="/category/${cat.seo_name}">${cat.name|h}</a> (${cat.count} ${posts_txt})</li>
   % endfor
  </ul>
 % endif
