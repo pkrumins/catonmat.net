@@ -23,6 +23,7 @@ modules (list is not complete):
     * Werkzeug   for WSGI and local development HTTP server.
     * SQLAlchemy for ORM.
     * Memcached  for caching.
+    * Sphinx     for searching.
     * Pygments   for parsing posts and syntax highlighting.
     * Mako       for HTML templates.
     * SimpleJSON for JSON.
@@ -30,6 +31,7 @@ modules (list is not complete):
 
 2010.04.08:
     * added related posts
+    * added search
 2010.04.07:
     * added user friendly 404 and exception pages
     * added easy navigation for article series
