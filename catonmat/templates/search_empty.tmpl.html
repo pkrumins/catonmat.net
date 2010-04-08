@@ -1,0 +1,22 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Searc - good coders code, great reuse</%def>
+<%def name="meta_description()">catonmat search - searches in pages, article series, comments, tags and categories.</%def>
+
+<div class="page">
+  <div class="header">
+    <h1><a href="/search">Catonmat Search</a></h1>
+    <div class="hr"></div>
+  </div>
+
+  <div class="content">
+    <p>Welcome to catonmat search. It uses <a href="http://sphinxsearch.com">Sphinx search engine</a> and searches in pages, article series, comments, tags and categories. Try it out:</p>
+    <div class="search">
+      <form action="/search" method="GET">
+        <input type="text" name="q">
+        <input type="submit" name="submit" value="Search">
+      </form>
+    </div>
+  </div>
+</div>
+

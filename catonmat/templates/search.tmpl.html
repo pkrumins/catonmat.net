@@ -1,0 +1,106 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Search results for "${query|h}" - good coders code, great reuse</%def>
+<%def name="meta_description()">Search results for query "${query|h}".</%def>
+
+<%def name="display_results(results, type)">
+<% result_txt = 'result' if results.total == 1 else 'results' %>
+<p>
+  Found <strong>${results.total}</strong> ${type} ${result_txt}.
+  % if results.total > 20:
+   Showing the first 20 results. Please narrow your query for more meaningful results.
+  % endif
+</p>
+</%def>
+
+<%def name="display_pages(pages)">
+% if pages:
+ <ul>
+  % for page in pages:
+   <li><a href="${page.request_path}" title="${page.title|h}">${page.title|h}</a></li>
+  % endfor
+ </ul>
+% endif
+</%def>
+
+<%def name="display_as(as)">
+% if as:
+ <ul>
+  % for a in as:
+  <li><a href="/series/${a.seo_name}">${a.name|h}</a></li>
+  % endfor
+ </ul>
+% endif
+</%def>
+
+<%def name="display_comments(comments)">
+% if comments:
+ <ul>
+  % for comment in comments:
+  <li><a href="/c/${comment.comment_id}">Comment by ${comment.name|h}</a> on <a href="${comment.page.request_path}">${comment.page.title|h}</a></li>
+  % endfor
+ </ul>
+% endif
+</%def>
+
+<%def name="display_tags(tags)">
+% if tags:
+ <ul>
+  % for tag in tags:
+  <li><a href="/tag/${tag.seo_name}">${tag.name|h}</a></a></li>
+  % endfor
+ </ul>
+% endif
+</%def>
+
+<%def name="display_cats(cats)">
+% if cats:
+ <ul>
+  % for cat in cats:
+  <li><a href="/category/${cat.seo_name}">${cat.name|h}</a></a></li>
+  % endfor
+ </ul>
+% endif
+</%def>
+
+<div class="page">
+  <div class="header">
+    <h1><a href="/search?q=${query|h}">Search results for "${query|h}"</a></h1>
+    <div class="hr"></div>
+  </div>
+
+  <div class="content">
+    <p>Searched <a href="#pages">pages</a>, <a href="#article-series">article series</a>, <a href="#comments">comments</a>, <a href="#tags">tags</a>, and <a href="#categories">categories</a>.</p>
+    <a name="pages"></a>
+    <h2>Pages</h2>
+
+    ${display_results(page_results, 'page')}
+    ${display_pages(pages)}
+
+    <a name="article-series"></a>
+    <h2>Article Series</h2>
+
+    ${display_results(as_results, 'article series')}
+    ${display_as(as)}
+
+    <a name="comments"></a>
+    <h2>Comments</h2>
+
+    ${display_results(comment_results, 'comments')}
+    ${display_comments(comments)}
+
+    <a name="tags"></a>
+    <h2>Tags</h2>
+
+    ${display_results(tag_results, 'tags')}
+    ${display_tags(tags)}
+
+    <a name="categories"></a>
+    <h2>Categories</h2>
+
+    ${display_results(cat_results, 'categories')}
+    ${display_cats(cats)}
+
+  </div>
+</div>
+

@@ -1,0 +1,48 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Search results for "${query|h}" - good coders code, great reuse</%def>
+<%def name="meta_description()">Search results for query "${query|h}".</%def>
+
+<div class="page">
+  <div class="header">
+    <h1><a href="/search?q=${query|h}">Search results for "${query|h}"</a></h1>
+    <div class="hr"></div>
+  </div>
+
+  <div class="content">
+    <div class="sorry404exc">
+      Oh no! Search failed!
+    </div>
+
+    <h2>What exactly happened?</h2>
+    <p><a href="http://sphinxsearch.com/">Sphinx</a>, the search engine I use, returned an error "<strong>${error|h}</strong>".</p>
+
+    <h2>What I am going to do about it?</h2>
+    <p>My goal is to provide the best user-experience to my website visitors. Therefore this failure <strong>has been logged to database</strong> for further investigation. I wrote code that displays me the summary of all the failures like these, and I often go through the list and fix the mistakes.</p>
+
+    <h2>Meanwhile...</h2>
+    <p>Meanwhile, while I investigate and fix this error, you can <strong>view my most popular posts</strong>:</p>
+
+    <ul>
+    % for page in top_pages:
+     <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (has been read ${page.us_views} times)">${page.title|h}</a></li>
+    % endfor
+    </ul>
+
+    <p>Or, you can <strong>view my most recent posts</strong>:</p>
+
+    <ul>
+    % for page in recent_pages:
+     <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
+    % endfor
+    </ul>
+
+    <h2>Thank you!</h2>
+    <p>Thank you for understanding!</p>
+    <p>
+      Sincerely,<br>
+      Peteris Krumins
+    </p>
+  </div>
+</div>
+
