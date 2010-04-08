@@ -86,7 +86,7 @@ def validate_comment(request):
     validate_parent_id(request.form['parent_id'])
     validate_name(request.form['name'].strip())
     validate_email(request.form['email'].strip())
-    validate_twitter(request.form['twitter'].strip())
+    validate_twitter(request.form['twitter'].replace('@', '').strip())
     validate_website(request.form['website'].strip())
     validate_comment(request.form['comment'].strip())
 
@@ -151,7 +151,7 @@ def new_comment(request):
         name      = request.form['name']   .strip(),
         comment   = request.form['comment'].strip(),
         email     = request.form['email']  .strip(),
-        twitter   = request.form['twitter'].strip(),
+        twitter   = request.form['twitter'].replace('@', '').strip(),
         website   = request.form['website'].strip(),
         visitor   = Visitor(request)
     )
