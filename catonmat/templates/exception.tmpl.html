@@ -21,7 +21,11 @@
     -->
 
     <h2>What exactly happened?</h2>
-    <p>The Python code threw a <code>${exception_type|h}</code> exception with message a "<strong>${exception_message|h}</strong>". Here is the traceback:</p>
+    % if exception_message:
+    <p>The Python code threw a <code>${exception_type|h}</code> exception with a message "<strong>${exception_message|h}</strong>". Here is the traceback:</p>
+    % else:
+    <p>The Python code threw a <code>${exception_type|h}</code> exception with no message. Here is the traceback:</p>
+    % endif
 
     ${traceback}
 
