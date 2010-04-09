@@ -38,7 +38,7 @@ def main(request):
         return display_template('search_failed', query=query, error=e.message)
 
     pages    = get_pages(page_results)
-    as       = get_as(as_results)
+    article_series = get_as(as_results)
     comments = get_comments(comment_results)
     tags     = get_tags(tag_results)
     cats     = get_cats(cat_results)
@@ -48,7 +48,7 @@ def main(request):
              page_results=MakoDict(page_results),
              pages=pages,
              as_results=MakoDict(as_results),
-             as=as,
+             article_series=article_series,
              comment_results=MakoDict(comment_results),
              comments=comments,
              tag_results=MakoDict(tag_results),
@@ -74,11 +74,11 @@ def get_as(as_results):
     as_ids = extract_ids(as_results['matches'])
     if not as_ids:
         return []
-    as = session. \
-           query(ArticleSeries). \
-           filter(ArticleSeries.series_id.in_(as_ids)). \
-           all()
-    d = dict([a.series_id, a] for a in as)
+    article_series = session. \
+                       query(ArticleSeries). \
+                       filter(ArticleSeries.series_id.in_(as_ids)). \
+                       all()
+    d = dict([a.series_id, a] for a in article_series)
     return [d[id] for id in as_ids]
 
 
