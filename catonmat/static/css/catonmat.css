@@ -318,10 +318,6 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   margin: 1em;
 }
 
-#content .page .content blockquote p {
-  margin-bottom: 0;
-}
-
 #content .page .content .download {
   border: 2px solid #B8860B;
   padding: 1em;
