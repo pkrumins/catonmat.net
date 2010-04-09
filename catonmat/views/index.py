@@ -47,6 +47,27 @@ def page(request, page_nr):
     return handle_page(page_nr)
 
 
+def page_list(request):
+    blogpages = total_blogpages()
+    return cached_template_response(
+             compute_page_list,
+             'page_list',
+             3600)
+
+
+def compute_page_list():
+    posts = session. \
+              query(Page). \
+              join(BlogPage). \
+              order_by(BlogPage.publish_date.desc()). \
+              filter(BlogPage.visible==True). \
+              all()
+    return render_template(
+             'page_list',
+             posts=posts,
+             pagination=Pagination(1, total_blogpages(), config.posts_per_page))
+
+
 def handle_page(page_nr=1):
     return cached_template_response(
              compute_handle_page,

@@ -1,0 +1,39 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">All catonmat articles by page - good coders code, great reuse</%def>
+<%def name="meta_description()">TODO</%def>
+
+<%namespace import="detailed_page" file="detailed_page.tmpl.html"/>
+
+<div class="page">
+  <div class="header">
+    <h1><a href="/pages">All catonmat articles by page</a></h1>
+    <div class="hr lighter"></div>
+  </div>
+
+  <%
+  total_pages = pagination.total_pages
+  npages = pagination.physical_pages
+  ppp = pagination.items_per_page
+  %>
+
+  <div class="content">
+    <p>There are <strong>${total_pages}</strong> posts spread across <strong>${npages}</strong> pages.</p>
+
+    <% current_page = 1 %>
+
+    % for post_nr, post in enumerate(posts):
+      <% post_nr = post_nr + 1 %>
+      % if post_nr % ppp == 1:
+       <h2>Page ${current_page}</h2>
+      % endif
+      ${detailed_page(post)}
+      % if post_nr % ppp == 0 or post_nr == total_pages:
+       <p class="indent"><a href="/page/${current_page}" class="more_detailed" title="Articles on page ${current_page}">See articles on page ${current_page}</a></p>
+       <% current_page = current_page+1 %>
+      % endif
+    % endfor
+
+  </div>
+</div>
+
