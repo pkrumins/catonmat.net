@@ -1,4 +1,4 @@
-<%def name="comment_form(page_id, submit_path, form, parent_id='', comment_error='', comment_preview='')">
+<%def name="comment_form(page_id, submit_path, form, parent_id='', comment_error='', comment_preview='', lynx=False)">
 
 <div id="comment_form">
   % if comment_error:
@@ -88,6 +88,13 @@
     <div class="clear"></div>
 
     <div class="e">
+      % if not lynx:
+      <p>
+        Type <img src="/static/img/feedbackc.gif"> here:
+        <input tabindex="6" type="text" name="commentc" size="10">
+      </p>
+      % endif
+
       <p>
         <input tabindex="6" id="preview" type="submit" name="preview" value="Preview comment">
         <input tabindex="7" id="submit" type="submit" name="submit" value="Submit comment">

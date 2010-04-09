@@ -28,13 +28,21 @@ import simplejson as json
 
 email_rx   = re.compile(r'^.+@.+\..+$')
 twitter_rx = re.compile(r'^[a-zA-Z0-9_]+$')
+lynx_re  = re.compile(r'Lynx|Links', re.I)
+
+def lynx_browser(request):
+    browser = request.headers.get('User-Agent')
+    if browser:
+        if lynx_re.match(browser):
+            return True
+    return False
 
 
 class CommentError(Exception):
     pass
 
 
-def validate_comment(request):
+def validate_comment(request, preview=False):
     def validate_name(name):
         if not name:
             raise CommentError, "You forgot to specify your name!"
@@ -48,7 +56,7 @@ def validate_comment(request):
             if not email_rx.match(email):
                 raise CommentError, "Sorry, your e-mail address is not valid!"
 
-    def validate_comment(comment):
+    def validate_comment_txt(comment):
         if not comment:
             raise CommentError, "You left the comment empty!"
 
@@ -82,13 +90,20 @@ def validate_comment(request):
             if comments != 1:
                 raise CommentError, "Something went wrong, the comment you were responding to was not found..."
 
+    def validate_captcha(captcha):
+        if captcha != "robots":
+            raise CommentError, """Please type "robots" in the box below"""
+
     validate_page_id(request.form['page_id'])
     validate_parent_id(request.form['parent_id'])
     validate_name(request.form['name'].strip())
     validate_email(request.form['email'].strip())
     validate_twitter(request.form['twitter'].replace('@', '').strip())
     validate_website(request.form['website'].strip())
-    validate_comment(request.form['comment'].strip())
+    validate_comment_txt(request.form['comment'].strip())
+
+    if not lynx_browser(request) and not preview:
+        validate_captcha(request.form['commentc'].strip())
 
 
 def json_response(**data):
@@ -99,7 +114,7 @@ def json_response(**data):
 def preview_comment(request):
     if request.method == "POST":
         try:
-            validate_comment(request)
+            validate_comment(request, preview=True)
         except CommentError, e:
             return Response(json_response(status='error', message=e.message)
                  ,   mimetype='application/json')
