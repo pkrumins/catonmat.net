@@ -1,4 +1,12 @@
-<%def name="comment_form(page_id, submit_path, form, parent_id='', comment_error='', comment_preview='', lynx=False)">
+<%def name="comment_form(
+  page_id,
+  submit_path,
+  form,
+  parent_id='',
+  comment_error='',
+  comment_preview='',
+  lynx=False
+)">
 
 <div id="comment_form">
   % if comment_error:
