@@ -54,17 +54,17 @@ predefined_urls = Map([
     # Main page
     Rule('/')                          > 'index.main',
 
+    # Pagination
+    Rule('/page')                      > 'index.page_list',
+    Rule('/pages')                     > 'index.page_list',
+    Rule('/page/<int:page_nr>')        > 'index.page',
+
     # Search
     Rule('/search')                    > 'search.main',
 
     # Atom feed
     Rule('/feed')                      > 'rss.atom_feed',
     Rule('/feed/atom')                 > 'rss.atom_feed',
-
-    # Pagination
-    Rule('/page')                      > 'index.page_list',
-    Rule('/pages')                     > 'index.page_list',
-    Rule('/page/<int:page_nr>')        > 'index.page',
 
     # Blog is alias for Main page right now
     Rule('/blog')                      > 'index.main',
