@@ -47,6 +47,12 @@ class MakoDict(object):
     def __getattr__(self, name):
         return None
 
+    def __setattr__(self, name, value):
+        self.__dict__[name] = value
+
+    def __setitem__(self, name, value):
+        self.__dict__[name] = value
+
 
 def number_to_us(num):
     return (','.join(re.findall(r'\d{1,3}', str(num)[::-1])))[::-1]
