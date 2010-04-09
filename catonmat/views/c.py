@@ -21,7 +21,7 @@ from catonmat.views.utils   import get_template, display_template
 
 from catonmat.comments      import (
     validate_comment,       new_comment, thread, CommentError,
-    invalidate_page_cache
+    invalidate_page_cache,  lynx_browser
 )
 
 # ----------------------------------------------------------------------------
@@ -61,6 +61,7 @@ def default_comment_template_data(request, comment_id):
         'comment_parent_id':    comment_id,
         'comment':              comment,
         'form':                 request.form,
+        'lynx':                 lynx_browser(request)
     }
     return template_data
 
@@ -113,7 +114,7 @@ def handle_comment_submit(request, comment_id):
 
 def handle_comment_preview(request, comment_id):
     try:
-        validate_comment(request)
+        validate_comment(request, preview=True)
     except CommentError, e:
         return comment_error(request, comment_id, e.message)
 

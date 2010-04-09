@@ -17,10 +17,11 @@ from catonmat.cache         import cache_del
 from catonmat.config        import config
 from catonmat.similarity    import related_posts
 from catonmat.views.utils   import (
-    MakoDict, cached_template_response, render_template, display_template
+    MakoDict, cached_template_response, render_template, display_template,
+    get_template
 )
 from catonmat.comments      import (
-    validate_comment, new_comment, thread, linear, CommentError
+    validate_comment, new_comment, thread, linear, CommentError, lynx_browser
 )
 
 # ----------------------------------------------------------------------------
@@ -62,7 +63,7 @@ def handle_comment_submit(request, map):
 
 def handle_comment_preview(request, map):
     try:
-        validate_comment(request)
+        validate_comment(request, preview=True)
     except CommentError, e:
         return page_with_comment_error(request, map, e.message)
 
@@ -72,14 +73,14 @@ def handle_comment_preview(request, map):
                          render(comment=comment, preview=True))
 
     template_data = default_page_template_data(request, map)
-    template_data['comment_preview'] = comment_preview
+    template_data['comment_data']['comment_preview'] = comment_preview
 
     return display_page(template_data)
 
 
 def page_with_comment_error(request, map, error):
     template_data = default_page_template_data(request, map)
-    template_data['comment_error'] = error
+    template_data['comment_data']['comment_error'] = error
 
     return display_page(template_data)
 
@@ -109,7 +110,8 @@ def default_page_template_data(request, map):
         'tags_data':       MakoDict({
             'tags':                 map.page.tags
         }),
-        'related_posts':   related_posts(map.page)
+        'related_posts':   related_posts(map.page),
+        'lynx': lynx_browser(request)
     }
 
 
