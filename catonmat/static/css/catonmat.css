@@ -587,6 +587,13 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   margin-left: 92px;
 }
 
+#comment_form .e img {
+  position: relative;
+  top: 3px;
+  margin: 0 3px;
+}
+
+
 #comment_form #comment_please {
   font-size: 1em;
   background: url('/static/img/info.gif') no-repeat;
@@ -917,6 +924,12 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 
 #feedback .e {
   margin-left: 112px;
+}
+
+#feedback .e img {
+  position: relative;
+  top: 3px;
+  margin: 0 3px;
 }
 
 #feedback #feedback_error {
