@@ -28,6 +28,14 @@ class FeedbackError(Exception):
 
 
 email_rx = re.compile(r'^.+@.+\..+$')
+lynx_re  = re.compile(r'Lynx|Links', re.I)
+
+def lynx_browser(request):
+    browser = request.headers.get('User-Agent')
+    if browser:
+        if lynx_re.match(browser):
+            return True
+    return False
 
 
 def validate_feedback(request):
@@ -65,15 +73,24 @@ def validate_feedback(request):
         if not message:
             raise FeedbackError, "You didn't type the message!"
 
+    def validate_captcha(captcha):
+        if captcha != "robots":
+            raise FeedbackError, """Please type "robots" in the box below."""
+
     validate_name(request.form['name'].strip())
     validate_email(request.form['email'].strip())
     validate_website(request.form['website'].strip())
     validate_subject(request.form['subject'].strip())
     validate_message(request.form['message'].strip())
 
+    # pass through Lynx users (I have several loyal blog readers that use Lynx only)
+    if not lynx_browser(request):
+        validate_captcha(request.form['feedbackc'].strip())
+
 
 def handle_feedback_post(request):
     thank_you = False
+    lynx = lynx_browser(request)
     try:
         validate_feedback(request)
         Feedback(
@@ -86,15 +103,15 @@ def handle_feedback_post(request):
         ).save()
         thank_you = True
     except FeedbackError, e:
-        return display_template("feedback", form=request.form, error=e.message)
+        return display_template("feedback", form=request.form, error=e.message, lynx=lynx)
 
     if thank_you:
         form = dict()
     else:
         form = request.form
-    return display_template("feedback", form=form, thank_you=thank_you)
+    return display_template("feedback", form=form, thank_you=thank_you, lynx=lynx)
 
 
 def handle_feedback_get(request):
-    return display_template("feedback", form=dict())
+    return display_template("feedback", form=dict(), lynx=lynx_browser(request))
 
