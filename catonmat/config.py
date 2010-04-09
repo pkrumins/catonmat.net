@@ -9,9 +9,9 @@
 #
 
 # copied MakoDict from catonmat.views.utils because I couldn't get rid
-# of circular references.
+# of circular references. Also renamed it to MakoDictz for great justice.
 
-class MakoDict(object):
+class MakoDictz(object):
     """
     Given a dict d, MakoDict makes its keys accessible via dot.
     It also returns None if the key doesn't exist.
@@ -38,12 +38,20 @@ class MakoDict(object):
     def __getattr__(self, name):
         return None
 
+    def __setattr__(self, name, value):
+        self.__dict__[name] = value
 
-config = MakoDict({
+    def __setitem__(self, name, value):
+        self.__dict__[name] = value
+
+
+config = MakoDictz({
     'database_uri':     'mysql://catonmat@localhost/catonmat?charset=utf8',
-    'database_echo':    True,
+    'database_echo':    False,
     'posts_per_page':   5,
-    'use_cache':        True,
-    'download_path':    '/home/pkrumins/catonmat/downloads'
+    'use_cache':        False,
+    'download_path':    '/home/pkrumins/catonmat/downloads',
+    'rss_items':        20,
+    'mako_modules':     '/home/pkrumins/catonmat/mako_modules'
 })
 

@@ -13,6 +13,7 @@ from werkzeug               import import_string, Response
 from mako.template          import Template
 from mako.lookup            import TemplateLookup
 
+from catonmat.config        import config
 from catonmat.cache         import from_cache_or_compute
 from catonmat.quotes        import get_random_quote
 
@@ -59,7 +60,9 @@ def number_to_us(num):
 
 
 mako_lookup = TemplateLookup(
-    directories=['catonmat/templates'], output_encoding='utf-8'
+    directories=['catonmat/templates'],
+    module_directory=config.mako_modules,
+    output_encoding='utf-8'
 )
 
 def template_response(rendered_template):
@@ -116,4 +119,3 @@ from catonmat.models        import Category, session
 from catonmat.statistics    import (
     get_most_popular_pages, get_most_downloads, get_recent_pages, get_post_archive
 )
-
