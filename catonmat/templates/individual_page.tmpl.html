@@ -11,7 +11,6 @@
 )">
 
 <div class="page">
-
   <div class="header">
     % if display_options.display_category and page_data.page.category:
     <span class="category next"><a href="/category/${page_data.page.category.seo_name}" title="See all posts in category &quot;${page_data.page.category.name}&quot;">${page_data.page.category.name}</a></span>
@@ -46,6 +45,34 @@
   <div class="content">
     ${page_data.page.parsed_content}
   </div>
+
+  % if display_options.display_social:
+  <div class="social">
+    <div class="twitter">
+      <script type="text/javascript">
+        tweetmeme_style = 'compact';
+        tweetmeme_source = 'pkrumins';
+        tweetmeme_service = 'bit.ly';
+      </script>
+      <script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
+    </div>
+    <div class="facebook">
+      <a name="fb_share" type="button_count" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+    </div>
+    <div class="buzz">
+      <%
+      post_url = 'http://www.catonmat.net%s' % page_data.page.request_path
+      post_title = page_data.page.title
+      post_desc = page_data.page.excerpt
+      src_url = 'http://www.catonmat.net'
+      blog_title = 'good coders code, great reuse'
+      %>
+
+      <a href="http://www.google.com/reader/link?url=${post_url|u}&title=${post_title|u}&snippet=${post_desc|u}&srcURL=${src_url|u}&srcTitle=${blog_title|u}"><img src="/static/img/buzzit.gif"></a>
+    </div>
+    <div class="clear"></div>
+  </div>
+  % endif
 
   <div class="footer">
     % if display_options.display_tags and tags_data.tags:

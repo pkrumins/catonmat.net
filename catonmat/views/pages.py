@@ -126,7 +126,8 @@ def default_display_options():
         'display_views':         True,
         'display_short_url':     True,
         'display_series_after':  True,
-        'display_related_posts': True
+        'display_related_posts': True,
+        'display_social':        True
     }
 
 

@@ -451,6 +451,32 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 }
 
 /*
+** Social stuff
+** --------------------------------------------------------
+*/
+#content .page .social {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+#content .page .social .twitter {
+  float: left;
+  position: relative;
+  top: 1px;
+  width: 80px;
+}
+
+#content .page .social .facebook {
+  float: left;
+  width: 73px;
+}
+
+#content .page .social .buzz {
+  float: left;
+  width: 80px;
+}
+
+/*
 ** Page and Pagination separator
 **
 */
