@@ -29,8 +29,13 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2011.04.10:
+    * added footer
+    * added retweet, share on facebook and buzz it buttons
 2011.04.09:
     * articles by page list now works
+    * added captcha for feedback form and comments form
+    * added blog service ping script
 2010.04.08:
     * added related posts
     * added search
