@@ -20,6 +20,15 @@ em { font-style: italic; }
 pre, code { font-family: "Courier New", Courier, monospace; }
 code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 
+pre {
+  line-height: 1.3em;
+  background: #FFF7F0;
+  border: 1px solid #CCCCCC;
+  margin: 1em;
+  padding: 1em;
+  overflow: auto;
+}
+
 #container {
   width: 900px;
   margin: 0 auto;
@@ -295,15 +304,6 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
 
 #content .page .content .post-icon {
   padding: 10px 15px 10px 0px;
-}
-
-#content .page .content pre {
-  line-height: 1.3em;
-  background: #FFF7F0;
-  border: 1px solid #CCCCCC;
-  margin: 1em;
-  padding: 1em;
-  overflow: auto;
 }
 
 #content .page .content .center-aligner,
