@@ -131,6 +131,16 @@ catonmat = {
     );
   },
 
+  init_comment_help: function() {
+    $('#ch').click(
+      function(event) {
+        $('#comment_help').slideToggle('fast');
+        event.preventDefault();
+      }
+    );
+  },
+
+
   comment_error: function(error) {
     $('#comment_error').
       html('<span class="error">' + error + '</span>').

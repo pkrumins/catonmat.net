@@ -77,21 +77,32 @@
     <div class="c">
       <label for="comment" class="comment">Comment:</label>
       <div class="a">
+        </p>
         % if form.get('comment'):
         <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment">${form['comment'] | h}</textarea>
         % else:
         <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment"></textarea>
         % endif
-      </div>
-      <script>
-        if ($.browser.safari) {
-          /* i can't solve the 2px offset bug in chrome via css manipulations */
-          $('#comment_form .a').css('margin-left', '94px');
+        <script>
+          if ($.browser.safari) {
+            /* i can't solve the 2px offset bug in chrome via css manipulations */
+            $('#comment_form .a').css('margin-left', '94px');
 
-          /* i also can't solve a problem of labels being offset by 3px in vertical direction */
-          $('#comment_form label').css('margin-top','3px')
-        }
-      </script>
+            /* i also can't solve a problem of labels being offset by 3px in vertical direction */
+            $('#comment_form label').css('margin-top','3px')
+          }
+        </script>
+        <div class="comment-help-link"><a href="#" id="ch">Comment Help</a></div>
+        <div class="clear"></div>
+        <div id="comment_help" class="hidden">
+          <p>* use <strong>&lt;pre>...&lt;/pre></strong> to insert a code snippet</p>
+          <p>
+            * use <strong>&lt;pre lang="lang">...&lt;/pre></strong> to insert a syntax highlighted code snippet.<br>
+            For example, to insert Python highlighted code, use <strong>&lt;pre lang="python">...&lt;/pre></strong>.
+          </p>
+          <p>* use other HTML tags, such as, <strong>&lt;b></strong>, <strong>&lt;i></strong>, <strong>&lt;a></strong>, <strong>&lt;sup></strong>, <strong>&lt;sub></strong> for text formatting.</p>
+        </div>
+      </div>
     </div>
     <div class="clear"></div>
 

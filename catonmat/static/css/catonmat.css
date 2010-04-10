@@ -653,7 +653,6 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   margin: 0 3px;
 }
 
-
 #comment_form #comment_please {
   font-size: 1em;
   background: url('/static/img/info.gif') no-repeat;
@@ -689,6 +688,19 @@ code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
   display: block;
   padding-left: 22px;
   width: 70px;
+}
+
+#comment_form .comment-help-link {
+  font-size: 0.916em;
+  float: right;
+  margin-right: 25px;
+}
+
+#comment_form #comment_help {
+  background-color: #d2f6ce;
+  margin-bottom: 1em;
+  padding: 1em;
+  width: 91%;
 }
 
 #comment_form .a {
