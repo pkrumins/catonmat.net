@@ -1,7 +1,7 @@
 <%inherit file="layout.tmpl.html"/>
 
 <%def name="title()">Code exception - good coders code, great reuse</%def>
-<%def name="meta_description()">Code exception happened. Python threw ${exception_type|h} exception with message ${exception_message|h}.</%def>
+<%def name="meta_description()" filter="h">Code exception happened. Python threw ${exception_type} exception with message ${exception_message}.</%def>
 
 <div class="page">
   <div class="header">

@@ -1,7 +1,7 @@
 <%inherit file="layout.tmpl.html"/>
 
-<%def name="title()">${category.name|h} - good coders code, great reuse</%def>
-<%def name="meta_description()">${category.description|h}</%def>
+<%def name="title()" filter="h">${category.name} - good coders code, great reuse</%def>
+<%def name="meta_description()" filter="h">${category.description}</%def>
 
 <%namespace import="detailed_page" file="detailed_page.tmpl.html"/>
 

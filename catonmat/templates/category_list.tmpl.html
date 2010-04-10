@@ -1,7 +1,15 @@
 <%inherit file="layout.tmpl.html"/>
 
 <%def name="title()">Article categories on catonmat - good coders code, great reuse</%def>
-<%def name="meta_description()">catonmat categories</%def>
+<%def name="meta_description()" filter="trim,h">
+<%
+  cats = []
+  for cat in categories:
+    cats.append(cat.name)
+  meta_desc = ', '.join(cats)
+%>
+Categories: ${meta_desc}
+</%def>
 
 <div class="page">
   <div class="header">

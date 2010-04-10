@@ -1,6 +1,11 @@
 <%inherit file="layout.tmpl.html"/>
 
-<%def name="title()">${comment.name} comment on ${page.title}</%def>
+<%def name="title()" filter="h">${comment.name} comment on ${page.title}</%def>
+
+<%def name="meta_description()" filter="h,trim">
+## TODO: do comment.plain_text
+${comment.comment}
+</%def>
 
 <%namespace import="individual_comment" file="comment.tmpl.html"/>
 <%namespace import="display_threaded_comments" file="comment.tmpl.html"/>

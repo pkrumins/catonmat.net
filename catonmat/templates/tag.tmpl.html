@@ -1,7 +1,15 @@
 <%inherit file="layout.tmpl.html"/>
 
-<%def name="title()">${tag.name|h} - good coders code, great reuse</%def>
-<%def name="meta_description()">${tag.description|h}</%def>
+<%def name="title()" filter="h">Tag "${tag.name}" - good coders code, great reuse</%def>
+<%def name="meta_description()" filter="h,trim">
+<%
+  titles = []
+  for page in pages:
+    titles.append(page.title)
+  meta_desc = '. '.join(titles)
+%>
+Pages tagged "${tag.name}": ${meta_desc}.
+</%def>
 
 <%namespace import="detailed_page" file="detailed_page.tmpl.html"/>
 

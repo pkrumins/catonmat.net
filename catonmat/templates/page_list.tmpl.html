@@ -1,7 +1,15 @@
 <%inherit file="layout.tmpl.html"/>
 
 <%def name="title()">All catonmat articles by page - good coders code, great reuse</%def>
-<%def name="meta_description()">TODO</%def>
+<%def name="meta_description()" filter="h,trim">
+<%
+  titles = []
+  for post in posts[0:10]:
+    titles.append(post.title)
+  meta_desc = '. '.join(titles)
+%>
+${meta_desc}, and others.
+</%def>
 
 <%namespace import="detailed_page" file="detailed_page.tmpl.html"/>
 

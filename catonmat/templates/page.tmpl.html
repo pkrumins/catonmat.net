@@ -2,7 +2,9 @@
 
 <%namespace import="individual_page" file="individual_page.tmpl.html"/>
 
-<%def name="title()">${page_data.page.title} - good coders code, great reuse</%def>
+<%def name="title()" filter="h">${page_data.page.title} - good coders code, great reuse</%def>
+
+<%def name="meta_description()" filter="h">${page_data.page.excerpt}</%def>
 
 ${individual_page(page_data, comment_data, tag_data, display_options, lynx)}
 

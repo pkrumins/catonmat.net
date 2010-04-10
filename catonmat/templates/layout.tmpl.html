@@ -11,9 +11,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <title>${self.title()|h}</title>
+    <title>${self.title()}</title>
 
-    <meta name="description" content="${self.meta_description()|h}">
+    <meta name="description" content="${self.meta_description()}">
 
     <link rel="stylesheet" type="text/css" href="/static/css/reset.css?v=${reset_css_v}" media="screen, projection">
     <link rel="stylesheet" type="text/css" href="/static/css/catonmat.css?v=${catonmat_css_v}" media="screen, projection">
@@ -65,5 +65,5 @@
 
 <%def name="title()">good coders code, great reuse</%def>
 
-<%def name="meta_description()">Peteris Krumins' blog about programming, hacking, software reuse, software ideas, computer security, google and techology.</%def>
+<%def name="meta_description()">Peteris Krumins' blog about programming, hacking, software reuse, software ideas, computer security, google and technology.</%def>
 

@@ -1,7 +1,7 @@
 <%inherit file="layout.tmpl.html"/>
 
-<%def name="title()">Search results for "${query|h}" - good coders code, great reuse</%def>
-<%def name="meta_description()">Search results for query "${query|h}".</%def>
+<%def name="title()" filter="h">Search results for "${query}" - good coders code, great reuse</%def>
+<%def name="meta_description()" filter="h">Search results for query "${query}".</%def>
 
 <div class="page">
   <div class="header">
