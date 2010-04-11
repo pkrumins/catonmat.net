@@ -17,16 +17,22 @@ a { text-decoration: none; }
 p { margin: 0 0 1em; }
 a img { border: none; }
 em { font-style: italic; }
-pre, code { font-family: "Courier New", Courier, monospace; }
-code { background-color: #FFF7F0; border: 1px solid #CCCCCC; padding: 0 3px; }
-
-pre {
-  line-height: 1.3em;
+pre, code {
+  font-family: "Courier New", Courier, monospace;
   background: #FFF7F0;
   border: 1px solid #CCCCCC;
+}
+code { padding: 0 3px; }
+pre {
+  line-height: 1.3em;
   margin: 1em;
   padding: 1em;
   overflow: auto;
+}
+blockquote {
+  background-color: #EEEEEE;
+  padding: 1em;
+  margin: 1em;
 }
 
 #container {
@@ -310,12 +316,6 @@ pre {
 #content .page .content .c {
   text-align: center;
   padding-bottom: 1em;
-}
-
-#content .page .content blockquote {
-  background-color: #EEEEEE;
-  padding: 1em;
-  margin: 1em;
 }
 
 #content .page .content .download {
