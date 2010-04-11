@@ -1,0 +1,19 @@
+#container {
+  overflow: hidden;
+}
+
+#left {
+  float: left;
+  width: 180px;
+  padding: 10px;
+  border-right: 1px solid #CCC;
+}
+
+#right {
+  margin-left: 220px;
+}
+
+.clear { 
+  clear:both;
+}
+
