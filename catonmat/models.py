@@ -262,7 +262,7 @@ class Visitor(ModelBase):
         self.timestamp = datetime.utcnow()
 
     def __repr__(self):
-        return '<Visitor from %s>' % ip
+        return '<Visitor from %s>' % self.ip
 
 
 class Rss(ModelBase):
@@ -281,6 +281,7 @@ class Download(ModelBase):
         self.filename = filename
         self.mimetype = mimetype
         self.downloads = downloads
+        self.timestamp = timestamp
         if timestamp is None:
             self.timestamp = datetime.utcnow()
 
@@ -383,7 +384,7 @@ mapper(UrlMap, urlmaps_table, properties={
 })
 mapper(Redirect, redirects_table)
 mapper(FouroFour, fourofour_table, properties={
-    'visitor': relation(Visitor, uselist=False)
+    'visitor': relation(Visitor, uselist=False, cascade='all, delete')
 })
 mapper(Exception, exceptions_table, properties={
     'visitor': relation(Visitor, uselist=False)
@@ -417,3 +418,4 @@ mapper(ArticleSeries, article_series_table, properties={
 mapper(SearchHistory, search_history_table, properties={
     'visitor': relation(Visitor, uselist=False)
 })
+
