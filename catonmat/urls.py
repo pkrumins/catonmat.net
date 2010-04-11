@@ -75,9 +75,6 @@ predefined_urls = Map([
     # Sitemap
     Rule('/sitemap')                   > 'sitemap.main',
 
-    # Projects
-    Rule('/projects')                  > 'projects.main',
-
     # Article Series
     Rule('/series')                    > 'series.main',
     Rule('/series/<seo_name>')         > 'series.single',
