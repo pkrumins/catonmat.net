@@ -112,7 +112,15 @@ predefined_urls = Map([
     Rule('/c/<int:comment_id>')        > 'c.main',
 
     # Short URL for pages
-    Rule('/p/<int:page_id>')           > 'p.main'
+    Rule('/p/<int:page_id>')           > 'p.main',
+
+    # Admin
+    Submount('/admin', [
+        Rule('/')                      > 'admin.index',
+        Rule('/login')                 > 'admin.login',
+        Rule('/pages')                 > 'admin.pages',
+        Rule('/edit_page/<page_id>')   > 'admin.edit_page'
+    ])
 ],
 strict_slashes=False)
 

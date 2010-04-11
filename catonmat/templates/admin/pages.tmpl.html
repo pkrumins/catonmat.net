@@ -1,0 +1,8 @@
+<%inherit file="layout.tmpl.html"/>
+
+<ul>
+  % for page in pages:
+    <li>${page.title} (<a href="/admin/edit_page/${page.page_id}">edit</a>)</li>
+  % endfor
+</ul>
+

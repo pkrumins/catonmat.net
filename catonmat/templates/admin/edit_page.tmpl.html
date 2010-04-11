@@ -1,0 +1,16 @@
+<%inherit file="layout.tmpl.html"/>
+
+<form action="/admin/edit_page/${page.page_id}" method="POST">
+  <div>
+    Title: <input type="text" name="title" value="${page.title|h}" size="100">
+  </div>
+
+  <div>
+    Content:<br>
+    <textarea name="content" cols="100" rows="20">${page.content|h}</textarea>
+  </div>
+
+  <div>
+    <input type="submit" value="Submit changes">
+  </div>
+</form>

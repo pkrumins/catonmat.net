@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Login to catonmat admin</title>
+
+    <link rel="alternate" type="application/atom+xml" title="catonmat feed" href="http://www.catonmat.net/feed/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> 
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <style>
+      div#error { padding: 1em 0; color: red; }
+    </style>
+  </head>
+  <body>
+    % if message:
+    <div id="error">
+      ${message}
+    </div>
+    % endif
+
+    <form action="/admin/login" method="post">
+      <input type="text" name="a">
+      <input type="password" name="b">
+      <input type="submit" value="c">
+    </form>
+  </body>
+</html>
+
