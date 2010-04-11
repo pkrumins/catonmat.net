@@ -10,9 +10,10 @@
 
 from werkzeug                       import redirect
 
-from catonmat.models                import Page, session
-from catonmat.views.utils           import display_template, render_template, template_response
+from catonmat.models                import Page, session, Revision
+from catonmat.views.utils           import display_template, render_template, template_response, MakoDict
 from catonmat.admin                 import require_admin, REQUIRE_IP, logged_in, admin_cred_match_prim, hash_password, mk_secure_cookie
+from catonmat.views.pages           import default_page_template_data, display_page
 
 import hashlib
 
@@ -53,12 +54,30 @@ def edit_page(request, page_id):
     if request.method == "GET":
         page = session.query(Page).filter_by(page_id=page_id).first()
         return display_template('admin/edit_page', page=page)
-    return edit_page_submit(request, page_id)
+    if 'submit' in request.form:
+        return edit_page_submit(request, page_id)
+    elif 'preview' in request.form:
+        return edit_page_preview(request, page_id)
 
 def edit_page_submit(request, page_id):
     page = session.query(Page).filter_by(page_id=page_id).first()
+    change_note = request.form['change_note'].strip()
+    if change_note:
+        Revision(page, change_note).save()
     page.title = request.form['title']
     page.content = request.form['content']
+    page.excerpt = request.form['excerpt']
     page.save()
     return display_template('admin/edit_page', page=page)
+
+def edit_page_preview(request, page_id):
+    session.autoflush = False
+    page = session.query(Page).autoflush(False).filter_by(page_id=page_id).first()
+    page.title = request.form['title']
+    page.content = request.form['content']
+    page.excerpt = request.form['excerpt']
+
+    # TODO: merge with views/pages.py
+    map = MakoDict(dict(page=page, request_path=page.request_path))
+    return display_page(default_page_template_data(request, map))
 
