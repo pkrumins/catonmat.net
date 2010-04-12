@@ -61,12 +61,12 @@ def edit_page(request, page_id):
 
 def edit_page_submit(request, page_id):
     page = session.query(Page).filter_by(page_id=page_id).first()
-    change_note = request.form['change_note'].strip()
-    if change_note:
-        Revision(page, change_note).save()
     page.title = request.form['title']
     page.content = request.form['content']
     page.excerpt = request.form['excerpt']
+    change_note = request.form['change_note'].strip()
+    if change_note:
+        Revision(page, change_note).save()
     page.save()
     return display_template('admin/edit_page', page=page)
 
