@@ -2,7 +2,11 @@
 
 <ul>
   % for page in pages:
-    <li>${page.title} (<a href="/admin/edit_page/${page.page_id}">edit</a>)</li>
+    % if page.request_path:
+      <li><a href="${page.request_path}">${page.title}</a> (<a href="/admin/edit_page/${page.page_id}">edit</a>)</li>
+    % else:
+      <li>${page.title} (<a href="/admin/edit_page/${page.page_id}">edit</a>)</li>
+    % endif
   % endfor
 </ul>
 
