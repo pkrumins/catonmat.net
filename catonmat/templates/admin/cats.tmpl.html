@@ -1,0 +1,8 @@
+<%inherit file="layout.tmpl.html"/>
+
+<ul>
+  % for cat in cats:
+   <li><a href="/admin/pages?cat=${cat.category_id}">${cat.name}</a> (${cat.count} posts)</li>
+  % endfor
+</ul>
+
