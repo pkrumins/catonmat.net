@@ -17,6 +17,19 @@
   </div>
 
   <div>
+    Category:<br>
+    <select name="cat_id">
+      % for cat in cats:
+        % if page.category.category_id == cat.category_id:
+         <option value="${cat.category_id}" selected>${cat.name|h}</option>
+        % else:
+         <option value="${cat.category_id}">${cat.name|h}</option>
+        % endif
+      % endfor
+    </select>
+  </div>
+
+  <div>
     Change note:<br> 
     <input type="text" name="change_note" value="" size="100">
   </div>
