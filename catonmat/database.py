@@ -39,6 +39,7 @@ pages_table = Table('pages', metadata,
     Column('excerpt',       Text),      # goes in <meta description="...">
     Column('category_id',   Integer,    ForeignKey('categories.category_id')),
     Column('views',         Integer),   # should factor out to pagemeta_table
+    Column('status',        String(64)),# should factor out to pagemeta_table
     mysql_charset='utf8'
 )
 
