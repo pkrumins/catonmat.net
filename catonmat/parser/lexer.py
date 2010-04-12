@@ -157,6 +157,10 @@ class DocumentLexer(RegexLexer):
         for v, t in lexer.pure_pre_token_stream(body, other):
             yield 0, v, t
 
+    def audio_handler(lexer, match):
+        url = match.group(1)
+        yield 0, Token.Text, "[audio:%s]" % url
+
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
         'root': [
@@ -166,6 +170,7 @@ class DocumentLexer(RegexLexer):
             (r'\[download#(\d+)#nohits\]',     download_nohits_handler),
             (r'\[download#(\d+)#hits\]',       download_hits_handler),
             (r'\[download#(\d+)\]',            download_handler),
+            (r'\[audio:(.+?)\]',               audio_handler),
             (r'<!--.*?-->',                    Token.Comment),
             (r'<pre>(.+?)</pre>',              pure_pre_handler),
             (r'<pre(.+?)>(.+?)</pre>',         pre_handler),
