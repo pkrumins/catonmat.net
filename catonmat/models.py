@@ -60,10 +60,15 @@ class Page(ModelBase):
         return parse_page(self.content)
 
     @property
+    def plain_text(self):
+        from catonmat.parser import plain_text_page
+        return plain_text_page(self.content)
+
+    @property
     def publish_time(self):
         if self.blog_page:
             return self.blog_page.publish_date.strftime("%B %d, %Y")
-        return None
+        return self.created.strftime("%B %d, %Y")
 
     @property
     def comment_count(self):
