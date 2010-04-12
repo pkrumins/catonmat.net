@@ -1,0 +1,66 @@
+Here is some <code>code</code> that I wrote:
+
+<pre class="lotsofcode">
+struct person {
+    char *name;
+    unsigned int age;
+};
+struct person *
+new_person(const char *name, unsigned age)
+{
+    struct person *p = malloc(sizeof(struct person));
+    if (!p) return NULL;
+    p->name = name;
+    p->age  = age;
+    return p;
+}
+</pre>
+
+<pre html class="lotsofcode">
+struct person {
+    char *name;
+    unsigned int age;
+};
+struct person *
+new_person(const char *name, unsigned age)
+{
+    struct person *p = malloc(sizeof(struct person));
+    if (!p) return NULL;
+    p->name = name;
+    p->age  = age;
+    return p;
+}
+</pre>
+
+<pre class="lotsofcode" lang="c">
+struct person {
+    char *name;
+    unsigned int age;
+};
+struct person *
+new_person(const char *name, unsigned age)
+{
+    struct person *p = malloc(sizeof(struct person));
+    if (!p) return NULL;
+    p->name = name;
+    p->age  = age;
+    return p;
+}
+</pre>
+
+<pre class="lotsofcode" lang="foobarnonexist">
+struct person {
+    char *name;
+    unsigned int age;
+};
+struct person *
+new_person(const char *name, unsigned age)
+{
+    struct person *p = malloc(sizeof(struct person));
+    if (!p) return NULL;
+    p->name = name;
+    p->age  = age;
+    return p;
+}
+</pre>
+
