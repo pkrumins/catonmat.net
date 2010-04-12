@@ -12,7 +12,7 @@ from catonmat.parser.util   import (
     DocumentNode, ParagraphNode, TextNode, CommentNode, InlineTagNode,
     SelfClosingTagNode, BlockTagNode, LiteralNode,
     accept_token, extract_tag_name, skip_token,
-    DONT_P
+    DONT_P, RESPECT_BR
 )
 
 from pygments.token         import Token
@@ -122,6 +122,8 @@ def gblock(token_stream):
         elif accept_token(token_stream, Token.Par):
             skip_token(token_stream)
         elif accept_token(token_stream, Token.Br):
+            if tag_name in RESPECT_BR:
+                block.append(SelfClosingTagNode('<br>'))
             skip_token(token_stream)
         elif accept_token(token_stream, Token.Literal):
             block.append(LiteralNode(token_stream.value))
