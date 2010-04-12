@@ -17,7 +17,7 @@ from sqlalchemy.orm     import sessionmaker
 
 from catonmat.views.utils import MakoDict
 from catonmat.models    import (
-    Page, Tag, Category, Comment, Visitor, UrlMap, BlogPage, Rss, Download
+    Page, Tag, Category, Comment, Visitor, UrlMap, BlogPage, Rss, Download, Revision
 )
 
 from mimetypes          import guess_type
@@ -97,9 +97,17 @@ def import_pages(wp_pages, wp_tags_dict, wp_comments_dict, wp_categories_dict):
         if npk % 10 == 0: flush_write("(%d)" % npk)
         else:             flush_write('.')
 
+    skip_paths = ['/sitemap', '/feedback', '/post-archive'] 
+
     flush_write("Importing pages, comments, tags, urlmaps, blogpages and rss.\n")
     for npk, wp_page in enumerate1(wp_pages):
         print_status(npk)
+
+        parsed = urlparse(wp_page.guid)
+        path = parsed.path.rstrip('/')
+        if path:
+            if path in skip_paths:
+                continue
 
         post_date=wp_page.post_date
         if post_date:
@@ -109,9 +117,17 @@ def import_pages(wp_pages, wp_tags_dict, wp_comments_dict, wp_categories_dict):
             post_modified = post_modified-timedelta(hours=3)    # same
         cm_page = Page(wp_page.post_title, wp_page.post_content, wp_page.post_excerpt, 
                        post_date, post_modified)
+        if wp_page.post_status == 'draft':
+            cm_page.status = 'draft'
+        elif wp_page.post_status == 'publish':
+            if wp_page.post_type == 'page':
+                cm_page.status = 'page'
+            elif wp_page.post_type == 'post':
+                cm_page.status = 'post'
         import_page_views(wp_page, cm_page)
         import_page_tags(wp_page, cm_page, wp_tags_dict)
         import_page_category(wp_page, cm_page, wp_categories_dict)
+        Revision(cm_page, 'first import').save()
         cm_page.save() # to generate cm_page.page_id
         import_page_comments(wp_page, cm_page.page_id, wp_comments_dict)
         generate_urlmap(wp_page, cm_page.page_id)
@@ -159,12 +175,9 @@ def import_page_comments(wp_page, cm_page_id, wp_comments_dict):
                 timestamp=comment.comment_date).save()
 
 def generate_urlmap(wp_page, cm_page_id):
-    skip_paths = ['/sitemap', '/feedback', '/post-archive']
     parsed = urlparse(wp_page.guid)
     path = parsed.path.rstrip('/')
     if path:
-        if path in skip_paths:
-            return
         UrlMap(parsed.path.rstrip('/'), cm_page_id).save()
     elif wp_page.ID==2: # 2nd post for some reason doesn't have a path in my db
         UrlMap('/about', cm_page_id).save()
