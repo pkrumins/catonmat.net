@@ -98,10 +98,14 @@ def import_pages(wp_pages, wp_tags_dict, wp_comments_dict, wp_categories_dict):
         else:             flush_write('.')
 
     skip_paths = ['/sitemap', '/feedback', '/post-archive'] 
+    skip_titles_re = re.compile('continuity')
 
     flush_write("Importing pages, comments, tags, urlmaps, blogpages and rss.\n")
     for npk, wp_page in enumerate1(wp_pages):
         print_status(npk)
+
+        if skip_titles_re.search(wp_page.post_title):
+            continue
 
         parsed = urlparse(wp_page.guid)
         path = parsed.path.rstrip('/')
