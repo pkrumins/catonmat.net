@@ -29,6 +29,9 @@ pre {
   padding: 1em;
   overflow: auto;
 }
+pre.lotsofcode {
+  height: 305px;
+}
 blockquote {
   background-color: #EEEEEE;
   padding: 1em;
@@ -332,6 +335,10 @@ blockquote {
   background: url('/static/img/download.gif') no-repeat 0px 4px;
 }
 
+#content .page .content .amazon-books {
+  margin-bottom: 1em;
+}
+
 #content .page .content ul {
   padding-bottom: 1em;
   padding-left: 15px;
@@ -464,6 +471,7 @@ blockquote {
   position: relative;
   top: 1px;
   width: 80px;
+  overflow:hidden;
 }
 
 #content .page .social .facebook {
