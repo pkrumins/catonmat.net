@@ -49,9 +49,12 @@ config = MakoDictz({
     'database_uri':     'mysql://catonmat@localhost/catonmat?charset=utf8',
     'database_echo':    False,
     'posts_per_page':   5,
-    'use_cache':        False,
+    'use_cache':        True,
     'download_path':    '/home/pkrumins/catonmat/downloads',
     'rss_items':        20,
-    'mako_modules':     '/home/pkrumins/catonmat/mako_modules'
+    'mako_modules':     '/home/pkrumins/catonmat/mako_modules',
+    'ips_file':         '/home/pkrumins/catonmat/admin_ips.txt',
+    'admin_hash_file':  '/home/pkrumins/catonmat/admin_hash.txt',
+    'secure_key':       'key'
 })
 
