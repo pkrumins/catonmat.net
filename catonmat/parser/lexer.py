@@ -23,6 +23,19 @@ import re
 
 # ----------------------------------------------------------------------------
 
+class MyHtmlFormatter(HtmlFormatter):
+    def __init__(self, other):
+        self._xyzzy_other = other
+        HtmlFormatter.__init__(self)
+
+    def _wrap_pre(self, inner):
+        yield 0, '<pre %s>' % self._xyzzy_other
+        for tup in inner:
+            yield tup
+        yield 0, '</pre>'
+
+# TODO: rewrite everything
+
 class DocumentLexer(RegexLexer):
     def open_tag_handler_yielder(lexer, tag_name, full_tag):
         tag_type = tag_type_by_name(tag_name)
@@ -32,9 +45,9 @@ class DocumentLexer(RegexLexer):
         tag_name = match.group(1)
         yield lexer.open_tag_handler_yielder(tag_name, match.group(0))
 
-    def pure_pre_token_stream(lexer, pre_text):
+    def pure_pre_token_stream(lexer, pre_text, other=''):
         yield_items = [
-            (Token.Tag.BlockTag, "<pre>"),
+            (Token.Tag.BlockTag, "<pre %s>" % other),
             (Token.Text, pre_text.replace('<', '&lt;')),
             (Token.Tag.Close, "</pre>")
         ]
@@ -44,20 +57,32 @@ class DocumentLexer(RegexLexer):
         for token, value in lexer.pure_pre_token_stream(match.group(1)):
             yield 0, token, value
 
-    def html_pre_handler(lexer, match):
-        yield 0, Token.Tag.BlockTag, "<pre>"
-        yield 0, Token.Text, match.group(1)
+    def html_pre_handler2(lexer, pre_text, other=''):
+        yield 0, Token.Tag.BlockTag, "<pre %s>" % other
+        yield 0, Token.Text, pre_text
         yield 0, Token.Tag.Close, "</pre>"
 
-    def lang_pre_handler(lexer, match):
+    def html_pre_handler(lexer, match):
+        for v in lexer.html_pre_handler2(match.group(1)):
+            yield v
+
+    def lang_pre_handler2(lexer, lang, code, other=''):
         try:
-            lang, code = match.groups()
             lang_lexer = get_lexer_by_name(lang, stripall=True)
-            token_stream = get_lexer(highlight(code, lang_lexer, HtmlFormatter()), PreLexer)
+            if other:
+                html_formatter = MyHtmlFormatter(other)
+            else:
+                html_formatter = HtmlFormatter()
+            token_stream = get_lexer(highlight(code, lang_lexer, html_formatter), PreLexer)
         except ClassNotFound:
             token_stream = lexer.pure_pre_token_stream(code)
         for token, value in token_stream:
             yield 0, token, value
+
+    def lang_pre_handler(lexer, match):
+        lang, code = match.groups()
+        for v in lexer.lang_pre_handler2(lang, code):
+            yield v
 
     def download_error(lexer, download_id):
         yield_items = [
@@ -103,6 +128,35 @@ class DocumentLexer(RegexLexer):
     def open_tag(lexer, _):
         yield 0, Token.Text, '&lt;'
 
+    def pre_handler(lexer, match):
+        args = match.group(1).strip().split(' ')
+        body = match.group(2)
+
+        lang = None
+
+        for arg in args:
+            match = re.match('lang="(.+?)"', arg)
+            if match:
+                lang = match.group(1)
+
+        if lang:
+            args.remove('lang="%s"' % lang)
+            other = ' '.join(args)
+            for v in lexer.lang_pre_handler2(lang, body, other):
+                yield v
+            return
+
+        if 'html' in args:
+            args.remove('html')
+            other = ' '.join(args)
+            for v in lexer.html_pre_handler2(body, other):
+                yield v
+            return
+
+        other = ' '.join(args)
+        for v, t in lexer.pure_pre_token_stream(body, other):
+            yield 0, v, t
+
     flags = re.IGNORECASE | re.DOTALL
     tokens = {
         'root': [
@@ -114,8 +168,7 @@ class DocumentLexer(RegexLexer):
             (r'\[download#(\d+)\]',            download_handler),
             (r'<!--.*?-->',                    Token.Comment),
             (r'<pre>(.+?)</pre>',              pure_pre_handler),
-            (r'<pre html>(.+?)</pre>',         html_pre_handler),
-            (r'<pre lang="(.+?)">(.+?)</pre>', lang_pre_handler),
+            (r'<pre(.+?)>(.+?)</pre>',         pre_handler),
             (r'<([a-zA-Z0-9]+).*?>',           open_tag_handler),
             (r'</[^>]+>',                      Token.Tag.Close),
             (r'<',                             open_tag),
@@ -124,9 +177,9 @@ class DocumentLexer(RegexLexer):
     }
 
 class PreLexer(DocumentLexer):
-    def pure_pre_token_stream(lexer, pre_text):
+    def pure_pre_token_stream(lexer, pre_text, other=''):
         yield_items = [
-            (Token.Tag.BlockTag, "<pre>"),
+            (Token.Tag.BlockTag, "<pre %s>" % other),
             (Token.Text, pre_text),
             (Token.Tag.Close, "</pre>")
         ]
