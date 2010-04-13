@@ -29,9 +29,18 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2011.04.13:
+    * launched!
+2011.04.12:
+    * launching the new catonmat
+2011.04.11:
+    * stared adding admin interface
+    * added login, list posts, edit posts. revision history now gets saved.
 2011.04.10:
     * added footer
     * added retweet, share on facebook and buzz it buttons
+    * add pages now have unique meta description tag.
+    * added comment help - instructions how to format comments
 2011.04.09:
     * articles by page list now works
     * added captcha for feedback form and comments form
