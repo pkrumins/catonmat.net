@@ -9,9 +9,8 @@
 #
 # This file handles /p/<page_id> short page URLS.
 
-from werkzeug               import Response, redirect
+from werkzeug               import Response, redirect, wrap_file
 from werkzeug.exceptions    import NotFound
-from werkzeug.utils         import wrap_file
 
 from catonmat.config        import config
 from catonmat.models        import Download
