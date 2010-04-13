@@ -210,3 +210,12 @@ search_history_table = Table('search_history', metadata,
     mysql_charset='utf8'
 )
 
+news_table = Table('news', metadata,
+    Column('news_id',       Integer,    primary_key=True),
+    Column('title',         String(128)),
+    Column('seo_title',     String(128)),
+    Column('timestamp',     DateTime),
+    Column('content',       Text),
+    mysql_charset='utf8'
+)
+

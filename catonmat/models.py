@@ -16,7 +16,7 @@ from catonmat.database      import (
     page_tags_table, visitors_table,  rss_table,        pagemeta_table,
     downloads_table, redirects_table, feedback_table,   exceptions_table,
     download_stats_table, article_series_table, pages_to_series_table,
-    search_history_table,
+    search_history_table, news_table,
     session
 )
 
@@ -349,6 +349,28 @@ class SearchHistory(ModelBase):
         return '<Search for %s>' % self.query
 
 
+class News(ModelBase):
+    def __init__(self, title, seo_title, content, timestamp=None):
+        self.title = title
+        self.seo_title = seo_title
+        self.content = content
+        self.timestamp = timestamp
+        if timestamp is None:
+            self.timestamp = datetime.utcnow()
+
+    @property
+    def parsed_content(self):
+        from catonmat.parser import parse_page
+        return parse_page(self.content)
+
+    @property
+    def publish_time(self):
+        return self.timestamp.strftime("%B %d, %Y")
+
+    def __repr__(self):
+        return '<News %s>' % self.title
+
+
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(
                     Revision,
@@ -423,4 +445,5 @@ mapper(ArticleSeries, article_series_table, properties={
 mapper(SearchHistory, search_history_table, properties={
     'visitor': relation(Visitor, uselist=False)
 })
+mapper(News, news_table)
 

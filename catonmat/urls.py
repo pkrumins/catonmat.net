@@ -113,6 +113,9 @@ predefined_urls = Map([
     # Short URL for pages
     Rule('/p/<int:page_id>')           > 'p.main',
 
+    # News
+    Rule('/news')                      > 'news.main',
+
     # Admin
     Submount('/admin', [
         Rule('/')                      > 'admin.index',
