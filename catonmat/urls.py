@@ -65,6 +65,7 @@ predefined_urls = Map([
     # Atom feed
     Rule('/feed')                      > 'rss.atom_feed',
     Rule('/feed/atom')                 > 'rss.atom_feed',
+    Rule('/feed/rss')                  > 'rss.atom_feed',
 
     # Blog is alias for Main page right now
     Rule('/blog')                      > 'index.main',
@@ -99,6 +100,7 @@ predefined_urls = Map([
 
     # Downloads
     Rule('/download/<filename>')       > 'downloads.main',
+    Rule('/blog/wp-content/plugins/wp-downloadMonitor/user_uploads/<filename>') > 'downloads.old_wp_download',
     Rule('/wp-content/plugins/wp-downloadMonitor/user_uploads/<filename>') > 'downloads.old_wp_download',
 
     # Add and preview comments via AJAX
