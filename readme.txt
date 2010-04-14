@@ -29,6 +29,8 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2011.04.14:
+    * added /news
 2011.04.13:
     * launched!
 2011.04.12:
