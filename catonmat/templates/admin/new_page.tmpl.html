@@ -1,0 +1,42 @@
+<%inherit file="layout.tmpl.html"/>
+
+<form action="/admin/new_page" method="POST">
+  <div>
+    Title:<br>
+    <input type="text" name="title" value="" size="100">
+  </div>
+
+  <div>
+    Request Path:<br>
+    <input type="text" name="request_path" value="" size="100">
+  </div>
+
+  <div>
+    Content:<br>
+    <textarea name="content" cols="100" rows="20"></textarea>
+  </div>
+
+  <div>
+    Tags:<br>
+    <input type="text" name="tags" value="" size="100">
+  </div>
+
+  <div>
+    Excerpt:<br>
+    <textarea name="excerpt" cols="100" rows="3"></textarea>
+  </div>
+
+  <div>
+    Category:<br>
+    <select name="cat_id">
+      % for cat in cats:
+         <option value="${cat.category_id}">${cat.name|h}</option>
+      % endfor
+    </select>
+  </div>
+
+  <div>
+    <input type="submit" name="submit"  value="Create Page">
+  </div>
+</form>
+

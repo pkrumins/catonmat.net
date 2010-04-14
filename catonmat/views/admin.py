@@ -21,7 +21,6 @@ import hashlib
 
 @require_admin([REQUIRE_IP])
 def index(request):
-    print request.cookies
     if not logged_in(request):
         return display_template('admin/login')
     return display_template('admin/index')
@@ -67,6 +66,7 @@ def edit_page(request, page_id):
     elif 'preview' in request.form:
         return edit_page_preview(request, page_id)
 
+@require_admin()
 def edit_page_submit(request, page_id):
     page = session.query(Page).filter_by(page_id=page_id).first()
     cats = session.query(Category).all()
@@ -83,6 +83,7 @@ def edit_page_submit(request, page_id):
         Revision(page, change_note).save()
     return display_template('admin/edit_page', page=page, cats=cats)
 
+@require_admin()
 def update_category(page, new_cat_id):
     old_cat = page.category
     new_cat = session.query(Category).filter_by(category_id=new_cat_id).first()
@@ -104,6 +105,24 @@ def edit_page_preview(request, page_id):
     map = MakoDict(dict(page=page, request_path=page.request_path))
     return display_page(default_page_template_data(request, map))
 
+@require_admin()
+def new_page(request):
+    if request.method == "GET":
+        cats = session.query(Category).all()
+        return display_template('admin/new_page', cats=cats)
+    if 'submit' in request.form:
+        page = new_page_from_request(request)
+        return redirect('/admin/edit_page/%d' % page.page_id)
+
+def new_page_from_request(request):
+    page = Page(
+             request.form['title'],
+             request.form['content'],
+             request.form['excerpt'],
+             category_id=request.form['cat_id'])
+    page.save()
+
+@require_admin()
 def cats(request):
     cats = session.query(Category).all()
     return display_template('admin/cats', cats=cats)
