@@ -7,6 +7,11 @@
   </div>
 
   <div>
+    Request Path: (<a href="${page.request_path}">visit</a>)<br>
+    <input type="text" name="request_path" value="${page.request_path}" size="100">
+  </div>
+
+  <div>
     Content:<br>
     <textarea name="content" cols="100" rows="20">${page.content|h}</textarea>
   </div>
@@ -37,6 +42,29 @@
   <div>
     <input type="submit" name="submit"  value="Submit changes">
     <input type="submit" name="preview" value="Preview">
+    <select name='status'>
+      % if page.status == 'draft':
+      <option value="draft" selected>Draft</option>
+      % else:
+      <option value="draft">Draft</option>
+      % endif
+
+      % if page.status == 'post':
+      <option value="post" selected>Post</option>
+      % else:
+      <option value="post">Post</option>
+      % endif
+
+      % if page.status == 'page':
+      <option value="page" selected>Page</option>
+      % else:
+      <option value="page">Page</option>
+      % endif
+    </select>
+
+    % if page.status == 'draft':
+    <input type="submit" name="publish" value="Publish">
+    % endif
   </div>
 
   <div>
