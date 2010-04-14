@@ -973,6 +973,10 @@ blockquote {
   margin-left: 1.5em;
 }
 
+#sidebar .list .sl-title {
+  font-weight: bold;
+}
+
 /*
 ** Feedback
 ** --------------------------------------------------------
