@@ -26,6 +26,7 @@ DONT_P = frozenset(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'li', 'pre'])
 RESPECT_BR = frozenset(['li'])
 
 def tag_type_by_name(tag_name):
+    tag_name = tag_name.lower()
     if tag_name in SELF_CLOSING_TAGS:
         return Token.Tag.SelfClosingTag
     elif tag_name in INLINE_TAGS:

@@ -39,7 +39,7 @@ class MyHtmlFormatter(HtmlFormatter):
 class DocumentLexer(RegexLexer):
     def open_tag_handler_yielder(lexer, tag_name, full_tag):
         tag_type = tag_type_by_name(tag_name)
-        return 0, tag_type, full_tag.lower()
+        return 0, tag_type, full_tag
 
     def open_tag_handler(lexer, match):
         tag_name = match.group(1)
