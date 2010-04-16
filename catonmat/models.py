@@ -78,7 +78,7 @@ class Page(ModelBase):
     def request_path(self):
         if self.url_map:
             return self.url_map.request_path
-        return None
+        return ''
 
     @property
     def us_views(self):
