@@ -69,7 +69,7 @@ def compute_atom_feed(request):
                  content      = page.parsed_content,
                  content_type = 'html',
                  author       = peteris,
-                 url          = page.request_path,
+                 url          = 'http://www.catonmat.net' + page.request_path,
                  id           = page.page_id,
                  updated      = page.last_update,
                  published    = page.rss_page.publish_date)
