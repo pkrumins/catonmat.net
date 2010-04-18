@@ -31,6 +31,7 @@ modules (list is not complete):
 
 2011.04.14:
     * added /news
+    * improved admin - can now create new pages and publish them
 2011.04.13:
     * launched!
 2011.04.12:
