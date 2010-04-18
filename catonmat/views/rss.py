@@ -32,7 +32,7 @@ def atom_feed(request):
     if feedburner_bot(request):
         feed = compute_atom_feed(request)
         return Response(feed, mimetype='application/atom+xml')
-    return redirect('http://feeds.feedburner.com/catonmat', code=307)
+    return redirect('http://feeds.feedburner.com/catonmat', code=302)
 
 peteris = {
     'name':  'Peteris Krumins',
