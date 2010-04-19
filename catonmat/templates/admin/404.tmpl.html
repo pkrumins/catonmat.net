@@ -1,0 +1,8 @@
+<%inherit file="layout.tmpl.html"/>
+
+<ul>
+  % for f in fof:
+  <li>${f.date}: ${f.request_path|h}</li>
+  % endfor
+</ul>
+

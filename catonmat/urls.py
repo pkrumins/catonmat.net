@@ -124,6 +124,8 @@ predefined_urls = Map([
         Rule('/edit_page/<page_id>')   > 'admin.edit_page.main',
         Rule('/new_page')              > 'admin.new_page.main',
         Rule('/categories')            > 'admin.categories.main',
+        Rule('/fof')                   > 'admin.fof.main',
+        Rule('/exceptions')            > 'admin.exceptions.main',
     ])
 ],
 strict_slashes=False)
