@@ -8,7 +8,9 @@
 # Code is licensed under GNU GPL license.
 #
 
-from catonmat.models            import session, Page, Category, Revision, Tag
+from werkzeug                   import redirect
+
+from catonmat.models            import session, Page, Category, Revision, Tag, Rss, BlogPage
 from catonmat.admin             import require_admin
 from catonmat.views.utils       import display_plain_template, MakoDict
 from catonmat.views.pages       import default_page_template_data, display_page
@@ -96,14 +98,27 @@ def edit_page_preview(request, page_id):
 
 def publish_page(request, page_id):
     page = session.query(Page).filter_by(page_id=page_id).first()
-    if request.form['status'] == 'page':
+    status = request.form['status']
+
+    if status == 'page':
         page.status = 'page'
         page.save()
-    elif request.form['status'] == 'post':
-        page.category.count = page.category.count + 1
+    elif status == 'post':
+        page.category.count = Category.count + 1
         page.status = 'post'
-        Rss(page, page.last_update).save()
-        BlogPage(page, page.last_update).save()
+        publish_date = datetime.strptime(request.form['publish_date'], '%Y-%m-%d %H:%M:%S')
+        Rss(page, publish_date).save()
+        BlogPage(page, publish_date).save()
         page.save()
+
+    if status == 'page' or status == 'post':
+        draft_tags = page.get_meta('draft_tags')
+        if draft_tags:
+            tags = tag_list(draft_tags)
+            for tag in tags:
+                seo_name = tag.replace(' ', '-')
+                page.add_tag(Tag(tag, seo_name))
+        page.delete_meta('draft_tags')
+
     return redirect('/admin/edit_page/%d' % page.page_id)
 
