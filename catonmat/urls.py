@@ -123,7 +123,7 @@ predefined_urls = Map([
         Rule('/pages')                 > 'admin.pages.main',
         Rule('/edit_page/<page_id>')   > 'admin.edit_page.main',
         Rule('/new_page')              > 'admin.new_page.main',
-        Rule('/cats')                  > 'admin.cats.main',
+        Rule('/categories')            > 'admin.categories.main',
     ])
 ],
 strict_slashes=False)
