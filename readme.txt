@@ -29,11 +29,17 @@ modules (list is not complete):
     * SimpleJSON for JSON.
     * jQuery     for AJAX and visual effects.
 
+2011.04.19:
+    * refactored admin
 2011.04.14:
     * added /news
     * improved admin - can now create new pages and publish them
 2011.04.13:
-    * launched!
+    .------------------------------.
+    |                              |
+    | * launched the new catonmat! |
+    |                              |
+    '------------------------------'
 2011.04.12:
     * launching the new catonmat
 2011.04.11:
