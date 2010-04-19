@@ -91,9 +91,9 @@ class Page(ModelBase):
         self.save()
 
     def delete_meta(self, meta_key):
-        meta = self.get_meta(meta_key)
+        meta = self.meta.filter_by(meta_key=meta_key).first()
         if meta:
-            self.meta.remove(meat)
+            self.meta.remove(meta)
             self.save()
 
     def _get_request_path(self):
