@@ -10,10 +10,15 @@
 }
 
 #right {
-  margin-left: 220px;
+  float: left;
+  padding: 10px 0 0 20px;
 }
 
 .clear { 
   clear:both;
+}
+
+.left {
+  float: left;
 }
 
