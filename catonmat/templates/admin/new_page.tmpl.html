@@ -26,7 +26,7 @@
     Category:<br>
     <select name="cat_id">
       % for cat in cats:
-         <option value="${cat.category_id}">${cat.name|h}</option>
+        <option value="${cat.category_id}">${cat.name|h} (${cat.count})</option>
       % endfor
     </select>
   </div>
