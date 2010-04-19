@@ -1,0 +1,11 @@
+<%inherit file="layout.tmpl.html"/>
+
+% for e in exc:
+<div>
+  <p>${e.date}: <strong>${e.request_path|h}</strong></p>
+  <p>Exception: <strong>${e.exception_type|h}</strong>: <strong>${e.last_error}</strong></p>
+  <pre>${e.traceback|h}</pre>
+</div>
+<hr>
+% endfor
+
