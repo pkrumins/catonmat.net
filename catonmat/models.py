@@ -8,7 +8,8 @@
 # Code is licensed under GNU GPL license.
 #
 
-from sqlalchemy.orm         import dynamic_loader, relation, mapper, backref
+from sqlalchemy.orm            import dynamic_loader, relation, mapper, backref
+from sqlalchemy.orm.interfaces import AttributeExtension
 
 from catonmat.database      import (
     pages_table,     revisions_table, urlmaps_table,    fourofour_table,
@@ -74,23 +75,63 @@ class Page(ModelBase):
     def comment_count(self):
         return session.query(Comment).filter_by(page_id=self.page_id).count()
 
-    @property
-    def request_path(self):
+    def get_meta(self, meta_key):
+        meta = self.meta.filter_by(meta_key=meta_key).first()
+        if meta:
+            return meta.meta_val
+
+    def set_meta(self, meta_key, meta_val):
+        meta = self.get_meta(meta_key)
+        if not meta:
+            meta = PageMeta(self, meta_key, meta_val)
+            self.meta.append(meta)
+        else:
+            meta.meta_val = meta_val
+        self.save()
+
+    def _get_request_path(self):
         if self.url_map:
             return self.url_map.request_path
         return ''
 
+    def _set_request_path(self, path):
+        if path:
+            if self.url_map:
+                self.url_map.request_path = path
+            else:
+                self.url_map = UrlMap(path, self.page_id)
+        else: # no path - delete the url_map
+            if self.url_map:
+                session.delete(self.url_map)
+        self.save()
+
+    request_path = property(_get_request_path, _set_request_path)
+
     @property
     def us_views(self):
         return number_to_us(self.views)
+
+    def delete_tag(self, tag_name):
+        tag = session.query(Tag).filter_by(name=tag_name).first()
+        if tag in self.tags:
+            self.tags.remove(tag)
+            self.save()
+            if tag.count == 1:
+                session.delete(tag)
+            else:
+                tag.count = Tag.count - 1
+            session.commit()
 
     def add_tag(self, tag):
         real_tag = tag
         t = session.query(Tag).filter_by(seo_name=tag.seo_name).first()
         if t:
             real_tag = t
+            real_tag.count = Tag.count + 1
+        else:
+            real_tag.count = 1
         self.tags.append(real_tag)
-        real_tag.count += 1
+        self.save()
 
     def add_comment(self, comment):
         self.comments.append(comment)
@@ -100,13 +141,13 @@ class Page(ModelBase):
 
 
 class PageMeta(ModelBase):
-    def __init__(self, page_id, meta_key, meta_val):
-        self.page_id  = page_id
+    def __init__(self, page, meta_key, meta_val):
+        self.page  = page
         self.meta_key = meta_key
         self.meta_val = meta_val
 
     def __repr__(self):
-        return '<PageMeta(%s) for Page(id=%s)' % (self.meta_key, self.page_id)
+        return '<PageMeta(%s) for Page(%s)' % (self.meta_key, self.page.title)
 
 
 class Revision(ModelBase):
@@ -371,6 +412,16 @@ class News(ModelBase):
         return '<News %s>' % self.title
 
 
+class PageCategoryExtension(AttributeExtension):
+    def set(self, state, value, oldvalue, initiator):
+        if value != oldvalue:
+            page = state.obj()
+            if page.status != 'draft':
+                oldvalue.count = Category.count - 1
+                value.count = Category.count + 1
+        return value
+
+
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(
                     Revision,
@@ -382,13 +433,14 @@ mapper(Page, pages_table, properties={
                     backref='page',
                     order_by=comments_table.c.comment_id.asc()
     ),
-    'category': relation(Category),
+    'category': relation(Category, extension=PageCategoryExtension()),
     'tags':     relation(
                     Tag,
                     secondary=page_tags_table,
-                    order_by=tags_table.c.seo_name
+                    order_by=tags_table.c.seo_name,
+                    cascade='all, delete'
     ),
-    'properties': dynamic_loader(
+    'meta':     dynamic_loader(
                     PageMeta,
                     backref='page',
                     order_by=pagemeta_table.c.meta_id
@@ -411,7 +463,12 @@ mapper(UrlMap, urlmaps_table, properties={
 })
 mapper(Redirect, redirects_table)
 mapper(FouroFour, fourofour_table, properties={
-    'visitor': relation(Visitor, uselist=False, cascade='all, delete')
+    'visitor': relation(
+                 Visitor,
+                 uselist=False,
+                 cascade='all, delete, delete-orphan',
+                 single_parent=True
+    )
 })
 mapper(Exception, exceptions_table, properties={
     'visitor': relation(Visitor, uselist=False)
