@@ -76,20 +76,25 @@ def cached_template_response(computef, cache_key, duration, *args, **kw):
     return template_response(from_cache_or_compute(computef, cache_key, duration, *args, **kw))
 
 
-def display_template(template, **template_data):
-    rendered_template = render_template(template, **template_data)
+def display_template(template, **template_args):
+    rendered_template = render_template(template, **template_args)
+    return template_response(rendered_template)
+
+
+def display_plain_template(template, **template_args):
+    rendered_template = render_plain_template(template, **template_args);
     return template_response(rendered_template)
 
 
 def render_template(template_name, **template_args):
-    template = get_template(template_name)
     quote = get_random_quote()
     top_pages = get_most_popular_pages()
     top_downloads = get_most_downloads()
     recent_pages = get_recent_pages()
     categories = session.query(Category).order_by(Category.name.asc()).all()
     post_archive = get_post_archive()
-    return template.render(
+    return render_plain_template(
+             template_name, 
              quote=quote,
              top_pages=top_pages,
              top_downloads=top_downloads,
@@ -97,6 +102,11 @@ def render_template(template_name, **template_args):
              categories = categories,
              post_archive = post_archive,
              **template_args)
+
+
+def render_plain_template(template_name, **template_args):
+    template = get_template(template_name)
+    return template.render(**template_args)
 
 
 def get_template(name):
@@ -119,3 +129,4 @@ from catonmat.models        import Category, session
 from catonmat.statistics    import (
     get_most_popular_pages, get_most_downloads, get_recent_pages, get_post_archive
 )
+
