@@ -470,18 +470,17 @@ blockquote {
   float: left;
   position: relative;
   top: 1px;
-  width: 80px;
+  width: 120px;
   overflow:hidden;
 }
 
 #content .page .social .facebook {
   float: left;
-  width: 73px;
+  width: 110px;
 }
 
 #content .page .social .buzz {
   float: left;
-  width: 80px;
 }
 
 /*
