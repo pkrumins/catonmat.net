@@ -451,7 +451,7 @@ mapper(Page, pages_table, properties={
                     PageMeta,
                     backref='page',
                     order_by=pagemeta_table.c.meta_id,
-                    cascade='all, delete'
+                    cascade='all, delete, delete-orphan'
     ),
     'url_map':   relation(UrlMap, uselist=False),
     'blog_page': relation(BlogPage, uselist=False),
