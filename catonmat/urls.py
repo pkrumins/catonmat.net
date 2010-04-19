@@ -118,12 +118,12 @@ predefined_urls = Map([
 
     # Admin
     Submount('/admin', [
-        Rule('/')                      > 'admin.index',
-        Rule('/login')                 > 'admin.login',
-        Rule('/pages')                 > 'admin.pages',
-        Rule('/edit_page/<page_id>')   > 'admin.edit_page',
-        Rule('/new_page')              > 'admin.new_page',
-        Rule('/cats')                  > 'admin.cats',
+        Rule('/')                      > 'admin.index.main',
+        Rule('/login')                 > 'admin.login.main',
+        Rule('/pages')                 > 'admin.pages.main',
+        Rule('/edit_page/<page_id>')   > 'admin.edit_page.main',
+        Rule('/new_page')              > 'admin.new_page.main',
+        Rule('/cats')                  > 'admin.cats.main',
     ])
 ],
 strict_slashes=False)
