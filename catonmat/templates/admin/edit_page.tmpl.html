@@ -43,9 +43,9 @@
   <div class="left">
     Publish date (UTC):<br>
     % if page.blog_page:
-      <input type="text" name="request_path" value="${page.blog_page.publish_date}" size="20">
+      <input type="text" name="publish_date" value="${page.blog_page.publish_date}" size="20">
     % else:
-      <input type="text" name="request_path" value="${page.created}" size="20">
+      <input type="text" name="publish_date" value="${page.created}" size="20">
     % endif
   </div>
 
