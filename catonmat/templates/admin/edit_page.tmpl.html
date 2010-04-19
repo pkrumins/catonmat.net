@@ -2,14 +2,20 @@
 
 <form action="/admin/edit_page/${page.page_id}" method="POST">
   <div>
-    Title:<br>
-    <input type="text" name="title" value="${page.title|h}" size="100">
+    <p>Created: ${page.created} UTC</p>
+    <p>Last update: ${page.last_update} UTC</p>
   </div>
 
-  <div>
-    Request Path: (<a href="${page.request_path}">visit</a>)<br>
-    <input type="text" name="request_path" value="${page.request_path}" size="100">
+  <div class="left">
+    Title:<br>
+    <input type="text" name="title" value="${page.title|h}" size="60">
   </div>
+
+  <div class="left">
+    Request Path: (<a href="${page.request_path}">visit</a>)<br>
+    <input type="text" name="request_path" value="${page.request_path}" size="60">
+  </div>
+  <div class="clear"></div>
 
   <div>
     Content:<br>
@@ -21,17 +27,39 @@
     <textarea name="excerpt" cols="100" rows="3">${page.excerpt|h}</textarea>
   </div>
 
-  <div>
+  <div class="left">
     Category:<br>
     <select name="cat_id">
       % for cat in cats:
         % if page.category.category_id == cat.category_id:
-         <option value="${cat.category_id}" selected>${cat.name|h}</option>
+          <option value="${cat.category_id}" selected>${cat.name|h} (${cat.count})</option>
         % else:
-         <option value="${cat.category_id}">${cat.name|h}</option>
+          <option value="${cat.category_id}">${cat.name|h} (${cat.count})</option>
         % endif
       % endfor
     </select>
+  </div>
+
+  <div class="left">
+    Publish date (UTC):<br>
+    % if page.blog_page:
+      <input type="text" name="request_path" value="${page.blog_page.publish_date}" size="20">
+    % else:
+      <input type="text" name="request_path" value="${page.created}" size="20">
+    % endif
+  </div>
+
+  <div class="clear"></div>
+
+  <div>
+    Tags:<br>
+    <%
+      if page.status == 'draft':
+        str_tags = page.get_meta('draft_tags')
+      else:
+        str_tags = ', '.join(t.name for t in page.tags)
+    %>
+    <input type="text" name="tags" value="${str_tags}" size="130">
   </div>
 
   <div>

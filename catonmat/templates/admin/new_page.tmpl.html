@@ -2,14 +2,20 @@
 
 <form action="/admin/new_page" method="POST">
   <div>
-    Title:<br>
-    <input type="text" name="title" value="" size="100">
+    <p>Created: ${page.created} UTC</p>
+    <p>Last update: ${page.last_update} UTC</p>
   </div>
 
-  <div>
-    Request Path:<br>
-    <input type="text" name="request_path" value="" size="100">
+  <div class="left">
+    Title:<br>
+    <input type="text" name="title" value="${page.title|h}" size="60">
   </div>
+
+  <div class="left">
+    Request Path: (<a href="${page.request_path}">visit</a>)<br>
+    <input type="text" name="request_path" value="${page.request_path}" size="60">
+  </div>
+  <div class="clear"></div>
 
   <div>
     Content:<br>
