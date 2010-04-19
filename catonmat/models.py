@@ -79,15 +79,22 @@ class Page(ModelBase):
         meta = self.meta.filter_by(meta_key=meta_key).first()
         if meta:
             return meta.meta_val
+        return ''
 
     def set_meta(self, meta_key, meta_val):
-        meta = self.get_meta(meta_key)
+        meta = self.meta.filter_by(meta_key=meta_key).first()
         if not meta:
             meta = PageMeta(self, meta_key, meta_val)
             self.meta.append(meta)
         else:
             meta.meta_val = meta_val
         self.save()
+
+    def delete_meta(self, meta_key):
+        meta = self.get_meta(meta_key)
+        if meta:
+            self.meta.remove(meat)
+            self.save()
 
     def _get_request_path(self):
         if self.url_map:
@@ -443,7 +450,8 @@ mapper(Page, pages_table, properties={
     'meta':     dynamic_loader(
                     PageMeta,
                     backref='page',
-                    order_by=pagemeta_table.c.meta_id
+                    order_by=pagemeta_table.c.meta_id,
+                    cascade='all, delete'
     ),
     'url_map':   relation(UrlMap, uselist=False),
     'blog_page': relation(BlogPage, uselist=False),
@@ -466,7 +474,7 @@ mapper(FouroFour, fourofour_table, properties={
     'visitor': relation(
                  Visitor,
                  uselist=False,
-                 cascade='all, delete, delete-orphan',
+                 cascade='all, delete',
                  single_parent=True
     )
 })
