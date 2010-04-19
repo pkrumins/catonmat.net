@@ -10,9 +10,11 @@
 }
 
 #right {
-  float: left;
+  margin-left: 201px;
   padding: 10px 0 0 20px;
 }
+
+pre { font-family: Courier; }
 
 .clear { 
   clear:both;
