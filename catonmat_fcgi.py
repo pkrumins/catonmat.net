@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/home/pkrumins/catonmat/bin/python
 #
 
 from flup.server.fcgi import WSGIServer
