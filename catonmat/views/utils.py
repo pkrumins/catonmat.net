@@ -46,6 +46,8 @@ class MakoDict(object):
         return self.__dict__[k]
 
     def __getattr__(self, name):
+        if name.startswith('__'):
+            return object.__getattr__(self, name)
         return None
 
     def __setattr__(self, name, value):
