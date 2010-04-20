@@ -14,6 +14,8 @@ from catonmat.models            import session, Page, Category, Revision, Tag, R
 from catonmat.admin             import require_admin
 from catonmat.views.utils       import display_plain_template, MakoDict
 from catonmat.views.pages       import default_page_template_data, display_page
+from catonmat.cache             import cache_del
+from catonmat.config            import config
 
 from datetime                   import datetime
 
@@ -63,6 +65,8 @@ def edit_page_submit(request, page_id):
                 page.add_tag(Tag(tag, seo_name))
 
     page.save()
+    if page.request_path and config.use_cache:
+        cache_del('individual_page_%s' % page.request_path)
 
     change_note = request.form['change_note'].strip()
     if change_note:
@@ -112,6 +116,12 @@ def publish_page(request, page_id):
         page.save()
 
     if status == 'page' or status == 'post':
+        if config.use_cache:
+            cache_del('individual_page_%s' % page.request_path)
+            cache_del('page_list')
+            cache_del('index_page_1')
+            # TODO: optimize cache invalidation method, and invalidate tags and categories
+
         draft_tags = page.get_meta('draft_tags')
         if draft_tags:
             tags = tag_list(draft_tags)
