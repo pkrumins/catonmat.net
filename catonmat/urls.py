@@ -43,6 +43,8 @@ def find_url_map(request_path):
 
 def find_url_map_compute(request_path):
     url_map = session.query(UrlMap).filter_by(request_path=request_path).first()
+    if not url_map:
+        return None
     return {
       'url_map_id':   url_map.url_map_id,
       'request_path': url_map.request_path,
