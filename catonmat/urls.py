@@ -8,6 +8,7 @@
 # Code is licensed under MIT license.
 #
 
+from catonmat.views.utils   import MakoDict
 from catonmat.cache         import from_cache_or_compute
 from catonmat.models        import UrlMap, Redirect
 from catonmat.database      import session
@@ -41,7 +42,12 @@ def find_url_map(request_path):
 
 
 def find_url_map_compute(request_path):
-    return session.query(UrlMap).filter_by(request_path=request_path).first()
+    url_map = session.query(UrlMap).filter_by(request_path=request_path).first()
+    return {
+      'url_map_id':   url_map.url_map_id,
+      'request_path': url_map.request_path,
+      'page_id':      url_map.page_id
+    }
 
 
 class Rule(RuleBase):
