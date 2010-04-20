@@ -16,6 +16,7 @@ from catonmat.database    import session
 from catonmat.views.utils import get_view
 from catonmat.errorlog    import log_404, log_exception
 from catonmat.urls        import predefined_urls, find_url_map, find_redirect
+from catonmat.config      import config
 
 from os import path
 
