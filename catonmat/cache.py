@@ -46,16 +46,24 @@ def cache_del(key):
     mc.delete(str(key))
 
 
+class MemcachedNone(object):
+    pass
+
 def from_cache_or_compute(computef, key, duration, *args, **kw):
     if not config.use_cache:
         return computef(*args, **kw)
 
     cached_data = cache_get(key)
+    if isinstance(cached_data, MemcachedNone):
+        return None
     if cached_data is not None:
         return cached_data
     
     # if data is not cached, compute, cache and return it
     cached_data = computef(*args, **kw)
-    cache_set(key, cached_data, duration)
+    if cached_data is None:
+        cache_set(key, MemcachedNone(), duration)
+    else:
+        cache_set(key, cached_data, duration)
     return cached_data
 
