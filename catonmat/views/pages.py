@@ -11,8 +11,8 @@
 from werkzeug.exceptions    import NotFound
 from werkzeug               import redirect
 
-from catonmat.database      import session
-from catonmat.models        import Page
+from catonmat.database      import session, engine
+from catonmat.models        import Page, UrlMap
 from catonmat.cache         import cache_del
 from catonmat.config        import config
 from catonmat.similarity    import related_posts
@@ -27,7 +27,6 @@ from catonmat.comments      import (
 # ----------------------------------------------------------------------------
 
 def main(request, map):
-    map = session.merge(map)
     if request.method == "POST":
         return handle_page_post(request, map)
     return handle_page_get(request, map)
@@ -35,6 +34,7 @@ def main(request, map):
 
 def handle_page_post(request, map):
     # Currently POST can only originate from a comment being submitted.
+    map = session.query(UrlMap).filter_by(url_map_id=map['url_map_id']).first()
     if request.form.get('submit') is not None:
         return handle_comment_submit(request, map)
 
@@ -132,17 +132,17 @@ def default_display_options():
 
 
 def handle_page_get(request, map):
-    map.page.views = Page.views + 1
-    map.page.save()
+    engine.execute("UPDATE pages SET views=views+1 WHERE page_id=%d" % map['page_id'])
     return cached_template_response(
              compute_handle_page_get,
-             'individual_page_%s' % map.request_path,
+             'individual_page_%s' % map['request_path'],
              3600,
              request,
              map)
 
 
 def compute_handle_page_get(request, map):
+    map = session.query(UrlMap).filter_by(url_map_id=map['url_map_id']).first()
     template_data = default_page_template_data(request, map)
     return render_template("page", **template_data)
 
