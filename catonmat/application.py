@@ -54,3 +54,14 @@ application = SharedDataMiddleware(application,
     { '/static': path.join(path.dirname(__file__), 'static') }
 )
 
+if config.use_profiler:
+    from repoze.profile.profiler import AccumulatingProfileMiddleware
+    application = AccumulatingProfileMiddleware(
+                    application,
+                    log_filename='/tmp/repoze-catonmat.txt',
+                    cachegrind_filename='/tmp/repoze-catonmat-cachegrind',
+                    discard_first_request=True,
+                    flush_at_shutdown=True,
+                    path='/__profile__'
+                  )
+
