@@ -20,15 +20,21 @@ I am starting to push code today 2009.12.09.
 The new catonmat.net is written in Python and reuses the following Python
 modules (list is not complete):
 
-    * Werkzeug   for WSGI and local development HTTP server.
-    * SQLAlchemy for ORM.
-    * Memcached  for caching.
-    * Sphinx     for searching.
-    * Pygments   for parsing posts and syntax highlighting.
-    * Mako       for HTML templates.
-    * SimpleJSON for JSON.
-    * jQuery     for AJAX and visual effects.
+    * Werkzeug       for WSGI and local development HTTP server.
+    * SQLAlchemy     for ORM.
+    * Memcached      for caching.
+    * Sphinx         for searching.
+    * Pygments       for parsing posts and syntax highlighting.
+    * Mako           for HTML templates.
+    * SimpleJSON     for JSON.
+    * jQuery         for AJAX and visual effects.
+    * repoze.profile for profiling
 
+2011.04.20:
+    * fixed caching
+    * added profiling
+    * added 404 log display to admin
+    * added exception log display to admon
 2011.04.19:
     * refactored admin
 2011.04.14:
