@@ -8,6 +8,6 @@
 # Code is licensed under GNU GPL license.
 #
  
-from catonmat.parser.pageparser import parse_page, plain_text_page
+from catonmat.parser.pageparser import parse_page, plain_text_page, parse_page_with_ad
 from catonmat.parser.commentparser import parse_comment
 

@@ -60,6 +60,10 @@ class Page(ModelBase):
         from catonmat.parser import parse_page
         return parse_page(self.content)
 
+    def parsed_content_with_ad(self, ad):
+        from catonmat.parser import parse_page_with_ad
+        return parse_page_with_ad(self.content, ad)
+
     @property
     def plain_text(self):
         from catonmat.parser import plain_text_page

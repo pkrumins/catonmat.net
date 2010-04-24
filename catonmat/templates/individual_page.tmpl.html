@@ -43,7 +43,25 @@
   % endif
 
   <div class="content">
-    ${page_data.page.parsed_content}
+    % if front_page:
+      ${page_data.page.parsed_content}
+    % else:
+    <%def name="google_ad()">
+<script type="text/javascript"><!--
+  google_ad_client = "pub-0433925538517663";
+  /* catonmat before article (blue) 336x280, created 1/23/10 */
+  google_ad_slot = "8733420369";
+  google_ad_width = 336;
+  google_ad_height = 280;
+  //-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+    </%def>
+    <% ad = capture(google_ad) %>
+      ${page_data.page.parsed_content_with_ad(ad)}
+    % endif
   </div>
 
   % if display_options.display_social:
@@ -115,6 +133,14 @@
 
   % if display_options.display_series_after and page_data.page.series:
     ${display_series(page_data.page)}
+  % endif
+
+  % if display_options.display_bsa:
+<!-- BuySellAds.com Zone Code -->
+<div style="text-align:center; overflow: hidden;">
+<div id="bsap_1246842" class="bsarocks bsap_4dcdeecedb41bf017f5c6feac1c42524"></div>
+</div>
+<!-- END BuySellAds.com Zone Code -->
   % endif
 
   % if display_options.display_related_posts and related_posts:
