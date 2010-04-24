@@ -112,7 +112,7 @@ def insert_ad(tree, ad):
                 print "fooo========================================="
                 adblock  = BlockTagNode('<div style="margin-bottom: 10px">')
                 adblock.children.append(tree.children[0].children[0])
-                float_ad = BlockTagNode('<div style="float: right">')
+                float_ad = BlockTagNode('<div style="float: right; margin-right:20px">')
                 float_ad.children.append(LiteralNode(ad))
                 clear = BlockTagNode('<div class="clear">')
                 adblock.children.append(float_ad)
