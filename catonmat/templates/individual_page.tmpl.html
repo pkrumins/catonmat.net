@@ -43,9 +43,7 @@
   % endif
 
   <div class="content">
-    % if front_page:
-      ${page_data.page.parsed_content}
-    % else:
+    % if page_data.page.status == 'post' and not front_page:
     <%def name="google_ad()">
 <script type="text/javascript"><!--
   google_ad_client = "pub-0433925538517663";
@@ -61,6 +59,8 @@
     </%def>
     <% ad = capture(google_ad) %>
       ${page_data.page.parsed_content_with_ad(ad)}
+    % else:
+      ${page_data.page.parsed_content}
     % endif
   </div>
 
