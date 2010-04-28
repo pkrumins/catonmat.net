@@ -186,6 +186,23 @@ blockquote {
 }
 
 /*
+** Page Welcome
+** --------------------------------------------------------
+*/
+#content .welcome {
+  font-size: 1.2em;
+  text-align: center;
+  padding: 1em;
+  margin-bottom: 0.5em;
+  border: 1px dotted gray;
+}
+
+#content .welcome .twitter a {
+  padding-left: 22px;
+  background: url(/static/img/twitter-16x16.gif) no-repeat;
+}
+
+/*
 ** Page Header
 ** --------------------------------------------------------
 */
