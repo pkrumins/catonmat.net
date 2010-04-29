@@ -68,7 +68,11 @@ def get_pages(page_results):
               filter(Page.status.in_(['page', 'post'])). \
               all()
     d = dict([p.page_id, p] for p in pages)
-    return [d[id] for id in page_ids]
+    ret = []
+    for id in page_ids:
+        if id in d:
+            ret.append(d[id])
+    return ret
 
 
 def get_as(as_results):
