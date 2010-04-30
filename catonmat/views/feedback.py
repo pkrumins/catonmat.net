@@ -117,6 +117,6 @@ def handle_feedback_post(request):
 def handle_feedback_get(request):
     form = dict()
     if request.args.get('subject'):
-        form['subject'] = url_unquote_plus(request.args.get('subject').encode('utf8'))
+        form['subject'] = request.args.get('subject')
     return display_template("feedback", form=form, lynx=lynx_browser(request))
 
