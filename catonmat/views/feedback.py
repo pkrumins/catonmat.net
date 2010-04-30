@@ -8,6 +8,8 @@
 # Code is licensed under GNU GPL license.
 #
 
+from werkzeug                   import url_unquote_plus
+
 from catonmat.views.utils       import display_template
 from catonmat.models            import Feedback, Visitor
 
@@ -113,5 +115,8 @@ def handle_feedback_post(request):
 
 
 def handle_feedback_get(request):
-    return display_template("feedback", form=dict(), lynx=lynx_browser(request))
+    form = dict()
+    if request.args.get('subject'):
+        form['subject'] = url_unquote_plus(request.args.get('subject'))
+    return display_template("feedback", form=form, lynx=lynx_browser(request))
 
