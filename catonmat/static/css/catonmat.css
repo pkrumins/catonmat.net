@@ -190,7 +190,7 @@ blockquote {
 ** --------------------------------------------------------
 */
 #content .welcome {
-  font-size: 1.2em;
+  font-size: 1.1em;
   text-align: center;
   padding: 1em;
   margin-bottom: 0.5em;
@@ -200,6 +200,11 @@ blockquote {
 #content .welcome .twitter a {
   padding-left: 22px;
   background: url(/static/img/twitter-16x16.gif) no-repeat;
+}
+
+#content .welcome .amazon a {
+  padding-left: 22px;
+  background: url(/static/img/amazon-16x16.gif) no-repeat;
 }
 
 /*
