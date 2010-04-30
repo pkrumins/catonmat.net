@@ -156,6 +156,21 @@ blockquote {
   width: 549px;
 }
 
+#second-real .ad {
+  color: white;
+  font-size: 0.8461em;
+  text-align: center;
+  margin-top: 25px;
+}
+
+#second-real .ad a {
+  color: #EFEFEF;
+}
+
+#second-real .ad a:hover {
+  text-decoration: underline;
+}
+
 /*
 ** Wrapper for sidebar and content
 ** --------------------------------------------------------
