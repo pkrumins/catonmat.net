@@ -65,7 +65,27 @@
   src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
     </%def>
-    <% ad = capture(google_ad) %>
+    <%def name="crowd_gravity_ad1()">
+<a href="http://www.binverse.com/bnv/top-downloads-3.cfm?ap_id=10712" target="_blank"><img src="http://www.crowdgravity.com/AF_CG/MediaServer/Media/450706CF-91E4-D846-003CE8509231DD01.jpg" width=300 height=250 border=0 alt="Usenet access"></a>
+
+<div id="AF_CG" style="position:absolute; width:2px; height:2px; z-index:-387; left: 0px; top: 0px; visibility: visible;"><img src="http://www.crowdgravity.com/AF_CG/ViewCounter/index.cfm?ap_id=10712&bIsAffiliate=0" width=2 height=2 border=0></div>
+    </%def>
+
+    <%def name="crowd_gravity_ad2()">
+<a href="http://www.binverse.com/bnv/top-downloads-3.cfm?ap_id=10711" target="_blank"><img src="http://www.crowdgravity.com/AF_CG/MediaServer/Media/49EAF85E-05B3-37A0-C6C6258C4F199F71.jpg" width=300 height=250 border=0 alt="Free Usenet Trial"></a>
+
+<div id="AF_CG" style="position:absolute; width:2px; height:2px; z-index:-387; left: 0px; top: 0px; visibility: visible;"><img src="http://www.crowdgravity.com/AF_CG/ViewCounter/index.cfm?ap_id=10711&bIsAffiliate=0" width=2 height=2 border=0></div>
+    </%def>
+
+    <%
+      ## ad = capture(google_ad)
+      from random import choice
+      x = choice([0,1])
+      if x == 0:
+        ad = capture(crowd_gravity_ad1)
+      else:
+        ad = capture(crowd_gravity_ad2)
+    %>
       ${page_data.page.parsed_content_with_ad(ad)}
     % else:
       ${page_data.page.parsed_content}
