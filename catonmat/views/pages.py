@@ -146,9 +146,15 @@ def compute_handle_page_get(request, map):
     map = session.query(UrlMap).filter_by(url_map_id=map['url_map_id']).first()
     template_data = default_page_template_data(request, map)
     commandline_fu_ads = False
+    mit_algos1_ads = False
     if map.page_id == 195:
         commandline_fu_ads = True
-    return render_template("page", commandline_fu_ads=commandline_fu_ads, **template_data)
+    elif map.page_id == 84:
+        mit_algos1_ads = True
+    return render_template("page",
+            commandline_fu_ads=commandline_fu_ads,
+            mit_algos1_ads=mit_algos1_ads,
+            **template_data)
 
 
 def display_page(template_data):
