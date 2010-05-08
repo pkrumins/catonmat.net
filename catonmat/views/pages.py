@@ -8,11 +8,12 @@
 # Code is licensed under GNU GPL license.
 #
 
+from sqlalchemy             import or_
 from werkzeug.exceptions    import NotFound
 from werkzeug               import redirect
 
 from catonmat.database      import session, engine
-from catonmat.models        import Page, UrlMap
+from catonmat.models        import Page, UrlMap, TextAds
 from catonmat.cache         import cache_del
 from catonmat.config        import config
 from catonmat.similarity    import related_posts
@@ -23,6 +24,8 @@ from catonmat.views.utils   import (
 from catonmat.comments      import (
     validate_comment, new_comment, thread, linear, CommentError, lynx_browser
 )
+
+from datetime               import datetime
 
 # ----------------------------------------------------------------------------
 
@@ -145,17 +148,12 @@ def handle_page_get(request, map):
 def compute_handle_page_get(request, map):
     map = session.query(UrlMap).filter_by(url_map_id=map['url_map_id']).first()
     template_data = default_page_template_data(request, map)
-    commandline_fu_ads = False
-    mit_algos1_ads = False
-    if map.page_id == 195:
-        commandline_fu_ads = True
-    elif map.page_id == 84:
-        mit_algos1_ads = True
+    text_ads = map.page.text_ads.filter(
+                 or_(TextAds.expires==None, TextAds.expires<=datetime.utcnow())
+               ).all()
     return render_template("page",
-            commandline_fu_ads=commandline_fu_ads,
-            mit_algos1_ads=mit_algos1_ads,
+            text_ads=text_ads,
             **template_data)
-
 
 def display_page(template_data):
     return display_template("page", **template_data)
