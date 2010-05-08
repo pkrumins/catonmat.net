@@ -241,6 +241,19 @@
 </div>
 % endif
 
+% if text_ads:
+<div class="item list">
+  <div class="title">Sponsored Links</div>
+  <div class="content">
+    <ul>
+      % for ad in text_ads:
+      <li>${ad.html}</li>
+      % endfor
+    </ul>
+  </div>
+</div>
+% endif
+
 % if commandline_fu_ads:
 <div class="item list">
   <div class="title">Sponsored Links</div>
