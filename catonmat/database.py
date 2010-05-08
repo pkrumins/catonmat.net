@@ -219,3 +219,13 @@ news_table = Table('news', metadata,
     mysql_charset='utf8'
 )
 
+text_ads_table = Table('text_ads', metadata,
+    Column('ad_id',         Integer,    primary_key=True),
+    Column('page_id',       Integer,    ForeignKey('pages.page_id')),
+    Column('title',         String(128)),
+    Column('html',          Text),
+    Column('expires',       DateTime),
+    Column('priority',      Integer),
+    mysql_charset='utf8'
+)
+
