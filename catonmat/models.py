@@ -17,7 +17,7 @@ from catonmat.database      import (
     page_tags_table, visitors_table,  rss_table,        pagemeta_table,
     downloads_table, redirects_table, feedback_table,   exceptions_table,
     download_stats_table, article_series_table, pages_to_series_table,
-    search_history_table, news_table,
+    search_history_table, news_table, text_ads_table,
     session
 )
 
@@ -423,6 +423,17 @@ class News(ModelBase):
         return '<News %s>' % self.title
 
 
+class TextAds(ModelBase):
+    def __init__(self, page, title, html, expires=None):
+        self.page  = page
+        self.title = title
+        self.html  = html
+        self.expires = expires
+
+    def __repr__(self):
+        return '<Text Ad %s>' % self.title
+
+
 class PageCategoryExtension(AttributeExtension):
     def set(self, state, value, oldvalue, initiator):
         if value != oldvalue:
@@ -431,7 +442,6 @@ class PageCategoryExtension(AttributeExtension):
                 oldvalue.count = Category.count - 1
                 value.count = Category.count + 1
         return value
-
 
 mapper(Page, pages_table, properties={
     'revisions': dynamic_loader(
@@ -456,6 +466,10 @@ mapper(Page, pages_table, properties={
                     backref='page',
                     order_by=pagemeta_table.c.meta_id,
                     cascade='all, delete, delete-orphan'
+    ),
+    'text_ads':  dynamic_loader(
+                    TextAds,
+                    order_by=[text_ads_table.c.priority, text_ads_table.c.ad_id]
     ),
     'url_map':   relation(UrlMap, uselist=False),
     'blog_page': relation(BlogPage, uselist=False),
@@ -515,4 +529,7 @@ mapper(SearchHistory, search_history_table, properties={
     'visitor': relation(Visitor, uselist=False)
 })
 mapper(News, news_table)
+mapper(TextAds, text_ads_table, properties={
+    'page': relation(Page, uselist=False)
+})
 
