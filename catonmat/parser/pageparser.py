@@ -109,7 +109,6 @@ def insert_ad(tree, ad):
         img = tree.children[0].children[0]
         if isinstance(img, SelfClosingTagNode):
             if img.value.find('post-icon'):
-                print "fooo========================================="
                 adblock  = BlockTagNode('<div style="margin-bottom: 10px">')
                 adblock.children.append(tree.children[0].children[0])
                 float_ad = BlockTagNode('<div style="float: right; margin-right:20px">')
