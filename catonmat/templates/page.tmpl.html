@@ -12,10 +12,31 @@
 % endif  
 </%def>
 
-% if page_data.page.status == 'post':
-<div class="welcome">
-  <div class="amazon">Nothing delights me more than great science literature.<br>If you like my blog, I'd be thankful for a gift from my <a href="http://www.amazon.com/registry/wishlist/QDKYO6OQUU4O?reveal=unpurchased&filter=all&sort=priority&layout=standard&x=4&y=14">Amazon Wishlist</a>.</div>
-</div>
+% if stackvm:
+
+  % if stackvm_signup == 'ok':
+
+  <div class="stackvm_thanks">
+    <p>Thanks for signing up for an early StackVM demo! We'll send you an invite code as soon as we can!</p>
+  </div>
+
+  % elif stackvm_signup == 'failed':
+  
+  <div class="stackvm_failed">
+    <p>Oops, something went wrong with signing up for an early StackVM demo!</p>
+    <p>The error was: ${stackvm_signup_error|h}</p>
+  </div>
+
+  % endif
+
+% else:
+
+  % if page_data.page.status == 'post':
+  <div class="welcome">
+    <div class="amazon">Nothing delights me more than great science literature.<br>If you like my blog, I'd be thankful for a gift from my <a href="http://www.amazon.com/registry/wishlist/QDKYO6OQUU4O?reveal=unpurchased&filter=all&sort=priority&layout=standard&x=4&y=14">Amazon Wishlist</a>.</div>
+  </div>
+  % endif
+
 % endif
 
 ${individual_page(page_data, comment_data, tag_data, display_options, lynx)}

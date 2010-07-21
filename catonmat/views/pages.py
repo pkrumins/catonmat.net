@@ -78,14 +78,14 @@ def handle_comment_preview(request, map):
     template_data = default_page_template_data(request, map)
     template_data['comment_data']['comment_preview'] = comment_preview
 
-    return display_page(template_data)
+    return display_page(**template_data)
 
 
 def page_with_comment_error(request, map, error):
     template_data = default_page_template_data(request, map)
     template_data['comment_data']['comment_error'] = error
 
-    return display_page(template_data)
+    return display_page(**template_data)
 
 
 def default_page_template_data(request, map):
@@ -137,6 +137,16 @@ def default_display_options():
 
 def handle_page_get(request, map):
     engine.execute("UPDATE pages SET views=views+1 WHERE page_id=%d" % map['page_id'])
+
+    stackvm_post = False
+    if map['page_id'] in [226]: # stackvm announcement post ids
+        stackvm_post = True
+
+    if stackvm_post:
+        su = request.args.get('signup')
+        if su in ['ok', 'failed']:
+            return compute_stackvm_get_page(request, map)
+
     return cached_template_response(
              compute_handle_page_get,
              'individual_page_%s' % map['request_path'],
@@ -151,10 +161,28 @@ def compute_handle_page_get(request, map):
     text_ads = map.page.text_ads.filter(
                  or_(TextAds.expires==None, TextAds.expires<=datetime.utcnow())
                ).all()
+
     return render_template("page",
             text_ads=text_ads,
             **template_data)
 
-def display_page(template_data):
+
+def compute_stackvm_get_page(request, map):
+    map = session.query(UrlMap).filter_by(url_map_id=map['url_map_id']).first()
+    template_data = default_page_template_data(request, map)
+    text_ads = map.page.text_ads.filter(
+                 or_(TextAds.expires==None, TextAds.expires<=datetime.utcnow())
+               ).all()
+
+    return display_page(
+            text_ads=text_ads,
+            stackvm=True,
+            stackvm_signup=request.args.get('signup'),
+            stackvm_signup_error=request.args.get('error'),
+            **template_data
+    )
+
+
+def display_page(**template_data):
     return display_template("page", **template_data)
 
