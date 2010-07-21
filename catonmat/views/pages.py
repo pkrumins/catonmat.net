@@ -162,8 +162,13 @@ def compute_handle_page_get(request, map):
                  or_(TextAds.expires==None, TextAds.expires<=datetime.utcnow())
                ).all()
 
+    stackvm = False
+    if map.page_id in [226]:
+        stackvm=True
+
     return render_template("page",
             text_ads=text_ads,
+            stackvm=stackvm,
             **template_data)
 
 
