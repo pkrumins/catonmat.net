@@ -65,8 +65,10 @@ def edit_page_submit(request, page_id):
                 page.add_tag(Tag(tag, seo_name))
 
     page.save()
-    if page.request_path and config.use_cache:
-        cache_del('individual_page_%s' % page.request_path)
+    if config.use_cache:
+        cache_del('posts_tags')
+        if page.request_path:
+            cache_del('individual_page_%s' % page.request_path)
 
     change_note = request.form['change_note'].strip()
     if change_note:
@@ -120,6 +122,9 @@ def publish_page(request, page_id):
             cache_del('individual_page_%s' % page.request_path)
             cache_del('page_list')
             cache_del('index_page_1')
+            cache_del('posts_tags')
+            if status == 'post':
+                cache_del('atom_feed')
             # TODO: optimize cache invalidation method, and invalidate tags and categories
 
         draft_tags = page.get_meta('draft_tags')
