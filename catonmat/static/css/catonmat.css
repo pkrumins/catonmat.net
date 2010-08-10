@@ -156,19 +156,35 @@ blockquote {
   width: 549px;
 }
 
-#second-real .ad {
+#second-real #stackvm-text {
+  float: left;
+  width: 319px;
   color: white;
-  font-size: 0.8461em;
   text-align: center;
-  margin-top: 25px;
 }
 
-#second-real .ad a {
+#second-real #stackvm-text a {
   color: #EFEFEF;
+  border-bottom: 1px dotted #EFEFEF;
 }
 
-#second-real .ad a:hover {
-  text-decoration: underline;
+#second-real #stackvm-text a:hover {
+  border-bottom: none;
+}
+
+#second-real #stackvm-text p.stackvm-logo a {
+  border-bottom: none;
+}
+
+#second-real #stackvm-text p.top {
+  margin-top: 17px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+#second-real #stackvm-video {
+  float: left;
+  width: 230px;
 }
 
 /*
