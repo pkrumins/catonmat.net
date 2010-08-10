@@ -134,12 +134,13 @@ def default_display_options():
         'display_bsa':           True,
     }
 
+stackvm_ids = [226, 231]
 
 def handle_page_get(request, map):
     engine.execute("UPDATE pages SET views=views+1 WHERE page_id=%d" % map['page_id'])
 
     stackvm_post = False
-    if map['page_id'] in [226]: # stackvm announcement post ids
+    if map['page_id'] in stackvm_ids: # stackvm post ids
         stackvm_post = True
 
     if stackvm_post:
@@ -163,7 +164,7 @@ def compute_handle_page_get(request, map):
                ).all()
 
     stackvm = False
-    if map.page_id in [226]:
+    if map.page_id in stackvm_ids:
         stackvm=True
 
     return render_template("page",
