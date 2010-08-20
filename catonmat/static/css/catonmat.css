@@ -67,6 +67,11 @@ blockquote {
   overflow: hidden;
 }
 
+#header #tabs ul {
+  overflow: hidden;
+  float: left;
+}
+
 #header #tabs ul * {
   float: left;
 }
@@ -86,6 +91,21 @@ blockquote {
 
 #header #tabs ul li a:hover {
   background: #DD8E29 url(/static/img/tab-corner-hover.gif) no-repeat right top;
+}
+
+#header #tab-ad {
+  width: 225px;
+  float: right;
+  height: 25px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+#header #tab-ad span {
+  color: gray;
+  padding-bottom: 4px;
+  position: relative;
+  top: -7px;
 }
 
 /*
