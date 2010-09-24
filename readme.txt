@@ -30,33 +30,33 @@ modules (list is not complete):
     * jQuery         for AJAX and visual effects.
     * repoze.profile for profiling
 
-2011.04.20:
+2010.04.20:
     * fixed caching
     * added profiling
     * added 404 log display to admin
     * added exception log display to admon
-2011.04.19:
+2010.04.19:
     * refactored admin
-2011.04.14:
+2010.04.14:
     * added /news
     * improved admin - can now create new pages and publish them
-2011.04.13:
+2010.04.13:
     .------------------------------.
     |                              |
     | * launched the new catonmat! |
     |                              |
     '------------------------------'
-2011.04.12:
+2010.04.12:
     * launching the new catonmat
-2011.04.11:
+2010.04.11:
     * stared adding admin interface
     * added login, list posts, edit posts. revision history now gets saved.
-2011.04.10:
+2010.04.10:
     * added footer
     * added retweet, share on facebook and buzz it buttons
     * add pages now have unique meta description tag.
     * added comment help - instructions how to format comments
-2011.04.09:
+2010.04.09:
     * articles by page list now works
     * added captcha for feedback form and comments form
     * added blog service ping script
