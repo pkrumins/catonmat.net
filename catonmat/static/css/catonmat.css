@@ -248,14 +248,13 @@ blockquote {
   border: 1px dotted gray;
 }
 
-#content .welcome .twitter a {
-  padding-left: 22px;
-  background: url(/static/img/twitter-16x16.gif) no-repeat;
+#content .welcome p {
+  margin-bottom: 0;
 }
 
-#content .welcome .amazon a {
-  padding-left: 22px;
-  background: url(/static/img/amazon-16x16.gif) no-repeat;
+#content .welcome .twitter img {
+  margin-right: 5px;
+  vertical-align: top;
 }
 
 /*
