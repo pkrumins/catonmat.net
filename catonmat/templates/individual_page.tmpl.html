@@ -86,18 +86,14 @@
       <script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
     </div>
     <div class="facebook">
-      <a name="fb_share" type="button_count" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+      <%
+        post_url = 'http://www.catonmat.net%s' % page_data.page.request_path
+      %>
+      <iframe src="http://www.facebook.com/plugins/like.php?href=${post_url|u}&amp;layout=button_count&amp;show_faces=true&amp;width=110&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
     </div>
     <div class="buzz">
-      <%
-      post_url = 'http://www.catonmat.net%s' % page_data.page.request_path
-      post_title = page_data.page.title
-      post_desc = page_data.page.excerpt
-      src_url = 'http://www.catonmat.net'
-      blog_title = 'good coders code, great reuse'
-      %>
-
-      <a href="http://www.google.com/reader/link?url=${post_url|u}&title=${post_title|u}&snippet=${post_desc|u}&srcURL=${src_url|u}&srcTitle=${blog_title|u}" title="Share on Google Buzz"><img src="/static/img/buzzit.gif" alt="Buzz it!"></a>
+      <a title="Post to Google Buzz" class="google-buzz-button" href="http://www.google.com/buzz/post" data-button-style="small-count"></a>
+      <script type="text/javascript" src="http://www.google.com/buzz/api/button.js"></script>
     </div>
     <div class="clear"></div>
   </div>

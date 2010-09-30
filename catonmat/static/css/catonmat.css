@@ -565,7 +565,7 @@ blockquote {
 #content .page .social .twitter {
   float: left;
   position: relative;
-  top: 1px;
+  top: 2px;
   width: 120px;
   overflow:hidden;
 }
