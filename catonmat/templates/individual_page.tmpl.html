@@ -113,6 +113,18 @@
   </div>
   % endif
 
+  % if page_data.page.status == 'post' and not front_page and not stackvm: 
+  <div id="adside_after_article">
+<script type="text/javascript">
+	doclix_pid = 16577;
+	doclix_cid = 1956;
+	doclix_w = 468;
+	doclix_h = 60;
+</script>
+<script type="text/javascript" src="http://ads.doclix.com/adserver/serve/js/doclix_synd_ifrm.js" charset="utf-8"></script>
+  </div>
+  % endif
+
   <div class="footer">
     % if display_options.display_tags and tags_data.tags:
       <div class="tags"><a href="/tags" title="All catonmat tags" class="tags_link">Tags</a>:
