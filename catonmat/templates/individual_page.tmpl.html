@@ -66,22 +66,8 @@
 </script>
     </%def>
 
-    <%def name="adside_ad()">
-<script type="text/javascript">
-	doclix_pid = 16577;
-	doclix_cid = 1955;
-	doclix_w = 336;
-	doclix_h = 280;
-</script>
-<script type="text/javascript" src="http://ads.doclix.com/adserver/serve/js/doclix_synd_ifrm.js" charset="utf-8"></script>
-    </%def>
-
     <%
-      from random import choice
-      if (choice([0,1]) == 0):
-        ad = capture(google_ad)
-      else:
-        ad = capture(adside_ad)
+      ad = capture(google_ad)
     %>
       ${page_data.page.parsed_content_with_ad(ad)}
     % else:
