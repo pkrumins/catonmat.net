@@ -76,8 +76,8 @@ def validate_feedback(request):
             raise FeedbackError, "You didn't type the message!"
 
     def validate_captcha(captcha):
-        if captcha != "robot":
-            raise FeedbackError, """Please type "robot" in the box below."""
+        if captcha != "cats":
+            raise FeedbackError, """Please type "cats" in the box below."""
 
     validate_name(request.form['name'].strip())
     validate_email(request.form['email'].strip())
