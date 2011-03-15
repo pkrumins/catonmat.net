@@ -91,8 +91,8 @@ def validate_comment(request, preview=False):
                 raise CommentError, "Something went wrong, the comment you were responding to was not found..."
 
     def validate_captcha(captcha):
-        if captcha != "flowers":
-            raise CommentError, """Please type "flowers" in the box below"""
+        if captcha != "meow":
+            raise CommentError, """Please type "meow" in the box below"""
 
     validate_page_id(request.form['page_id'])
     validate_parent_id(request.form['parent_id'])
