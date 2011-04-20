@@ -17,13 +17,13 @@
   <div class="userinfo">
     <div>
       % if comment.website:
-      <span class="name"><a href="${comment.website|h}" title="${comment.website|h}">${comment.name|h}</a></span>
+      <span class="name"><a href="${comment.website|h}" title="${comment.website|h}" rel="nofollow">${comment.name|h}</a></span>
       % else:
       <span class="name">${comment.name|h}</span>
       %endif
 
       % if comment.twitter:
-      <span class="twitter"><a href="http://twitter.com/${comment.twitter}" title="${comment.twitter} or Twitter">${comment.twitter}</a></span>
+      <span class="twitter"><a href="http://twitter.com/${comment.twitter}" title="${comment.twitter} or Twitter" rel="nofollow">${comment.twitter}</a></span>
       % endif
 
       % if not preview:
