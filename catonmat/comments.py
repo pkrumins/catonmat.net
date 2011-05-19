@@ -90,9 +90,9 @@ def validate_comment(request, preview=False):
             if comments != 1:
                 raise CommentError, "Something went wrong, the comment you were responding to was not found..."
 
-    def validate_captcha(captcha):
-        if captcha != "blue":
-            raise CommentError, """Please type "blue" in the box below"""
+    def validate_captcha(name, captcha):
+        if name != captcha:
+            raise CommentError, 'Please type "' + name + '" in the box below'
 
     validate_page_id(request.form['page_id'])
     validate_parent_id(request.form['parent_id'])
@@ -103,7 +103,7 @@ def validate_comment(request, preview=False):
     validate_comment_txt(request.form['comment'].strip())
 
     if not lynx_browser(request) and not preview:
-        validate_captcha(request.form['commentc'].strip())
+        validate_captcha(request.form['name'].strip(), request.form['commentc'].strip())
 
 
 def json_response(**data):

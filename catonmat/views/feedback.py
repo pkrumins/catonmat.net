@@ -75,9 +75,9 @@ def validate_feedback(request):
         if not message:
             raise FeedbackError, "You didn't type the message!"
 
-    def validate_captcha(captcha):
-        if captcha != "blue":
-            raise FeedbackError, """Please type "blue" in the box below."""
+    def validate_captcha(name, captcha):
+        if name != captcha:
+            raise FeedbackError, 'Please type "' + name + '" in the box below.'
 
     validate_name(request.form['name'].strip())
     validate_email(request.form['email'].strip())
@@ -87,7 +87,7 @@ def validate_feedback(request):
 
     # pass through Lynx users (I have several loyal blog readers that use Lynx only)
     if not lynx_browser(request):
-        validate_captcha(request.form['feedbackc'].strip())
+        validate_captcha(request.form['name'].strip(), request.form['feedbackc'].strip())
 
 
 def handle_feedback_post(request):
