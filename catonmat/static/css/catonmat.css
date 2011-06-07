@@ -404,6 +404,11 @@ blockquote {
   color: white
 }
 
+#content .page .content a.nohover:hover,
+#content .page .content a.nohover:visited:hover {
+  background-color: white;
+}
+
 #content .page .content .post-icon {
   padding: 10px 15px 10px 0px;
 }
