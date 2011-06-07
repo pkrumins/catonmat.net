@@ -17,7 +17,7 @@ from catonmat.database      import (
     page_tags_table, visitors_table,  rss_table,        pagemeta_table,
     downloads_table, redirects_table, feedback_table,   exceptions_table,
     download_stats_table, article_series_table, pages_to_series_table,
-    search_history_table, news_table, text_ads_table,
+    search_history_table, news_table, text_ads_table,   paypal_payments_table,
     session
 )
 
@@ -26,6 +26,7 @@ from datetime               import datetime
 
 import re
 import hashlib
+import simplejson as json
 
 # ----------------------------------------------------------------------------
 
@@ -288,6 +289,10 @@ class FouroFour(ModelBase):
 class Exception(ModelBase):
     def __init__(self, request, exception_type, last_error, traceback):
         self.request_path = request.path
+        if request.args:
+            self.args = json.dumps(request.args)
+        if request.form:
+            self.form = json.dumps(request.form)
         self.exception_type = exception_type
         self.last_error = last_error
         self.traceback = traceback
@@ -434,6 +439,39 @@ class TextAds(ModelBase):
         return '<Text Ad %s>' % self.title
 
 
+class PayPalPayments(ModelBase):
+    def __init__(self, product_type, request):
+        self.product_type = product_type
+        self.transaction_id = request.form['txn_id']
+        self.transaction_type = request.form['txn_type']
+        self.payment_status = request.form['payment_status']
+        try:
+            self.mc_gross = request.form['mc_gross']
+        except KeyError:
+            try:
+                self.mc_gross = request.form['mc_gross_1']
+            except KeyError:
+                try:
+                    self.mc_gross = request.form['mc_gross1']
+                except KeyError:
+                    self.mc_gross = 0
+        self.mc_fee = request.form['mc_fee']
+        self.first_name = request.form['first_name']
+        self.last_name = request.form['last_name']
+        self.payer_email = request.form['payer_email']
+        self.system_date = datetime.utcnow()
+        self.payment_date = request.form['payment_date']
+        self.status = 'new'
+        self.ipn_message = json.dumps(request.form.to_dict())
+        self.visitor = Visitor(request)
+
+    def extract(self, prop):
+        return json.loads(self.ipn_message)[prop]
+
+    def __repr__(self):
+        return '<Paypal Payment from %s>' % self.extract('payer_email')
+
+
 class PageCategoryExtension(AttributeExtension):
     def set(self, state, value, oldvalue, initiator):
         if value != oldvalue:
@@ -531,5 +569,8 @@ mapper(SearchHistory, search_history_table, properties={
 mapper(News, news_table)
 mapper(TextAds, text_ads_table, properties={
     'page': relation(Page, uselist=False)
+})
+mapper(PayPalPayments, paypal_payments_table, properties={
+    'visitor': relation(Visitor, uselist=False)
 })
 
