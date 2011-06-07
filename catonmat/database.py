@@ -124,6 +124,8 @@ fourofour_table = Table('404', metadata,
 exceptions_table = Table('exceptions', metadata,
     Column('exception_id',   Integer,    primary_key=True),
     Column('request_path',   Text),
+    Column('args',           Text),
+    Column('form',           Text),
     Column('exception_type', Text),
     Column('traceback',      Text),
     Column('last_error',     Text),
@@ -227,5 +229,24 @@ text_ads_table = Table('text_ads', metadata,
     Column('expires',       DateTime),
     Column('priority',      Integer),
     mysql_charset='utf8'
+)
+
+paypal_payments_table = Table('paypal_payments', metadata,
+    Column('payment_id',        Integer,    primary_key=True),
+    Column('product_type',      String(128)), # my custom type
+    Column('status',            String(64)),  # my custom status
+    Column('transaction_id',    String(128)), # txn_id         paypal field
+    Column('transaction_type',  String(128)), # txn_type       paypal field
+    Column('payment_status',    String(64)),  # payment_status paypal field
+    Column('mc_gross',          String(16)),  # mc_gross       paypal field
+    Column('mc_fee',            String(16)),  # mc_fee         paypal field
+    Column('first_name',        String(128)), # first_name     paypal field
+    Column('last_name',         String(128)), # last_name      paypal field
+    Column('payer_email',       String(256)), # payer_email    paypal field
+    Column('system_date',       DateTime),    # system date i received POST request from paypal
+    Column('payment_date',      String(128)), # payment_date field in paypal field
+    Column('ipn_message',       Text),
+    Column('comments',          Text),
+    Column('visitor_id',        Integer,    ForeignKey('visitors.visitor_id'))
 )
 
