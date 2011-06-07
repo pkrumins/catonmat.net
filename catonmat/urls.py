@@ -124,6 +124,9 @@ predefined_urls = Map([
     # News
     Rule('/news')                      > 'news.main',
 
+    # Payments
+    Rule('/payments/awk_book')         > 'catonmat.payments.awk_book',
+
     # Admin
     Submount('/admin', [
         Rule('/')                      > 'admin.index.main',
