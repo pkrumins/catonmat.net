@@ -38,6 +38,10 @@ def application(request):
         if redir:
             return redirect(redir.new_path, code=redir.code)
 
+        #print "Request path: " + request.path
+        if request.path[-1] != '/':
+            return redirect(request.path + '/', code=301)
+
         url_map = find_url_map(request.path)
         if url_map:
             return handle_request('pages.main', request, url_map)
