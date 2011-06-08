@@ -10,7 +10,7 @@
       <span class="sprev" title="This is the first part in the series (there is no previous article)">&lt;- previous article</span>
     % else:
       <% prev_page = series.pages[series.pages.index(page)-1] %>
-      <span class="sprev"><a href="${prev_page.request_path}" title="${prev_page.title|h}">&lt;- previous article</a></span>
+      <span class="sprev"><a href="${prev_page.request_path}/" title="${prev_page.title|h}">&lt;- previous article</a></span>
     % endif
     <span class="toc">
       <select name="navigate">
@@ -28,7 +28,7 @@
       <span class="snext" title="This is currently the last part in the series (there is no next article)">next article -&gt;</span>
     % else:
       <% next_page = series.pages[series.pages.index(page)+1] %>
-      <span class="snext"><a href="${next_page.request_path}" title="${next_page.title|h}">next article -></a></span>
+      <span class="snext"><a href="${next_page.request_path}/" title="${next_page.title|h}">next article -></a></span>
     % endif
   </div>
 </form>
