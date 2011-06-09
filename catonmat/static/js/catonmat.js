@@ -266,20 +266,3 @@ var catonmat = {
   }
 };
 
-var v1 = '<object width="230" height="180"><param name="movie" value="http://www.youtube.com/v/TWdkNO6XlFI&amp;hl=en_US&amp;fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/TWdkNO6XlFI&amp;hl=en_US&amp;fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="230" height="180"></embed></object>';
-
-var v2 = '<object width="230" height="180"><param name="movie" value="http://www.youtube.com/v/ppXUbj0MA3E&amp;hl=en_US&amp;fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/ppXUbj0MA3E&amp;hl=en_US&amp;fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="230" height="180"></embed></object>';
-
-var stackvm_videos = [v1, v2];
-
-var stackvm = {
-    init_demo_links: function () {
-        $('#stackvm-text p.demo a').each(function (i) {
-            $(this).click(function (ev) {
-                ev.preventDefault();
-                $('#stackvm-video').html(stackvm_videos[i]);
-            });
-        });
-    }
-};
-

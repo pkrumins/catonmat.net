@@ -173,35 +173,31 @@ blockquote {
   width: 549px;
 }
 
-#second-real #stackvm-text {
-  float: left;
-  width: 319px;
-  color: white;
-  text-align: center;
-}
-
-#second-real #stackvm-text a {
-  color: #EFEFEF;
-  border-bottom: 1px dotted #EFEFEF;
-}
-
-#second-real #stackvm-text a:hover {
-  border-bottom: none;
-}
-
-#second-real #stackvm-text p.stackvm-logo a {
-  border-bottom: none;
-}
-
-#second-real #stackvm-text p.top {
+#announcements .title {
   margin-top: 17px;
   font-size: 1.2em;
   font-weight: bold;
 }
 
-#second-real #stackvm-video {
-  float: left;
-  width: 230px;
+#announcements a {
+  color: #EFEFEF;
+  border-bottom: 1px dotted #EFEFEF;
+}
+
+#announcements a:hover {
+  border-bottom: none;
+}
+
+#announcements p {
+  color: #EFEFEF;
+}
+
+#browserling {
+  text-align: center;
+}
+
+#browserling .browserling-logo a {
+  border-bottom: none;
 }
 
 /*
