@@ -17,13 +17,23 @@
   <div class="userinfo">
     <div>
       % if comment.website:
-      <span class="name"><a href="${comment.website|h}" title="${comment.website|h}" rel="nofollow">${comment.name|h}</a></span>
+      <%
+        nofollow = ' rel="nofollow"'
+        if comment.website.find('catonmat.net') >= 0:
+          nofollow = ''
+      %>
+      <span class="name"><a href="${comment.website|h}" title="${comment.website|h}"${nofollow}>${comment.name|h}</a></span>
       % else:
       <span class="name">${comment.name|h}</span>
       %endif
 
       % if comment.twitter:
-      <span class="twitter"><a href="http://twitter.com/${comment.twitter}" title="${comment.twitter} or Twitter" rel="nofollow">${comment.twitter}</a></span>
+      <%
+        nofollow = ' rel="nofollow"'
+        if comment.twitter == 'pkrumins':
+          nofollow = ''
+      %>
+      <span class="twitter"><a href="http://twitter.com/${comment.twitter}" title="${comment.twitter} or Twitter"${nofollow}>${comment.twitter}</a></span>
       % endif
 
       % if not preview:
