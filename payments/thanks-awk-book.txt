@@ -1,0 +1,19 @@
+
+Dear !NAME! !SURNAME!,
+
+Thank you so much for buying my "Awk One-Liners Explained" e-book. Please find your e-book attached as a PDF file.
+
+I'd really appreciate if you tweeted about my e-book. It took me a lot of time to write and tweeting about it would really help to get it out. Here is a quick link for tweeting:
+
+http://bit.ly/tweetawkbook
+
+Thank you!
+
+
+Sincerely,
+Peteris Krumins (@pkrumins on twitter)
+http://www.catonmat.nat
+
+
+PS. This is not my only e-book, I am also writing "Sed One-Liners Explained" and "Perl One-Liners Explained". I'll publish them soon on my blog!
+
