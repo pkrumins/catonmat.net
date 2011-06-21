@@ -455,7 +455,10 @@ class PayPalPayments(ModelBase):
                     self.mc_gross = request.form['mc_gross1']
                 except KeyError:
                     self.mc_gross = 0
-        self.mc_fee = request.form['mc_fee']
+        try:
+            self.mc_fee = request.form['mc_fee']
+        except KeyError:
+            self.mc_fee = 0
         self.first_name = request.form['first_name']
         self.last_name = request.form['last_name']
         self.payer_email = request.form['payer_email']
