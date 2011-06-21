@@ -22,10 +22,10 @@ from email.mime.text import MIMEText
 
 from catonmat.models import PayPalPayments, session
 
-PayPalSandbox = True
+PayPalSandbox = False
 
 MailServer = "localhost"
-MailFrom = "peter@catonmat.net"
+MailFrom = "Peteris Krumins <peter@catonmat.net>"
 
 PayPalUrl = "www.sandbox.paypal.com" if PayPalSandbox else "www.paypal.com"
 
@@ -43,14 +43,15 @@ def awk_book_template(infile, outfile, payment):
     data = fd.read()
     fd.close()
 
+    email = payment.payer_email.replace("_", "\\_")
     data = template_replace(data, {
         "NAME" : payment.first_name,
         "SURNAME" : payment.last_name,
-        "EMAIL" : payment.payer_email
+        "EMAIL" : email
     })
 
     fd = open("%s/%s" % (AwkBookPath, outfile), 'w+')
-    fd.write(data)
+    fd.write(data.encode('utf-8'))
     fd.close()
 
 def awk_book(payment):
@@ -92,8 +93,8 @@ def awk_book(payment):
     latex.wait()
     latex_log.close()
 
-    print "Sending the Awk book to %s %s (%s)." % (payment.first_name, payment.last_name, payment.payer_email)
-    send_main(payment.payer_email, MailFrom, Products['awk_book']['subject'], email_body, attachment, attachment_name)
+    print "Sending the Awk book to %s %s (%s)." % (payment.first_name.encode('utf8'), payment.last_name.encode('utf8'), payment.payer_email)
+    send_mail(payment.payer_email, MailFrom, Products['awk_book']['subject'], email_body, attachment, attachment_name)
 
 
 Products = {
@@ -116,7 +117,7 @@ def send_mail(mail_to, mail_from, subject, body, attachment, attachment_name):
     mail['From'] = mail_from
     mail['To'] = ','.join(TO)
 
-    mailbody = MIMEText(BODY, 'plain')
+    mailbody = MIMEText(body, 'plain')
     mail.attach(mailbody)
 
     fp = open(attachment, 'rb')
@@ -149,6 +150,7 @@ def valid_paypal_payment(payment):
     try:
         post_data = json.loads(payment.ipn_message)
         post_data['cmd'] = '_notify-validate'
+        post_data = dict([k, v.encode('utf-8')] for k, v in post_data.items())
         response = urllib2.urlopen(PayPalPostUrl, urllib.urlencode(post_data))
         return response.read() == 'VERIFIED'
     except (urllib2.HTTPError, urllib2.URLError), e:
@@ -214,5 +216,6 @@ def handle_new_payments():
 if __name__ == "__main__":
     while True:
         handle_new_payments()
+        session.commit()
         time.sleep(30)
 
