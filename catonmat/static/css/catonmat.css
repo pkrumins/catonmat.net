@@ -194,11 +194,24 @@ blockquote {
 
 #browserling {
   text-align: center;
+  float: left;
+  width: 274px;
 }
 
 #browserling .browserling-logo a {
   border-bottom: none;
 }
+
+#books {
+  text-align: center;
+  float: left;
+  width: 275px;
+}
+
+#books .awk-logo a {
+  border-bottom: none;
+}
+
 
 /*
 ** Wrapper for sidebar and content
