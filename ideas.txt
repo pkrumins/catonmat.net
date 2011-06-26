@@ -409,3 +409,7 @@ provide lynx-friendly version of catonmat.
 Quite often the default <textarea> size is too small for comments. Make it
 resizable like in stackoverflow.com comments.
 
+68. A link to "More Related Articles"
+Add a link to "more related articles" after the list of 10 related articles
+after each article.
+
