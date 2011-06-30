@@ -44,10 +44,25 @@ def awk_book_template(infile, outfile, payment):
     fd.close()
 
     email = payment.payer_email.replace("_", "\\_")
-    data = template_replace(data, {
+
+    if payment.product_type == 'awk_book':
+        bgcontents = "Prepared exclusively for !NAME! !SURNAME! (!EMAIL!)"
+    elif payment.product_type == 'awk_book_shantanu':
+        bgcontents = "Prepared exclusively for !NAME! !SURNAME! (!EMAIL!) from Shantanu N Kulkarni's Awk class"
+    else:
+        print "Unknown product_type %s" % payment.product_type
+
+    bgcontents = template_replace(bgcontents, {
         "NAME" : payment.first_name,
         "SURNAME" : payment.last_name,
         "EMAIL" : email
+    })
+
+    data = template_replace(data, {
+        "NAME" : payment.first_name,
+        "SURNAME" : payment.last_name,
+        "EMAIL" : email,
+        "BGCONTENTS" : bgcontents
     })
 
     fd = open("%s/%s" % (AwkBookPath, outfile), 'w+')
@@ -103,6 +118,14 @@ Products = {
         'file' : 'awkbook.pdf',
         'attachment_name' : 'awk-one-liners-explained.pdf',
         'price' : '5.95',
+        'email_body' : 'thanks-awk-book.txt',
+        'handler' : awk_book
+    },
+    'awk_book_shantanu' : {
+        'subject' : 'Your Awk One-Liners Explained E-Book!',
+        'file' : 'awkbook.pdf',
+        'attachment_name' : 'awk-one-liners-explained.pdf',
+        'price' : '2.50',
         'email_body' : 'thanks-awk-book.txt',
         'handler' : awk_book
     }
