@@ -12,7 +12,7 @@ Thank you!
 
 Sincerely,
 Peteris Krumins (@pkrumins on twitter)
-http://www.catonmat.nat
+http://www.catonmat.net
 
 
 PS. This is not my only e-book, I am also writing "Sed One-Liners Explained" and "Perl One-Liners Explained". I'll publish them soon on my blog!
