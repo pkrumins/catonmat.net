@@ -19,6 +19,7 @@ from email.message import Message
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
+from unidecode import unidecode
 
 from catonmat.models import PayPalPayments, session
 
@@ -109,7 +110,7 @@ def awk_book(payment):
     latex.wait()
     latex_log.close()
 
-    print "Sending the Awk book to %s %s (%s)." % (payment.first_name, payment.last_name, payment.payer_email)
+    print "Sending the Awk book to %s %s (%s)." % (unidecode(payment.first_name), unidecode(payment.last_name), payment.payer_email)
     send_mail(payment.payer_email, MailFrom, Products['awk_book']['subject'], email_body, attachment, attachment_name)
 
 
@@ -141,7 +142,7 @@ def send_mail(mail_to, mail_from, subject, body, attachment, attachment_name):
     mail['From'] = mail_from
     mail['To'] = ','.join(TO)
 
-    mailbody = MIMEText(body, 'plain')
+    mailbody = MIMEText(body.encode('utf8'), 'plain')
     mail.attach(mailbody)
 
     fp = open(attachment, 'rb')
