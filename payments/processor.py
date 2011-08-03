@@ -69,6 +69,7 @@ def awk_book_template(infile, outfile, payment):
     fd.write(data.encode('utf-8'))
     fd.close()
 
+
 def awk_book(payment):
     print "Preparing Awk Book..."
     subject = Products['awk_book']['subject']
@@ -108,7 +109,7 @@ def awk_book(payment):
     latex.wait()
     latex_log.close()
 
-    print "Sending the Awk book to %s %s (%s)." % (payment.first_name.encode('utf8'), payment.last_name.encode('utf8'), payment.payer_email)
+    print "Sending the Awk book to %s %s (%s)." % (payment.first_name, payment.last_name, payment.payer_email)
     send_mail(payment.payer_email, MailFrom, Products['awk_book']['subject'], email_body, attachment, attachment_name)
 
 
@@ -199,7 +200,7 @@ def handle_new_payments():
         .all()
 
     for payment in new_payments:
-        now = datetime.utcnow().strftime("%Y-%M-%d %H:%M:%S")
+        now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         print "[%s] Processing new payment (id: %s, trx_id: %s) for %s from %s." % (now, payment.payment_id, payment.transaction_id, payment.product_type, payment.payer_email)
         if payment_already_completed(payment):
             print "Payment (id: %s, trx_id: %s) has already been completed." % (payment.payment_id, payment.transaction_id)
@@ -236,9 +237,24 @@ def handle_new_payments():
         session.commit()
 
 
+def handle_free_payments():
+    new_payments = session.query(PayPalPayments) \
+        .filter_by(status='free') \
+        .order_by(PayPalPayments.payment_id) \
+        .all()
+
+    for payment in new_payments:
+        now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        print "[%s] Processing free payment (id: %s, trx_id: %s) for %s from %s." % (now, payment.payment_id, payment.transaction_id, payment.product_type, payment.payer_email)
+        Products[payment.product_type]['handler'](payment)
+        payment.status = 'completed_free'
+        session.commit()
+
+
 if __name__ == "__main__":
     while True:
         handle_new_payments()
+        handle_free_payments()
         session.commit()
         time.sleep(30)
 
