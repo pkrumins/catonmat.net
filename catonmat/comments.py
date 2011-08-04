@@ -91,7 +91,7 @@ def validate_comment(request, preview=False):
                 raise CommentError, "Something went wrong, the comment you were responding to was not found..."
 
     def validate_captcha(name, captcha):
-        if name != captcha:
+        if name[0:3] != captcha:
             raise CommentError, 'Please type "' + name[0:3] + '" in the box below'
 
     validate_page_id(request.form['page_id'])
