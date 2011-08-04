@@ -77,7 +77,7 @@ def validate_feedback(request):
 
     def validate_captcha(name, captcha):
         if name != captcha:
-            raise FeedbackError, 'Please type "' + name + '" in the box below.'
+            raise FeedbackError, 'Please type "' + name[0:3] + '" in the box below.'
 
     validate_name(request.form['name'].strip())
     validate_email(request.form['email'].strip())

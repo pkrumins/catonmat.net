@@ -92,7 +92,7 @@ def validate_comment(request, preview=False):
 
     def validate_captcha(name, captcha):
         if name != captcha:
-            raise CommentError, 'Please type "' + name + '" in the box below'
+            raise CommentError, 'Please type "' + name[0:3] + '" in the box below'
 
     validate_page_id(request.form['page_id'])
     validate_parent_id(request.form['parent_id'])
