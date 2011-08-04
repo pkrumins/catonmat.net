@@ -595,6 +595,8 @@ blockquote {
 }
 
 #content .page .social .googleplus {
+  position: relative;
+  top: 2px;
   float: left;
 }
 
