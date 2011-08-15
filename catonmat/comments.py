@@ -24,6 +24,8 @@ from collections            import defaultdict
 import re
 import simplejson as json
 
+from comment_spamlist import spamlist_names, spamlist_urls
+
 # ----------------------------------------------------------------------------
 
 email_rx   = re.compile(r'^.+@.+\..+$')
@@ -94,6 +96,17 @@ def validate_comment(request, preview=False):
         if name[0:3] != captcha:
             raise CommentError, 'Please type "' + name[0:3] + '" in the box below'
 
+    def validate_spam_comment(name, url, comment):
+        msg = """My anti-spam system says your comment looks spammy. I can't post it. If you're a real person and your comment is real, can you please email it to me at <a href="mailto:peter@catonmat.net">peter@catonmat.net</a>? I'll post your comment then and tune my anti-spam system not to match comments like these in the future. Thanks!"""
+
+        for r in spamlist_names:
+            if r.search(name):
+                raise CommentError, msg
+
+        for r in spamlist_urls:
+            if r.search(url):
+                raise CommentError, msg
+
     validate_page_id(request.form['page_id'])
     validate_parent_id(request.form['parent_id'])
     validate_name(request.form['name'].strip())
@@ -101,6 +114,7 @@ def validate_comment(request, preview=False):
     validate_twitter(request.form['twitter'].replace('@', '').strip())
     validate_website(request.form['website'].strip())
     validate_comment_txt(request.form['comment'].strip())
+    validate_spam_comment(request.form['name'].strip(), request.form['website'].strip(), request.form['comment'].strip())
 
     if not lynx_browser(request) and not preview:
         validate_captcha(request.form['name'].strip(), request.form['commentc'].strip())
