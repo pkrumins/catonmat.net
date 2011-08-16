@@ -15,7 +15,12 @@ spamlist_names = [
     r('real estate', re.I),
     r('free dating', re.I),
     r('countertop', re.I),
-    r('solar panel', re.I)
+    r('solar panel', re.I),
+    r('dentists', re.I),
+    r('locksmith in', re.I),
+    r('buy.*online', re.I),
+    r('coupons', re.I),
+    r('self diagnosis', re.I),
 ]
 
 spamlist_urls = [
