@@ -24,7 +24,7 @@ from collections            import defaultdict
 import re
 import simplejson as json
 
-from comment_spamlist import spamlist_names, spamlist_urls
+from comment_spamlist import spamlist_names, spamlist_urls, spamlist_comments
 
 # ----------------------------------------------------------------------------
 
@@ -105,6 +105,10 @@ def validate_comment(request, preview=False):
 
         for r in spamlist_urls:
             if r.search(url):
+                raise CommentError, msg
+
+        for r in spamlist_comments:
+            if r.search(comment):
                 raise CommentError, msg
 
     validate_page_id(request.form['page_id'])
