@@ -52,10 +52,12 @@ spamlist_names = [
     r('angle grinder', re.I),
     r('janetcmr', re.I),
     r('steamfast sf-407', re.I),
+    r('du ventre', re.I)
 ]
 
 spamlist_urls = [
-    r('cancer', re.I)
+    r('cancer', re.I),
+    r('du-?ventre', re.I),
 ]
 
 spamlist_comments = [
