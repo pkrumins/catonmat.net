@@ -52,7 +52,13 @@ spamlist_names = [
     r('angle grinder', re.I),
     r('janetcmr', re.I),
     r('steamfast sf-407', re.I),
-    r('du ventre', re.I)
+    r('du ventre', re.I),
+    r('iphone', re.I),
+    r('antivirus', re.I),
+    r('mortgage', re.I),
+    r('windows.*key', re.I),
+    r('office.*key', re.I),
+    r('louis.*vuitton', re.I),
 ]
 
 spamlist_urls = [
