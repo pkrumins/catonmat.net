@@ -15,6 +15,7 @@ spamlist_names = [
     r('fishing.*florida', re.I),
     r('real estate', re.I),
     r('free dating', re.I),
+    r('dating site', re.I),
     r('countertop', re.I),
     r('solar panel', re.I),
     r('dentists', re.I),
@@ -29,13 +30,11 @@ spamlist_names = [
     r('horoscope', re.I),
     r('garmin.*forerunner', re.I),
     r('replica purses', re.I),
-    r('replica purses', re.I),
     r('cheap.*insurance', re.I),
     r('mobile.*review', re.I),
     r('.+app?artment', re.I),
     r('refurbished.+', re.I),
     r('water damage', re.I),
-    r('fire damage', re.I),
     r('fire damage', re.I),
     r('.+ seo', re.I),
     r('light bulb', re.I),
@@ -59,14 +58,33 @@ spamlist_names = [
     r('windows.*key', re.I),
     r('office.*key', re.I),
     r('louis.*vuitton', re.I),
+    r('land for sale', re.I),
+    r('suspension training', re.I),
+    r('artificial turf', re.I),
+    r('make money', re.I),
+    r('money online', re.I),
+    r('beauty business', re.I),
+    r('cheap.+ticket', re.I),
+    r('hair loss', re.I),
+]
+
+spamlist_emails = [
+    r('cancer', re.I),
 ]
 
 spamlist_urls = [
     r('cancer', re.I),
     r('du-?ventre', re.I),
+    r('xrumer.+service', re.I),
+    r('cheap-', re.I),
 ]
 
 spamlist_comments = [
-    r('cash loan', re.I)
+    r('cash loan', re.I),
+    r('tripploans.com', re.I),
+    r('natural remed(y|ies)', re.I),
+    r('acid reflux', re.I),
+    r('unlock iphone', re.I),
+    r('real estate', re.I),
 ]
 
