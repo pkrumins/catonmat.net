@@ -23,6 +23,7 @@ spamlist_names = [
     r('dental clinic', re.I),
     r('locksmith in', re.I),
     r('buy.*online', re.I),
+    r('coupons', re.I),
     r('discount.*coupon', re.I),
     r('self diagnosis', re.I),
     r('handicapped vans', re.I),
@@ -108,5 +109,6 @@ spamlist_comments = [
     r('fasciitis exercise', re.I),
     r('foreclosure', re.I),
     r('house cleaning', re.I),
+    r('quotes about life', re.I),
 ]
 
