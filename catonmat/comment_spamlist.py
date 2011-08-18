@@ -23,7 +23,7 @@ spamlist_names = [
     r('dental clinic', re.I),
     r('locksmith in', re.I),
     r('buy.*online', re.I),
-    r('coupons', re.I),
+    r('discount.*coupon', re.I),
     r('self diagnosis', re.I),
     r('handicapped vans', re.I),
     r('hotel finder', re.I),
@@ -42,6 +42,7 @@ spamlist_names = [
     r('surgery', re.I),
     r('.+ restoration', re.I),
     r('cleaning service', re.I),
+    r('house clean', re.I),
     r('vibrator', re.I),
     r('male.+pills', re.I),
     r('seo .+', re.I),
@@ -66,6 +67,18 @@ spamlist_names = [
     r('beauty business', re.I),
     r('cheap.+ticket', re.I),
     r('hair loss', re.I),
+    r('fasciitis', re.I),
+    r('abuse', re.I),
+    r('finance professional', re.I),
+    r('slot machine', re.I),
+    r('addiction', re.I),
+    r('fall in love', re.I),
+    r('classified ads', re.I),
+    r('^seo$', re.I),
+    r('rapidement', re.I),
+    r('gratuitement', re.I),
+    r('transpiration', re.I),
+    r('maigrir', re.I),
 ]
 
 spamlist_emails = [
@@ -77,14 +90,23 @@ spamlist_urls = [
     r('du-?ventre', re.I),
     r('xrumer.+service', re.I),
     r('cheap-', re.I),
+    r('discount.*coupon', re.I),
+    r('wedding', re.I),
+    r('abuse', re.I),
+    r('addiction', re.I),
 ]
 
 spamlist_comments = [
     r('cash loan', re.I),
+    r('>loan<', re.I),
     r('tripploans.com', re.I),
     r('natural remed(y|ies)', re.I),
     r('acid reflux', re.I),
     r('unlock iphone', re.I),
     r('real estate', re.I),
+    r('live sport', re.I),
+    r('fasciitis exercise', re.I),
+    r('foreclosure', re.I),
+    r('house cleaning', re.I),
 ]
 
