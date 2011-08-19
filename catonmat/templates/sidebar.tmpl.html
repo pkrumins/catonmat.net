@@ -119,6 +119,9 @@
      <li><a href="${page.request_path}/" title="Read &quot;${page.title}&quot; (has been read ${page.us_views} times)">${page.title|h}</a></li>
     % endfor
     </ul>
+    <p class="moreinfo">
+      <a href="/archive?sorted_by=views" title="Top catonmat articles">See all top articles</a>
+    </p>
   </div>
 </div>
 
@@ -130,6 +133,9 @@
     <li><a href="/download/${download.filename}" title="Download &quot;${download.title|h}&quot;">${download.title|h}</a> (<span title="Total ${download.us_downloads} downloads">${download.us_downloads}</span>)</li>
     % endfor
     </ul>
+    <p class="moreinfo">
+      <a href="/downloads" title="All catonmat downloads">See all downloads</a>
+    </p>
   </div>
 </div>
 
@@ -141,6 +147,9 @@
      <li><a href="${page.request_path}/" title="Read &quot;${page.title}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
     % endfor
     </ul>
+    <p class="moreinfo">
+      <a href="/archive" title="All catonmat articles">See more detailed list of recent articles</a>
+    </p>
   </div>
 </div>
 
