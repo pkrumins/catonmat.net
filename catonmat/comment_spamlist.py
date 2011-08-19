@@ -82,6 +82,20 @@ spamlist_names = [
     r('gratuitement', re.I),
     r('transpiration', re.I),
     r('maigrir', re.I),
+    r('mobile.+app', re.I),
+    r('^cash$', re.I),
+    r('habitat restore', re.I),
+    r('android developer', re.I),
+    r('web.*software', re.I),
+    r('laptops', re.I),
+    r(' advertising', re.I),
+    r('voisine', re.I),
+    r('cartomancie', re.I),
+    r(' amour', re.I),
+    r('crash course', re.I),
+    r('hospital', re.I),
+    r('poop bag', re.I),
+
 ]
 
 spamlist_emails = [
@@ -98,10 +112,15 @@ spamlist_urls = [
     r('wedding', re.I),
     r('abuse', re.I),
     r('addiction', re.I),
+    r('android-developer.in', re.I),
+    r('android-app', re.I),
+    r('itunes.apple.com', re.I),
+    r('telefon-sex', re.I),
 ]
 
 spamlist_comments = [
     r('cash loan', re.I),
+    r('payday loan', re.I),
     r('>loan<', re.I),
     r('tripploans.com', re.I),
     r('natural remed(y|ies)', re.I),
@@ -118,5 +137,12 @@ spamlist_comments = [
     r('bukmacherskie', re.I),
     r('shoes outlet', re.I),
     r('cheap hotel', re.I),
+    r('saint laurent', re.I),
+    r('vacation network', re.I),
+    r('cheap.*shoes', re.I),
+    r('cheap.*air.*max', re.I),
+    r('nike-outlet', re.I),
+    r('discount.*shoes', re.I),
+    r('nauka angiel', re.I),
 ]
 
