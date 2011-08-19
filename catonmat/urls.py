@@ -108,6 +108,7 @@ predefined_urls = Map([
 
     # Downloads
     Rule('/download/<filename>')       > 'downloads.main',
+    Rule('/downloads')                 > 'downloads.all',
     Rule('/blog/wp-content/plugins/wp-downloadMonitor/user_uploads/<filename>') > 'downloads.old_wp_download',
     Rule('/wp-content/plugins/wp-downloadMonitor/user_uploads/<filename>') > 'downloads.old_wp_download',
 
