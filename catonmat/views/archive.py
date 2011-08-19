@@ -21,19 +21,28 @@ from catonmat.views.utils           import (
 # ----------------------------------------------------------------------------
 
 def main(request):
+    sorted_by = request.args.get('sorted_by', 'date')
     return cached_template_response(
              compute_main,
-             'archive',
-             3600)
+             'archive_%s' % sorted_by,
+             3600,
+             sorted_by)
 
 
-def compute_main():
+def compute_main(sorted_by):
+    if sorted_by == 'views':
+        sort_f = Page.views.desc
+    elif sorted_by == 'date':
+        sort_f = BlogPage.publish_date.desc
     pages = session. \
               query(Page). \
               join(BlogPage). \
-              order_by(BlogPage.publish_date.desc()). \
+              order_by(sort_f()). \
               all()
-    return render_template('archive', pages=pages, number_to_us=number_to_us)
+    return render_template('archive',
+        pages=pages,
+        sorted_by=sorted_by,
+        number_to_us=number_to_us)
 
 
 def year(request, year):
