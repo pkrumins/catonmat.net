@@ -28,6 +28,8 @@ spamlist_names = [
     r('self diagnosis', re.I),
     r('handicapped vans', re.I),
     r('hotel finder', re.I),
+    r('cheap hotel', re.I),
+    r('lawsuit', re.I),
     r('horoscope', re.I),
     r('garmin.*forerunner', re.I),
     r('replica purses', re.I),
@@ -84,6 +86,7 @@ spamlist_names = [
 
 spamlist_emails = [
     r('cancer', re.I),
+    r('angelmike', re.I),
 ]
 
 spamlist_urls = [
@@ -110,5 +113,10 @@ spamlist_comments = [
     r('foreclosure', re.I),
     r('house cleaning', re.I),
     r('quotes about life', re.I),
+    r('creatine supplement', re.I),
+    r('outlook time tracking', re.I),
+    r('bukmacherskie', re.I),
+    r('shoes outlet', re.I),
+    r('cheap hotel', re.I),
 ]
 
