@@ -1,0 +1,53 @@
+<%inherit file="layout.tmpl.html"/>
+
+<%def name="title()">Catonmat downloads - good coders code, great reuse</%def>
+
+<%def name="meta_description()" filter="h,trim">
+<%
+  titles = []
+  for download in downloads[0:30:4]:
+    titles.append(download.title)
+  meta_desc = '. '.join(titles)
+%>
+Catonmat downloads: ${meta_desc}, and others.
+</%def>
+
+<div class="page">
+  <div class="header">
+    <h1><a href="/archive">All catonmat downloads</a></h1>
+    <div class="hr lighter"></div>
+  </div>
+
+  <div class="content">
+    <p>There are <strong>${len(downloads)}</strong> downloads:</p>
+
+    % for d in downloads:
+      <div class="ctitem">
+        <div class="url">
+          <a href="/download/${d.filename}" title="${d.title|h}">${d.title|h}</a>
+        </div>
+
+        <div class="stats">
+          <%
+            download_str = 'downloads' if d.downloads > 1 else 'download'
+          %>
+          <div class="ctstat"><strong>${number_to_us(d.downloads)}</strong> ${download_str}</div>
+          <div class="ctstat published">${d.timestamp}</div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    % endfor
+
+    <p>Download statistics:</p>
+    <%
+      total_downloads = 0
+
+      for d in downloads:
+        total_downloads += d.downloads
+    %>
+
+    <p>Total downloads: <strong>${number_to_us(total_downloads)}</strong>.</p>
+
+  </div>
+</div>
+

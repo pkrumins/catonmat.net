@@ -16,6 +16,10 @@ from catonmat.config        import config
 from catonmat.models        import Download
 from catonmat.database      import session
 
+from catonmat.views.utils           import (
+    cached_template_response, render_template, number_to_us
+)
+
 # ----------------------------------------------------------------------------
 
 def main(request, filename):
@@ -37,4 +41,19 @@ def main(request, filename):
 
 def old_wp_download(request, filename):
     return redirect('/download/%s' % filename, code=301)
+
+def all(request):
+    return cached_template_response(
+             compute_all,
+             'downloads',
+             3600)
+
+def compute_all():
+    downloads = session. \
+      query(Download). \
+      order_by(Download.timestamp.desc()). \
+      all()
+    return render_template('downloads',
+        downloads=downloads,
+        number_to_us=number_to_us)
 
