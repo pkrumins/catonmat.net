@@ -95,7 +95,19 @@ spamlist_names = [
     r('crash course', re.I),
     r('hospital', re.I),
     r('poop bag', re.I),
-
+    r('internet marketing', re.I),
+    r('project management', re.I),
+    r(' services', re.I),
+    r('nauka angielskiego', re.I),
+    r('^loans?$', re.I),
+    r('jobs? in english', re.I),
+    r('bipolar test', re.I),
+    r('mincir', re.I),
+    r('adopting ', re.I),
+    r('travail', re.I),
+    r('custom.*builder', re.I),
+    r('air condition', re.I),
+    r('klima servisi', re.I),
 ]
 
 spamlist_emails = [
@@ -116,6 +128,8 @@ spamlist_urls = [
     r('android-app', re.I),
     r('itunes.apple.com', re.I),
     r('telefon-sex', re.I),
+    r('longchamp', re.I),
+    r('slotmachine', re.I),
 ]
 
 spamlist_comments = [
@@ -144,5 +158,17 @@ spamlist_comments = [
     r('nike-outlet', re.I),
     r('discount.*shoes', re.I),
     r('nauka angiel', re.I),
+    r('credit score', re.I),
+    r('boat loan', re.I),
+    r('car loan', re.I),
+    r('house loan', re.I),
+    r('apartment loan', re.I),
+    r('dental insurance', re.I),
+    r('rwanda safaris', re.I),
+    r('free iphone', re.I),
+    r('iphone deal', re.I),
+    r('drudge report', re.I),
+    r('hurricane.com', re.I),
+    r('slot machine', re.I),
 ]
 
