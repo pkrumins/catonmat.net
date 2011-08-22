@@ -111,6 +111,14 @@ spamlist_names = [
     r('last minute', re.I),
     r('zeiterfassung', re.I),
     r('spraytan', re.I),
+    r(' girls', re.I),
+    r('mold ', re.I),
+    r('remediation', re.I),
+    r('barbecue', re.I),
+    r('new jersey', re.I),
+    r('minivan', re.I),
+    r('handicap', re.I),
+    r('used ', re.I),
 ]
 
 spamlist_emails = [
