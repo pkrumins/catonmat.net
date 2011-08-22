@@ -8,6 +8,8 @@ spamlist_names = [
     r('austin home', re.I),
     r('noah theme', re.I),
     r('cash loan', re.I),
+    r('cash.*loan', re.I),
+    r('advance loan', re.I),
     r('payday loan', re.I),
     r('silver price', re.I),
     r('ed hardy', re.I),
@@ -119,6 +121,20 @@ spamlist_names = [
     r('minivan', re.I),
     r('handicap', re.I),
     r('used ', re.I),
+    r('magic mesh', re.I),
+    r('forex', re.I),
+    r('iit exam', re.I),
+    r('garagedoor', re.I),
+    r('garage door', re.I),
+    r('swing set', re.I),
+    r('designer cloth', re.I),
+    r('it health', re.I),
+    r('healthcare', re.I),
+    r('fiance visa', re.I),
+    r('for sale', re.I),
+    r('linoleum', re.I),
+    r('essay editor', re.I),
+    r('professional.*editor', re.I),
 ]
 
 spamlist_emails = [
@@ -143,6 +159,7 @@ spamlist_urls = [
     r('slotmachine', re.I),
     r('gambling', re.I),
     r('deals.co', re.I),
+    r('tripploans.com', re.I),
 ]
 
 spamlist_comments = [
@@ -203,5 +220,9 @@ spamlist_comments = [
     r('penisforstoring', re.I),
     r('>water colors', re.I),
     r('>mortgage ', re.I),
+    r('>pandora ', re.I),
+    r('term papers?<', re.I),
+    r('finance<', re.I),
+    r('buy.*toaster', re.I),
 ]
 
