@@ -108,6 +108,9 @@ spamlist_names = [
     r('custom.*builder', re.I),
     r('air condition', re.I),
     r('klima servisi', re.I),
+    r('last minute', re.I),
+    r('zeiterfassung', re.I),
+    r('spraytan', re.I),
 ]
 
 spamlist_emails = [
@@ -130,6 +133,8 @@ spamlist_urls = [
     r('telefon-sex', re.I),
     r('longchamp', re.I),
     r('slotmachine', re.I),
+    r('gambling', re.I),
+    r('deals.co', re.I),
 ]
 
 spamlist_comments = [
@@ -170,5 +175,25 @@ spamlist_comments = [
     r('drudge report', re.I),
     r('hurricane.com', re.I),
     r('slot machine', re.I),
+    r('printable coupon', re.I),
+    r('tax attorney', re.I),
+    r('>last minute', re.I),
+    r('laptisor.*vanzare', re.I),
+    r('>.*?dentist<', re.I),
+    r('>.*?accomodation<', re.I),
+    r('>debit card<', re.I),
+    r('>credit card<', re.I),
+    r('thyroid symptoms', re.I),
+    r('angina symptoms', re.I),
+    r('morning sickness', re.I),
+    r('sickness remed(y|ies)', re.I),
+    r('ex-?boyfriend', re.I),
+    r('ex-?girlfriend', re.I),
+    r('induce labor', re.I),
+    r('knee pain', re.I),
+    r('pain running', re.I),
+    r('penisforstoring', re.I),
+    r('>water colors', re.I),
+    r('>mortgage ', re.I),
 ]
 
