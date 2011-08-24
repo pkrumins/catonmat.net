@@ -135,6 +135,24 @@ spamlist_names = [
     r('linoleum', re.I),
     r('essay editor', re.I),
     r('professional.*editor', re.I),
+    r('tailor.*shirt', re.I),
+    r('divorce attorney', re.I),
+    r(' dating', re.I),
+    r('^dating$', re.I),
+    r('financing', re.I),
+    r('restaurant ', re.I),
+    r('adoption', re.I),
+    r('article submission', re.I),
+    r('ultrasound ', re.I),
+    r('hypnoteraphy', re.I),
+    r('mobile signal', re.I),
+    r('signal booster', re.I),
+    r('party suppl', re.I),
+    r('vergleich', re.I),
+    r('buy ', re.I),
+    r('twitter ', re.I),
+    r('football pick', re.I),
+    r('net branch', re.I),
 ]
 
 spamlist_emails = [
@@ -160,6 +178,12 @@ spamlist_urls = [
     r('gambling', re.I),
     r('deals.co', re.I),
     r('tripploans.com', re.I),
+    r('kredit.com', re.I),
+    r('phonecharger', re.I),
+    r('footballpicks', re.I),
+    r('divorceattorney', re.I),
+    r('asiadate', re.I),
+    r('freemoney', re.I),
 ]
 
 spamlist_comments = [
@@ -194,6 +218,8 @@ spamlist_comments = [
     r('house loan', re.I),
     r('apartment loan', re.I),
     r('dental insurance', re.I),
+    r('cheap.*insurance', re.I),
+    r('auto insurance', re.I),
     r('rwanda safaris', re.I),
     r('free iphone', re.I),
     r('iphone deal', re.I),
@@ -224,5 +250,9 @@ spamlist_comments = [
     r('term papers?<', re.I),
     r('finance<', re.I),
     r('buy.*toaster', re.I),
+    r('football picks<', re.I),
+    r('finance degrees?<', re.I),
+    r('air.jordan', re.I),
+    r('grout strain', re.I),
 ]
 
