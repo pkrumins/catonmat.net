@@ -31,6 +31,7 @@ spamlist_names = [
     r('handicapped vans', re.I),
     r('hotel finder', re.I),
     r('cheap hotel', re.I),
+    r('cheap business', re.I),
     r('lawsuit', re.I),
     r('horoscope', re.I),
     r('garmin.*forerunner', re.I),
@@ -153,6 +154,30 @@ spamlist_names = [
     r('twitter ', re.I),
     r('football pick', re.I),
     r('net branch', re.I),
+    r('tax attorney', re.I),
+    r('ugg boot', re.I),
+    r('nurse qualification', re.I),
+    r('car transport', re.I),
+    r('prank call', re.I),
+    r('web design', re.I),
+    r('scuba diving', re.I),
+    r('spas in', re.I),
+    r('thailand ', re.I),
+    r('retirement', re.I),
+    r('scratchcard', re.I),
+    r('scratch card', re.I),
+    r('satchel handbag', re.I),
+    r('leather ', re.I),
+    r('for women', re.I),
+    r('for woman', re.I),
+    r(' vacation', re.I),
+    r('video poker', re.I),
+    r('couch surf', re.I),
+    r(' knives', re.I),
+    r('family vacation', re.I),
+    r('family issues', re.I),
+    r('fake.*watch', re.I),
+    r('flex duct', re.I),
 ]
 
 spamlist_emails = [
@@ -184,6 +209,7 @@ spamlist_urls = [
     r('divorceattorney', re.I),
     r('asiadate', re.I),
     r('freemoney', re.I),
+    r('vacation-network', re.I),
 ]
 
 spamlist_comments = [
@@ -254,5 +280,8 @@ spamlist_comments = [
     r('finance degrees?<', re.I),
     r('air.jordan', re.I),
     r('grout strain', re.I),
+    r('acne treatment', re.I),
+    r('zeanballonline.com', re.I),
+    r('louis vuitton', re.I),
 ]
 
