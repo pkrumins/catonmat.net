@@ -298,6 +298,15 @@ spamlist_names = [
     r('^oakley$', re.I),
     r('bag wholesale', re.I),
     r('wholesale', re.I),
+    r('bottom shoes', re.I),
+    r('sexy.*costume', re.I),
+    r('dog obedience', re.I),
+    r('gorilla safari', re.I),
+    r('weightloss', re.I),
+    r('internet wiki', re.I),
+    r('du sommeil', re.I),
+    r('barcode', re.I),
+    r(' software', re.I),
 ]
 
 spamlist_emails = [
