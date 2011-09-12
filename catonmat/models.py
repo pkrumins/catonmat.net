@@ -443,8 +443,13 @@ class PayPalPayments(ModelBase):
     def __init__(self, product_type, request):
         self.product_type = product_type
         self.transaction_id = request.form['txn_id']
-        self.transaction_type = request.form['txn_type']
         self.payment_status = request.form['payment_status']
+
+        try:
+            self.transaction_type = request.form['txn_type']
+        except KeyError:
+            self.transaction_type = 'none'
+
         try:
             self.mc_gross = request.form['mc_gross']
         except KeyError:
