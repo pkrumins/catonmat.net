@@ -307,6 +307,7 @@ spamlist_names = [
     r('du sommeil', re.I),
     r('barcode', re.I),
     r(' software', re.I),
+    r('energy efficient', re.I),
 ]
 
 spamlist_emails = [
