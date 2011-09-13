@@ -19,3 +19,7 @@ def awk_book_shantanu(request):
     PayPalPayments('awk_book_shantanu', request).save()
     return Response('ok')
 
+def sed_book(request):
+    PayPalPayments('sed_book', request).save()
+    return Response('ok')
+

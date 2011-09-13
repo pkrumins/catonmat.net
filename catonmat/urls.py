@@ -128,6 +128,7 @@ predefined_urls = Map([
     # Payments
     Rule('/payments/awk_book')         > 'catonmat.payments.awk_book',
     Rule('/payments/awk_book_shantanu') > 'catonmat.payments.awk_book_shantanu',
+    Rule('/payments/sed_book')         > 'catonmat.payments.sed_book',
 
     # Admin
     Submount('/admin', [
