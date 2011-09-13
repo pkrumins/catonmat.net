@@ -32,6 +32,7 @@ PayPalUrl = "www.sandbox.paypal.com" if PayPalSandbox else "www.paypal.com"
 
 EmailTemplatePath = "/home/pkrumins/catonmat/payments"
 AwkBookPath = "/home/pkrumins/lvm0/Workstation/catonmat/books/awk-one-liners-explained"
+SedBookPath = "/home/pkrumins/lvm0/Workstation/catonmat/books/sed-one-liners-explained"
 LatexLogPath = "/home/pkrumins/catonmat/payments/latex.log"
 
 def template_replace(text, hash):
@@ -113,6 +114,64 @@ def awk_book(payment):
     print "Sending the Awk book to %s %s (%s)." % (unidecode(payment.first_name), unidecode(payment.last_name), payment.payer_email)
     send_mail(payment.payer_email, MailFrom, Products['awk_book']['subject'], email_body, attachment, attachment_name)
 
+def sed_book_template(infile, outfile, payment):
+    fd = open("%s/%s" % (SedBookPath, infile))
+    data = fd.read()
+    fd.close()
+
+    email = payment.payer_email.replace("_", "\\_")
+
+    data = template_replace(data, {
+        "NAME" : payment.first_name,
+        "SURNAME" : payment.last_name,
+        "EMAIL" : email
+    })
+
+    fd = open("%s/%s" % (SedBookPath, outfile), 'w+')
+    fd.write(data.encode('utf-8'))
+    fd.close()
+
+def sed_book(payment):
+    print "Preparing Sed Book..."
+    subject = Products['sed_book']['subject']
+    attachment = "%s/%s" % (SedBookPath, Products['sed_book']['file'])
+    attachment_name = Products['sed_book']['attachment_name']
+    
+    fd = open(EmailTemplatePath + '/thanks-sed-book.txt')
+    body = fd.read()
+    fd.close()
+
+    email_body = template_replace(body, {
+        "NAME": payment.first_name,
+        "SURNAME": payment.last_name
+    })
+
+    sed_book_template('sedbook_template.tex', 'sedbook.tex', payment)
+    sed_book_template('chapter1_template.tex', 'chapter1.tex', payment)
+    sed_book_template('chapter4_template.tex', 'chapter4.tex', payment)
+    sed_book_template('chapter6_template.tex', 'chapter6.tex', payment)
+
+    print "Spawning Latex..."
+    latex_log = open(LatexLogPath, 'a+')
+    latex = subprocess.Popen("pdflatex sedbook.tex", stdout=latex_log, stderr=latex_log, cwd=SedBookPath, shell=True)
+    latex.wait()
+
+    print "Spawning makeindex..."
+    makeindex = subprocess.Popen("makeindex sedbook", stdout=latex_log, stderr=latex_log, cwd=SedBookPath, shell=True)
+    makeindex.wait()
+
+    print "Spawning Latex 2nd time..."
+    latex = subprocess.Popen("pdflatex sedbook.tex", stdout=latex_log, stderr=latex_log, cwd=SedBookPath, shell=True)
+    latex.wait()
+
+    print "Spawning Latex 3nd time..."
+    latex = subprocess.Popen("pdflatex sedbook.tex", stdout=latex_log, stderr=latex_log, cwd=SedBookPath, shell=True)
+    latex.wait()
+    latex_log.close()
+
+    print "Sending the Sed book to %s %s (%s)." % (unidecode(payment.first_name), unidecode(payment.last_name), payment.payer_email)
+    send_mail(payment.payer_email, MailFrom, Products['sed_book']['subject'], email_body, attachment, attachment_name)
+
 
 Products = {
     'awk_book': {
@@ -130,7 +189,15 @@ Products = {
         'price' : '2.50',
         'email_body' : 'thanks-awk-book.txt',
         'handler' : awk_book
-    }
+    },
+    'sed_book': {
+        'subject' : 'Your Sed One-Liners Explained E-Book!',
+        'file' : 'sedbook.pdf',
+        'attachment_name' : 'sed-one-liners-explained.pdf',
+        'price' : '9.95',
+        'email_body' : 'thanks-sed-book.txt',
+        'handler' : sed_book
+    },
 }
 
 
