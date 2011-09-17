@@ -4,6 +4,11 @@ r = re.compile
 
 spamlist_names = [
     r('classifieds', re.I),
+    r('wireless alarm', re.I),
+    r('alarm kit', re.I),
+    r('lasik ', re.I),
+    r('jordan lls', re.I),
+    r('touchscreen ', re.I),
     r('credit card', re.I),
     r('austin home', re.I),
     r('noah theme', re.I),
@@ -160,6 +165,7 @@ spamlist_names = [
     r('net branch', re.I),
     r('tax attorney', re.I),
     r('ugg boot', re.I),
+    r('uggboot', re.I),
     r('nurse qualification', re.I),
     r('car transport', re.I),
     r('prank call', re.I),
@@ -308,6 +314,17 @@ spamlist_names = [
     r('barcode', re.I),
     r(' software', re.I),
     r('energy efficient', re.I),
+    r(' rental', re.I),
+    r('virtual assistant', re.I),
+    r('eczema', re.I),
+    r('spinal surgeon', re.I),
+    r('in kentucky', re.I),
+    r('thesis writing', re.I),
+    r('accessories for', re.I),
+    r('trophies and medals', re.I),
+    r('piercing tools', re.I),
+    r('driving school', re.I),
+    r('share trading', re.I),
 ]
 
 spamlist_emails = [
