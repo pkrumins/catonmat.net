@@ -9,7 +9,7 @@ http://bit.ly/tweetawkbook
 
 Also hear this, I have now published my second e-book called "Sed One-Liners Explained." Check it out here:
 
-http://bitly.com/sedoneline
+http://bit.ly/sedoneline
 
 I love writing about programming so much that I am now working on my third book called "Perl One-Liners Explained". I'll be done with it in a couple of months and I'll publish it on my blog as well.
 
