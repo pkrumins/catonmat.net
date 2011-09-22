@@ -17,7 +17,8 @@ import sys
 # ----------------------------------------------------------------------------
 
 def log_404(request):
-    FouroFour(request).save()
+    if request.path.find("/c/") != 0: # don't log comment url 404s
+        FouroFour(request).save()
 
 
 def str_traceback(exc_type, exc_value, tb):
