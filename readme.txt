@@ -30,6 +30,8 @@ modules (list is not complete):
     * jQuery         for AJAX and visual effects.
     * repoze.profile for profiling
 
+2011.09.22:
+    * added apple-touch-icon.png
 2010.04.20:
     * fixed caching
     * added profiling
