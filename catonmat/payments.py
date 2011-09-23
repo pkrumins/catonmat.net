@@ -23,3 +23,7 @@ def sed_book(request):
     PayPalPayments('sed_book', request).save()
     return Response('ok')
 
+def sed_book_shantanu(request):
+    PayPalPayments('sed_book_shantanu', request).save()
+    return Response('ok')
+
