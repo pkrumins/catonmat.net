@@ -356,6 +356,17 @@ spamlist_names = [
     r('web  design', re.I),
     r('flv player', re.I),
     r('cyprus compan', re.I),
+    r('video chat', re.I),
+    r('free chat', re.I),
+    r('^ugg ', re.I),
+    r('wood floor', re.I),
+    r('personal growth', re.I),
+    r('bumper sticker', re.I),
+    r('canvas print', re.I),
+    r('office coordinator', re.I),
+    r('wood pellet', re.I),
+    r('sungate energy', re.I),
+    r(' watches$', re.I),
 ]
 
 spamlist_emails = [
