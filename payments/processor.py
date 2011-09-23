@@ -198,6 +198,14 @@ Products = {
         'email_body' : 'thanks-sed-book.txt',
         'handler' : sed_book
     },
+    'sed_book_shantanu': {
+        'subject' : 'Your Sed One-Liners Explained E-Book!',
+        'file' : 'sedbook.pdf',
+        'attachment_name' : 'sed-one-liners-explained.pdf',
+        'price' : '2.50',
+        'email_body' : 'thanks-sed-book.txt',
+        'handler' : sed_book
+    },
 }
 
 
