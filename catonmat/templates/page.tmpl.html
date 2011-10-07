@@ -29,16 +29,14 @@
 
   % endif
 
-% else:
+% endif
 
-  % if page_data.page.status == 'post':
-  <div class="welcome">
-    <div class="twitter">
-      <p><a href="http://twitter.com/pkrumins" title="Peteris Krumins on Twitter"><img src="/static/img/twitter-16x16.gif">Follow me on Twitter</a> for my latest adventures!</p>
-    </div>
+% if page_data.page.status == 'post':
+<div class="welcome">
+  <div class="twitter">
+    <p><a href="http://twitter.com/pkrumins" title="Peteris Krumins on Twitter"><img src="/static/img/twitter-16x16.gif">Follow me on Twitter</a> for my latest adventures!</p>
   </div>
-  % endif
-
+</div>
 % endif
 
 ${individual_page(page_data, comment_data, tag_data, display_options, lynx)}
