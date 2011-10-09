@@ -1,0 +1,1 @@
+/home/pkrumins/installs/sphinx-0.9.9/bin/indexer --config ./sphinx.conf --all --rotate
