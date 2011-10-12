@@ -1,0 +1,37 @@
+
+Dear !NAME! !SURNAME!,
+
+This is Peteris Krumins from catonmat.net writing to you. I am writing because a while ago you bought my first e-book "Awk One-Liners Explained." I hope you enjoyed it!
+
+I want to let you know that, as promised, I have now published my second e-book "Sed One-Liners Explained."
+
+http://www.catonmat.net/blog/sed-book/
+
+The new e-book is 98 pages long and it explains exactly 100 sed one-liners. It's divided into the following chapters:
+
+    Preface.
+    1. Introduction to sed.
+    2. Line Spacing.
+    3. Line Numbering.
+    4. Text Conversion and Substitution.
+    5. Selective Printing of Certain Lines.
+    6. Selective Deletion of Certain Lines.
+    7. Special sed Applications.
+    Appendix A. Summary of All sed Commands.
+    Appendix B. Addresses and Ranges.
+    Appendix C. Debugging sed Scripts with sed-sed.
+    Index.
+
+It took me about 3 months to complete and it's of the finest quality. If you enjoyed my first e-book you will also enjoy this one!
+
+Get it at my website:
+
+http://www.catonmat.net/blog/sed-book/
+
+Thanks!
+
+
+Sincerely,
+Peteris Krumins
+http://www.catonmat.net
+
