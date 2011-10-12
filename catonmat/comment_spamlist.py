@@ -226,6 +226,7 @@ spamlist_names = [
     r('vitamins? supplement', re.I),
     r('^cheap ', re.I),
     r('celik raf', re.I),
+    r('jerseys', re.I),
     r('fabric blinds', re.I),
     r('wedding dress', re.I),
     r('bingoonline', re.I),
