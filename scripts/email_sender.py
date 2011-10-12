@@ -69,6 +69,6 @@ if __name__ == "__main__":
         })
         now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         print "[%s] Sending email to %s %s (%s)." % (now, unidecode(name), unidecode(surname), email)
-        #send_email(email, MailFrom, Subject, etemplate)
+        send_email(email, MailFrom, Subject, etemplate)
         time.sleep(10)
 
