@@ -34,7 +34,7 @@ def template_replace(text, hash):
 def send_mail(mail_to, mail_from, subject, body):
     TO = [mail_to]
 
-    mail = MIMEText(body.encode('utf8'), 'plain', 'utf8')
+    mail = MIMEText(body, 'plain', 'utf8')
     mail['Subject'] = subject
     mail['From'] = mail_from
     mail['To'] = ','.join(TO)
@@ -72,6 +72,7 @@ if __name__ == "__main__":
         })
         now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         print "[%s] [%d/%d] Sending email to %s %s (%s)." % (now, sent+1, total, unidecode(name), unidecode(surname), email)
-        send_mail(email, MailFrom, Subject, etemplate.decode('utf8'))
+        send_mail(email, MailFrom, Subject, etemplate)
+        sent = sent + 1
         time.sleep(10)
 
