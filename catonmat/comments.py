@@ -115,6 +115,14 @@ def validate_comment(request, preview=False):
             if r.search(comment):
                 raise CommentError, msg
 
+        msg2 = "I am sorry, please don't end your comment with a link. It's a common spam pattern I am seeing on my blog. Please add at least a dot at the end of the comment to avoid it being matched by this spam filter. Thanks!"
+
+        if re.search("</a>$", comment):
+            raise CommentError, msg2
+
+        if re.search("</a></strong>$", comment):
+            raise CommentError, msg2
+
     validate_page_id(request.form['page_id'])
     validate_parent_id(request.form['parent_id'])
     validate_name(request.form['name'].strip())
