@@ -15,6 +15,10 @@ def awk_book(request):
     PayPalPayments('awk_book', request).save()
     return Response('ok')
 
+def awk_book_995(request):
+    PayPalPayments('awk_book_995', request).save()
+    return Response('ok')
+
 def awk_book_shantanu(request):
     PayPalPayments('awk_book_shantanu', request).save()
     return Response('ok')

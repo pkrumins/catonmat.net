@@ -182,6 +182,14 @@ Products = {
         'email_body' : 'thanks-awk-book.txt',
         'handler' : awk_book
     },
+    'awk_book_995': {
+        'subject' : 'Your Awk One-Liners Explained E-Book!',
+        'file' : 'awkbook.pdf',
+        'attachment_name' : 'awk-one-liners-explained.pdf',
+        'price' : '9.95',
+        'email_body' : 'thanks-awk-book.txt',
+        'handler' : awk_book
+    },
     'awk_book_shantanu' : {
         'subject' : 'Your Awk One-Liners Explained E-Book!',
         'file' : 'awkbook.pdf',
