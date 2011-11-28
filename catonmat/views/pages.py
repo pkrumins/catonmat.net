@@ -134,7 +134,7 @@ def default_display_options():
         'display_bsa':           True,
     }
 
-stackvm_ids = [226, 231, 245]
+stackvm_ids = [226, 231, 245, 257, 268, 269, 259, 273, 276, 278]
 
 def handle_page_get(request, map):
     engine.execute("UPDATE pages SET views=views+1 WHERE page_id=%d" % map['page_id'])
