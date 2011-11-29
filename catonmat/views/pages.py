@@ -132,6 +132,7 @@ def default_display_options():
         'display_related_posts': True,
         'display_social':        True,
         'display_bsa':           True,
+        'after_comments_ad':     True,
     }
 
 stackvm_ids = [226, 231, 245, 257, 268, 269, 259, 273, 276, 278]

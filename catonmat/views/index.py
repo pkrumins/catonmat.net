@@ -124,7 +124,8 @@ def default_display_options():
         'display_comment_url':   True,
         'display_views':         True,
         'display_short_url':     False,
-        'display_series_after':  False
+        'display_series_after':  False,
+        'after_comments_ad':     False,
     }
 
     
