@@ -923,6 +923,36 @@ blockquote {
 }
 
 /*
+** After Comment Ad
+** --------------------------------------------------------
+*/
+.after_comments_ads {
+  padding-top: 30px;
+  font-size: 1.2em;
+}
+
+.after_comments_ads h3 {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin-bottom: 0.6em;
+  border-bottom: 1px dotted #CCCCCC;
+}
+
+.after_comments_ad300 {
+  float: left;
+  padding-right: 10px;
+}
+
+.after_comments_ad300_last {
+  float: left;
+  padding-right: 0px;
+}
+
+.after_comments_ad {
+  padding-top: 10px;
+}
+
+/*
 ** Sidebar
 ** --------------------------------------------------------
 */
