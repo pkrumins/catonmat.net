@@ -26,6 +26,7 @@ from catonmat.comments      import (
 )
 
 from datetime               import datetime
+import re
 
 # ----------------------------------------------------------------------------
 
@@ -136,6 +137,7 @@ def default_display_options():
     }
 
 stackvm_ids = [226, 231, 245, 257, 268, 269, 259, 273, 276, 278]
+mobile_rx = re.compile('/mobile/')
 
 def handle_page_get(request, map):
     engine.execute("UPDATE pages SET views=views+1 WHERE page_id=%d" % map['page_id'])
@@ -168,9 +170,15 @@ def compute_handle_page_get(request, map):
     if map.page_id in stackvm_ids:
         stackvm=True
 
+    referer = request.headers.get('Referer', 'None')
+    mobile = False
+    if mobile_rx.search(referer):
+        mobile = True
+
     return render_template("page",
             text_ads=text_ads,
             stackvm=stackvm,
+            mobile=mobile,
             **template_data)
 
 
@@ -181,8 +189,14 @@ def compute_stackvm_get_page(request, map):
                  or_(TextAds.expires==None, TextAds.expires<=datetime.utcnow())
                ).all()
 
+    referer = request.headers.get('Referer', 'None')
+    mobile = False
+    if mobile_rx.search(referer):
+        mobile = True
+
     return display_page(
             text_ads=text_ads,
+            mobile=mobile,
             stackvm=True,
             stackvm_signup=request.args.get('signup'),
             stackvm_signup_error=request.args.get('error'),

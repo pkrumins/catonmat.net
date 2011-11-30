@@ -78,6 +78,9 @@ predefined_urls = Map([
     # Blog is alias for Main page right now
     Rule('/blog')                      > 'index.main',
 
+    # Mobile pages
+    Rule('/mobile/<path:url>')         > 'mobile.main',
+
     # Feedback
     Rule('/feedback')                  > 'feedback.main',
 

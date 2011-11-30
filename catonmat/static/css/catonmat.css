@@ -212,6 +212,17 @@ blockquote {
   border-bottom: none;
 }
 
+/*
+** Mobile ads
+** --------------------------------------------------------
+*/
+#mobile_ad {
+  background: #F9F9F9;
+  font-size: 1.2em;
+  font-weight: bold;
+  height: 50px;
+  overflow: hidden;
+}
 
 /*
 ** Wrapper for sidebar and content
