@@ -151,9 +151,18 @@ def handle_page_get(request, map):
         if su in ['ok', 'failed']:
             return compute_stackvm_get_page(request, map)
 
+    referer = request.headers.get('Referer', 'None')
+    mobile = False
+    if mobile_rx.search(referer):
+        mobile = True
+
+    cache_id = 'individual_page_%s' % map['request_path']
+    if mobile:
+        cache_id = 'individual_mobile_page_%s' % map['request_path']
+
     return cached_template_response(
              compute_handle_page_get,
-             'individual_page_%s' % map['request_path'],
+             cache_id,
              3600,
              request,
              map)
