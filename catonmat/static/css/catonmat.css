@@ -89,12 +89,21 @@ blockquote {
   font-family: "Trebuchet MS", Georgia, Arial, serif;
 }
 
+#header #tabs ul li a.advertise {
+  background: #DD8E29 url(/static/img/tab-corner.gif) no-repeat right top;
+  color: white;
+}
+
 #header #tabs ul li a:hover {
   background: #DD8E29 url(/static/img/tab-corner-hover.gif) no-repeat right top;
 }
 
+#header #tabs ul li a.advertise:hover {
+  background: #BFD3E6 url(/static/img/tab-corner-hover.gif) no-repeat right top;
+}
+
 #header #tab-ad {
-  width: 400px;
+  width: 317px;
   float: right;
   height: 25px;
   overflow: hidden;
@@ -103,6 +112,8 @@ blockquote {
 
 #header #tab-ad span {
   color: gray;
+  position: relative;
+  top: 5px;
 }
 
 /*
