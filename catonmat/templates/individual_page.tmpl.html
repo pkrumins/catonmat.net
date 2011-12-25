@@ -52,7 +52,7 @@
     %>
 
     % if page_data.page.status == 'post' and not front_page and older_than_6_h and not stackvm:
-    <%def name="google_ad()">
+    <%def name="google_ad_icon()">
 <script type="text/javascript"><!--
   google_ad_client = "pub-0433925538517663";
   /* catonmat before article (blue) 336x280, created 1/23/10 */
@@ -66,10 +66,25 @@
 </script>
     </%def>
 
+    <%def name="google_ad_noicon()">
+<script type="text/javascript"><!--
+  google_ad_client = "ca-pub-0433925538517663";
+  /* catonmat before article 468x60 blue */
+  google_ad_slot = "9246395270";
+  google_ad_width = 468;
+  google_ad_height = 60;
+  //-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+    </%def>
+
     <%
-      ad = capture(google_ad)
+      ad_icon = capture(google_ad_icon)
+      ad_noicon = capture(google_ad_noicon)
     %>
-      ${page_data.page.parsed_content_with_ad(ad)}
+      ${page_data.page.parsed_content_with_ad(ad_icon, ad_noicon)}
     % else:
       ${page_data.page.parsed_content}
     % endif

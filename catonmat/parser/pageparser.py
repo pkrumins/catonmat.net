@@ -99,12 +99,12 @@ def build(build_fn, tree):
     build_fn(tree, buffer)
     return buffer.getvalue()
 
-def parse_page_with_ad(text, ad):
+def parse_page_with_ad(text, ad_icon, ad_noicon):
     tree = get_tree(text)
-    insert_ad(tree, ad)
+    insert_ad(tree, ad_icon, ad_noicon)
     return build(build_html, tree)
 
-def insert_ad(tree, ad):
+def insert_ad(tree, ad_icon, ad_noicon):
     try: # has post icon?
         img = tree.children[0].children[0]
         if isinstance(img, SelfClosingTagNode):
@@ -112,7 +112,7 @@ def insert_ad(tree, ad):
                 adblock  = BlockTagNode('<div style="margin-bottom: 10px">')
                 adblock.children.append(tree.children[0].children[0])
                 float_ad = BlockTagNode('<div style="float: right; margin-right:20px">')
-                float_ad.children.append(LiteralNode(ad))
+                float_ad.children.append(LiteralNode(ad_icon))
                 clear = BlockTagNode('<div class="clear">')
                 adblock.children.append(float_ad)
                 adblock.children.append(clear)
@@ -120,7 +120,7 @@ def insert_ad(tree, ad):
                 tree.children.insert(0, adblock)
         else:
             googlead = BlockTagNode('<div style="margin-bottom: 10px; text-align:center">')
-            googlead.children.append(LiteralNode(ad))
+            googlead.children.append(LiteralNode(ad_noicon))
             tree.children.insert(0, googlead)
     except:
         pass
