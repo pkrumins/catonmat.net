@@ -1,0 +1,11 @@
+<FeedFlareUnit>
+ <Catalog>
+  <Title>Tweet this</Title>
+  <Description>Share this item on Twitter.</Description>
+ </Catalog>
+
+ <FeedFlare>
+  <Text>Tweet this</Text>
+  <Link href="http://twitter.com/share?url=${link}&amp;text=${title}"/>
+ </FeedFlare>
+</FeedFlareUnit>
