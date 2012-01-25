@@ -31,3 +31,7 @@ def sed_book_shantanu(request):
     PayPalPayments('sed_book_shantanu', request).save()
     return Response('ok')
 
+def perl_book(request):
+    PayPalPayments('perl_book', request).save()
+    return Response('ok')
+

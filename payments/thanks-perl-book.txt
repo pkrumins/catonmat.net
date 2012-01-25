@@ -1,0 +1,23 @@
+
+Dear !NAME! !SURNAME!,
+
+Thank you for buying my Perl One-Liners Explained e-book. Please find your e-book attached as a PDF file.
+
+I'd really appreciate if you tweeted about my e-book. It would really help to get it out. Here is a quick link for tweeting:
+
+http://bit.ly/tweetperlbook
+
+Perl One-Liners Explained is my 3rd e-book. My previous two are Awk One-Liners Explained and Sed One-Liners Explained:
+
+http://www.catonmat.net/blog/awk-book/
+http://www.catonmat.net/blog/sed-book/
+
+I really love writing about programming so I'm going to be publishing several more books. I've planned writing a book on vim, a practical guide to anonymity, and the catonmat book that will contain my best articles.
+
+Enjoy!
+
+
+Sincerely,
+Peteris Krumins (@pkrumins on twitter)
+http://www.catonmat.net
+
