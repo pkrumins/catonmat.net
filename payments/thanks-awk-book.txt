@@ -7,11 +7,12 @@ I'd really appreciate if you tweeted about my e-book. It took me a lot of time t
 
 http://bit.ly/tweetawkbook
 
-Also hear this, I have now published my second e-book called "Sed One-Liners Explained." Check it out here:
+Also I have now published two more e-books. The 2nd one is called "Sed One-Liners Explained" and 3rd one is "Perl One-Liners Explained". They are very similar to this Awk e-book. If you haven't seen them, here they are:
 
-http://bit.ly/sedoneline
+http://www.catonmat.net/blog/sed-book/
+http://www.catonmat.net/blog/perl-book/
 
-I love writing about programming so much that I am now working on my third book called "Perl One-Liners Explained". I'll be done with it in a couple of months and I'll publish it on my blog as well.
+I love writing about programming so much that I am now working on several more e-books. My next few e-books are going to be a guide to vim, a practical guide to anonymity online, and the catonmat book that will contain all my best articles.
 
 
 Sincerely,

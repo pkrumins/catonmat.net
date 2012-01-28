@@ -7,11 +7,16 @@ I'd really appreciate if you tweeted about my e-book. It took me so much time to
 
 http://bit.ly/tweetsedbook
 
-I'd also like to add that this is my second e-book. My previous one is "Awk One-Liners Explained". It contains 70 well explained Awk one-liners for all life situations in the shell. For more info and a preview, take a look here:
+Sed One-Liners Explained is my 2nd e-book. My previous one is "Awk One-Liners Explained". It contains 70 well explained Awk one-liners for all life situations in the shell. For more information see the announcement blog post:
 
 http://www.catonmat.net/blog/awk-book/
 
-I love writing about programming so I am now also working on my third book called "Perl One-Liners Explained". I'll be done with it in a couple of months and I'll publish it on my blog as well.
+I've now also written my 3rd e-book called "Perl One-Liners Explained". It teaches Perl one-liners the fun way. Take a look here, if you're interested:
+
+http://www.catonmat.net/blog/perl-book/
+
+
+I love writing about programming so much that I'm now working on several other e-books! The next few are going to be a guide to vim, a practical guide to anonymity online, and the catonmat book that will contain my best articles.
 
 
 Sincerely,
