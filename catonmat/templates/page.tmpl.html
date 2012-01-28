@@ -34,7 +34,21 @@
 % if page_data.page.status == 'post':
 <div class="welcome">
   <div class="twitter">
+<!--
     <p><a href="http://twitter.com/pkrumins" title="Peteris Krumins on Twitter"><img src="/static/img/twitter-16x16.gif">Follow me on Twitter</a> for my latest adventures!</p>
+-->
+
+<%
+ from random import choice
+ r = choice([0,1])
+%>
+
+% if r == 0:
+  <p><a href="http://www.hackernewsletter.com/?utm_source=catonmat&utm_medium=web&utm_campaign=hn" title="Hacker Newsletter"><img src="/images/hacker-newsletter-16x16.png">Hacker Newsletter - a weekly newsletter of the best articles on startups, programming, and more. All links are curated by hand from Hacker News.</a></p>
+% else:
+  <p><a href="http://www.hackernewsletter.com/?utm_source=catonmat2&utm_medium=web&utm_campaign=hn" title="Hacker Newsletter"><img src="/images/hacker-newsletter-16x16.png">Hacker Newsletter - a weekly newsletter of the best articles on startups, programming, and more.</a></p>
+% endif
+
   </div>
 </div>
 % endif
