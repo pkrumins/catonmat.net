@@ -33,6 +33,7 @@ PayPalUrl = "www.sandbox.paypal.com" if PayPalSandbox else "www.paypal.com"
 EmailTemplatePath = "/home/pkrumins/catonmat/payments"
 AwkBookPath = "/home/pkrumins/lvm0/Workstation/catonmat/books/awk-one-liners-explained"
 SedBookPath = "/home/pkrumins/lvm0/Workstation/catonmat/books/sed-one-liners-explained"
+PerlBookPath = "/home/pkrumins/lvm0/Workstation/catonmat/books/perl-one-liners-explained"
 LatexLogPath = "/home/pkrumins/catonmat/payments/latex.log"
 
 def template_replace(text, hash):
@@ -47,7 +48,7 @@ def awk_book_template(infile, outfile, payment):
 
     email = payment.payer_email.replace("_", "\\_")
 
-    if payment.product_type == 'awk_book':
+    if payment.product_type in ['awk_book', 'awk_book_995']:
         bgcontents = "Prepared exclusively for !NAME! !SURNAME! (!EMAIL!)"
     elif payment.product_type == 'awk_book_shantanu':
         bgcontents = "Prepared exclusively for !NAME! !SURNAME! (!EMAIL!) from Shantanu N Kulkarni's Awk class"
@@ -172,6 +173,64 @@ def sed_book(payment):
     print "Sending the Sed book to %s %s (%s)." % (unidecode(payment.first_name), unidecode(payment.last_name), payment.payer_email)
     send_mail(payment.payer_email, MailFrom, Products['sed_book']['subject'], email_body, attachment, attachment_name)
 
+def perl_book_template(infile, outfile, payment):
+    fd = open("%s/%s" % (PerlBookPath, infile))
+    data = fd.read()
+    fd.close()
+
+    email = payment.payer_email.replace("_", "\\_")
+
+    data = template_replace(data, {
+        "NAME" : payment.first_name,
+        "SURNAME" : payment.last_name,
+        "EMAIL" : email
+    })
+
+    fd = open("%s/%s" % (PerlBookPath, outfile), 'w+')
+    fd.write(data.encode('utf-8'))
+    fd.close()
+
+def perl_book(payment):
+    print "Preparing Perl Book..."
+    subject = Products['perl_book']['subject']
+    attachment = "%s/%s" % (PerlBookPath, Products['perl_book']['file'])
+    attachment_name = Products['perl_book']['attachment_name']
+    
+    fd = open(EmailTemplatePath + '/thanks-perl-book.txt')
+    body = fd.read()
+    fd.close()
+
+    email_body = template_replace(body, {
+        "NAME": payment.first_name,
+        "SURNAME": payment.last_name
+    })
+
+    perl_book_template('perlbook_template.tex', 'perlbook.tex', payment)
+    perl_book_template('chapter6_template.tex', 'chapter6.tex', payment)
+    perl_book_template('chapter7_template.tex', 'chapter7.tex', payment)
+
+    print "Spawning Latex..."
+    latex_log = open(LatexLogPath, 'a+')
+    latex = subprocess.Popen("pdflatex perlbook.tex", stdout=latex_log, stderr=latex_log, cwd=PerlBookPath, shell=True)
+    latex.wait()
+
+    print "Spawning makeindex..."
+    makeindex = subprocess.Popen("makeindex perlbook", stdout=latex_log, stderr=latex_log, cwd=PerlBookPath, shell=True)
+    makeindex.wait()
+
+    print "Spawning Latex 2nd time..."
+    latex = subprocess.Popen("pdflatex perlbook.tex", stdout=latex_log, stderr=latex_log, cwd=PerlBookPath, shell=True)
+    latex.wait()
+
+    print "Spawning Latex 3nd time..."
+    latex = subprocess.Popen("pdflatex perlbook.tex", stdout=latex_log, stderr=latex_log, cwd=PerlBookPath, shell=True)
+    latex.wait()
+    latex_log.close()
+
+    print "Sending the Perl book to %s %s (%s)." % (unidecode(payment.first_name), unidecode(payment.last_name), payment.payer_email)
+    send_mail(payment.payer_email, MailFrom, Products['perl_book']['subject'], email_body, attachment, attachment_name)
+
+
 
 Products = {
     'awk_book': {
@@ -213,6 +272,14 @@ Products = {
         'price' : '2.50',
         'email_body' : 'thanks-sed-book.txt',
         'handler' : sed_book
+    },
+    'perl_book': {
+        'subject' : 'Your Perl One-Liners Explained E-Book!',
+        'file' : 'perlbook.pdf',
+        'attachment_name' : 'perl-one-liners-explained.pdf',
+        'price' : '9.95',
+        'email_body' : 'thanks-perl-book.txt',
+        'handler' : perl_book
     },
 }
 
