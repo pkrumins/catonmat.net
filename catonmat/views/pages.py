@@ -136,7 +136,7 @@ def default_display_options():
         'after_comments_ad':     True,
     }
 
-stackvm_ids = [226, 231, 245, 257, 268, 269, 259, 273, 276, 278]
+stackvm_ids = [226, 231, 245, 257, 268, 269, 259, 273, 276, 278, 303]
 mobile_rx = re.compile('/mobile/')
 
 def handle_page_get(request, map):
