@@ -1,0 +1,38 @@
+
+Hi there!
+
+This is Peteris Krumins from catonmat.net writing to you. You wanted to get notified about my new e-book so I'm thrilled to announce that I've published my third e-book Perl One-Liners Explained!
+
+http://www.catonmat.net/blog/perl-book/
+
+The new e-book is 111 pages long and it explains 130 unique Perl one-liners. Many of one-liners are presented in several different ways so the total number of one-liners in the book is over 200.
+
+The e-book is divided into the following chapters:
+
+    Preface.
+    1. Introduction to Perl One-Liners.
+    2. Spacing.
+    3. Numbering.
+    4. Calculations
+    5. String Creation and Array Creation.
+    6. Text Conversion and Substitution.
+    7. Selective Printing and Deleting of Lines.
+    8. Handy Regular Expressions.
+    9. perl1line.txt
+    Appendix A. Perl's Special Variables.
+    Index.
+
+It took me quite some time to complete and it's just great!
+
+Get it at my website:
+
+http://www.catonmat.net/blog/perl-book/
+
+
+Thanks!
+
+
+Sincerely,
+Peteris Krumins
+http://www.catonmat.net
+
