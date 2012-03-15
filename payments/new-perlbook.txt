@@ -28,7 +28,7 @@ It took me quite some time to complete and it's just great. If you enjoyed my se
 
 Get it at my website:
 
-http://www.catonmat.net/blog/sed-book/
+http://www.catonmat.net/blog/perl-book/
 
 
 Thanks!
