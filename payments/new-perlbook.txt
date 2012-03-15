@@ -7,7 +7,7 @@ I want to let you know that I've now published my third e-book "Perl One-Liners 
 
 http://www.catonmat.net/blog/perl-book/
 
-The new e-book is 111 pages long and it explains 130 uniqe Perl one-liners. Many of one-liners are presented in several different ways so the total number of one-liners in the book is over 200.
+The new e-book is 111 pages long and it explains 130 unique Perl one-liners. Many of one-liners are presented in several different ways so the total number of one-liners in the book is over 200.
 
 The e-book is divided into the following chapters:
 
