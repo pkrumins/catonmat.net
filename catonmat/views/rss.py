@@ -14,7 +14,7 @@ from werkzeug.contrib.atom          import AtomFeed
 from catonmat.config                import config
 from catonmat.cache                 import cache
 from catonmat.database              import session
-from catonmat.models                import Page, BlogPage
+from catonmat.models                import Page, Rss
 
 import re
 
@@ -59,8 +59,8 @@ def compute_atom_feed(request):
 
     pages = session. \
               query(Page). \
-              join(BlogPage). \
-              order_by(BlogPage.publish_date.desc()). \
+              join(Rss). \
+              order_by(Rss.publish_date.desc()). \
               limit(config.rss_items). \
               all()
 
