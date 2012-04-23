@@ -113,23 +113,6 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   </div>
   % endif
 
-  % if page_data.page.status == 'post' and not front_page and not stackvm: 
-  <div id="adside_after_article">
-<script type="text/javascript">
-	doclix_pid = 16577;
-	doclix_cid = 1956;
-	doclix_w = 468;
-	doclix_h = 60;
-</script>
-<script type="text/javascript" src="http://ads.doclix.com/adserver/serve/js/doclix_synd_ifrm.js" charset="utf-8"></script>
-  </div>
-
-  <div style="margin-bottom: 1em; width: 468px">
-    <div class="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="1x2" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
-  </div>
-
-  % endif
-
   <div class="footer">
     % if display_options.display_tags and tags_data.tags:
       <div class="tags"><a href="/tags" title="All catonmat tags" class="tags_link">Tags</a>:
@@ -225,9 +208,10 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
       <div class="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="300x250" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
     </div>
     <div class="clear"></div>
-    % if not mobile:
     <div class="after_comments_ad">
       <div class="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="1x2" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
+    % if not mobile:
+      <div style="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="1x2" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
     </div>
     % endif
   </div>
