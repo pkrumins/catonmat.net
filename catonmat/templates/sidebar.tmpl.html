@@ -151,7 +151,7 @@
   <div class="content">
     <ul>
     % for page in recent_pages:
-     <li><a href="${page.request_path}/" title="Read &quot;${page.title}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
+     <li><a href="${page.request_path}/" title="Read &quot;${page.title|h}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
     % endfor
     </ul>
     <p class="moreinfo">
