@@ -463,6 +463,8 @@ spamlist_urls = [
     r('casino', re.I),
     r('moncler', re.I),
     r('astrologie', re.I),
+    r('flowers.info', re.I),
+    r('www.flowers', re.I),
 ]
 
 spamlist_comments = [
