@@ -90,6 +90,27 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
     % endif
   </div>
 
+  <div style="overflow: hidden; padding-top: 6px; padding-bottom: 6px; border-top: 1px dotted gray; border-bottom: 1px dotted gray; margin-bottom: 10px">
+    <div style="float: left; width: 155px;">
+      <%
+        from random import choice
+        onetwo = choice([1, 2])
+        if onetwo == 1:
+          appfirst_href = "http://www.appfirst.com/devops-dashboard/index.html?utm_source=catonmat&utm_medium=banner_ad&utm_content=designed-by-devops&utm_campaign=CAT-Q4"
+          appfirst_icon = "appfirst-devops.png"
+        else:
+          appfirst_href = "http://www.appfirst.com/devops-dashboard/index.html?utm_source=catonmat&utm_medium=banner_ad&utm_content=full-stack-list&utm_campaign=CAT-Q4"
+          appfirst_icon = "appfirst-fullstack.png"
+        endif
+      %>
+      <a href="${appfirst_href}"><img src="/static/img/${appfirst_icon}"></a>
+    </div>
+    <div style="float: left; font-size: 1.2em; width: 465px; padding-top: 50px">
+      <a href="${appfirst_href}">AppFirst is designed by DevOps for DevOps. Full-Stack Visibility Across Systems, Apps, & Business Metrics. Try it for free right now!</a>
+    </div>
+    <div class="clear"></div>
+  </div>
+
   % if display_options.display_social:
   <div class="social">
     <div class="twitter">
