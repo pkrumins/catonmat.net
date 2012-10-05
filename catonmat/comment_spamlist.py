@@ -428,6 +428,7 @@ spamlist_names = [
     r(' escorts$', re.I),
     r('photo contest', re.I),
     r('oil painting', re.I),
+    r('stock tip', re.I),
 ]
 
 spamlist_emails = [
