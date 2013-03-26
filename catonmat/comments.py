@@ -93,8 +93,8 @@ def validate_comment(request, preview=False):
                 raise CommentError, "Something went wrong, the comment you were responding to was not found..."
 
     def validate_captcha(name, captcha):
-        if name[0:3] != captcha:
-            raise CommentError, 'Please type "' + name[0:3] + '" in the box below'
+        if name[0] != captcha:
+            raise CommentError, 'Please type "' + name[0] + '" in the box below'
 
     def validate_spam_comment(name, email, url, comment):
         msg = """My anti-spam system says your comment looks spammy. I can't post it. If you're a real person and your comment is real, can you please email it to me at <a href="mailto:peter@catonmat.net">peter@catonmat.net</a>? I'll post your comment then and tune my anti-spam system not to match comments like these in the future. Thanks!"""
