@@ -51,7 +51,7 @@
         older_than_6_h = now-then > timedelta(hours=6)
     %>
 
-    % if page_data.page.status == 'post' and not front_page and older_than_6_h and not stackvm:
+    % if page_data.page.status == 'post' and not front_page and older_than_6_h and not stackvm and adsense:
     <%def name="google_ad_icon()">
 <script type="text/javascript"><!--
   google_ad_client = "pub-0433925538517663";
