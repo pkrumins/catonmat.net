@@ -136,6 +136,7 @@ def default_display_options():
         'after_comments_ad':     True,
     }
 
+no_adsense_ids = [88, 3, 8, 18, 15, 139, 141, 153, 158]
 stackvm_ids = [226, 231, 245, 257, 268, 269, 259, 273, 276, 278, 303, 310, 318, 324, 349, 346]
 mobile_rx = re.compile('/mobile/')
 
@@ -175,6 +176,10 @@ def compute_handle_page_get(request, map):
                  or_(TextAds.expires==None, TextAds.expires<=datetime.utcnow())
                ).all()
 
+    adsense = True
+    if map.page_id in no_adsense_ids:
+        adsense = False
+
     stackvm = False
     if map.page_id in stackvm_ids:
         stackvm=True
@@ -187,6 +192,7 @@ def compute_handle_page_get(request, map):
     return render_template("page",
             text_ads=text_ads,
             stackvm=stackvm,
+            adsense=adsense,
             mobile=mobile,
             **template_data)
 
