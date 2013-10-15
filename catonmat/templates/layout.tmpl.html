@@ -35,7 +35,7 @@
   <body>
     % if mobile : 
       <div id="mobile_ad">
-        <div class="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="1x2" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
+        <div data-type="ad" data-publisher="lqm.goodcoderscode.site" data-zone="ron" data-format="300x250"></div>
       </div>
     % endif
     <div id="container">
@@ -56,6 +56,7 @@
       </div>
     </div>
 
+<!-- google analytics -->
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-273333-1']);
@@ -68,6 +69,7 @@
   })();
 </script>
 
+<!-- google plus -->
 <script type="text/javascript">
   (function() {
     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -86,12 +88,19 @@ var sc_security="dc7255a7";
 <script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script><noscript><div class="statcounter"><a title="tumblr tracker" class="statcounter" href="http://statcounter.com/tumblr/"><img class="statcounter" src="http://c.statcounter.com/3189873/0/dc7255a7/1/" alt="tumblr tracker" /></a></div></noscript>
 <!-- End of StatCounter Code -->
 
-<script type='text/javascript'>//<![CDATA[
-    if (typeof jQuery == 'undefined') {
-        document.write(unescape("%3Cscript src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.2.min.js' type='text/javascript' %3E%3C/script%3E"));
-    }//]]></script>
-<script type='text/javascript' language='Javascript' src='http://s1.lqcdn.com/m.min.js?dt=2.3.110104.1'></script>
-<script type='text/javascript' language='Javascript'> if(jQuery.LqmAds)jQuery.LqmAds();</script>
+<!-- developer media -->
+<script type='text/javascript'>
+    function _dmBootstrap(file) { 
+        var _dma = document.createElement('script');  
+        _dma.type = 'text/javascript'; 
+        _dma.async = true;  
+        _dma.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + file; 
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(_dma);
+    }
+    function _dmFollowup(file) { if (typeof DMAds === 'undefined')  _dmBootstrap('cdn2.DeveloperMedia.com/a.min.js');}
+    (function () { _dmBootstrap('cdn1.DeveloperMedia.com/a.min.js'); setTimeout(_dmFollowup, 2000);})();
+</script>
+
   </body>
 </html>
 
@@ -108,7 +117,7 @@ var sc_security="dc7255a7";
   <%include file="footer.tmpl.html"/>
 </%def>
 
-<%def name="title()">good coders code, great reuse</%def>
+<%def name="title()">good coders code, great coders reuse</%def>
 
 <%def name="meta_description()">Peteris Krumins' blog about programming, hacking, software reuse, software ideas, computer security, google and technology.</%def>
 
