@@ -136,8 +136,8 @@ def default_display_options():
         'after_comments_ad':     True,
     }
 
-no_adsense_ids = [88, 3, 8, 18, 15, 139, 141, 153, 158]
-stackvm_ids = [226, 231, 245, 257, 268, 269, 259, 273, 276, 278, 303, 310, 318, 324, 349, 346]
+no_adsense_ids = [6, 88, 3, 8, 18, 15, 139, 141, 153, 158]
+stackvm_ids = [226, 231, 245, 257, 268, 269, 259, 273, 276, 278, 303, 310, 318, 324, 349, 346, 401]
 mobile_rx = re.compile('/mobile/')
 
 def handle_page_get(request, map):
