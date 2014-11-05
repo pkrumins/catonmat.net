@@ -92,9 +92,30 @@ def validate_comment(request, preview=False):
             if comments != 1:
                 raise CommentError, "Something went wrong, the comment you were responding to was not found..."
 
-    def validate_captcha(name, captcha):
-        if name[0] != captcha:
-            raise CommentError, 'Please type "' + name[0] + '" in the box below'
+    def validate_captcha(name, captcha_nr, captcha):
+        if captcha_nr == "1":
+            captcha_text = "computer"
+        elif captcha_nr == "2":
+            captcha_text = "cdrom"
+        elif captcha_nr == "3":
+            captcha_text = "apple"
+        elif captcha_nr == "4":
+            captcha_text = "floppy"
+        elif captcha_nr == "5":
+            captcha_text = "linux"
+        elif captcha_nr == "6":
+            captcha_text = "unix"
+        elif captcha_nr == "7":
+            captcha_text = "lcd"
+        elif captcha_nr == "8":
+            captcha_text = "rocket"
+        elif captcha_nr == "9":
+            captcha_text = "quake3"
+        elif captcha_nr == "10":
+            captcha_text = "coding"
+
+        if captcha != captcha_text:
+            raise CommentError, 'Please type "' + captcha_text + '" in the box below'
 
     def validate_spam_comment(name, email, url, comment):
         msg = """My anti-spam system says your comment looks spammy. I can't post it. If you're a real person and your comment is real, can you please email it to me at <a href="mailto:peter@catonmat.net">peter@catonmat.net</a>? I'll post your comment then and tune my anti-spam system not to match comments like these in the future. Thanks!"""
@@ -133,7 +154,7 @@ def validate_comment(request, preview=False):
     validate_spam_comment(request.form['name'].strip(), request.form['email'].strip(), request.form['website'].strip(), request.form['comment'].strip())
 
     if not lynx_browser(request) and not preview:
-        validate_captcha(request.form['name'].strip(), request.form['commentc'].strip())
+        validate_captcha(request.form['name'].strip(), request.form['captcha_nr'].strip(), request.form['commentc'].strip())
 
 
 def json_response(**data):
