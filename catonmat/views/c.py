@@ -24,6 +24,8 @@ from catonmat.comments      import (
     invalidate_page_cache,  lynx_browser
 )
 
+import random
+
 # ----------------------------------------------------------------------------
 
 # TODO: add caching
@@ -61,7 +63,8 @@ def default_comment_template_data(request, comment_id):
         'comment_parent_id':    comment_id,
         'comment':              comment,
         'form':                 request.form,
-        'lynx':                 lynx_browser(request)
+        'lynx':                 lynx_browser(request),
+        'captcha_nr' :          random.randint(1,10)
     }
     return template_data
 
