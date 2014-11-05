@@ -27,6 +27,7 @@ from catonmat.comments      import (
 
 from datetime               import datetime
 import re
+import random
 
 # ----------------------------------------------------------------------------
 
@@ -115,7 +116,8 @@ def default_page_template_data(request, map):
             'tags':                 map.page.tags
         }),
         'related_posts':   related_posts(map.page),
-        'lynx': lynx_browser(request)
+        'lynx': lynx_browser(request),
+        'captcha_nr' : random.randint(1,10)
     }
 
 
