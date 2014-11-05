@@ -5,7 +5,8 @@
   parent_id='',
   comment_error='',
   comment_preview='',
-  lynx=False
+  lynx=False,
+  captcha_nr=1
 )">
 
 <div id="comment_form">
@@ -111,7 +112,30 @@
     <div class="e">
       % if not lynx:
       <p>
-        Type the first letter of your name: <input tabindex="6" type="text" name="commentc" size="10"> (just to make sure you're a human)
+        <input type="hidden" name="captcha_nr" value="${captcha_nr}">
+        <%
+          if captcha_nr == 1:
+            captcha_text = "computer"
+          elif captcha_nr == 2:
+            captcha_text = "cdrom"
+          elif captcha_nr == 3:
+            captcha_text = "apple"
+          elif captcha_nr == 4:
+            captcha_text = "floppy"
+          elif captcha_nr == 5:
+            captcha_text = "linux"
+          elif captcha_nr == 6:
+            captcha_text = "unix"
+          elif captcha_nr == 7:
+            captcha_text = "lcd"
+          elif captcha_nr == 8:
+            captcha_text = "rocket"
+          elif captcha_nr == 9:
+            captcha_text = "quake3"
+          elif captcha_nr == 10:
+            captcha_text = "coding"
+        %>
+        Type the word "<b>${captcha_text}</b>": <input tabindex="6" type="text" name="commentc" size="10"> (just to make sure you're a human)
       </p>
       % endif
 
