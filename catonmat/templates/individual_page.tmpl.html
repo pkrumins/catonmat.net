@@ -7,7 +7,8 @@
   comment_data,
   tag_data,
   display_options,
-  lynx=False
+  lynx=False,
+  captcha_nr=1
 )">
 
 <div class="page">
@@ -208,7 +209,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
       <h3>Leave a new comment</h3>
       ${comment_form(page_data.page.page_id, comment_data.comment_submit_path, comment_data.form,
         comment_error=comment_data.comment_error, comment_preview=comment_data.comment_preview,
-        lynx=lynx)}
+        lynx=lynx, captcha_nr=captcha_nr)}
       <script>
         catonmat.init_why_email();
         catonmat.init_comment_help();
