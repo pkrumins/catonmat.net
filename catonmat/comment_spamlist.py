@@ -429,6 +429,8 @@ spamlist_names = [
     r('photo contest', re.I),
     r('oil painting', re.I),
     r('stock tip', re.I),
+    r('black friday', re.I),
+    r('polisher review', re.I),
 ]
 
 spamlist_emails = [
@@ -548,5 +550,6 @@ spamlist_comments = [
     r('dog trainer', re.I),
     r('xanax abuse', re.I),
     r('toronto limo', re.I),
+    r('bestblackfriday', re.I),
 ]
 
