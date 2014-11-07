@@ -117,7 +117,7 @@ def default_page_template_data(request, map):
         }),
         'related_posts':   related_posts(map.page),
         'lynx': lynx_browser(request),
-        'captcha_nr' : random.randint(1,10)
+        'captcha_nr' : random.randint(1,20)
     }
 
 

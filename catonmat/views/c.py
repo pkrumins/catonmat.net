@@ -64,7 +64,7 @@ def default_comment_template_data(request, comment_id):
         'comment':              comment,
         'form':                 request.form,
         'lynx':                 lynx_browser(request),
-        'captcha_nr' :          random.randint(1,10)
+        'captcha_nr' :          random.randint(1,20)
     }
     return template_data
 

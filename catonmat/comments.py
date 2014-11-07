@@ -113,6 +113,26 @@ def validate_comment(request, preview=False):
             captcha_text = "quake3"
         elif captcha_nr == "10":
             captcha_text = "coding"
+        elif captcha_nr == "11":
+            captcha_text = "halflife3"
+        elif captcha_nr == "12":
+            captcha_text = "server"
+        elif captcha_nr == "13":
+            captcha_text = "cloud"
+        elif captcha_nr == "14":
+            captcha_text = "disk"
+        elif captcha_nr == "15":
+            captcha_text = "browser"
+        elif captcha_nr == "16":
+            captcha_text = "0day"
+        elif captcha_nr == "17":
+            captcha_text = "security"
+        elif captcha_nr == "18":
+            captcha_text = "sandbox"
+        elif captcha_nr == "19":
+            captcha_text = "network"
+        elif captcha_nr == "20":
+            captcha_text = "antispam"
 
         if captcha != captcha_text:
             raise CommentError, 'Please type "' + captcha_text + '" in the box below'
