@@ -164,6 +164,11 @@ def validate_comment(request, preview=False):
         if re.search("</a></strong>$", comment):
             raise CommentError, msg2
 
+        msg3 = """Please add <b>nospam</b> argument to your link. Here's an example:<br> <code>&lt;a href="http://digg.com" <b>nospam</b>&gt;digg&lt;/a&gt;</code><br> This helps to keep spammers out. Thanks!"""
+        if re.search("<a href", comment):
+            if not re.search("<a href.*?nospam", comment):
+                raise CommentError, msg3
+
     validate_page_id(request.form['page_id'])
     validate_parent_id(request.form['parent_id'])
     validate_name(request.form['name'].strip())
