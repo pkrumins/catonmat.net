@@ -154,6 +154,8 @@
               captcha_text = "network"
           elif captcha_nr == 20:
               captcha_text = "antispam"
+
+          captcha_text += "_" + str(page_id)
         %>
         Type the word "<b>${captcha_text}</b>": <input tabindex="6" type="text" name="commentc" size="10"> (just to make sure you're a human)
       </p>
