@@ -103,6 +103,13 @@ var catonmat = {
         catonmat.attach_reply_comment_handler($(this), loc, default_comment_id);
       }
     );
+
+    $('.icomment a.deleter').click(function (ev) {
+      ev.preventDefault();
+      var id = $(this).text().split('-')[1];
+      $.get('/admin/comments/delete_comment?id='+id);
+      $(this).parent().parent().parent().parent().remove();
+    });
   },
 
   init_toggle_contacts: function() {
@@ -222,13 +229,13 @@ var catonmat = {
     $('p.nocomm').hide();
 
     /* Add the new comment */
-    var comment = $(comment).
-                    css('margin-left', indent + 'px').
-                    css('border', '1px solid #D6A23D').
-                    css('padding', '5px').
-                    insertAfter(parent).
-                    hide().
-                    slideDown('slow');
+    var comment = $(comment)
+        .css('margin-left', indent + 'px')
+        .css('border', '1px solid #D6A23D')
+        .css('padding', '5px')
+        .insertAfter(parent)
+        .hide()
+        .slideDown('slow');
 
     /* Attach "Reply to this comment" event handler */
     catonmat.attach_reply_comment_handler(
