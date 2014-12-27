@@ -6,7 +6,7 @@
     <div class="delete">
       <a href="#" class="deleter">delete-${comment.comment_id}</a>
       |
-      <a href="/p/${comment.page_id}#${comment.comment_id}">view on page</a>
+      <a href="/p/${comment.page_id}#comment-${comment.comment_id}">view on page</a>
     </div>
     <div><span>Date:</span> <span>${comment.timestamp|h}</span></div>
     <div style="float: left"><img src="http://www.gravatar.com/avatar/${comment.gravatar_md5|h}.jpg?s=40"></div>
