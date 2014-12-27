@@ -148,6 +148,7 @@ predefined_urls = Map([
         Rule('/exceptions')            > 'admin.exceptions.main',
         Rule('/comments')              > 'admin.comments.main',
         Rule('/comments/delete_comment') > 'admin.comments.delete_comment',
+        Rule('/logout') > 'admin.logout.main',
     ])
 ],
 strict_slashes=False)
