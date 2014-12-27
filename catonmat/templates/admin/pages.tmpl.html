@@ -1,5 +1,9 @@
 <%inherit file="layout.tmpl.html"/>
 
+<p>Sort: <a href="">id desc</a> | <a href="">id asc</a> | <a href="">date created desc</a> | <a href="">date created asc</a></p>
+
+<hr>
+
 <ul>
   % for page in pages:
     % if page.request_path:
