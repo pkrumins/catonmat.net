@@ -1,4 +1,4 @@
-<%def name="individual_comment(comment, indent=0, preview=False, display_reply_link=True)">
+<%def name="individual_comment(comment, indent=0, preview=False, admin=False, display_reply_link=True)">
 
 % if preview:
   <div class="preview_notice">
@@ -7,6 +7,7 @@
 % endif
 
 <div class="icomment" style="margin-left: ${20*indent}px">
+  <a name="comment-${comment.comment_id}"></a>
   <div class="gravatar">
     % if comment.gravatar_md5:
     <img src="http://www.gravatar.com/avatar/${comment.gravatar_md5}.jpg?s=40" width="40" height="40">
@@ -34,6 +35,10 @@
           nofollow = ''
       %>
       <span class="twitter"><a href="http://twitter.com/${comment.twitter}" title="${comment.twitter} on Twitter"${nofollow}>${comment.twitter}</a></span>
+      % endif
+
+      % if admin:
+        <span class="permalink"><a href="#" class="deleter">Delete-${comment.comment_id}</a></span>
       % endif
 
       % if not preview:
