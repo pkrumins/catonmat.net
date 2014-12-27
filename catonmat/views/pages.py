@@ -18,7 +18,7 @@ from catonmat.cache         import cache_del
 from catonmat.config        import config
 from catonmat.similarity    import related_posts
 from catonmat.views.utils   import (
-    MakoDict, cached_template_response, render_template, display_template,
+    MakoDict, cached_template_response, template_response, render_template, display_template,
     get_template
 )
 from catonmat.comments      import (
@@ -165,6 +165,9 @@ def handle_page_get(request, map):
     cache_id = 'individual_page_%s' % map['request_path']
     if mobile:
         cache_id = 'individual_mobile_page_%s' % map['request_path']
+
+    if admin_cred_match(request):
+        return template_response(compute_handle_page_get(request, map))
 
     return cached_template_response(
              compute_handle_page_get,
