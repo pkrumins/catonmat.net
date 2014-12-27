@@ -1,0 +1,28 @@
+<%inherit file="layout.tmpl.html"/>
+
+% for comment in comments:
+
+  <div>
+    <div class="delete"><a href="#">delete-${comment.comment_id}</a></div>
+    <div><span>Date:</span> <span>${comment.timestamp|h}</span></div>
+    <div style="float: left"><img src="http://www.gravatar.com/avatar/${comment.gravatar_md5|h}.jpg?s=40"></div>
+    <div><span>Name:</span> <span>${comment.name|h}</span></div>
+    <div><span>Email:</span> <span>${comment.email|h}</span></div>
+    <div><span>Twitter:</span> <span><a href="http://twitter.com/${comment.twitter|h}">${comment.twitter|h}</a></span></div>
+    <div><span>Website:</span> <span><a href="${comment.website|h}">${comment.website|h}</a></span></div>
+    <div>Comment:</div>
+    <div>${comment.comment|h}</div>
+    <hr>
+  </div>
+
+
+% endfor
+
+<script>
+  $('.delete a').click(function (ev) {
+    ev.preventDefault();
+    var id = $(this).text().split('-')[1];
+    $.get('/admin/comments/delete_comment?id='+id);
+    $(this).parent().parent().remove();
+  });
+</script>
