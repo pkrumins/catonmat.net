@@ -22,7 +22,11 @@ import re
 def main(request):
     query = session.query(Comment).order_by(Comment.comment_id.desc());
 
-    all_comments = query.all()
+    if (request.args.get('page')):
+        query = query.slice(int(request.args.get('page'))*100, (int(request.args.get('page'))+1)*100)
+        all_comments = query
+    else:
+        all_comments = query.limit(100)
     return display_plain_template('admin/comments', comments=all_comments)
 
 @require_admin()
