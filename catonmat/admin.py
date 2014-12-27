@@ -44,6 +44,10 @@ def unserialize_secure_cookie(request):
 
 def admin_cred_match(request):
     d = unserialize_secure_cookie(request)
+    if not d.get('admin_user'):
+        return False
+    if not d.get('admin_hash'):
+        return False
     return admin_cred_match_prim(d.get('admin_user'), d.get('admin_hash'))
 
 def admin_cred_match_prim(user, hash):
