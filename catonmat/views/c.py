@@ -24,6 +24,8 @@ from catonmat.comments      import (
     invalidate_page_cache,  lynx_browser
 )
 
+from catonmat.admin import admin_cred_match
+
 import random
 
 # ----------------------------------------------------------------------------
@@ -64,7 +66,8 @@ def default_comment_template_data(request, comment_id):
         'comment':              comment,
         'form':                 request.form,
         'lynx':                 lynx_browser(request),
-        'captcha_nr' :          random.randint(1,20)
+        'captcha_nr' :          random.randint(1,20),
+        'admin' : admin_cred_match(request)
     }
     return template_data
 
