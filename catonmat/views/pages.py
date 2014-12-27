@@ -25,6 +25,8 @@ from catonmat.comments      import (
     validate_comment, new_comment, thread, linear, CommentError, lynx_browser
 )
 
+from catonmat.admin import admin_cred_match
+
 from datetime               import datetime
 import re
 import random
@@ -113,11 +115,12 @@ def default_page_template_data(request, map):
             'form':                 request.form,
         }, ['comments', 'form']),
         'tags_data':       MakoDict({
-            'tags':                 map.page.tags
+            'tags': map.page.tags
         }),
-        'related_posts':   related_posts(map.page),
+        'related_posts': related_posts(map.page),
         'lynx': lynx_browser(request),
-        'captcha_nr' : random.randint(1,20)
+        'captcha_nr' : random.randint(1,20),
+        'admin' : admin_cred_match(request)
     }
 
 
