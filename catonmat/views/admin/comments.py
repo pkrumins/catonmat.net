@@ -22,7 +22,7 @@ import re
 def main(request):
     query = session.query(Comment).order_by(Comment.comment_id.desc());
 
-    all_comments = query.limit(5)
+    all_comments = query.all()
     return display_plain_template('admin/comments', comments=all_comments)
 
 @require_admin()
