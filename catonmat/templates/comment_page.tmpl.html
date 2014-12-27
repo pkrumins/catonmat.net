@@ -28,12 +28,12 @@ ${comment.comment}
   <div class="comments">
     <div id="comment_list">
     % if reply:
-      ${individual_comment(comment, page_path, display_reply_link=False)}
+      ${individual_comment(comment, page_path, admin=admin, display_reply_link=False)}
     % else:
-      ${individual_comment(comment, page_path)}
+      ${individual_comment(comment, page_path, admin=admin)}
       % if comment_parent_id in comments:
         <h3>Comment Responses</h3>
-        ${display_threaded_comments(comments[comment_parent_id], comments)}
+        ${display_threaded_comments(comments[comment_parent_id], comments, admin=admin)}
       % endif
     % endif
     </div>
