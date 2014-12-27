@@ -8,7 +8,8 @@
   tag_data,
   display_options,
   lynx=False,
-  captcha_nr=1
+  captcha_nr=1,
+  admin=False
 )">
 
 <div class="page">
@@ -196,7 +197,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
     <div id="comment_list"><!-- TODO: change id to class -->
       <h3>Comments</h3>
       % if comment_data.comments['root']:
-        ${display_threaded_comments(comment_data.comments['root'], comment_data.comments)}
+        ${display_threaded_comments(comment_data.comments['root'], comment_data.comments, admin)}
         <script>
           catonmat.init_comments('page', '');
         </script>
