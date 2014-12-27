@@ -17,6 +17,7 @@ from werkzeug import Response
 
 @require_admin()
 def main(request):
-    request.delete_cookie('admin');
-    return Response('foo', mimetype='text/plain')
+    resp = Response('out', mimetype='text/plain')
+    resp.delete_cookie('admin')
+    return resp
 
