@@ -63,12 +63,12 @@
 
 </%def>
 
-<%def name="display_threaded_comments(root, comments, indent=0)">
+<%def name="display_threaded_comments(root, comments, admin=False, indent=0)">
 
 % for comment in root:
-  ${individual_comment(comment, indent)}
+  ${individual_comment(comment, indent, False, admin)}
   % if comment.comment_id in comments:
-    ${display_threaded_comments(comments[comment.comment_id], comments, indent+1)}
+    ${display_threaded_comments(comments[comment.comment_id], comments, admin, indent+1)}
   % endif
 % endfor
 
