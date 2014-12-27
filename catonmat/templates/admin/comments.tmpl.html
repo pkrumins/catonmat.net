@@ -3,7 +3,11 @@
 % for comment in comments:
 
   <div>
-    <div class="delete"><a href="#">delete-${comment.comment_id}</a></div>
+    <div class="delete">
+      <a href="#" class="deleter">delete-${comment.comment_id}</a>
+      |
+      <a href="/p/${comment.page_id}#${comment.comment_id}">view on page</a>
+    </div>
     <div><span>Date:</span> <span>${comment.timestamp|h}</span></div>
     <div style="float: left"><img src="http://www.gravatar.com/avatar/${comment.gravatar_md5|h}.jpg?s=40"></div>
     <div><span>Name:</span> <span>${comment.name|h}</span></div>
@@ -19,7 +23,7 @@
 % endfor
 
 <script>
-  $('.delete a').click(function (ev) {
+  $('.delete a.deleter').click(function (ev) {
     ev.preventDefault();
     var id = $(this).text().split('-')[1];
     $.get('/admin/comments/delete_comment?id='+id);
