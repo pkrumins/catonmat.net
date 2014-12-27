@@ -18,12 +18,21 @@ from catonmat.views.utils       import display_plain_template
 def main(request):
     query = session.query(Page)
 
-    if request.args.get('unpublished') is not None:
+    if request.args.get('type') == 'unpublished':
         query = query.filter_by(status='draft')
-    elif request.args.get('posts') is not None:
+    elif request.args.get('type') == 'posts':
         query = query.filter_by(status='post')
-    elif request.args.get('pages') is not None:
+    elif request.args.get('type') == 'pages':
         query = query.filter_by(status='page')
+
+    if request.args.get('sort') == 'id_desc' or request.args.get('sort') is None:
+        query = query.order_by(Page.page_id.desc())
+    elif request.args.get('sort') == 'id_asc':
+        query = query.order_by(Page.page_id.asc())
+    elif request.args.get('sort') == 'created_asc':
+        query = query.order_by(Page.created.asc())
+    elif request.args.get('sort') == 'created_desc':
+        query = query.order_by(Page.created.desc())
 
     all_pages = query.order_by(Page.page_id).all()
     return display_plain_template('admin/pages', pages=all_pages)
