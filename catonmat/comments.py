@@ -25,6 +25,9 @@ import re
 import simplejson as json
 
 from comment_spamlist import spamlist_names, spamlist_urls, spamlist_emails, spamlist_comments
+from sqlalchemy import and_
+from datetime import datetime, timedelta
+
 
 # ----------------------------------------------------------------------------
 
@@ -137,7 +140,7 @@ def validate_comment(request, preview=False):
         if captcha != captcha_text + "_" + str(page_id):
             raise CommentError, 'Please type "' + captcha_text + "_" + str(page_id) + '" in the box below'
 
-    def validate_spam_comment(name, email, url, comment):
+    def validate_spam_comment(name, email, url, comment, ip):
         msg = """My anti-spam system says your comment looks spammy. I can't post it. If you're a real person and your comment is real, can you please email it to me at <a href="mailto:peter@catonmat.net">peter@catonmat.net</a>? I'll post your comment then and tune my anti-spam system not to match comments like these in the future. Thanks!"""
 
         for r in spamlist_names:
@@ -169,6 +172,22 @@ def validate_comment(request, preview=False):
             if not re.search("<a href.*?nospam", comment):
                 raise CommentError, msg3
 
+        msg4 = """My anti-spam system has seen this comment before. I can't post it."""
+        yesterday = datetime.utcnow() - timedelta(days=1)
+        if session.query(Comment).filter(and_(Comment.comment == comment, Comment.timestamp >= yesterday)).count() > 0:
+            raise CommentError, msg4
+
+        msg5 = """Your comment contains too many links. My anti-spam system doesn't let you post comments with more than 5 links."""
+        if comment.count("http") > 5:
+            raise CommentError, msg5
+
+        msg6 = """You're commenting too much. You can post at most 5 comments per hour."""
+        hourago = datetime.utcnow() - timedelta(hours=1)
+        visitor_ids = (visitor.visitor_id for visitor in session.query(Visitor).filter_by(ip=ip).all())
+        print visitor_ids
+        if session.query(Comment).filter(and_(Comment.visitor_id.in_(visitor_ids), Comment.timestamp >= hourago)).count() > 5:
+            raise CommentError, msg6
+
     validate_page_id(request.form['page_id'])
     validate_parent_id(request.form['parent_id'])
     validate_name(request.form['name'].strip())
@@ -176,7 +195,7 @@ def validate_comment(request, preview=False):
     validate_twitter(request.form['twitter'].replace('@', '').strip())
     validate_website(request.form['website'].strip())
     validate_comment_txt(request.form['comment'].strip())
-    validate_spam_comment(request.form['name'].strip(), request.form['email'].strip(), request.form['website'].strip(), request.form['comment'].strip())
+    validate_spam_comment(request.form['name'].strip(), request.form['email'].strip(), request.form['website'].strip(), request.form['comment'].strip(), request.remote_addr)
 
     if not lynx_browser(request) and not preview:
         validate_captcha(request.form['page_id'], request.form['name'].strip(), request.form['captcha_nr'].strip(), request.form['commentc'].strip())
