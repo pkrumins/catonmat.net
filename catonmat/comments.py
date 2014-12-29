@@ -178,7 +178,7 @@ def validate_comment(request, preview=False):
             raise CommentError, msg4
 
         msg5 = """Your comment contains too many links. My anti-spam system doesn't let you post comments with more than 5 links."""
-        if comment.count("http") > 5:
+        if comment.count("href") > 5:
             raise CommentError, msg5
 
         msg6 = """You're commenting too much. You can post at most 5 comments per hour."""
