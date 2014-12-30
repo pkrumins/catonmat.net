@@ -434,6 +434,8 @@ spamlist_names = [
     r('new year wish', re.I),
     r('merry christmas', re.I),
     r('movie download', re.I),
+    r('download movie', re.I),
+    r('happy.*new.*year', re.I),
 ]
 
 spamlist_emails = [
@@ -476,6 +478,7 @@ spamlist_urls = [
     r('merrychristmas', re.I),
     r('happynewyear', re.I),
     r('new.*year.*wish', re.I),
+    r('happy.*new.*year', re.I),
 ]
 
 spamlist_comments = [
@@ -555,5 +558,6 @@ spamlist_comments = [
     r('xanax abuse', re.I),
     r('toronto limo', re.I),
     r('bestblackfriday', re.I),
+    r('newyearwishes', re.I),
 ]
 
