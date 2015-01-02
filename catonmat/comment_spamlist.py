@@ -436,6 +436,12 @@ spamlist_names = [
     r('movie download', re.I),
     r('download movie', re.I),
     r('happy.*new.*year', re.I),
+    r('super.*bowl', re.I),
+    r('world.*cup', re.I),
+    r('happy.*holi', re.I),
+    r('happy.*diwali', re.I),
+    r('box.*office', re.I),
+    r('box.*office', re.I),
 ]
 
 spamlist_emails = [
@@ -479,6 +485,12 @@ spamlist_urls = [
     r('happynewyear', re.I),
     r('new.*year.*wish', re.I),
     r('happy.*new.*year', re.I),
+    r('boxoffice', re.I),
+    r('happyvalentine', re.I),
+    r('valentines?day', re.I),
+    r('happyholi', re.I),
+    r('happydiwali', re.I),
+    r('onlinemovie', re.I),
 ]
 
 spamlist_comments = [
@@ -559,5 +571,9 @@ spamlist_comments = [
     r('toronto limo', re.I),
     r('bestblackfriday', re.I),
     r('newyearwishes', re.I),
+    r('happy.*diwali', re.I),
+    r('bigboss8', re.I),
+    r('big boss \d', re.I),
+    r('happyvalent', re.I),
 ]
 
