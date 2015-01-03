@@ -492,6 +492,9 @@ spamlist_urls = [
     r('happyholi', re.I),
     r('happydiwali', re.I),
     r('onlinemovie', re.I),
+    r('happyrepublic', re.I),
+    r('republicday', re.I),
+    r('worldcup', re.I),
 ]
 
 spamlist_comments = [
@@ -578,5 +581,7 @@ spamlist_comments = [
     r('happyvalent', re.I),
     r('valentines?day', re.I),
     r('uk essay', re.I),
+    r('happyrepublic', re.I),
+    r('republicday', re.I),
 ]
 
