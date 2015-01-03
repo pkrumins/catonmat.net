@@ -442,6 +442,8 @@ spamlist_names = [
     r('happy.*diwali', re.I),
     r('box.*office', re.I),
     r('box.*office', re.I),
+    r('happy valentine', re.I),
+    r('valentines? day', re.I),
 ]
 
 spamlist_emails = [
@@ -489,12 +491,13 @@ spamlist_urls = [
     r('happyvalentine', re.I),
     r('valentines?day', re.I),
     r('valentines? day', re.I),
-    r('happyholi', re.I),
-    r('happydiwali', re.I),
-    r('onlinemovie', re.I),
-    r('happyrepublic', re.I),
+    r('happy-?holi', re.I),
+    r('happy-?diwali', re.I),
+    r('online-?movie', re.I),
+    r('happy-?republic', re.I),
     r('republicday', re.I),
-    r('worldcup', re.I),
+    r('world-?cup', re.I),
+    r('valentines?-day', re.I),
 ]
 
 spamlist_comments = [
