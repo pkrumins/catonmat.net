@@ -2,6 +2,67 @@
 
 % for comment in comments:
 
+<div class="icomment">
+  <div class="delete">
+    <a href="#" class="deleter">delete-${comment.comment_id}</a>
+    |
+    <a href="/p/${comment.page_id}#comment-${comment.comment_id}">view on page</a>
+  </div>
+
+  <div class="gravatar">
+    % if comment.gravatar_md5:
+    <img src="http://www.gravatar.com/avatar/${comment.gravatar_md5}.jpg?s=40" width="40" height="40">
+    % else:
+    <img src="/static/img/nogravatar.gif" width="40" height="40">
+    % endif
+  </div>
+  <div class="userinfo">
+    <div>
+      % if comment.website:
+      <%
+        nofollow = ' rel="nofollow"'
+        if comment.website.find('catonmat.net') >= 0:
+          nofollow = ''
+      %>
+      <span class="name"><a href="${comment.website|h}" title="${comment.website|h}"${nofollow}>${comment.name|h}</a></span>
+      % else:
+      <span class="name">${comment.name|h}</span>
+      %endif
+
+      % if comment.twitter:
+      <%
+        nofollow = ' rel="nofollow"'
+        if comment.twitter == 'pkrumins':
+          nofollow = ''
+      %>
+      <span class="twitter"><a href="http://twitter.com/${comment.twitter}" title="${comment.twitter} on Twitter"${nofollow}>${comment.twitter}</a></span>
+      % endif
+
+      % if admin:
+        <span class="permalink"><a href="#" class="deleter">Delete-${comment.comment_id}</a></span>
+      % endif
+
+      % if not preview:
+        <span class="permalink"><a href="/c/${comment.comment_id}" title="Permanent link to the comment">Permalink</a></span>
+      % endif
+    </div>
+    <div>
+      <span class="time">${comment.publish_time}</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    ${comment.parsed_comment}
+  </div>
+
+  % if not preview and display_reply_link:
+    <div class="comment_reply">
+      <a href="/c/${comment.comment_id}?reply" class="reply" id="reply_a_${comment.comment_id}" title="Reply to comment by ${comment.name|h}">Reply to this comment</a>
+    </div>
+  % endif
+</div>
+
+<!--
   <div>
     <div class="delete">
       <a href="#" class="deleter">delete-${comment.comment_id}</a>
@@ -18,6 +79,7 @@
     <div>${comment.comment|h}</div>
     <hr>
   </div>
+-->
 
 
 % endfor
