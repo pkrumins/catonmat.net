@@ -445,6 +445,7 @@ spamlist_names = [
     r('happy valentine', re.I),
     r('valentines? day', re.I),
     r('republic day', re.I),
+    r('presidents? day', re.I),
 ]
 
 spamlist_emails = [
@@ -501,6 +502,7 @@ spamlist_urls = [
     r('valentines?-day', re.I),
     r('happypongal', re.I),
     r('essay-?online', re.I),
+    r('presidents?day', re.I),
 ]
 
 spamlist_comments = [
