@@ -16,6 +16,84 @@
 
 pre { font-family: Courier; }
 
+.icomment {
+  background-color: #F4F5F6;
+  margin-bottom: 1em;
+  overflow: hidden;
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  width: 600px;
+}
+
+.icomment .gravatar {
+  float: left;
+}
+
+.icomment .userinfo {
+  padding-top: 3px;
+  margin-left: 45px;
+}
+
+.icomment .userinfo .name {
+  font-weight: bold;
+}
+
+.icomment .userinfo .twitter {
+  font-size: 0.9em;
+  background: url('/static/img/twit.gif') no-repeat 0 3px;
+  padding-left: 18px;
+  margin-left: 1em;
+}
+
+.icomment .userinfo .permalink {
+  float: right;
+  margin-right: 6px;
+}
+
+.icomment .userinfo .time {
+  color: #88978d;
+}
+
+.icomment .comment_text {
+  margin: 0.5em 0 0.3em;
+}
+
+.icomment .comment_text p {
+  margin-bottom: 0.5em;
+}
+
+.icomment .comment_text a[href]:hover {
+  background-color: blue;
+  color: white;
+}
+
+.icomment .comment_text a[href]:visited:hover {
+  background-color: #551A8B;
+  color: white;
+}
+
+.icomment .comment_reply {
+  margin-bottom: 0.5em;
+}
+
+.icomment .comment_reply a img {
+  margin-right: 3px;
+  position: relative;
+  top: 2px;
+}
+
+.icomment .comment_reply a.cancel {
+  background: url('/static/img/cancel-comment.gif') no-repeat 0 1px;
+  padding-left: 15px;
+  margin-left: 2em;
+}
+
+.icomment .comment_reply a.reply {
+  background: url('/static/img/reply-comment.gif') no-repeat 0 2px;
+  padding-left: 20px;
+  margin-left: 5px;
+}
+
 .clear { 
   clear:both;
 }
