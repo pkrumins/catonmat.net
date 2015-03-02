@@ -12,6 +12,12 @@
 % endif  
 </%def>
 
+<%def name="extra_meta_tags()">
+% if page_data.page.page_id == 448:
+  <meta property="og:image" content="http://www.catonmat.net/images/new-pc/boxes-and-cats-small.jpg">
+% endif
+</%def>
+
 % if stackvm:
 
   % if stackvm_signup == 'ok':
