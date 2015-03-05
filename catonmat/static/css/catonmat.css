@@ -712,32 +712,7 @@ blockquote {
 */
 #footer {
   font-size: 1.2em;
-  padding-top: 1em;
-}
-
-#footer .friends {
-  width: 200px;
-  float: left;
-}
-
-#footer .info {
-  width: 200px;
-  float: left;
-}
-
-#footer .advertise {
-  width: 200px;
-  float: left;
-}
-
-#footer h4 {
-  font-size: 1.0833em;
-  font-weight: bold;
-  padding-bottom: 5px;
-}
-
-#footer .friends ul {
-  margin-left: 1.5em;
+  padding: 100px 0;
 }
 
 /*
