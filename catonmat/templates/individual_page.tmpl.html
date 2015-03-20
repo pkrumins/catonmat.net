@@ -222,16 +222,23 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   % endif
 
   % if display_options.after_comments_ad:
-<!--
   <div class="after_comments_ads">
     <h3>Advertisements</h3>
     <div class="after_comments_ad300">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- catonmat after comments -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:300px;height:250px"
+           data-ad-client="ca-pub-0433925538517663"
+           data-ad-slot="2261906812"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </div>
-    <div class="after_comments_ad300_last">
+    <div class="clear">
     </div>
   </div>
--->
-  %endif
+  % endif
 </div>
 
 </%def>
