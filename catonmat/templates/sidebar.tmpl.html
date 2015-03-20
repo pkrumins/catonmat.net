@@ -191,7 +191,7 @@
   <div class="content">
     <ul>
      % for year, nmonth, month, count in post_archive:
-     <li><a href="/archive/${year}/${"%02d" % nmonth}" title="All articles written in ${month}, ${year}">${month}, ${year}</a> (<span title="${count} articles were published in ${month}, ${year}">${count}</span>)</li>
+     <li><a href="/archive/${year}/${"%02d" % nmonth}" title="All articles written in ${month}, ${year}" rel="nofollow">${month}, ${year}</a> (<span title="${count} articles were published in ${month}, ${year}">${count}</span>)</li>
      % endfor
     </ul>
     <p class="moreinfo">
