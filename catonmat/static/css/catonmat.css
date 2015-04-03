@@ -1075,7 +1075,7 @@ blockquote {
 
 #sidebar .subscribe img.rss {
   position: relative;
-  top: -9px;
+  top: -2px;
   padding-right: 2px;
 }
 
@@ -1083,8 +1083,8 @@ blockquote {
   font-size: 80%;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   position: relative;
-  top: -12px;
-  margin-left: 20px;
+  top: -7px;
+  margin-left: 10px;
 }
 
 /*
