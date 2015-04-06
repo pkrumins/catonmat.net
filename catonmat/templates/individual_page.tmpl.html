@@ -138,6 +138,7 @@
   </div>
   % endif
 
+  % if page_data.page.status == 'post' and not front_page and adsense:
   <div style="margin-bottom: 0.5em">
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- catonmat before article 468x60 blue -->
@@ -149,6 +150,7 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
   </div>
+  % endif
 
   <div class="footer">
     % if display_options.display_tags and tags_data.tags:
