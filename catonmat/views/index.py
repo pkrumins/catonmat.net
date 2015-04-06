@@ -87,7 +87,8 @@ def compute_handle_page(page_nr=1):
 
     template_data = {
         'page_array': page_array,
-        'pagination': Pagination(page_nr, total_blogpages(), config.posts_per_page)
+        'pagination': Pagination(page_nr, total_blogpages(), config.posts_per_page),
+        'page_nr' : page_nr
     }
     if page_nr == 1:
         template_data['front_page'] = True

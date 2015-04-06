@@ -53,6 +53,14 @@
         older_than_6_h = now-then > timedelta(hours=6)
     %>
 
+    % if page_nr and page_nr >= 1:
+      <div style="margin-bottom: 0.5em">
+        <center>
+          <a href="https://www.browserling.com?from=catonmat_frontpage" title="Cross-browser testing" target="_blank"><img src="http://www.catonmat.net/images/browserling-effortless-cross-browser-testing.png"></a>
+        </center>
+      </div>
+    % endif
+
     % if page_data.page.status == 'post' and not front_page and older_than_6_h and not stackvm and adsense:
     <%def name="google_ad_icon()">
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
