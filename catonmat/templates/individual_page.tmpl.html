@@ -78,11 +78,17 @@
 </script>
     </%def>
 
+    <%def name="browserling_ad_icon()">
+    <a href="http://www.browserling.com?from=catonmat" title="Cross-browser testing" target="_blank"><img src="http://www.catonmat.net/images/browserling-effortless-cross-browser-testing.png"></a>
+    </%def>
+
     <%
       ad_icon = capture(google_ad_icon)
       ad_noicon = capture(google_ad_noicon)
+      browserling_icon = capture(browserling_ad_icon)
     %>
-      ${page_data.page.parsed_content_with_ad(ad_icon, ad_noicon)}
+      ## ${page_data.page.parsed_content_with_ad(ad_icon, ad_noicon)}
+      ${page_data.page.parsed_content_with_ad(ad_icon, browserling_icon)}
     % else:
       ${page_data.page.parsed_content}
     % endif
