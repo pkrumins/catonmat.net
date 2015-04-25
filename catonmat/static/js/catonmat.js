@@ -256,9 +256,14 @@ var catonmat = {
   init_submit_comment: function(default_comment_id) {
     $('#submit').click(
       function(event) {
+        var button = this;
+        $(button).val("Submitting... Please wait...");
+        $(button).attr('disabled', true);
         catonmat.ajax_comment_and_proceed(
           "/_services/comment_add",
           function(data) {
+            $(button).val("Submit comment");
+            $(button).attr('disabled', false);
             if (data.status === "error") {
               catonmat.comment_error(data.message);
             }
