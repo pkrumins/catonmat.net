@@ -503,6 +503,11 @@ spamlist_urls = [
     r('happypongal', re.I),
     r('essay-?online', re.I),
     r('presidents?day', re.I),
+    r('mothers?day', re.I),
+    r('freepics', re.I),
+    r('essayservice', re.I),
+    r('kentuckyderby', re.I),
+    r('essays?-?writer', re.I),
 ]
 
 spamlist_comments = [
@@ -592,5 +597,6 @@ spamlist_comments = [
     r('happy-?republic', re.I),
     r('republic-?day', re.I),
     r('happylohri', re.I),
+    r('essays?-?writer', re.I),
 ]
 
