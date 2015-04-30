@@ -446,6 +446,15 @@ spamlist_names = [
     r('valentines? day', re.I),
     r('republic day', re.I),
     r('presidents? day', re.I),
+    r('assignment writing', re.I),
+    r('essay writing', re.I),
+    r('game of thornes', re.I),
+    r('room decoration', re.I),
+    r('dinn?ing set', re.I),
+    r('light decoration', re.I),
+    r('room decor', re.I),
+    r('bedroom light', re.I),
+    r('whatsapp status', re.I),
 ]
 
 spamlist_emails = [
@@ -508,6 +517,10 @@ spamlist_urls = [
     r('essayservice', re.I),
     r('kentuckyderby', re.I),
     r('essays?-?writer', re.I),
+    r('egovtjobs', re.I),
+    r('egovjobs', re.I),
+    r('assignment-?writing', re.I),
+    r('assignmentmark', re.I),
 ]
 
 spamlist_comments = [
