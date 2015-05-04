@@ -448,13 +448,15 @@ spamlist_names = [
     r('presidents? day', re.I),
     r('assignment writing', re.I),
     r('essay writing', re.I),
-    r('game of thornes', re.I),
+    r('game of thrones', re.I),
     r('room decoration', re.I),
     r('dinn?ing set', re.I),
     r('light decoration', re.I),
     r('room decor', re.I),
     r('bedroom light', re.I),
     r('whatsapp status', re.I),
+    r('fathers? day', re.I),
+    r('car park', re.I),
 ]
 
 spamlist_emails = [
