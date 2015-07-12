@@ -2,7 +2,7 @@
 
 <%namespace import="individual_page" file="individual_page.tmpl.html"/>
 
-<%def name="title()" filter="h">${page_data.page.title} - good coders code, great reuse</%def>
+<%def name="title()" filter="h">${page_data.page.title} - good coders code, great coders reuse</%def>
 
 <%def name="meta_description()" filter="h,trim">
 % if page_data.page.excerpt:
@@ -15,8 +15,10 @@
 <%def name="extra_meta_tags()">
 % if page_data.page.page_id == 448:
   <meta property="og:image" content="http://www.catonmat.net/images/new-pc/boxes-and-cats-facebook.jpg">
-% elif page_data.page.page_id in (455, 462):
+% elif page_data.page.page_id == 455:
   <meta property="og:image" content="http://www.catonmat.net/images/100-favorite-books/bookshelf-facebook.jpg">
+% elif page_data.page.page_id == 462:
+  <meta property="og:image" content="http://www.catonmat.net/images/100-favorite-books/my-favorite-books-part-two-facebook.jpg">
 % elif page_data.page.page_id == 469:
   <meta property="og:image" content="http://www.catonmat.net/images/100-favorite-books/my-favorite-books-part-three-facebook.jpg">
 % elif page_data.page.page_id == 471:
