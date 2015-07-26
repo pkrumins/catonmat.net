@@ -92,6 +92,7 @@ def compute_handle_page(page_nr=1):
     }
     if page_nr == 1:
         template_data['front_page'] = True
+        template_data['adsense'] = True
     else:
         template_data['front_page'] = False
     return render_template("index", **template_data)
