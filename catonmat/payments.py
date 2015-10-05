@@ -35,3 +35,21 @@ def perl_book(request):
     PayPalPayments('perl_book', request).save()
     return Response('ok')
 
+def june_giveaway(request):
+    if not 'secret' in request.form:
+        return Response('secret missing', 400);
+
+    if request.form['secret'] != "secret":
+        return Response('wrong secret', 400);
+
+    if not 'first_name' in request.form:
+        return Response('first_name missing', 400);
+
+    if not 'last_name' in request.form:
+        return Response('last_name missing', 400);
+
+    if not 'payer_email' in request.form:
+        return Response('payer_email missing', 400);
+
+    PayPalPayments('awk_book_june', request).save()
+    return Response('ok')

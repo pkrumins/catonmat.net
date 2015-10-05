@@ -442,8 +442,16 @@ class TextAds(ModelBase):
 class PayPalPayments(ModelBase):
     def __init__(self, product_type, request):
         self.product_type = product_type
-        self.transaction_id = request.form['txn_id']
-        self.payment_status = request.form['payment_status']
+
+        try:
+            self.transaction_id = request.form['txn_id']
+        except KeyError:
+            self.transaction_id = None
+
+        try:
+            self.payment_status = request.form['payment_status']
+        except KeyError:
+            self.payment_status = None
 
         try:
             self.transaction_type = request.form['txn_type']
@@ -464,13 +472,23 @@ class PayPalPayments(ModelBase):
             self.mc_fee = request.form['mc_fee']
         except KeyError:
             self.mc_fee = 0
+
         self.first_name = request.form['first_name']
         self.last_name = request.form['last_name']
         self.payer_email = request.form['payer_email']
         self.system_date = datetime.utcnow()
-        self.payment_date = request.form['payment_date']
+
+        try:
+            self.payment_date = request.form['payment_date']
+        except KeyError:
+            self.payment_date = None
+
         self.status = 'new'
-        self.ipn_message = json.dumps(request.form.to_dict())
+        try:
+            self.ipn_message = json.dumps(request.form.to_dict())
+        except KeyError:
+            self.ipn_message = None
+
         self.visitor = Visitor(request)
 
     def extract(self, prop):
