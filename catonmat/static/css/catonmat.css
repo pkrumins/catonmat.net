@@ -37,6 +37,9 @@ blockquote {
   padding: 1em;
   margin: 1em;
 }
+blockquote p:last-child {
+  margin-bottom: 0;
+}
 
 #container {
   width: 900px;
