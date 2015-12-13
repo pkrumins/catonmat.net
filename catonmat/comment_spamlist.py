@@ -523,6 +523,7 @@ spamlist_urls = [
     r('egovjobs', re.I),
     r('assignment-?writing', re.I),
     r('assignmentmark', re.I),
+    r('123top.ir', re.I),
 ]
 
 spamlist_comments = [
