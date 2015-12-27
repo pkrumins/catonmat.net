@@ -462,6 +462,7 @@ spamlist_names = [
 spamlist_emails = [
     r('cancer', re.I),
     r('angelmike', re.I),
+    r('123top.ir', re.I),
 ]
 
 spamlist_urls = [
