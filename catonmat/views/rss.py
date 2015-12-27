@@ -60,6 +60,7 @@ def compute_atom_feed(request):
     pages = session. \
               query(Page). \
               join(Rss). \
+              filter(Rss.visible==True). \
               order_by(Rss.publish_date.desc()). \
               limit(config.rss_items). \
               all()
