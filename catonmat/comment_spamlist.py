@@ -457,6 +457,8 @@ spamlist_names = [
     r('whatsapp status', re.I),
     r('fathers? day', re.I),
     r('car park', re.I),
+    r('clash royale', re.I),
+    r('custom essay', re.I),
 ]
 
 spamlist_emails = [
