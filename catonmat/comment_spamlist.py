@@ -459,6 +459,9 @@ spamlist_names = [
     r('car park', re.I),
     r('clash royale', re.I),
     r('custom essay', re.I),
+    r('voyance gratuite', re.I),
+    r('voyance en', re.I),
+    r('voyance par', re.I),
 ]
 
 spamlist_emails = [
