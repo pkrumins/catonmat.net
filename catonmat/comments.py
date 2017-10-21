@@ -231,10 +231,10 @@ def add_comment(request):
             return Response ( json_response(status='error', message=e.message)
                     , mimetype='application/json')
 
-        comment = new_comment(request)
-        comment.save()
-
-        invalidate_page_cache(request.form['page_id'])
+        if request.form['page_id'] != 267:
+            comment = new_comment(request)
+            comment.save()
+            invalidate_page_cache(request.form['page_id'])
 
         return Response(
                 json_response(status='success',
