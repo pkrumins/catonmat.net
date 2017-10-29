@@ -47,7 +47,8 @@ def application(request):
             return handle_request('pages.main', request, url_map)
 
         # Log this request in the 404 log and display not found page
-        log_404(request)
+        if request.path not in ["/wp-login.php/"]:
+            log_404(request)
         return handle_request('not_found.main', request)
     except:
         log_exception(request)
