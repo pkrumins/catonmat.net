@@ -47,7 +47,7 @@ def application(request):
             return handle_request('pages.main', request, url_map)
 
         # Log this request in the 404 log and display not found page
-        if request.path not in ["/wp-login.php/"]:
+        if request.path not in ["/wp-login.php/", "/apple-touch-icon-precomposed.png/", "/ads.txt/"]:
             log_404(request)
         return handle_request('not_found.main', request)
     except:
