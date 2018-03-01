@@ -1047,19 +1047,12 @@ blockquote p:last-child {
 }
 
 #sidebar .aboutsite div.social ul li.twitter,
-#sidebar .aboutsite div.social ul li.github
-{
-  width: 60px;
-}
-
 #sidebar .aboutsite div.social ul li.facebook,
-#sidebar .aboutsite div.social ul li.linkedin
+#sidebar .aboutsite div.social ul li.linkedin,
+#sidebar .aboutsite div.social ul li.github,
+#sidebar .aboutsite div.social ul li.googleplus
 {
-  width: 73px;
-}
-
-#sidebar .aboutsite div.social ul li.plurk {
-  width: 47px;
+  width: 70px;
 }
 
 /*
