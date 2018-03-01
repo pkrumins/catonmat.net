@@ -12,7 +12,7 @@
 from werkzeug               import redirect
 from werkzeug.exceptions    import NotFound
 
-from catonmat.models        import UrlMap
+from catonmat.models        import UrlMap, Page
 from catonmat.database      import session
 
 # ----------------------------------------------------------------------------
@@ -23,13 +23,14 @@ def main(request, page_id):
 
 def find_url(page_id):
     map = session. \
-            query(UrlMap). \
-            filter_by(page_id=page_id). \
+            query(UrlMap, Page). \
+            filter(UrlMap.page_id==page_id). \
+            filter(Page.status!="draft"). \
             first()
 
     if not map:
         # TODO: 'page you were looking for was not found, perhaps you want to see ...'
         raise NotFound()
 
-    return map.request_path
+    return map.UrlMap.request_path
 
