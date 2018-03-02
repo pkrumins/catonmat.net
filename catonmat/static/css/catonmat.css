@@ -1019,7 +1019,7 @@ blockquote p:last-child {
   float: left;
   list-style: none;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  font-size: 80%;
+  font-size: 11px;
 }
 
 #sidebar .aboutsite div.social ul li a {
@@ -1029,7 +1029,7 @@ blockquote p:last-child {
 #sidebar .aboutsite div.social ul li a img {
   position: relative;
   top: 4px;
-  margin-right: 3px;
+  margin-right: 4px;
   width: 16px;
   height: 16px;
 }
@@ -1037,7 +1037,7 @@ blockquote p:last-child {
 #sidebar .aboutsite div.social ul li a.more {
   display: block;
   position: relative;
-  top: 5px;
+  top: 4px;
 }
 
 #sidebar .aboutsite div.social ul li a.more img.more {
@@ -1047,12 +1047,15 @@ blockquote p:last-child {
 }
 
 #sidebar .aboutsite div.social ul li.twitter,
-#sidebar .aboutsite div.social ul li.facebook,
 #sidebar .aboutsite div.social ul li.linkedin,
 #sidebar .aboutsite div.social ul li.github,
 #sidebar .aboutsite div.social ul li.googleplus
 {
   width: 70px;
+}
+
+#sidebar .aboutsite div.social ul li.facebook {
+  width: 80px;
 }
 
 /*
