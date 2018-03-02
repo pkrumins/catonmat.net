@@ -1077,14 +1077,6 @@ blockquote p:last-child {
   padding-right: 2px;
 }
 
-#sidebar .subscribe span.rss {
-  font-size: 80%;
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  position: relative;
-  top: -7px;
-  margin-left: 10px;
-}
-
 /*
 ** Recent Posts, Top Downloads, Top Articles sidebar items
 ** --------------------------------------------------------
