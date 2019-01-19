@@ -12,7 +12,7 @@
   <div class="title">About the site:</div>
   <div class="content">
     <p>
-      <a href="/about/" title="About Peter Krumins">
+      <a href="/about" title="About Peter Krumins">
         <img src="/static/img/peteris-krumins-small.jpg" alt="Peter Krumins" class="peter">
       </a>
       Peter Krumins' blog about programming, hacking, software reuse, software ideas, computer security, browserling, google and technology.
@@ -82,15 +82,6 @@
   </div>
 </div>
 
-% if page_data and page_data.page and page_data.page.page_id == 95:
-<div class="item">
-  <div class="title">Server Sponsors</div>
-  <div class="content">
-    <p>Looking for programming help? Any Python assignment will be easy with <a href="http://www.homework-desk.com/">Homework-Desk.com</a>.</p>
-  </div>
-</div>
-% endif
-
 <div class="item list">
   <div class="title">My Books</div>
   <div class="content">
@@ -108,7 +99,7 @@
   <div class="content">
     <ul>
     % for page in top_pages:
-     <li><a href="${page.request_path}/" title="Read &quot;${page.title}&quot; (has been read ${page.us_views} times)">${page.title|h}</a></li>
+     <li><a href="${page.request_path}" title="Read &quot;${page.title}&quot; (has been read ${page.us_views} times)">${page.title|h}</a></li>
     % endfor
     </ul>
     <p class="moreinfo">
@@ -136,7 +127,7 @@
   <div class="content">
     <ul>
     % for page in recent_pages:
-     <li><a href="${page.request_path}/" title="Read &quot;${page.title|h}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
+     <li><a href="${page.request_path}" title="Read &quot;${page.title|h}&quot; (was published on ${page.publish_time})">${page.title|h}</a></li>
     % endfor
     </ul>
     <p class="moreinfo">

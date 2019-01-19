@@ -21,9 +21,9 @@
     % if display_options.display_comment_count:
     <span class="commentsc">
       % if comment_data.comment_count == 1:
-        <a href="${page_data.page_path}/#comments" title="One person has commented on &quot;${page_data.page.title|h}&quot;"><strong>1</strong> Comment</a>
+        <a href="${page_data.page_path}#comments" title="One person has commented on &quot;${page_data.page.title|h}&quot;"><strong>1</strong> Comment</a>
       % else:
-        <a href="${page_data.page_path}/#comments" title="${comment_data.comment_count} people have commented on &quot;${page_data.page.title|h}&quot;"><strong>${comment_data.comment_count}</strong> Comments</a>
+        <a href="${page_data.page_path}#comments" title="${comment_data.comment_count} people have commented on &quot;${page_data.page.title|h}&quot;"><strong>${comment_data.comment_count}</strong> Comments</a>
       % endif
     </span>
     % endif
@@ -34,7 +34,7 @@
 
     <div class="clear"></div>
     <div class="hrb"></div>
-    <h1><a href="${page_data.page_path}/" title="${page_data.page.title|h}">${page_data.page.title|h}</a></h1>
+    <h1><a href="${page_data.page_path}" title="${page_data.page.title|h}">${page_data.page.title|h}</a></h1>
     <!--
     <div class="hr lighter"></div>
     -->
@@ -156,9 +156,9 @@
     % if display_options.display_comment_url:
     <span class="comment_url">
       % if comment_data.comment_count == 1:
-        <a href="${page_data.page_path}/#comments" title="Comment on &quot;${page_data.page.title|h}&quot;"><strong>1</strong> Comment</a>
+        <a href="${page_data.page_path}#comments" title="Comment on &quot;${page_data.page.title|h}&quot;"><strong>1</strong> Comment</a>
       % else:
-        <a href="${page_data.page_path}/#comments" title="Comment on &quot;${page_data.page.title|h}&quot;"><strong>${comment_data.comment_count}</strong> Comments</a>
+        <a href="${page_data.page_path}#comments" title="Comment on &quot;${page_data.page.title|h}&quot;"><strong>${comment_data.comment_count}</strong> Comments</a>
       % endif
     </span>
     % endif
@@ -189,7 +189,7 @@
     <h3>Related Posts</h3>
     <ul>
       % for post in related_posts:
-      <li><a href="${post.request_path}/" title="${post.title|h}">${post.title|h}</a></li>
+      <li><a href="${post.request_path}" title="${post.title|h}">${post.title|h}</a></li>
       % endfor
       <li>
     </ul>

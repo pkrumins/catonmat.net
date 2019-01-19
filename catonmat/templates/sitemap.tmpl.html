@@ -5,7 +5,7 @@
 
 <div class="page">
   <div class="header">
-    <h1><a href="/sitemap/" title="Catonmat Sitemap">Catonmat Sitemap</a></h1>
+    <h1><a href="/sitemap" title="Catonmat Sitemap">Catonmat Sitemap</a></h1>
     <div class="hr"></div>
   </div>
 
@@ -30,7 +30,7 @@
       <h3>${category.name|h}</h3>
       <ul>
         % for page in category.blog_pages.all():
-        <li><a href="${page.request_path}/">${page.title|h}</a></li>
+        <li><a href="${page.request_path}">${page.title|h}</a></li>
         % endfor
       </ul>
       <p class="indent"><a href="/category/${category.seo_name}" class="more_detailed">More detailed list of articles in "${category.name|h}"</a></p>
@@ -42,7 +42,7 @@
     <div class="indent">
       <ul>
       % for page in pages:
-        <li><a href="${page.path}/" title="${page.title}">${page.name}</a></li>
+        <li><a href="${page.path}" title="${page.title}">${page.name}</a></li>
       % endfor
       </ul>
     </div>

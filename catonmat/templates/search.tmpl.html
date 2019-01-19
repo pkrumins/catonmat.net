@@ -17,7 +17,7 @@
 % if pages:
  <ul>
   % for page in pages:
-   <li><a href="${page.request_path}/" title="${page.title|h}">${page.title|h}</a></li>
+   <li><a href="${page.request_path}" title="${page.title|h}">${page.title|h}</a></li>
   % endfor
  </ul>
 % endif
