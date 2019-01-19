@@ -39,15 +39,16 @@ def application(request):
             return redirect(redir.new_path, code=redir.code)
 
         #print "Request path: " + request.path
-        if request.path[-1] != '/':
-            return redirect(request.path + '/', code=301)
+        if request.path[-1] == '/':
+            request_path = request.path.rstrip('/');
+            return redirect(request_path, code=301)
 
         url_map = find_url_map(request.path)
         if url_map:
             return handle_request('pages.main', request, url_map)
 
         # Log this request in the 404 log and display not found page
-        if request.path not in ["/wp-login.php/", "/apple-touch-icon-precomposed.png/", "/ads.txt/"]:
+        if request.path not in ["/wp-login.php", "/apple-touch-icon-precomposed.png", "/ads.txt"]:
             log_404(request)
         return handle_request('not_found.main', request)
     except:
